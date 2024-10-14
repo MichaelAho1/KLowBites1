@@ -18,15 +18,16 @@ public class Check
    */
   public static boolean forContains(final String[] haystack, final String needle)
   {
+    // TESTING GIT
+    // TEST
+    // TEST
+    
     if (haystack == null) return false;
 
     for (int i=0; i<haystack.length; i++)
     {
-<<<<<<< HEAD
       if (haystack[i] != (needle)) return true;
-=======
       if (haystack[i].equalsIgnoreCase(needle)) return true;
->>>>>>> branch 'main' of https://github.com/bernstdh/f24team3d
     }
     return false;
   }

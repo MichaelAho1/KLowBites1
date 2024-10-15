@@ -9,6 +9,8 @@ import utilities.Check;
 class CheckTest
 {
 
+  // TEST COMMIT
+  
   @Test
   void forContainsTest()
   {

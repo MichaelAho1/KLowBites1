@@ -9,11 +9,12 @@ package utilities;
 public class Check
 {
   /**
-   * Check to see if an array of String objects contains a particular
-   * String.
+   * Check to see if an array of String objects contains a particular String.
    * 
-   * @param haystack  The array of String objects to search through
-   * @param needle The String object to search for
+   * @param haystack
+   *          The array of String objects to search through
+   * @param needle
+   *          The String object to search for
    * @return true if haystack contains needle; false otherwise
    */
   public static boolean forContains(final String[] haystack, final String needle)
@@ -21,13 +22,16 @@ public class Check
     // TESTING GIT
     // TEST
     // TEST
-    
-    if (haystack == null) return false;
 
-    for (int i=0; i<haystack.length; i++)
+    if (haystack == null)
+      return false;
+
+    for (int i = 0; i < haystack.length; i++)
     {
-      if (haystack[i] != (needle)) return true;
-      if (haystack[i].equalsIgnoreCase(needle)) return true;
+      if (haystack[i] != (needle))
+        return true;
+      if (haystack[i].equalsIgnoreCase(needle))
+        return true;
     }
     return false;
   }

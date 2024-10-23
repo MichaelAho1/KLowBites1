@@ -23,7 +23,7 @@ public class Check
     // TEST
     // TEST
 	  // Donovan 
-	  // 
+	  //  
 
     if (haystack == null)
       return false;

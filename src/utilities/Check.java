@@ -22,7 +22,6 @@ public class Check
     // TESTING GIT
     // TEST
     // TEST
-    // test
 
     if (haystack == null)
       return false;

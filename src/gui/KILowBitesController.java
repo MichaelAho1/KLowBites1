@@ -3,6 +3,12 @@ package gui;
 import java.awt.event.*;
 import javax.swing.*;
 
+/**
+ * KILowBites controller class. Handles the actions of the main menu items.
+ *
+ * @author f24team3d
+ * @version 10/24/24
+ */
 public class KILowBitesController implements ActionListener
 {
   private static String FILE = "File";
@@ -49,10 +55,13 @@ public class KILowBitesController implements ActionListener
 
     command = e.getActionCommand();
 
+    // commands for File
     if (command.equals(EXIT))
     {
       System.exit(0);
     }
+
+    // commands for Edit
     if (command.equals(RECIPE))
     {
       System.out.println("open the recipe editor");
@@ -60,6 +69,56 @@ public class KILowBitesController implements ActionListener
     if (command.equals(MEAL))
     {
       System.out.println("open the meal editor");
+    }
+
+    // commands for Search
+    if (command.equals(RECIPES))
+    {
+      System.out.println("recipe search");
+    }
+    if (command.equals(MEALS))
+    {
+      System.out.println("meal search");
+    }
+
+    // commands for View
+    if (command.equals(SHOPPING_LIST))
+    {
+      System.out.println("view shopping list");
+    }
+    if (command.equals(PROCESS))
+    {
+      System.out.println("view process");
+    }
+
+    // commands for Tools
+    if (command.equals(CALORIE_CALCULATOR))
+    {
+      System.out.println("open calorie calculator");
+    }
+    if (command.equals(UNITS_CONVERTER))
+    {
+      System.out.println("open units converter");
+    }
+
+    // commands for Configure
+    if (command.equals(PREFERENCES))
+    {
+      System.out.println("open preferences");
+    }
+    if (command.equals(SHORTCUTS))
+    {
+      System.out.println("open shortcuts");
+    }
+
+    // commands for Help
+    if (command.equals(ABOUT))
+    {
+      System.out.println("open about");
+    }
+    if (command.equals(USER_GUIDE))
+    {
+      System.out.println("open user guide");
     }
   }
 }

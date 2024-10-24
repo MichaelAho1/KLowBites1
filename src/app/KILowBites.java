@@ -5,6 +5,8 @@ import java.awt.event.*;
 import java.lang.reflect.*;
 import javax.swing.*;
 
+import gui.KILowBitesController;
+
 /**
  * KILowBites main class. Runs the program and the main window.
  *
@@ -51,6 +53,9 @@ public class KILowBites implements Runnable
     JPanel contentPane = (JPanel)frame.getContentPane();
     contentPane.setLayout(new BorderLayout());
 
+    // Construct the controller
+    KILowBitesController controller = new KILowBitesController();
+
     // creates the ribbon
     JMenuBar menuBar = new JMenuBar();
     frame.setJMenuBar(menuBar);
@@ -63,7 +68,9 @@ public class KILowBites implements Runnable
     menuBar.add(menu);
     menuItem = new JMenuItem("Exit");
     menu.add(menuItem);
-    // TODO: add action listener to exit the program (for each entry)
+    menuItem.addActionListener(controller);
+
+    // TODO: add action listener (for each entry)
 
     menu = new JMenu("Edit");
     menuBar.add(menu);
@@ -113,6 +120,7 @@ public class KILowBites implements Runnable
 
     // Layout the GUI
     contentPane.add(logoPanel, BorderLayout.CENTER);
+    //TODO: add the logo in the center here (need to add the image file into the repo somewhere)
 
     frame.setSize(600, 200);
     // frame.pack();

@@ -39,7 +39,7 @@ public class UnitConverter
     }
     return pinches;
   }
-
+  
   public Double teaspoonConverter(String toUnit, Double fromAmount)
   {
     return convertHelp(fromAmount * 16, toUnit);
@@ -293,4 +293,5 @@ public class UnitConverter
     }
     return 0.0; // Should not get here
   }
+  
 }

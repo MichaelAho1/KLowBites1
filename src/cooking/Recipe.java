@@ -3,7 +3,7 @@ package cooking;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RecipeCharacterization
+public class Recipe
 {
   private String name; // Name of the recipe
   private int serves; // Number of people served
@@ -11,7 +11,7 @@ public class RecipeCharacterization
   private List<Utensils> utensils;
   private List<Steps> steps;
 
-  public RecipeCharacterization(String name, int serves)
+  public Recipe(String name, int serves)
   {
     this.name = name;
     this.serves = serves;

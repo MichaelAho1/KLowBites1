@@ -2,14 +2,14 @@ package cooking;
 
 import javax.swing.JLabel;
 
-public class Ingredient
+public class Ingredients
 {
   private double amount = 0.0;
   private String unit = "";
   private String details = "";
   private String name = "";
   
-  public Ingredient(double amount, String unit, String details, String name)
+  public Ingredients(double amount, String unit, String details, String name)
   {
     this.amount = amount;
     this.unit = unit;

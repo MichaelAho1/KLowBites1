@@ -1,5 +1,7 @@
 package cooking;
 
+import javax.swing.JLabel;
+
 public class Ingredient
 {
   private double amount = 0.0;
@@ -29,5 +31,14 @@ public class Ingredient
   public String getName()
   {
     return name;
+  }
+  @Override
+  public String toString()
+  {
+    return amount + " " + unit + " " + details + " " + name;
+  }
+  public JLabel add()
+  {
+    return new JLabel();
   }
 }

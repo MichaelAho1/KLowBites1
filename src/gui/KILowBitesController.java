@@ -94,7 +94,9 @@ public class KILowBitesController implements ActionListener
     // commands for Tools
     if (command.equals(CALORIE_CALCULATOR))
     {
-      System.out.println("open calorie calculator");
+      System.out.println("Opening calorie calculator...");
+      CalorieCalculatorWindow calorieCalc = new CalorieCalculatorWindow();
+      calorieCalc.setVisible(true);
     }
     if (command.equals(UNITS_CONVERTER))
     {

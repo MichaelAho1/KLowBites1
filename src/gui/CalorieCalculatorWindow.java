@@ -59,7 +59,7 @@ public class CalorieCalculatorWindow extends JFrame
 
     // Create buttons with icons
     JButton calculateButton = new JButton(
-        getColoredIconAndScale("calculate.png", Color.GRAY, 25, 25));
+        getColoredIconAndScale("img/calculate.png", Color.GRAY, 25, 25));
     calculateButton.setToolTipText("Calculate");
     calculateButton.setEnabled(false);
     calculateButton.addActionListener(new ActionListener()
@@ -71,7 +71,7 @@ public class CalorieCalculatorWindow extends JFrame
       }
     });
 
-    JButton resetButton = new JButton(getColoredIconAndScale("reset.png", Color.GRAY, 25, 25));
+    JButton resetButton = new JButton(getColoredIconAndScale("img/reset.png", Color.GRAY, 25, 25));
     resetButton.setToolTipText("Reset");
     resetButton.setEnabled(false);
     resetButton.addActionListener(new ActionListener()

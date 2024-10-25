@@ -2,10 +2,13 @@ package app;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.*;
 import java.lang.reflect.*;
 import javax.swing.*;
+import javax.imageio.ImageIO;
 
 import gui.KILowBitesController;
+import utilities.ImageUtilities;
 
 /**
  * KILowBites main class. Runs the program and the main window.
@@ -127,10 +130,12 @@ public class KILowBites implements Runnable
 
     // Creates the logo in the main panel
     JPanel logoPanel = new JPanel();
+    // JLabel logo = new JLabel(ImageUtilities.getColoredIconAndScale("img/KILowBites_Logo.png", Color.BLACK, 200, 50));
+    JLabel logo = new JLabel(ImageUtilities.getImage("img/KILowBites_Logo.png", 200, 80));
+    logoPanel.add(logo);
 
     // Layout the GUI
     contentPane.add(logoPanel, BorderLayout.CENTER);
-    //TODO: add the logo in the center here (need to add the image file into the repo somewhere)
 
     frame.setSize(600, 200);
     // frame.pack();

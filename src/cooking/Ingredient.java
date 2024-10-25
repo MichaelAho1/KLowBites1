@@ -1,4 +1,4 @@
-package ingredients;
+package cooking;
 
 public class Ingredient
 {
@@ -13,5 +13,21 @@ public class Ingredient
     this.unit = unit;
     this.details = details;
     this.name = name;
+  }
+  public double getAmount()
+  {
+    return amount;
+  }
+  public String getUnit()
+  {
+    return unit;
+  } 
+  public String getDetails()
+  {
+    return details;
+  }
+  public String getName()
+  {
+    return name;
   }
 }

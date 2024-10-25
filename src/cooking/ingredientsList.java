@@ -1,4 +1,4 @@
-package ingredients;
+package cooking;
 
 public class ingredientsList
 {

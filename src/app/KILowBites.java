@@ -140,6 +140,7 @@ public class KILowBites implements Runnable
     // Layout the GUI
     contentPane.add(logoPanel, BorderLayout.CENTER);
 
+    frame.setMinimumSize(new Dimension(600, 200));
     frame.setSize(600, 200);
     // frame.pack();
     frame.setVisible(true);

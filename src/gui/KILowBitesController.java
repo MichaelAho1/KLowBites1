@@ -65,6 +65,8 @@ public class KILowBitesController implements ActionListener
     if (command.equals(RECIPE))
     {
       System.out.println("open the recipe editor");
+      RecipeEditor recipeEditor = new RecipeEditor();
+      recipeEditor.setVisible(true);
     }
     if (command.equals(MEAL))
     {

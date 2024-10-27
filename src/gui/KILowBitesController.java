@@ -38,6 +38,8 @@ public class KILowBitesController implements ActionListener
   private static String ABOUT = "About";
   private static String USER_GUIDE = "User Guide";
 
+  private RecipeEditor recipeEditor;
+
   /**
    * Constructor for controller.
    */
@@ -64,7 +66,9 @@ public class KILowBitesController implements ActionListener
     // commands for Edit
     if (command.equals(RECIPE))
     {
-      System.out.println("open the recipe editor");
+      System.out.println("Opening the Recipe Editor..."); // Alex N change Here
+      RecipeEditor recipeEditor = new RecipeEditor();
+      recipeEditor.setVisible(true);
     }
     if (command.equals(MEAL))
     {
@@ -121,6 +125,22 @@ public class KILowBitesController implements ActionListener
     if (command.equals(USER_GUIDE))
     {
       System.out.println("open user guide");
+    }
+  }
+
+  /**
+   * Opens the RecipeEditor window.
+   */
+  private void openRecipeEditor()
+  {
+    if (recipeEditor == null || !recipeEditor.isVisible())
+    {
+      recipeEditor = new RecipeEditor();
+      recipeEditor.setVisible(true);
+    }
+    else
+    {
+      recipeEditor.toFront();
     }
   }
 }

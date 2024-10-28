@@ -1,7 +1,7 @@
 package calculation;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Foods class.
@@ -24,7 +24,7 @@ public class Foods
    */
   public Foods()
   {
-    foods = new HashMap<>();
+    foods = new TreeMap<>();
 
     foods.put("Alcohol", new double[] {275, 0.79});
     foods.put("Almond", new double[] {601, 0.46});
@@ -70,6 +70,23 @@ public class Foods
     foods.put("Grapefruit", new double[] {60, 1.04});
     foods.put("Grape juice", new double[] {60, 0.53});
     foods.put("Green bean", new double[] {31, 0.53});
+  }
 
+  public Map<String, double[]> getFoods()
+  {
+    return foods;
+  }
+
+  public String[] getFoodNames()
+  {
+    String[] foodNames = new String[foods.size()];
+
+    int index = 0;
+    for (String foodName : foods.keySet())
+    {
+      foodNames[index++] = foodName;
+    }
+
+    return foodNames;
   }
 }

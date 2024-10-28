@@ -6,6 +6,7 @@ import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -16,11 +17,13 @@ import javax.swing.JTextField;
 import javax.swing.JToolBar;
 
 import app.KILowBites;
+import calculation.Foods;
 import utilities.ImageUtilities;
 
 public class CalorieCalculatorWindow extends JFrame
 {
   private static final long serialVersionUID = 1L;
+
   private String[] ingredients;
   private String[] units;
   private CalorieCalculatorController controller;
@@ -38,16 +41,22 @@ public class CalorieCalculatorWindow extends JFrame
   static JTextField inputAmount;
   static JLabel outputField;
 
+  static Foods foods;
+  static Map<String, double[]> foodsMap;
+
   public CalorieCalculatorWindow()
   {
     super("Calorie Calculator");
+
+    foods = new Foods();
+    foodsMap = foods.getFoods();
 
     controller = new CalorieCalculatorController();
 
     // adding input/output components
     JPanel inputs = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
-    ingredients = new String[] {"", "bananas", "eggs", "sugar"};
+    ingredients = foods.getFoodNames();
     units = new String[] {"", "g", "mL"};
 
     setupInputs();
@@ -129,6 +138,7 @@ public class CalorieCalculatorWindow extends JFrame
     ingredientsPanel.add(boxPanel, BorderLayout.CENTER);
 
     // AMOUNT PANEL
+    // CHANGE TO ONLY ACCEPT NUMBERS
     amountPanel = new JPanel();
     amountPanel.setLayout(new BorderLayout());
 

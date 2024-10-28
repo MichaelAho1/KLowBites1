@@ -98,10 +98,24 @@ public class CalorieCalculatorController implements ActionListener, DocumentList
     updateResetButton();
   }
 
+  /**
+   * Updates output field to calculated number of calories.
+   */
   private void calculate()
   {
-    double random = Math.random();
+    double grams;
 
-    CalorieCalculatorWindow.outputField.setText("" + random);
+    if (CalorieCalculatorWindow.unitsMenu.getSelectedItem().toString().equals("g"))
+    {
+      grams = CalorieCalculatorWindow.foodsMap
+          .get(CalorieCalculatorWindow.ingredientsMenu.getSelectedItem().toString())[0];
+    }
+    else
+    {
+      grams = CalorieCalculatorWindow.foodsMap
+          .get(CalorieCalculatorWindow.ingredientsMenu.getSelectedItem().toString())[1];
+    }
+
+    CalorieCalculatorWindow.outputField.setText("" + grams);
   }
 }

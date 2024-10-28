@@ -86,42 +86,10 @@ public class VolumeConverter
   
   public static Double milliliterToFinal(String toUnit, Double amount)
   {
-    if (toUnit == "Pinch")
-    {
-      return pinchConverter(toUnit, amount);
-    }
     if ("Milliliter".equals(toUnit))
     {
       return amount;
     }
-    if ("Teaspoon".equals(toUnit))
-    {
-      return teaspoonConverter(toUnit, amount);
-    }
-    if ("Tablespoon".equals(toUnit))
-    {
-      return tablespoonConverter(toUnit, amount);
-    }
-    if ("Fluid Ounce".equals(toUnit))
-    {
-      return fluidOunceConverter(toUnit, amount);
-    }
-    if ("Cup".equals(toUnit))
-    {
-      return cupConverter(toUnit, amount);
-    }
-    if ("Pint".equals(toUnit))
-    {
-      return pintConverter(toUnit, amount);
-    }
-    if ("Quart".equals(toUnit))
-    {
-      return quartConverter(toUnit, amount);
-    }
-    if ("Gallon".equals(toUnit))
-    {
-      return gallonConverter(toUnit, amount);
-    }
-    return 0.0; // Should not get here
+    return milliliterConverter(toUnit, amount);
   }
 }

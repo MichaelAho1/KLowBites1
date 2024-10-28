@@ -72,19 +72,7 @@ public class MassConverter
     {
       return amount;
     }
-    if ("Dram".equals(toUnit))
-    {
-      return dramConverter(toUnit, amount);
-    }
-    if ("Ounce".equals(toUnit))
-    {
-      return ounceConverter(toUnit, amount);
-    }
-    if ("Pound".equals(toUnit))
-    {
-      return poundConverter(toUnit, amount);
-    }
-    return 0.0; // Should not get here
+    return gramConverter(toUnit, amount);
   }
 
 }

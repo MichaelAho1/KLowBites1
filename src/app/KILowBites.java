@@ -139,8 +139,6 @@ public class KILowBites implements Runnable
 
     // Creates the logo in the main panel
     JPanel logoPanel = new JPanel();
-    // JLabel logo = new JLabel(ImageUtilities.getColoredIconAndScale("img/KILowBites_Logo.png",
-    // Color.BLACK, 200, 50));
     JLabel logo = new JLabel(ImageUtilities.getImage("img/KILowBites_Logo.png", 200, 80));
     logoPanel.add(logo);
 
@@ -149,7 +147,6 @@ public class KILowBites implements Runnable
 
     frame.setMinimumSize(new Dimension(600, 200));
     frame.setSize(600, 200);
-    // frame.pack();
     frame.setVisible(true);
   }
 }

@@ -6,7 +6,6 @@ import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -17,8 +16,15 @@ import javax.swing.JTextField;
 import javax.swing.JToolBar;
 
 import app.KILowBites;
-import calculation.Foods;
+import utilities.Foods;
 import utilities.ImageUtilities;
+
+/**
+ * Main window for KiLowBites calorie calculator.
+ * 
+ * @author f24team3d
+ * @version 10/28/24
+ */
 
 public class CalorieCalculatorWindow extends JFrame
 {
@@ -41,15 +47,14 @@ public class CalorieCalculatorWindow extends JFrame
   static JTextField inputAmount;
   static JLabel outputField;
 
-  static Foods foods;
-  static Map<String, double[]> foodsMap;
+  final static Foods foods = new Foods();
 
+  /**
+   * Default constructor.
+   */
   public CalorieCalculatorWindow()
   {
     super("Calorie Calculator");
-
-    foods = new Foods();
-    foodsMap = foods.getFoods();
 
     controller = new CalorieCalculatorController();
 
@@ -68,10 +73,11 @@ public class CalorieCalculatorWindow extends JFrame
 
     add(inputs);
 
+    // Create toolbar with buttons (and associated icons)
+    // buttons should be set disabled at first
     JToolBar toolbar = new JToolBar();
     toolbar.setFloatable(false);
 
-    // Create buttons with icons
     calculateButton = new JButton(
         ImageUtilities.getColoredIconAndScale("img/calculate.png", Color.GRAY, 25, 25));
     calculateButton.setEnabled(false);
@@ -119,7 +125,6 @@ public class CalorieCalculatorWindow extends JFrame
     ingredientsMenu.setActionCommand("Choose Ingredient");
     ingredientsMenu.addActionListener(controller);
 
-    // creating box for ingredients
     JPanel boxPanel = new JPanel(new GridBagLayout());
     GridBagConstraints gbc = new GridBagConstraints();
 
@@ -138,7 +143,6 @@ public class CalorieCalculatorWindow extends JFrame
     ingredientsPanel.add(boxPanel, BorderLayout.CENTER);
 
     // AMOUNT PANEL
-    // CHANGE TO ONLY ACCEPT NUMBERS
     amountPanel = new JPanel();
     amountPanel.setLayout(new BorderLayout());
 

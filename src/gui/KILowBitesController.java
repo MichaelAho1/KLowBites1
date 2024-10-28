@@ -1,7 +1,9 @@
 package gui;
 
-import java.awt.event.*;
-import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import app.KILowBites;
 
 /**
  * KILowBites controller class. Handles the actions of the main menu items.
@@ -101,6 +103,7 @@ public class KILowBitesController implements ActionListener
       System.out.println("Opening calorie calculator...");
       CalorieCalculatorWindow calorieCalc = new CalorieCalculatorWindow();
       calorieCalc.setVisible(true);
+      KILowBites.openCalc.setEnabled(false);
     }
     if (command.equals(UNITS_CONVERTER))
     {

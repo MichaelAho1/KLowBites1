@@ -1,11 +1,16 @@
 package app;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.awt.image.*;
-import java.lang.reflect.*;
-import javax.swing.*;
-import javax.imageio.ImageIO;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.lang.reflect.InvocationTargetException;
+
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 import gui.KILowBitesController;
 import utilities.ImageUtilities;
@@ -18,6 +23,8 @@ import utilities.ImageUtilities;
  */
 public class KILowBites implements Runnable
 {
+  public static JMenuItem openCalc;
+
   private String[] args;
 
   /**
@@ -105,9 +112,9 @@ public class KILowBites implements Runnable
 
     menu = new JMenu("Tools");
     menuBar.add(menu);
-    menuItem = new JMenuItem("Calorie Calculator");
-    menu.add(menuItem);
-    menuItem.addActionListener(controller);
+    openCalc = new JMenuItem("Calorie Calculator");
+    menu.add(openCalc);
+    openCalc.addActionListener(controller);
     menuItem = new JMenuItem("Units Converter");
     menu.add(menuItem);
     menuItem.addActionListener(controller);

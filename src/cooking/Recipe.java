@@ -3,6 +3,12 @@ package cooking;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * KILowBites controller class. Handles the actions of the main menu items.
+ *
+ * @author f24team3d
+ * @version 10/24/24
+ */
 public class Recipe
 {
   private String name; // Name of the recipe

@@ -20,15 +20,17 @@ public class KILowBites implements Runnable
 {
   private String[] args;
 
-    /**
+  /**
    * The entry point of the application.
    *
-   * @param args  The command-line arguments (ignored)
-   * @throws InterruptedException If the system is interrupted
-   * @throws InvocationTargetException If there is a problem starting the system
+   * @param args
+   *          The command-line arguments (ignored)
+   * @throws InterruptedException
+   *           If the system is interrupted
+   * @throws InvocationTargetException
+   *           If there is a problem starting the system
    */
-  public static void main(String[] args)
-      throws InterruptedException, InvocationTargetException
+  public static void main(String[] args) throws InterruptedException, InvocationTargetException
   {
     // Perform all of the setup activities in the event dispatch thread
     SwingUtilities.invokeAndWait(new KILowBites(args));
@@ -37,7 +39,8 @@ public class KILowBites implements Runnable
   /**
    * Explicit Value Constructor.
    *
-   * @param args The command-line arguments
+   * @param args
+   *          The command-line arguments
    */
   public KILowBites(final String[] args)
   {
@@ -53,7 +56,7 @@ public class KILowBites implements Runnable
     // initial setup
     JFrame frame = new JFrame("KILowBites Main Window");
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    JPanel contentPane = (JPanel)frame.getContentPane();
+    JPanel contentPane = (JPanel) frame.getContentPane();
     contentPane.setLayout(new BorderLayout());
 
     // Construct the controller
@@ -127,16 +130,17 @@ public class KILowBites implements Runnable
     menu.add(menuItem);
     menuItem.addActionListener(controller);
 
-
     // Creates the logo in the main panel
     JPanel logoPanel = new JPanel();
-    // JLabel logo = new JLabel(ImageUtilities.getColoredIconAndScale("img/KILowBites_Logo.png", Color.BLACK, 200, 50));
+    // JLabel logo = new JLabel(ImageUtilities.getColoredIconAndScale("img/KILowBites_Logo.png",
+    // Color.BLACK, 200, 50));
     JLabel logo = new JLabel(ImageUtilities.getImage("img/KILowBites_Logo.png", 200, 80));
     logoPanel.add(logo);
 
     // Layout the GUI
     contentPane.add(logoPanel, BorderLayout.CENTER);
 
+    frame.setMinimumSize(new Dimension(600, 200));
     frame.setSize(600, 200);
     // frame.pack();
     frame.setVisible(true);

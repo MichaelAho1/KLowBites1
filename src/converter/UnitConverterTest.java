@@ -10,7 +10,7 @@ class UnitConverterTest
   @Test
   void test()
   {
-    final UnitConverter converter = new UnitConverter();
+    final MassToVolume converter = new MassToVolume();
     Double num = 9.0;
     String milliliter = "Milliliter";
     String pinch = "Pinch";
@@ -25,11 +25,11 @@ class UnitConverterTest
     String dram = "Dram";
     String ounce = "Ounce";
     String pound = "Pound";
-    assertEquals(3.0, converter.teaspoonConverter(tablespoon, 9.0));
-    assertEquals(0.01171875, converter.teaspoonConverter(gallon, num));
-    assertEquals(0.03515625, converter.tablespoonConverter(gallon, num));
-    assertEquals(0.28125, converter.fluidOunceConverter(quart, num));
-    assertEquals(432, converter.cupConverter(teaspoon, num));
+    assertEquals(3.0, VolumeConverter.teaspoonConverter(tablespoon, 9.0));
+    assertEquals(0.01171875, VolumeConverter.teaspoonConverter(gallon, num));
+    assertEquals(0.03515625, VolumeConverter.tablespoonConverter(gallon, num));
+    assertEquals(0.28125, VolumeConverter.fluidOunceConverter(quart, num));
+    assertEquals(432, VolumeConverter.cupConverter(teaspoon, num));
     
   }
 

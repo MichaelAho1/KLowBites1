@@ -9,13 +9,14 @@ import javax.swing.border.Border;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
 
 public class UnitConverterWindow /*implements ActionListener*/
 {
   private static String[] volumeUnits = {"Milliliter", "Pinch", "Teaspoon", "Tablespoon", "Fluid Ounce", "Cup", "Pint", "Quart", "Gallon"};
   private static String[] massUnits = {"", "Gram", "Dram", "Ounce", "Pound"};
   // temp ingredient list
-  private static String[] ingredientList = {"", "Meat", "Apple", "Pepper"};
+  private static String[] ingredientList = {"", "Meat", "Apple", "Pepper"}; //Need the actual ingrediets
 
   @SuppressWarnings({ "unchecked", "rawtypes" })
   // Creating the GUI
@@ -83,12 +84,46 @@ public class UnitConverterWindow /*implements ActionListener*/
     JPanel toAmountPanel = new JPanel();
     toAmountPanel.setLayout(new GridLayout(1, 2));
     toAmountPanel.add(toAmountLabel);
-    JLabel toAmountField = new JLabel("___________");
+    JLabel toAmountField = new JLabel("___________"); // Needs to have less height
     toAmountPanel.add(toAmountField);
     toAmountPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
     center.add(toAmountPanel);
 
     JButton tempCalculate = new JButton("Calc");
+    tempCalculate.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e)
+      {
+        String fromUnits = (String) fromUnitBox.getSelectedItem();
+        String toUnits = (String) toUnitBox.getSelectedItem();
+        String ingredients = (String) ingredientBox.getSelectedItem();
+        Double fromAmount = Double.parseDouble(fromAmountField.getText());
+        if (Arrays.asList(volumeUnits).contains(fromUnits)) // Volume
+        { 
+          if (Arrays.asList(volumeUnits).contains(toUnits)) // Volume to Volume
+          { 
+            toAmountField.setText(VolumeConverter.callerHelp(fromUnits, toUnits, fromAmount).toString());
+          } 
+          else //Volume to Mass
+          {
+            toAmountField.setText(MassToVolume.interConverting(fromUnits, toUnits, fromAmount, 1.04).toString()); // Need to add density (Currently has a placeholder of 1.04
+          }
+        }
+        else // Mass
+        { 
+          if (Arrays.asList(massUnits).contains(toUnits)) // Mass to Mass
+          {
+            toAmountField.setText(MassConverter.callerHelp(fromUnits, toUnits, fromAmount).toString());
+          } 
+          else // Mass To Volume
+          {
+            toAmountField.setText(MassToVolume.interConverting(fromUnits, toUnits, fromAmount, 1.04).toString()); // Need to add density (Currently has a placeholder of 1.04
+          }
+        }
+      }
+      
+    });
+
     JButton tempReset = new JButton("Reset");
     JPanel north = new JPanel();
     north.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -100,12 +135,15 @@ public class UnitConverterWindow /*implements ActionListener*/
     frame.setVisible(true);
   }
 
-  /*
   public void actionPerformed(final ActionEvent e) {
-      constructWindow();
+      
   }
-  */
 
+  public void calculate() {
+    
+  }
+  
+  
   public static void main(String[] args)
   {
     constructWindow();

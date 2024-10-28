@@ -2,6 +2,43 @@ package converter;
 
 public class VolumeConverter
 {
+  public static Double callerHelp(String fromUnit, String toUnit, Double fromAmount) {
+    if ("Milliliter".equals(toUnit))
+    {
+      return milliliterConverter(toUnit, fromAmount);
+    }
+    if ("Teaspoon".equals(toUnit))
+    {
+      return teaspoonConverter(toUnit, fromAmount);
+    }
+    if ("Tablespoon".equals(toUnit))
+    {
+      return tablespoonConverter(toUnit, fromAmount);
+    }
+    if ("Fluid Ounce".equals(toUnit))
+    {
+      return fluidOunceConverter(toUnit, fromAmount);
+    }
+    if ("Cup".equals(toUnit))
+    {
+      return cupConverter(toUnit, fromAmount);
+    }
+    if ("Pint".equals(toUnit))
+    {
+      return pintConverter(toUnit, fromAmount);
+    }
+    if ("Quart".equals(toUnit))
+    {
+      return quartConverter(toUnit, fromAmount);
+    }
+    if ("Gallon".equals(toUnit))
+    {
+      return gallonConverter(toUnit, fromAmount);
+    }
+    return pinchConverter(toUnit, fromAmount);
+  }
+  
+  
   private static Double convertHelp(Double pinches, String toUnit)
   {
     if ("Milliliter".equals(toUnit))

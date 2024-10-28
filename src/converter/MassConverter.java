@@ -2,6 +2,25 @@ package converter;
 
 public class MassConverter
 {
+  public static Double callerHelp(String fromUnit, String toUnit, Double fromAmount) {
+    if ("Gram".equals(fromUnit))
+    {
+      return gramConverter(toUnit, fromAmount);
+    }
+    if ("Dram".equals(fromUnit))
+    {
+      return dramConverter(toUnit, fromAmount);
+    }
+    if ("Ounce".equals(fromUnit))
+    {
+      return ounceConverter(toUnit, fromAmount);
+    }
+    if ("Pound".equals(fromUnit))
+    {
+      return poundConverter(toUnit, fromAmount);
+    }
+    return 0.0; //Should not get here
+  }
   public static Double gramConverter(String toUnit, Double fromAmount)
   {
     if ("Dram".equals(toUnit))

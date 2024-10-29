@@ -27,9 +27,9 @@ public class RecipeEditorContent extends JPanel
 
     // creates the elements for the input fields
     JLabel nameLabel = new JLabel("Name: ");
-    JTextField nameField = new JTextField(35);
+    JTextField nameField = new JTextField(50);
     JLabel servesLabel = new JLabel("Serves: ");
-    JTextField servesField = new JTextField(5);
+    JTextField servesField = new JTextField(10);
 
     // adds all the elements to the input fields
     JComponent[] fields = {nameLabel, nameField, servesLabel, servesField};
@@ -55,10 +55,10 @@ public class RecipeEditorContent extends JPanel
     JTextField ingredientEditorNameField = new JTextField(15);
 
     JLabel ingredientEditorDetailsLabel = new JLabel("Details: ");
-    JTextField ingredientEditorDetailsField = new JTextField(15);
+    JTextField ingredientEditorDetailsField = new JTextField(7);
 
-    JLabel ingredientEditorAmountLabel = new JLabel("Details: ");
-    JTextField ingredientEditorAmountField = new JTextField(15);
+    JLabel ingredientEditorAmountLabel = new JLabel("Amount: ");
+    JTextField ingredientEditorAmountField = new JTextField(7);
 
     JLabel ingredientEditorUnitsLabel = new JLabel("Units: ");
     JComboBox<String> ingredientEditorUnitsComboBox = new JComboBox<String>();
@@ -101,9 +101,9 @@ public class RecipeEditorContent extends JPanel
     JPanel editorPanel = new JPanel();
     editorPanel.setLayout(new BoxLayout(editorPanel, BoxLayout.Y_AXIS));
 
-    EditorPanel utensilEditorPanel = new EditorPanel("Utensils", utensilEditorInputFieldPanel, controller);
-    EditorPanel ingredientEditorPanel = new EditorPanel("Ingredients", ingredientEditorInputFieldPanel, controller);
-    EditorPanel stepEditorPanel = new EditorPanel("Steps", stepEditorInputFieldPanel, controller);
+    EditorPanel utensilEditorPanel = new EditorPanel("Utensils", utensilEditorInputFieldPanel, controller, "Utensils");
+    EditorPanel ingredientEditorPanel = new EditorPanel("Ingredients", ingredientEditorInputFieldPanel, controller, "Ingredients");
+    EditorPanel stepEditorPanel = new EditorPanel("Steps", stepEditorInputFieldPanel, controller, "Steps");
 
     editorPanel.add(utensilEditorPanel);
     editorPanel.add(ingredientEditorPanel);

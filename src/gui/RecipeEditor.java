@@ -3,6 +3,7 @@ package gui;
 import java.awt.*;
 import javax.swing.*;
 
+import cooking.*;
 import utilities.ImageUtilities;
 
 /**
@@ -19,6 +20,10 @@ public class RecipeEditor extends JFrame
   public RecipeEditor()
   {
     super("KILowBites Recipe Editor");
+
+    // The recipe being edited
+    // Recipe recipe = new Recipe();
+    // TODO: NEED TO EDIT RECIPE TO ALLOW NULL VALUES WITH DEFAULT CONSTRUCTOR
 
     // creates the controller
     RecipeEditorController controller = new RecipeEditorController();
@@ -59,8 +64,11 @@ public class RecipeEditor extends JFrame
     Container contentPane = new RecipeEditorContent(controller);
 
     // final window setup
-    this.setMinimumSize(new Dimension(1200, 750));
-    this.setSize(800, 500);
+    // this.setMinimumSize(new Dimension(1350, 1200));
+    // this.setMaximumSize(new Dimension(1350, 1200));
+    this.setSize(new Dimension(800, 800));
+    this.setResizable(false);
+    this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     this.setVisible(true);
 
     outerPane.add(toolbar, BorderLayout.NORTH); // adds the toolbar to outerPane north

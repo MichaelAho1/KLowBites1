@@ -92,23 +92,23 @@ public class KILowBites implements Runnable
     menu.add(menuItem);
     menuItem.addActionListener(controller);
 
-    menu = new JMenu("Search");
-    menuBar.add(menu);
-    menuItem = new JMenuItem("Recipes");
-    menu.add(menuItem);
-    menuItem.addActionListener(controller);
-    menuItem = new JMenuItem("Meals");
-    menu.add(menuItem);
-    menuItem.addActionListener(controller);
+    // menu = new JMenu("Search");
+    // menuBar.add(menu);
+    // menuItem = new JMenuItem("Recipes");
+    // menu.add(menuItem);
+    // menuItem.addActionListener(controller);
+    // menuItem = new JMenuItem("Meals");
+    // menu.add(menuItem);
+    // menuItem.addActionListener(controller);
 
-    menu = new JMenu("View");
-    menuBar.add(menu);
-    menuItem = new JMenuItem("Shopping List");
-    menu.add(menuItem);
-    menuItem.addActionListener(controller);
-    menuItem = new JMenuItem("Process");
-    menu.add(menuItem);
-    menuItem.addActionListener(controller);
+    // menu = new JMenu("View");
+    // menuBar.add(menu);
+    // menuItem = new JMenuItem("Shopping List");
+    // menu.add(menuItem);
+    // menuItem.addActionListener(controller);
+    // menuItem = new JMenuItem("Process");
+    // menu.add(menuItem);
+    // menuItem.addActionListener(controller);
 
     menu = new JMenu("Tools");
     menuBar.add(menu);
@@ -119,23 +119,23 @@ public class KILowBites implements Runnable
     menu.add(menuItem);
     menuItem.addActionListener(controller);
 
-    menu = new JMenu("Configure");
-    menuBar.add(menu);
-    menuItem = new JMenuItem("Preferences");
-    menu.add(menuItem);
-    menuItem.addActionListener(controller);
-    menuItem = new JMenuItem("Shortcuts");
-    menu.add(menuItem);
-    menuItem.addActionListener(controller);
-
-    menu = new JMenu("Help");
-    menuBar.add(menu);
-    menuItem = new JMenuItem("About");
-    menu.add(menuItem);
-    menuItem.addActionListener(controller);
-    menuItem = new JMenuItem("User Guide");
-    menu.add(menuItem);
-    menuItem.addActionListener(controller);
+    // menu = new JMenu("Configure");
+    // menuBar.add(menu);
+    // menuItem = new JMenuItem("Preferences");
+    // menu.add(menuItem);
+    // menuItem.addActionListener(controller);
+    // menuItem = new JMenuItem("Shortcuts");
+    // menu.add(menuItem);
+    // menuItem.addActionListener(controller);
+    //
+    // menu = new JMenu("Help");
+    // menuBar.add(menu);
+    // menuItem = new JMenuItem("About");
+    // menu.add(menuItem);
+    // menuItem.addActionListener(controller);
+    // menuItem = new JMenuItem("User Guide");
+    // menu.add(menuItem);
+    // menuItem.addActionListener(controller);
 
     // Creates the logo in the main panel
     JPanel logoPanel = new JPanel();

@@ -1,7 +1,6 @@
 package app;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.lang.reflect.InvocationTargetException;
 
 import javax.swing.JFrame;
@@ -13,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 import gui.KILowBitesController;
+import utilities.Foods;
 import utilities.ImageUtilities;
 
 /**
@@ -24,6 +24,8 @@ import utilities.ImageUtilities;
 public class KILowBites implements Runnable
 {
   public static JMenuItem openCalc;
+  public static JMenuItem openConvert;
+  public static final Foods FOODS = new Foods();
 
   private String[] args;
 
@@ -115,8 +117,9 @@ public class KILowBites implements Runnable
     openCalc = new JMenuItem("Calorie Calculator");
     menu.add(openCalc);
     openCalc.addActionListener(controller);
-    menuItem = new JMenuItem("Units Converter");
-    menu.add(menuItem);
+    openConvert = new JMenuItem("Units Converter");
+    openConvert.addActionListener(controller);
+    menu.add(openConvert);
     menuItem.addActionListener(controller);
 
     // menu = new JMenu("Configure");
@@ -145,8 +148,9 @@ public class KILowBites implements Runnable
     // Layout the GUI
     contentPane.add(logoPanel, BorderLayout.CENTER);
 
-    frame.setMinimumSize(new Dimension(600, 200));
     frame.setSize(600, 200);
+    frame.setResizable(false);
+    frame.setLocationRelativeTo(null);
     frame.setVisible(true);
   }
 }

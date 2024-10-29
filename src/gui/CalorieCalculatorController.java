@@ -6,6 +6,8 @@ import java.awt.event.ActionListener;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
+import app.KILowBites;
+
 /**
  * Controller for actions in CalorieCalculatorWindow.
  * 
@@ -84,21 +86,21 @@ public class CalorieCalculatorController implements ActionListener, DocumentList
     try
     {
       // Retrieve and parse the input amount
-      amount = Double.parseDouble(CalorieCalculatorWindow.inputAmount.getText().trim());
+      amount = Double.parseDouble(CalorieCalculatorWindow.calorieAmountField.getText().trim());
     }
     catch (NumberFormatException ex)
     {
       // should get here if letters / non-numbers are entered
-      CalorieCalculatorWindow.outputField.setText("Invalid input");
+      CalorieCalculatorWindow.calorieOutputField.setText("Invalid input");
       return;
     }
 
     // retrieve ingredient name from input and get values associated with ingredient
-    String ingredient = CalorieCalculatorWindow.ingredientsMenu.getSelectedItem().toString();
-    double[] values = CalorieCalculatorWindow.foods.getFoods().get(ingredient);
+    String ingredient = CalorieCalculatorWindow.calorieIngredientsMenu.getSelectedItem().toString();
+    double[] values = KILowBites.FOODS.getFoods().get(ingredient);
 
     double gramsPerUnit;
-    if (CalorieCalculatorWindow.unitsMenu.getSelectedItem().toString().equals("g"))
+    if (CalorieCalculatorWindow.calorieUnitsMenu.getSelectedItem().toString().equals("g"))
     {
       // Use the value in grams directly if "g" is selected
       gramsPerUnit = 1.0; // 1 gram = 1 gram
@@ -113,7 +115,7 @@ public class CalorieCalculatorController implements ActionListener, DocumentList
     double calories = ((amount * gramsPerUnit) / 100) * values[0];
 
     // Display result to 2 decimal places
-    CalorieCalculatorWindow.outputField.setText(String.format("%.2f", calories));
+    CalorieCalculatorWindow.calorieOutputField.setText(String.format("%.2f", calories));
   }
 
   /**
@@ -121,10 +123,10 @@ public class CalorieCalculatorController implements ActionListener, DocumentList
    */
   private void reset()
   {
-    CalorieCalculatorWindow.ingredientsMenu.setSelectedIndex(0);
-    CalorieCalculatorWindow.unitsMenu.setSelectedIndex(0);
-    CalorieCalculatorWindow.inputAmount.setText("");
-    CalorieCalculatorWindow.outputField.setText("___________");
+    CalorieCalculatorWindow.calorieIngredientsMenu.setSelectedIndex(0);
+    CalorieCalculatorWindow.calorieUnitsMenu.setSelectedIndex(0);
+    CalorieCalculatorWindow.calorieAmountField.setText("");
+    CalorieCalculatorWindow.calorieOutputField.setText("___________");
   }
 
   /**
@@ -132,10 +134,11 @@ public class CalorieCalculatorController implements ActionListener, DocumentList
    */
   private void updateResetButton()
   {
-    boolean empty = !CalorieCalculatorWindow.ingredientsMenu.getSelectedItem().toString().isEmpty()
-        || !CalorieCalculatorWindow.unitsMenu.getSelectedItem().toString().isEmpty()
-        || !CalorieCalculatorWindow.inputAmount.getText().trim().isEmpty();
-    CalorieCalculatorWindow.resetButton.setEnabled(empty);
+    boolean empty = !CalorieCalculatorWindow.calorieIngredientsMenu.getSelectedItem().toString()
+        .isEmpty()
+        || !CalorieCalculatorWindow.calorieUnitsMenu.getSelectedItem().toString().isEmpty()
+        || !CalorieCalculatorWindow.calorieAmountField.getText().trim().isEmpty();
+    CalorieCalculatorWindow.calorieResetButton.setEnabled(empty);
   }
 
   /**
@@ -143,9 +146,10 @@ public class CalorieCalculatorController implements ActionListener, DocumentList
    */
   private void updateCalculateButton()
   {
-    boolean empty = !CalorieCalculatorWindow.ingredientsMenu.getSelectedItem().toString().isEmpty()
-        && !CalorieCalculatorWindow.unitsMenu.getSelectedItem().toString().isEmpty()
-        && !CalorieCalculatorWindow.inputAmount.getText().trim().isEmpty();
-    CalorieCalculatorWindow.calculateButton.setEnabled(empty);
+    boolean empty = !CalorieCalculatorWindow.calorieIngredientsMenu.getSelectedItem().toString()
+        .isEmpty()
+        && !CalorieCalculatorWindow.calorieUnitsMenu.getSelectedItem().toString().isEmpty()
+        && !CalorieCalculatorWindow.calorieAmountField.getText().trim().isEmpty();
+    CalorieCalculatorWindow.calorieCalcButton.setEnabled(empty);
   }
 }

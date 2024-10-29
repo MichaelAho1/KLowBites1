@@ -16,7 +16,6 @@ import javax.swing.JTextField;
 import javax.swing.JToolBar;
 
 import app.KILowBites;
-import utilities.Foods;
 import utilities.ImageUtilities;
 
 /**
@@ -26,6 +25,7 @@ import utilities.ImageUtilities;
  * @version 10/28/24
  */
 
+@SuppressWarnings({"rawtypes", "unchecked"})
 public class CalorieCalculatorWindow extends JFrame
 {
   private static final long serialVersionUID = 1L;
@@ -39,29 +39,27 @@ public class CalorieCalculatorWindow extends JFrame
   private JPanel unitsPanel;
   private JPanel outputPanel;
 
-  static JButton calculateButton;
-  static JButton resetButton;
+  static JButton calorieCalcButton;
+  static JButton calorieResetButton;
 
-  static JComboBox ingredientsMenu;
-  static JComboBox unitsMenu;
-  static JTextField inputAmount;
-  static JLabel outputField;
-
-  final static Foods foods = new Foods();
+  static JComboBox calorieIngredientsMenu;
+  static JComboBox calorieUnitsMenu;
+  static JTextField calorieAmountField;
+  static JLabel calorieOutputField;
 
   /**
    * Default constructor.
    */
   public CalorieCalculatorWindow()
   {
-    super("Calorie Calculator");
+    super("KiLowBites Calorie Calculator");
 
     controller = new CalorieCalculatorController();
 
     // adding input/output components
     JPanel inputs = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
-    ingredients = foods.getFoodNames();
+    ingredients = KILowBites.FOODS.getFoodNames();
     units = new String[] {"", "g", "mL"};
 
     setupInputs();
@@ -78,20 +76,20 @@ public class CalorieCalculatorWindow extends JFrame
     JToolBar toolbar = new JToolBar();
     toolbar.setFloatable(false);
 
-    calculateButton = new JButton(
+    calorieCalcButton = new JButton(
         ImageUtilities.getColoredIconAndScale("img/calculate.png", Color.GRAY, 25, 25));
-    calculateButton.setEnabled(false);
-    calculateButton.setActionCommand("Calculate");
-    calculateButton.addActionListener(controller);
+    calorieCalcButton.setEnabled(false);
+    calorieCalcButton.setActionCommand("Calculate");
+    calorieCalcButton.addActionListener(controller);
 
-    resetButton = new JButton(
+    calorieResetButton = new JButton(
         ImageUtilities.getColoredIconAndScale("img/reset.png", Color.GRAY, 25, 25));
-    resetButton.setEnabled(false);
-    resetButton.setActionCommand("Reset");
-    resetButton.addActionListener(controller);
+    calorieResetButton.setEnabled(false);
+    calorieResetButton.setActionCommand("Reset");
+    calorieResetButton.addActionListener(controller);
 
-    toolbar.add(calculateButton);
-    toolbar.add(resetButton);
+    toolbar.add(calorieCalcButton);
+    toolbar.add(calorieResetButton);
 
     getContentPane().add(toolbar, BorderLayout.NORTH);
 
@@ -121,9 +119,9 @@ public class CalorieCalculatorWindow extends JFrame
     ingredientsPanel = new JPanel();
     ingredientsPanel.setLayout(new BorderLayout());
 
-    ingredientsMenu = new JComboBox(ingredients);
-    ingredientsMenu.setActionCommand("Choose Ingredient");
-    ingredientsMenu.addActionListener(controller);
+    calorieIngredientsMenu = new JComboBox(ingredients);
+    calorieIngredientsMenu.setActionCommand("Choose Ingredient");
+    calorieIngredientsMenu.addActionListener(controller);
 
     JPanel boxPanel = new JPanel(new GridBagLayout());
     GridBagConstraints gbc = new GridBagConstraints();
@@ -138,7 +136,7 @@ public class CalorieCalculatorWindow extends JFrame
     gbc.gridx = 1;
     gbc.gridy = 0;
     gbc.anchor = GridBagConstraints.CENTER;
-    boxPanel.add(ingredientsMenu, gbc);
+    boxPanel.add(calorieIngredientsMenu, gbc);
 
     ingredientsPanel.add(boxPanel, BorderLayout.CENTER);
 
@@ -146,8 +144,8 @@ public class CalorieCalculatorWindow extends JFrame
     amountPanel = new JPanel();
     amountPanel.setLayout(new BorderLayout());
 
-    inputAmount = new JTextField(8);
-    inputAmount.getDocument().addDocumentListener(controller);
+    calorieAmountField = new JTextField(8);
+    calorieAmountField.getDocument().addDocumentListener(controller);
 
     boxPanel = new JPanel(new GridBagLayout());
 
@@ -160,7 +158,7 @@ public class CalorieCalculatorWindow extends JFrame
     gbc.gridx = 1;
     gbc.gridy = 0;
     gbc.anchor = GridBagConstraints.CENTER;
-    boxPanel.add(inputAmount, gbc);
+    boxPanel.add(calorieAmountField, gbc);
 
     amountPanel.add(boxPanel, BorderLayout.CENTER);
 
@@ -168,9 +166,9 @@ public class CalorieCalculatorWindow extends JFrame
     unitsPanel = new JPanel();
     unitsPanel.setLayout(new BorderLayout());
 
-    unitsMenu = new JComboBox(units);
-    unitsMenu.setActionCommand("Choose Unit");
-    unitsMenu.addActionListener(controller);
+    calorieUnitsMenu = new JComboBox(units);
+    calorieUnitsMenu.setActionCommand("Choose Unit");
+    calorieUnitsMenu.addActionListener(controller);
 
     boxPanel = new JPanel(new GridBagLayout());
 
@@ -183,7 +181,7 @@ public class CalorieCalculatorWindow extends JFrame
     gbc.gridx = 1;
     gbc.gridy = 0;
     gbc.anchor = GridBagConstraints.CENTER;
-    boxPanel.add(unitsMenu, gbc);
+    boxPanel.add(calorieUnitsMenu, gbc);
 
     unitsPanel.add(boxPanel, BorderLayout.CENTER);
 
@@ -191,7 +189,7 @@ public class CalorieCalculatorWindow extends JFrame
     outputPanel = new JPanel();
     outputPanel.setLayout(new BorderLayout());
 
-    outputField = new JLabel("___________");
+    calorieOutputField = new JLabel("___________");
 
     boxPanel = new JPanel(new GridBagLayout());
 
@@ -204,7 +202,7 @@ public class CalorieCalculatorWindow extends JFrame
     gbc.gridx = 1;
     gbc.gridy = 0;
     gbc.anchor = GridBagConstraints.CENTER;
-    boxPanel.add(outputField, gbc);
+    boxPanel.add(calorieOutputField, gbc);
 
     outputPanel.add(boxPanel, BorderLayout.CENTER);
   }

@@ -18,7 +18,7 @@ public class Foods
   // double[2]
   // double[0] -> cal/100g
   // double[1] -> g/ml
-  private Map<String, double[]> foods;
+  public Map<String, double[]> foods;
 
   /**
    * Default constructor.

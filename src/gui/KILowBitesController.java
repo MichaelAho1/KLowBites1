@@ -109,7 +109,10 @@ public class KILowBitesController implements ActionListener
     }
     if (command.equals(UNITS_CONVERTER))
     {
-      System.out.println("open units converter");
+      System.out.println("Opening Unit Converter...");
+      UnitConverterWindow unitConverter = new UnitConverterWindow();
+      unitConverter.setVisible(true);
+      KILowBites.openConvert.setEnabled(false);
     }
 
     // commands for Configure

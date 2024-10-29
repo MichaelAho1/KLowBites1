@@ -60,7 +60,6 @@ public class FileUtilities
       writer.write(currentRecipe.getServes() + "\n"); 
 
       // Write ingredients, utensils, and steps (in the format you need)
-
       System.out.println("Recipe saved to file: " + currentFile.getName());
     }
     catch (IOException e)

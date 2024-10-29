@@ -87,8 +87,5 @@ public class RecipeEditorController implements ActionListener
     {
       System.out.println("Recipe Editor Panel: Step Delete button selected");
     }
-
-    // TODO: delete actions currently cannot detect between which recipe editor panel is being used
-    // (Utensils, Ingredients, Steps)
   }
 }

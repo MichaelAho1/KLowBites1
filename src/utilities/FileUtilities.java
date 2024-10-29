@@ -1,143 +1,98 @@
-// File: Utilities/FileUtilities.java
 package utilities;
 
+import cooking.Recipe;
+
 import java.io.*;
-import javax.swing.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 public class FileUtilities
 {
 
-  // Document States
-  private enum DocumentState
-  {
-    NULL, CHANGED, UNCHANGED
-  }
-
-  private DocumentState documentState;
+  private Recipe currentRecipe;
   private File currentFile;
 
-  // Constructor
   public FileUtilities()
   {
-    this.documentState = DocumentState.NULL;
-    this.currentFile = null;
+    currentRecipe = null;
+    currentFile = null;
   }
 
+  // New file: Initialize a new recipe
   public void newFile()
   {
-    // Reset the document
-    this.currentFile = null;
-    this.documentState = DocumentState.UNCHANGED;
-    System.out.println("New document created.");
+    currentRecipe = new Recipe("Untitled", 0); // Default recipe
+    currentFile = null; // No associated file yet
+    System.out.println("New Recipe created.");
   }
 
-  // Open an existing document (Open button)
-  public void openFile(JFrame parentFrame)
+  // Open an existing recipe file and load into currentRecipe
+  public Recipe openFile(String filePath)
   {
-    JFileChooser fileChooser = new JFileChooser();
-    int returnValue = fileChooser.showOpenDialog(parentFrame);
-
-    if (returnValue == JFileChooser.APPROVE_OPTION)
+    try (BufferedReader reader = new BufferedReader(new FileReader(filePath)))
     {
-      this.currentFile = fileChooser.getSelectedFile();
-      try
-      {
+      String name = reader.readLine();
+      int serves = Integer.parseInt(reader.readLine()); 
+      currentRecipe = new Recipe(name, serves); 
+      
 
-        String content = new String(
-            Files.readAllBytes(Paths.get(this.currentFile.getAbsolutePath())));
-        System.out.println("Opened file: " + this.currentFile.getName());
-        // Set state to unchanged since the file is just opened
-        this.documentState = DocumentState.UNCHANGED;
-      }
-      catch (IOException e)
-      {
-        e.printStackTrace();
-      }
+      currentFile = new File(filePath); // Store the file reference
+      System.out.println("Recipe opened from file: " + filePath);
+    }
+    catch (IOException e)
+    {
+      System.err.println("Error reading the file: " + e.getMessage());
+    }
+
+    return currentRecipe; 
+  }
+
+  // Save the current recipe to the current file
+  public void saveFile()
+  {
+    if (currentFile == null)
+    {
+      System.out.println("No file selected. Use Save As.");
+      return;
+    }
+
+    try (BufferedWriter writer = new BufferedWriter(new FileWriter(currentFile)))
+    {
+      writer.write(currentRecipe.getName() + "\n"); 
+      writer.write(currentRecipe.getServes() + "\n"); 
+
+      // Write ingredients, utensils, and steps (in the format you need)
+
+      System.out.println("Recipe saved to file: " + currentFile.getName());
+    }
+    catch (IOException e)
+    {
+      System.err.println("Error saving the file: " + e.getMessage());
     }
   }
-  
-//Save the current document (Save button)
- public void saveFile()
- {
-   if (this.currentFile != null && documentState == DocumentState.CHANGED)
-   {
-     try
-     {
-       // Simulate saving the file content
-       Files.write(this.currentFile.toPath(), "File content to be saved".getBytes());
-       this.documentState = DocumentState.UNCHANGED;
-       System.out.println("File saved: " + this.currentFile.getName());
-     }
-     catch (IOException e)
-     {
-       e.printStackTrace();
-     }
-   }
-   else
-   {
-     System.out.println("No changes to save or no file opened.");
-   }
- }
 
- // Save As function (SaveAs button)
- public void saveAsFile(JFrame parentFrame)
- {
-   JFileChooser fileChooser = new JFileChooser();
-   int returnValue = fileChooser.showSaveDialog(parentFrame);
-
-   if (returnValue == JFileChooser.APPROVE_OPTION)
-   {
-     this.currentFile = fileChooser.getSelectedFile();
-     try
-     {
-       // Simulate saving the file under a new name
-       Files.write(this.currentFile.toPath(), "File content to be saved".getBytes());
-       this.documentState = DocumentState.UNCHANGED;
-       System.out.println("File saved as: " + this.currentFile.getName());
-     }
-     catch (IOException e)
-     {
-       e.printStackTrace();
-     }
-   }
- }
-
- // Close the current document (Close button)
- public void closeFile()
- {
-   if (documentState == DocumentState.UNCHANGED)
-   {
-     this.currentFile = null;
-     this.documentState = DocumentState.NULL;
-     System.out.println("Document closed.");
-   }
-   else
-   {
-     System.out.println("Cannot close, unsaved changes present.");
-   }
- }
-
-  // Mark the document as changed when edited
-  public void markDocumentChanged()
+  // Save As: Save the recipe to a new file
+  public void saveAsFile(String filePath)
   {
-    this.documentState = DocumentState.CHANGED;
+    currentFile = new File(filePath);
+    saveFile();
   }
 
-  // Check the state of the document
-  public boolean isChanged()
+  // Close the current recipe (clears the current recipe and file)
+  public void closeFile()
   {
-    return this.documentState == DocumentState.CHANGED;
+    currentRecipe = null;
+    currentFile = null;
+    System.out.println("Recipe closed.");
   }
 
-  public boolean isNullState()
+  // Set the current recipe (used by the RecipeEditor)
+  public void setCurrentRecipe(Recipe recipe)
   {
-    return this.documentState == DocumentState.NULL;
+    this.currentRecipe = recipe;
   }
 
-  public boolean isUnchanged()
+  // Get the current recipe 
+  public Recipe getCurrentRecipe()
   {
-    return this.documentState == DocumentState.UNCHANGED;
+    return currentRecipe;
   }
 }

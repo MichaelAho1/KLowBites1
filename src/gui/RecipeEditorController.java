@@ -2,6 +2,9 @@ package gui;
 
 import java.awt.event.*;
 
+import cooking.Recipe;
+import utilities.FileUtilities;
+
 /**
  * RecipeEditor controller class. Handles the actions of the RecipeEditor GUI elements
  *
@@ -25,11 +28,14 @@ public class RecipeEditorController implements ActionListener
   private static String STEPADD = "Step Add";
   private static String STEPDELETE = "Step Delete";
 
+  private FileUtilities fileUtilities;
+
   /**
    * Constructor for controller.
    */
   public RecipeEditorController()
   {
+    fileUtilities = new FileUtilities();
 
   }
 
@@ -46,22 +52,34 @@ public class RecipeEditorController implements ActionListener
     if (command.equals(NEW))
     {
       System.out.println("Recipe Editor ToolBar: New button selected");
+      fileUtilities.newFile();
     }
     else if (command.equals(OPEN))
     {
       System.out.println("Recipe Editor ToolBar: Open button selected");
+      // Simulate open file with file path 
+      // TODO: adjust this to use a file chooser in a real GUI
+      String filePath = "path/to/your/recipe.txt";
+      Recipe recipe = fileUtilities.openFile(filePath);
+      // update the UI with the loaded recipe
+      System.out.println("Opened Recipe: " + recipe.getName());
     }
     else if (command.equals(SAVE))
     {
       System.out.println("Recipe Editor ToolBar: Save button selected");
+      fileUtilities.saveFile();  // Save the current recipe
     }
     else if (command.equals(SAVE_AS))
     {
       System.out.println("Recipe Editor ToolBar: Save As button selected");
+   // Simulate saving as a new file (replace with JFileChooser for a real GUI)
+      String newFilePath = "path/to/save/recipe.txt";
+      fileUtilities.saveAsFile(newFilePath);
     }
     else if (command.equals(CLOSE))
     {
       System.out.println("Recipe Editor ToolBar: Close button selected");
+      fileUtilities.closeFile();  // Close the current recipe
     }
     else if (command.equals(UTENSILADD))
     {

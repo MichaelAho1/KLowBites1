@@ -72,8 +72,8 @@ public class RecipeEditorController implements ActionListener
     else if (command.equals(SAVE_AS))
     {
       System.out.println("Recipe Editor ToolBar: Save As button selected");
-   // Simulate saving as a new file (replace with JFileChooser for a real GUI)
-      String newFilePath = "path/to/save/recipe.txt";
+      // Simulate saving as a new file (replace with JFileChooser for a real GUI)
+      String newFilePath = "path/to/save/recipe.txt"; // TODO adjust this path
       fileUtilities.saveAsFile(newFilePath);
     }
     else if (command.equals(CLOSE))

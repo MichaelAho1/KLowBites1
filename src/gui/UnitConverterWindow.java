@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -14,8 +15,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.JToolBar;
 
 import app.KILowBites;
+import utilities.ImageUtilities;
 
 /**
  * Main window for KiLowBites unit converter.
@@ -54,6 +57,10 @@ public class UnitConverterWindow extends JFrame
    */
   public UnitConverterWindow()
   {
+    /**
+     * ADD COMMENTS THROUGHOUT CODE, FINISH CONTROLLER, LOOK OVER EVERYTHING ONE MORE TIME
+     */
+
     super("KiLowBites Unit Converter");
 
     controller = new UnitConverterController();
@@ -79,6 +86,26 @@ public class UnitConverterWindow extends JFrame
     inputs.add(outputPanel);
 
     add(inputs);
+
+    JToolBar toolbar = new JToolBar();
+    toolbar.setFloatable(false);
+
+    unitCalcButton = new JButton(
+        ImageUtilities.getColoredIconAndScale("img/calculate.png", Color.GRAY, 25, 25));
+    unitCalcButton.setEnabled(false);
+    unitCalcButton.setActionCommand("Calculate");
+    unitCalcButton.addActionListener(controller);
+
+    unitResetButton = new JButton(
+        ImageUtilities.getColoredIconAndScale("img/reset.png", Color.GRAY, 25, 25));
+    unitResetButton.setEnabled(false);
+    unitResetButton.setActionCommand("Reset");
+    unitResetButton.addActionListener(controller);
+
+    toolbar.add(unitCalcButton);
+    toolbar.add(unitResetButton);
+
+    getContentPane().add(toolbar, BorderLayout.NORTH);
 
     setSize(720, 200);
     setResizable(false);

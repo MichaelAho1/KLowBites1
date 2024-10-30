@@ -124,6 +124,18 @@ public class Foods
     foods.put("Wine", new double[] {83, 0.99});
   }
 
+  public Map<String, Double> getDensities()
+  {
+    Map<String, Double> densities = new TreeMap<>();
+
+    for (String key : foods.keySet())
+    {
+      densities.put(key, foods.get(key)[1]);
+    }
+
+    return densities;
+  }
+
   /**
    * Return foods map.
    * 

@@ -120,7 +120,6 @@ public class KILowBites implements Runnable
     openConvert = new JMenuItem("Units Converter");
     openConvert.addActionListener(controller);
     menu.add(openConvert);
-    menuItem.addActionListener(controller);
 
     // menu = new JMenu("Configure");
     // menuBar.add(menu);

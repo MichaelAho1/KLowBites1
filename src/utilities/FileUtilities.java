@@ -40,8 +40,8 @@ public class FileUtilities
     {
       writer.write(name + "\n");
       writer.write(serves + "\n");
-      writer.write(ingredients + "\n"); // Write ingredients (from GUI input)
-      writer.write(steps + "\n"); // Write steps (from GUI input)
+      writer.write(ingredients + "\n"); 
+      writer.write(steps + "\n"); 
       System.out.println("Recipe saved to file: " + filePath);
     }
     catch (IOException e)
@@ -66,13 +66,13 @@ public class FileUtilities
       File selectedFile = fileChooser.getSelectedFile();
       String filePath = selectedFile.getAbsolutePath();
 
-      // ff the file doesn't have the desired extension, append it
+      // if the file doesn't have the desired extension, append it
       if (!filePath.endsWith(".txt"))
       {
         filePath += ".txt";
       }
 
-      // Call the saveFile method to actually save the recipe
+      // call the saveFile method to actually save the recipe
       saveFile(filePath, name, serves, ingredients, steps);
     }
     else

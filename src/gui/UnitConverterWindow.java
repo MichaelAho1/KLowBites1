@@ -88,12 +88,14 @@ public class UnitConverterWindow extends JFrame
     unitCalcButton = new JButton(
         ImageUtilities.getColoredIconAndScale("img/calculate.png", Color.GRAY, 25, 25));
     unitCalcButton.setEnabled(false);
+    unitCalcButton.setToolTipText("Calculate");
     unitCalcButton.setActionCommand("Calculate");
     unitCalcButton.addActionListener(controller);
 
     unitResetButton = new JButton(
         ImageUtilities.getColoredIconAndScale("img/reset.png", Color.GRAY, 25, 25));
     unitResetButton.setEnabled(false);
+    unitResetButton.setToolTipText("Reset");
     unitResetButton.setActionCommand("Reset");
     unitResetButton.addActionListener(controller);
 

@@ -79,12 +79,14 @@ public class CalorieCalculatorWindow extends JFrame
     calorieCalcButton = new JButton(
         ImageUtilities.getColoredIconAndScale("img/calculate.png", Color.GRAY, 25, 25));
     calorieCalcButton.setEnabled(false);
+    calorieCalcButton.setToolTipText("Calculate");
     calorieCalcButton.setActionCommand("Calculate");
     calorieCalcButton.addActionListener(controller);
 
     calorieResetButton = new JButton(
         ImageUtilities.getColoredIconAndScale("img/reset.png", Color.GRAY, 25, 25));
     calorieResetButton.setEnabled(false);
+    calorieResetButton.setToolTipText("Reset");
     calorieResetButton.setActionCommand("Reset");
     calorieResetButton.addActionListener(controller);
 

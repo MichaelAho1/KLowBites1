@@ -17,16 +17,14 @@ import app.KILowBites;
 
 public class CalorieCalculatorController implements ActionListener, DocumentListener
 {
-  static final String CALCULATE = "Calculate";
-  static final String RESET = "Reset";
-  static final String ENTER_AMOUNT = "Enter Amount";
-  static final String CHOOSE_INGREDIENT = "Choose Ingredient";
-  static final String CHOOSE_UNIT = "Choose Unit";
+  private static final String CALCULATE = "Calculate";
+  private static final String RESET = "Reset";
+  private static final String CHOOSE_INGREDIENT = "Choose Ingredient";
+  private static final String CHOOSE_UNIT = "Choose Unit";
 
   @Override
   public void actionPerformed(ActionEvent e)
   {
-    // TODO Auto-generated method stub
     String ac = e.getActionCommand();
 
     if (ac.equals(CALCULATE))
@@ -45,11 +43,6 @@ public class CalorieCalculatorController implements ActionListener, DocumentList
       updateCalculateButton();
     }
     if (ac.equals(CHOOSE_UNIT))
-    {
-      updateResetButton();
-      updateCalculateButton();
-    }
-    if (ac.equals(ENTER_AMOUNT))
     {
       updateResetButton();
       updateCalculateButton();

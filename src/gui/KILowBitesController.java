@@ -68,13 +68,13 @@ public class KILowBitesController implements ActionListener
     // commands for Edit
     if (command.equals(RECIPE))
     {
-      System.out.println("open the recipe editor");
+      System.out.println("Opening recipe editor...");
       RecipeEditor recipeEditor = new RecipeEditor();
       recipeEditor.setVisible(true);
     }
     if (command.equals(MEAL))
     {
-      System.out.println("open the meal editor");
+      System.out.println("Opening meal editor...");
       MealEditor mealEditor = new MealEditor();
       mealEditor.setVisible(true);
     }
@@ -109,7 +109,7 @@ public class KILowBitesController implements ActionListener
     }
     if (command.equals(UNITS_CONVERTER))
     {
-      System.out.println("Opening Unit Converter...");
+      System.out.println("Opening unit converter...");
       UnitConverterWindow unitConverter = new UnitConverterWindow();
       unitConverter.setVisible(true);
       KILowBites.openConvert.setEnabled(false);

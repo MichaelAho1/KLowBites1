@@ -18,7 +18,7 @@ public class Foods
   // double[2]
   // double[0] -> cal/100g
   // double[1] -> g/ml
-  public Map<String, double[]> foods;
+  public static Map<String, double[]> foods;
 
   /**
    * Default constructor.
@@ -124,7 +124,7 @@ public class Foods
     foods.put("Wine", new double[] {83, 0.99});
   }
 
-  public Map<String, Double> getDensities()
+  public static Map<String, Double> getDensities()
   {
     Map<String, Double> densities = new TreeMap<>();
 

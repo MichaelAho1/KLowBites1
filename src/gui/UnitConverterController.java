@@ -3,6 +3,7 @@ package gui;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
+import java.util.Map;
 
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -10,6 +11,7 @@ import javax.swing.event.DocumentListener;
 import converter.MassConverter;
 import converter.MassToVolume;
 import converter.VolumeConverter;
+import utilities.Foods;
 
 public class UnitConverterController implements ActionListener, DocumentListener
 {
@@ -97,18 +99,18 @@ public class UnitConverterController implements ActionListener, DocumentListener
     String[] massUnits = {"", "Gram", "Dram", "Ounce", "Pound"};
     String fromUnits = UnitConverterWindow.getFromUnitsMenu();
     String toUnits = UnitConverterWindow.getToUnitsMenu();
-    String ingredients = UnitConverterWindow.getIngredientsUnitsMenu();
     Double fromAmount = UnitConverterWindow.getFromAmountField();
+    String ingredient = UnitConverterWindow.getIngredientsUnitsMenu();
+    Double density = getDensity(ingredient);
     if (Arrays.asList(volumeUnits).contains(fromUnits)) // Volume
     { 
       if (Arrays.asList(volumeUnits).contains(toUnits)) // Volume to Volume
       { 
         amount = VolumeConverter.callerHelp(fromUnits, toUnits, fromAmount);
-        System.out.print(amount);
       } 
       else //Volume to Mass
       {
-        amount = MassToVolume.interConverting(fromUnits, toUnits, fromAmount, 1.04); // Need to add density (Currently has a placeholder of 1.04)
+        amount = MassToVolume.interConverting(fromUnits, toUnits, fromAmount, density); // Need to add density (Currently has a placeholder of 1.04)
       }
     }
     else // Mass
@@ -119,13 +121,16 @@ public class UnitConverterController implements ActionListener, DocumentListener
       } 
       else // Mass To Volume
       {
-        amount = MassToVolume.interConverting(fromUnits, toUnits, fromAmount, 1.04); // Need to add density (Currently has a placeholder of 1.04
+        amount = MassToVolume.interConverting(fromUnits, toUnits, fromAmount, density); // Need to add density (Currently has a placeholder of 1.04
       }
     }
     UnitConverterWindow.unitOutputField.setText(String.format("%.5f", amount));
     System.out.println("Calculating...");
   }
-
+  private Double getDensity(String ingredient) {
+    Map<String, Double> ingredientMap = Foods.getDensities();
+    return ingredientMap.get(ingredient);
+  }
   /**
    * Disable ingredient field if conversion does not involve mass AND volume.
    */

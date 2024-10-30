@@ -2,9 +2,14 @@ package gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
 
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+
+import converter.MassConverter;
+import converter.MassToVolume;
+import converter.VolumeConverter;
 
 public class UnitConverterController implements ActionListener, DocumentListener
 {
@@ -88,6 +93,34 @@ public class UnitConverterController implements ActionListener, DocumentListener
     }
 
     // TODO: implement calculate
+      String[] volumeUnits = {"Milliliter", "Pinch", "Teaspoon", "Tablespoon", "Fluid Ounce", "Cup", "Pint", "Quart", "Gallon"};
+      String[] massUnits = {"", "Gram", "Dram", "Ounce", "Pound"};
+      String fromUnits = UnitConverterWindow.getFromUnitsMenu();
+      String toUnits = UnitConverterWindow.getToUnitsMenu();
+      String ingredients = UnitConverterWindow.getIngredientsUnitsMenu();
+      Double fromAmount = UnitConverterWindow.getFromAmountField();
+      if (Arrays.asList(volumeUnits).contains(fromUnits)) // Volume
+      { 
+        if (Arrays.asList(volumeUnits).contains(toUnits)) // Volume to Volume
+        { 
+          UnitConverterWindow.unitOutputField.setText(VolumeConverter.callerHelp(fromUnits, toUnits, fromAmount).toString());
+        } 
+        else //Volume to Mass
+        {
+          UnitConverterWindow.unitOutputField.setText(MassToVolume.interConverting(fromUnits, toUnits, fromAmount, 1.04).toString()); // Need to add density (Currently has a placeholder of 1.04
+        }
+      }
+      else // Mass
+      { 
+        if (Arrays.asList(massUnits).contains(toUnits)) // Mass to Mass
+        {
+          UnitConverterWindow.unitOutputField.setText(MassConverter.callerHelp(fromUnits, toUnits, fromAmount).toString());
+        } 
+        else // Mass To Volume
+        {
+          UnitConverterWindow.unitOutputField.setText(MassToVolume.interConverting(fromUnits, toUnits, fromAmount, 1.04).toString()); // Need to add density (Currently has a placeholder of 1.04
+        }
+      }
     UnitConverterWindow.unitOutputField.setText(String.format("%.2f", amount));
     System.out.println("Calculating...");
   }

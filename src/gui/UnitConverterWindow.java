@@ -238,4 +238,21 @@ public class UnitConverterWindow extends JFrame
 
     outputPanel.add(boxPanel, BorderLayout.CENTER);
   }
+  
+  public static String getFromUnitsMenu() {
+    return (String) fromUnitsMenu.getSelectedItem();
+  }
+  
+  public static String getToUnitsMenu() {
+    return (String) toUnitsMenu.getSelectedItem();
+  }
+  
+  public static String getIngredientsUnitsMenu() {
+    return (String) unitIngredientsMenu.getSelectedItem();
+  }
+  
+  public static Double getFromAmountField() {
+    return Double.parseDouble(fromAmountField.getText());
+  }
+
 }

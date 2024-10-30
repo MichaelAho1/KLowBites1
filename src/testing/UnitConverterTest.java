@@ -64,7 +64,19 @@ class UnitConverterTest
     assertEquals(21 , MassToVolume.interConverting(quart, pound, 10.0, 1.04), 1);
     assertEquals(1388 , MassToVolume.interConverting(gallon, ounce, 10.0, 1.04), 1);
     assertEquals(8.0, VolumeConverter.callerHelp(gallon, quart, 32.0));
-    
+    assertEquals(32.0, VolumeConverter.callerHelp(quart, milliliter, 30283.294), 0.001);
+    assertEquals(32.0, VolumeConverter.callerHelp(quart, tablespoon, 2048.0));
+    assertEquals(32.0, VolumeConverter.callerHelp(quart, fluidOunce, 1024.0));
+    assertEquals(32.0, VolumeConverter.callerHelp(quart, cup, 128.0));
+    assertEquals(32.0, VolumeConverter.callerHelp(quart, pint, 64.0));
+    assertEquals(32.0, VolumeConverter.callerHelp(quart, teaspoon, 6144.0));
+    assertEquals(32.0, VolumeConverter.callerHelp(quart, gallon, 8.0));
+    assertEquals(32.0, VolumeConverter.callerHelp(quart, pinch, 98304.0));
+    assertEquals(0.25, MassConverter.callerHelp(ounce, pound, 4.0));
+    assertEquals(0.25, MassConverter.callerHelp(dram, pound, 64.0));
+    assertEquals(1.0, MassConverter.callerHelp(gram, ounce, 28.34952), 0.001);
+    assertEquals(16.0, MassConverter.callerHelp(pound, ounce, 1.0));
+    MassConverter.callerHelp("yes", ounce, 1.0);
     MassToVolume.interConverting("Yes", pound, ten, 1.04);
     
   }

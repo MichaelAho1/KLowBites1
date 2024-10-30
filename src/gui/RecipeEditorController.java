@@ -115,8 +115,8 @@ public class RecipeEditorController implements ActionListener
     {
       String name = currentRecipe.getName();
       int serves = currentRecipe.getServes();
-      String ingredients = ""; // Collect ingredients from the UI (not shown in this example)
-      String steps = ""; // Collect steps from the UI (not shown in this example)
+      String ingredients = ""; // Collect ingredients from the UI 
+      String steps = ""; // Collect steps from the UI 
 
       // Assuming you have a file path from previous saves
       FileUtilities.saveFile("recipe.txt", name, serves, ingredients, steps);
@@ -150,8 +150,8 @@ public class RecipeEditorController implements ActionListener
     {
       String name = currentRecipe.getName();
       int serves = currentRecipe.getServes();
-      String ingredients = ""; // Collect ingredients from the UI (not shown in this example)
-      String steps = ""; // Collect steps from the UI (not shown in this example)
+      String ingredients = ""; // Collect ingredients from the UI
+      String steps = ""; // Collect steps from the UI 
 
       FileUtilities.saveAsFile(name, serves, ingredients, steps);
     }

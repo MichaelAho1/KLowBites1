@@ -29,8 +29,6 @@ import utilities.ImageUtilities;
 public class UnitConverterWindow extends JFrame
 {
   private static final long serialVersionUID = 1L;
-  private String[] volumeUnits; // MAYBE UNNEEDED
-  private String[] massUnits; // MAYBE UNNEEDED
   private String[] units;
   private String[] ingredients;
   private UnitConverterController controller;
@@ -59,14 +57,7 @@ public class UnitConverterWindow extends JFrame
 
     controller = new UnitConverterController();
 
-    // MAYBE REMOVE
-    // potentially create Units class
-    volumeUnits = new String[] {"Milliliter", "Pinch", "Teaspoon", "Tablespoon", "Fluid Ounce",
-        "Cup", "Pint", "Quart", "Gallon"};
-    massUnits = new String[] {"", "Gram", "Dram", "Ounce", "Pound"};
-
-    units = new String[] {"", "Gram", "Dram", "Ounce", "Pound", "Milliliter", "Pinch", "Teaspoon",
-        "Tablespoon", "Fluid Ounce", "Cup", "Pint", "Quart", "Gallon"};
+    units = KILowBites.UNITS.getAllUnits();
 
     ingredients = KILowBites.FOODS.getFoodNames();
 
@@ -240,20 +231,24 @@ public class UnitConverterWindow extends JFrame
 
     outputPanel.add(boxPanel, BorderLayout.CENTER);
   }
-  
-  public static String getFromUnitsMenu() {
+
+  public static String getFromUnitsMenu()
+  {
     return (String) fromUnitsMenu.getSelectedItem();
   }
-  
-  public static String getToUnitsMenu() {
+
+  public static String getToUnitsMenu()
+  {
     return (String) toUnitsMenu.getSelectedItem();
   }
-  
-  public static String getIngredientsUnitsMenu() {
+
+  public static String getIngredientsUnitsMenu()
+  {
     return (String) unitIngredientsMenu.getSelectedItem();
   }
-  
-  public static Double getFromAmountField() {
+
+  public static Double getFromAmountField()
+  {
     return Double.parseDouble(fromAmountField.getText());
   }
 

@@ -2,8 +2,6 @@ package testing;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.Map;
-
 import org.junit.jupiter.api.Test;
 
 import utilities.Foods;
@@ -31,9 +29,9 @@ class FoodsTest
 
     assertEquals(77, foods.getFoods().size());
 
-    Map<String, Double> densities = foods.getDensities();
+    double density = foods.getDensity("Apple");
 
-    assertEquals(77, densities.size());
+    assertEquals(0.56, density);
   }
 
 }

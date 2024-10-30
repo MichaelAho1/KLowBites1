@@ -124,7 +124,7 @@ public class Foods
     foods.put("Wine", new double[] {83, 0.99});
   }
 
-  public static Map<String, Double> getDensities()
+  public double getDensity(String ingredient)
   {
     Map<String, Double> densities = new TreeMap<>();
 
@@ -133,7 +133,7 @@ public class Foods
       densities.put(key, foods.get(key)[1]);
     }
 
-    return densities;
+    return densities.get(ingredient);
   }
 
   /**
@@ -154,11 +154,12 @@ public class Foods
   public String[] getFoodNames()
   {
     Set<String> keys = foods.keySet();
-    String[] foodNames = new String[keys.size() + 1]; // Create an array with an additional space
-                                                      // for the empty entry
-    foodNames[0] = ""; // Set the first element to an empty string
+    String[] foodNames = new String[keys.size() + 1];
 
-    int index = 1; // Start adding food names from the second position
+    // setting first index to blank for GUI purposes
+    foodNames[0] = "";
+
+    int index = 1;
     for (String key : keys)
     {
       foodNames[index++] = key;

@@ -14,6 +14,7 @@ import javax.swing.SwingUtilities;
 import gui.KILowBitesController;
 import utilities.Foods;
 import utilities.ImageUtilities;
+import utilities.Units;
 
 /**
  * KILowBites main class. Runs the program and the main window.
@@ -25,7 +26,9 @@ public class KILowBites implements Runnable
 {
   public static JMenuItem openCalc;
   public static JMenuItem openConvert;
+
   public static final Foods FOODS = new Foods();
+  public static final Units UNITS = new Units();
 
   private String[] args;
 

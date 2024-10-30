@@ -63,6 +63,7 @@ class UnitConverterTest
     assertEquals(4920.96 , MassToVolume.interConverting(pint, gram, 10.0, 1.04), 0.1);
     assertEquals(21 , MassToVolume.interConverting(quart, pound, 10.0, 1.04), 1);
     assertEquals(1388 , MassToVolume.interConverting(gallon, ounce, 10.0, 1.04), 1);
+    assertEquals(8.0, VolumeConverter.callerHelp(gallon, quart, 32.0));
     
     MassToVolume.interConverting("Yes", pound, ten, 1.04);
     

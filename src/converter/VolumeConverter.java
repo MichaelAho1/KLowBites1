@@ -5,37 +5,37 @@ public class VolumeConverter
   public static Double callerHelp(String fromUnit, String toUnit, Double fromAmount) {
     if ("Milliliter".equals(toUnit))
     {
-      return milliliterConverter(toUnit, fromAmount);
+      return milliliterConverter(fromUnit, fromAmount);
     }
     if ("Teaspoon".equals(toUnit))
     {
-      return teaspoonConverter(toUnit, fromAmount);
+      return teaspoonConverter(fromUnit, fromAmount);
     }
     if ("Tablespoon".equals(toUnit))
     {
-      return tablespoonConverter(toUnit, fromAmount);
+      return tablespoonConverter(fromUnit, fromAmount);
     }
     if ("Fluid Ounce".equals(toUnit))
     {
-      return fluidOunceConverter(toUnit, fromAmount);
+      return fluidOunceConverter(fromUnit, fromAmount);
     }
     if ("Cup".equals(toUnit))
     {
-      return cupConverter(toUnit, fromAmount);
+      return cupConverter(fromUnit, fromAmount);
     }
     if ("Pint".equals(toUnit))
     {
-      return pintConverter(toUnit, fromAmount);
+      return pintConverter(fromUnit, fromAmount);
     }
     if ("Quart".equals(toUnit))
     {
-      return quartConverter(toUnit, fromAmount);
+      return quartConverter(fromUnit, fromAmount);
     }
     if ("Gallon".equals(toUnit))
     {
-      return gallonConverter(toUnit, fromAmount);
+      return gallonConverter(fromUnit, fromAmount);
     }
-    return pinchConverter(toUnit, fromAmount);
+    return pinchConverter(fromUnit, fromAmount);
   }
   
   

@@ -5,6 +5,12 @@ import java.awt.event.*;
 import cooking.Recipe;
 import utilities.FileUtilities;
 
+import java.awt.event.*;
+import cooking.Recipe;
+import utilities.FileUtilities;
+
+import javax.swing.*;
+
 /**
  * RecipeEditor controller class. Handles the actions of the RecipeEditor GUI elements
  *
@@ -28,15 +34,14 @@ public class RecipeEditorController implements ActionListener
   private static String STEPADD = "Step Add";
   private static String STEPDELETE = "Step Delete";
 
-  private FileUtilities fileUtilities;
+  private Recipe currentRecipe;
 
   /**
    * Constructor for controller.
    */
   public RecipeEditorController()
   {
-    fileUtilities = new FileUtilities();
-
+    currentRecipe = null;
   }
 
   /**
@@ -52,34 +57,28 @@ public class RecipeEditorController implements ActionListener
     if (command.equals(NEW))
     {
       System.out.println("Recipe Editor ToolBar: New button selected");
-      fileUtilities.newFile();
+      currentRecipe = new Recipe("Untitled", 0); // Create a new, empty recipe
+
     }
     else if (command.equals(OPEN))
     {
       System.out.println("Recipe Editor ToolBar: Open button selected");
-      // Simulate open file with file path 
-      // TODO: adjust this to use a file chooser in a real GUI
-      String filePath = "path/to/your/recipe.txt";
-      Recipe recipe = fileUtilities.openFile(filePath);
-      // update the UI with the loaded recipe
-      System.out.println("Opened Recipe: " + recipe.getName());
+      openRecipe();
     }
     else if (command.equals(SAVE))
     {
       System.out.println("Recipe Editor ToolBar: Save button selected");
-      fileUtilities.saveFile();  // Save the current recipe
+      saveRecipe();
     }
     else if (command.equals(SAVE_AS))
     {
       System.out.println("Recipe Editor ToolBar: Save As button selected");
-      // Simulate saving as a new file (replace with JFileChooser for a real GUI)
-      String newFilePath = "path/to/save/recipe.txt"; // TODO adjust this path
-      fileUtilities.saveAsFile(newFilePath);
+      saveAsRecipe();
     }
     else if (command.equals(CLOSE))
     {
       System.out.println("Recipe Editor ToolBar: Close button selected");
-      fileUtilities.closeFile();  // Close the current recipe
+      closeRecipe();
     }
     else if (command.equals(UTENSILADD))
     {
@@ -105,5 +104,69 @@ public class RecipeEditorController implements ActionListener
     {
       System.out.println("Recipe Editor Panel: Step Delete button selected");
     }
+  }
+
+  /**
+   * Saves the current recipe to the file, using FileUtilities saveFile method.
+   */
+  private void saveRecipe()
+  {
+    if (currentRecipe != null)
+    {
+      String name = currentRecipe.getName();
+      int serves = currentRecipe.getServes();
+      String ingredients = ""; // Collect ingredients from the UI (not shown in this example)
+      String steps = ""; // Collect steps from the UI (not shown in this example)
+
+      // Assuming you have a file path from previous saves
+      FileUtilities.saveFile("recipe.txt", name, serves, ingredients, steps);
+    }
+    else
+    {
+      System.out.println("No recipe to save.");
+    }
+  }
+
+  /**
+   * Opens a recipe using the FileUtilities openFile method.
+   */
+  private void openRecipe()
+  {
+    JFileChooser fileChooser = new JFileChooser();
+    int result = fileChooser.showOpenDialog(null);
+    if (result == JFileChooser.APPROVE_OPTION)
+    {
+      String filePath = fileChooser.getSelectedFile().getAbsolutePath();
+      currentRecipe = FileUtilities.openFile(filePath);
+    }
+  }
+
+  /**
+   * Opens a file dialog for the user to select where to save the recipe.
+   */
+  private void saveAsRecipe()
+  {
+    if (currentRecipe != null)
+    {
+      String name = currentRecipe.getName();
+      int serves = currentRecipe.getServes();
+      String ingredients = ""; // Collect ingredients from the UI (not shown in this example)
+      String steps = ""; // Collect steps from the UI (not shown in this example)
+
+      FileUtilities.saveAsFile(name, serves, ingredients, steps);
+    }
+    else
+    {
+      System.out.println("No recipe to save.");
+    }
+  }
+
+  /**
+   * Closes the current recipe (sets it to null).
+   */
+  private void closeRecipe()
+  {
+    currentRecipe = null;
+    System.out.println("Recipe closed.");
   }
 }

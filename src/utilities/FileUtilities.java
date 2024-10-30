@@ -2,13 +2,13 @@ package utilities;
 
 import cooking.Recipe;
 
+import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.*;
 
 public class FileUtilities
 {
-
-  private static File currentFile;
-
+  private static JFileChooser fileChooser = new JFileChooser();
 
   // Open an existing recipe file and load into currentRecipe
   public static Recipe openFile(String filePath)
@@ -17,38 +17,32 @@ public class FileUtilities
     try (BufferedReader reader = new BufferedReader(new FileReader(filePath)))
     {
       String name = reader.readLine();
-      int serves = Integer.parseInt(reader.readLine()); 
+      int serves = Integer.parseInt(reader.readLine());
       recipe = new Recipe(name, serves);
-  
-      currentFile = new File(filePath); // Store the file reference
+
       System.out.println("Recipe opened from file: " + filePath);
     }
     catch (IOException e)
-    { 
+    {
       System.err.println("Error reading the file: " + e.getMessage());
     }
 
-    return recipe; 
+    return recipe;
   }
 
-  // Save the current recipe to the current file
-  public static void saveFile(String name, int serves, String ingredients, String steps)
+  /**
+   * Save the current recipe to a specified file.
+   */
+  public static void saveFile(String filePath, String name, int serves, String ingredients,
+      String steps)
   {
-    if (currentFile == null)
+    try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath)))
     {
-      System.out.println("No file selected. Use Save As.");
-      return;
-    }
-
-    try (BufferedWriter writer = new BufferedWriter(new FileWriter(currentFile)))
-    {
-      writer.write(name + "\n"); 
-      writer.write(serves + "\n"); 
-      writer.write(ingredients + "\n");
-      writer.write(steps + "\n");
-
-      // Write ingredients, utensils, and steps (in the format you need)
-      System.out.println("Recipe saved to file: " + currentFile.getName());
+      writer.write(name + "\n");
+      writer.write(serves + "\n");
+      writer.write(ingredients + "\n"); // Write ingredients (from GUI input)
+      writer.write(steps + "\n"); // Write steps (from GUI input)
+      System.out.println("Recipe saved to file: " + filePath);
     }
     catch (IOException e)
     {
@@ -56,12 +50,34 @@ public class FileUtilities
     }
   }
 
-  // Save As: Save the recipe to a new file
-  public void saveAsFile(String filePath, String name, int serves, String ingredients, String steps)
+  /**
+   * Save As: Open a file explorer and let the user select where to save the recipe.
+   */
+  public static void saveAsFile(String name, int serves, String ingredients, String steps)
   {
-    currentFile = new File(filePath);
-    saveFile(name, serves, ingredients, steps);
+    // set up a file filter for .txt or any specific recipe format (if desired)
+    FileNameExtensionFilter filter = new FileNameExtensionFilter("Text Files", "txt");
+    fileChooser.setFileFilter(filter);
+
+    // open the file explorer and let the user select where to save
+    int result = fileChooser.showSaveDialog(null);
+    if (result == JFileChooser.APPROVE_OPTION)
+    {
+      File selectedFile = fileChooser.getSelectedFile();
+      String filePath = selectedFile.getAbsolutePath();
+
+      // ff the file doesn't have the desired extension, append it
+      if (!filePath.endsWith(".txt"))
+      {
+        filePath += ".txt";
+      }
+
+      // Call the saveFile method to actually save the recipe
+      saveFile(filePath, name, serves, ingredients, steps);
+    }
+    else
+    {
+      System.out.println("Save As operation was canceled.");
+    }
   }
-
-
 }

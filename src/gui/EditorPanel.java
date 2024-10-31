@@ -17,81 +17,56 @@ import cooking.*;
  */
 public class EditorPanel extends JPanel
 {
+  // strings needed to determine the type of the input, needed since no interface
+  final String UTENSILS = "Utensils";
+  final String INGREDIENTS = "Ingredients";
+  final String STEPS = "Steps";
+
+  Container contentPane;
+
+  JPanel fileEditorPanel;
+
+  JTextArea detailsText;
+  JScrollPane scrollPane;
+
+  JButton deleteButton;
+
+
   /**
    * Constructor for EditorPanel (for RecipeEditor).
    *
    * @param inputFieldPanel the input field panel
    * @param controller the controller for the RecipeEditor
    */
-  public EditorPanel(String name, InputFieldPanel inputFieldPanel, RecipeEditorController controller, String type)
+  public EditorPanel(RecipeElementType type, InputFieldPanel inputFieldPanel, RecipeEditorController controller)
   {
     super();
 
-    // strings needed to determine the type of the input, needed since no interface
-    final String UTENSILS = "Utensils";
-    final String INGREDIENTS = "Ingredients";
-    final String STEPS = "Steps";
-
-    Container contentPane = new Container();
+    contentPane = new Container();
     contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
 
     // set preferred size for EditorPanels
     this.setPreferredSize(new Dimension(650, 215));
 
     // creates the editor label border
-    this.setBorder(BorderFactory.createTitledBorder(name));
+    this.setBorder(BorderFactory.createTitledBorder(type.getLabel(true)));
 
     // creates the file editor
-    JPanel fileEditorPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+    fileEditorPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+
+    DefaultListModel<RecipeElement> fileArea = new DefaultListModel<>();
+    JList<RecipeElement> list = new JList<>(fileArea);
 
     // creates the file area for the editor panel
-    JTextArea detailsText = new JTextArea(8, 50);
-    JScrollPane scrollPane = new JScrollPane(detailsText);
+    scrollPane = new JScrollPane(list);
+    scrollPane.setSize(new Dimension(500, 800));
     scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
     scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
-    DefaultListModel<Utensils> utensilFileArea = new DefaultListModel<Utensils>();
-    JList<Utensils> utensilList = new JList<Utensils>(utensilFileArea);
-
-    DefaultListModel<Ingredients> ingredientsFileArea = new DefaultListModel<Ingredients>();
-    JList<Ingredients> ingredientsList = new JList<Ingredients>(ingredientsFileArea);
-
-    DefaultListModel<Steps> stepsFileArea = new DefaultListModel<Steps>();
-    JList<Steps> stepsList = new JList<Steps>(stepsFileArea);
-    // these 3 do the same thing, needed because we don't have an interface
-
     // creates the delete button
-    JButton deleteButton = new JButton("Delete");
+    deleteButton = new JButton("Delete");
     deleteButton.addActionListener(controller);
-
-    // fix for delete button (needs to be able to tell what to delete)
-    if (type.equals(UTENSILS))
-    {
-      deleteButton.setActionCommand("Utensil Delete");
-    }
-    else if (type.equals(INGREDIENTS))
-    {
-      deleteButton.setActionCommand("Ingredient Delete");
-    }
-    else if (type.equals(STEPS))
-    {
-      deleteButton.setActionCommand("Step Delete");
-    }
-
-    // adds the file editor and delete button to the file editor container
-    // TODO: once pushed to main, can add a cooking interface to get rid of these if statements
-    if (type.equals(UTENSILS))
-    {
-      // fileEditor.add(utensilList, BorderLayout.CENTER);
-    }
-    else if (type.equals(INGREDIENTS))
-    {
-      // fileEditor.add(ingredientsList, BorderLayout.CENTER);
-    }
-    else if (type.equals(STEPS))
-    {
-      // fileEditor.add(stepsList, BorderLayout.CENTER);
-    }
+    deleteButton.setActionCommand(type.getDeleteCommand());
 
     // adds the details field
     fileEditorPanel.add(scrollPane);
@@ -157,6 +132,4 @@ public class EditorPanel extends JPanel
     this.add(fileEditorPanel, BorderLayout.CENTER);
     this.add(contentPane, BorderLayout.SOUTH);
   }
-
-  //TODO: NEED TO WRITE GETTERS FOR THE TEXT FIELDS
 }

@@ -75,9 +75,9 @@ public class RecipeEditorContent extends JPanel
 
     // TODO: REFACTORING LEFT OFF HERE *****************************************************************************************
 
-    EditorPanel utensilEditorPanel = new EditorPanel("Utensils", utensilIFP, controller, "Utensils");
-    EditorPanel ingredientEditorPanel = new EditorPanel("Ingredients", ingredientIFP, controller, "Ingredients");
-    EditorPanel stepEditorPanel = new EditorPanel("Steps", stepIFP, controller, "Steps");
+    EditorPanel utensilEditorPanel = new EditorPanel(RecipeElementType.UTENSIL, utensilIFP, controller);
+    EditorPanel ingredientEditorPanel = new EditorPanel(RecipeElementType.INGREDIENT, ingredientIFP, controller);
+    EditorPanel stepEditorPanel = new EditorPanel(RecipeElementType.STEP, stepIFP, controller);
 
     editorPanel.add(utensilEditorPanel);
     editorPanel.add(ingredientEditorPanel);

@@ -24,9 +24,6 @@ public class RecipeEditor extends JFrame
   {
     super("KILowBites Recipe Editor");
 
-    // creates the controller
-    // RecipeEditorController controller = new RecipeEditorController(this, recipe);
-
     // creates the outer border layout (contains menubar and content)
     outerPane = new Container();
 
@@ -60,7 +57,7 @@ public class RecipeEditor extends JFrame
     }
 
     // creates the main content panel
-    JPanel contentPane = new RecipeEditorContent(controller);
+    JPanel contentPane = new RecipeEditorContent(recipe, controller);
 
     this.setSize(new Dimension(800, 800));
     this.setResizable(false);

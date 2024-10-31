@@ -36,7 +36,7 @@ public class Recipe
    * @param name
    * @param serves
    */
-  public Recipe(String name, int serves)
+  public Recipe(final String name, final int serves)
   {
     this.name = name;
     this.serves = serves;
@@ -60,7 +60,7 @@ public class Recipe
    *
    * @param name
    */
-  public void setName(String name)
+  public void setName(final String name)
   {
     this.name = name;
   }
@@ -80,7 +80,7 @@ public class Recipe
    *
    * @param serves
    */
-  public void setServes(int serves)
+  public void setServes(final int serves)
   {
     this.serves = serves;
   }
@@ -90,7 +90,7 @@ public class Recipe
    *
    * @param ingredient
    */
-  public void addIngredient(Ingredients ingredient)
+  public void addIngredient(final Ingredients ingredient)
   {
     ingredients.add(ingredient);
   }
@@ -110,7 +110,7 @@ public class Recipe
    *
    * @param utensil
    */
-  public void addUtensils(Utensils utensil)
+  public void addUtensils(final Utensils utensil)
   {
     utensils.add(utensil);
   }
@@ -130,7 +130,7 @@ public class Recipe
    *
    * @param step
    */
-  public void addStep(Steps step)
+  public void addStep(final Steps step)
   {
     steps.add(step);
   }
@@ -151,7 +151,7 @@ public class Recipe
    * @param newServings
    * @return the scaling factor for the recipe
    */
-  public double getScalingFactor(int newServings)
+  public double getScalingFactor(final int newServings)
   {
     if (serves == 0)
     {

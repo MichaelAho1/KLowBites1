@@ -32,7 +32,8 @@ public class Steps implements RecipeElement
    * @param destination
    * @param details
    */
-  public Steps(String action, Ingredients source, Utensils destination, String details)
+  public Steps(final String action, final Ingredients source,
+		  final Utensils destination, final String details)
   {
     this.action = action;
     this.source = source;
@@ -55,7 +56,7 @@ public class Steps implements RecipeElement
    *
    * @param action
    */
-  public void setAction(String action)
+  public void setAction(final String action)
   {
     this.action = action;
   }
@@ -75,7 +76,7 @@ public class Steps implements RecipeElement
    *
    * @param source
    */
-  public void setSource(Ingredients source)
+  public void setSource(final Ingredients source)
   {
     this.source = source;
   }
@@ -95,7 +96,7 @@ public class Steps implements RecipeElement
    *
    * @param destination
    */
-  public void setDestination(Utensils destination)
+  public void setDestination(final Utensils destination)
   {
     this.destination = destination;
   }
@@ -115,13 +116,14 @@ public class Steps implements RecipeElement
    *
    * @param details
    */
-  public void setDetails(String details)
+  public void setDetails(final String details)
   {
     this.details = details;
   }
 
   @Override
-  public String toString() {
-      return action + " " + source + " in " + destination + " (" + details + ")";
+  public String toString() 
+  {
+    return action + " " + source + " in " + destination + " (" + details + ")";
   }
 }

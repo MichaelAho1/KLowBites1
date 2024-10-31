@@ -2,11 +2,9 @@ package gui;
 
 import java.awt.*;
 import javax.swing.*;
-
-import controller.MealEditorController;
-
 import java.util.ArrayList;
 
+import controller.MealEditorController;
 import cooking.*;
 import utilities.ImageUtilities;
 
@@ -14,25 +12,21 @@ import utilities.ImageUtilities;
  * MealEditor class. Handles the toolbar and main container of the Meal Editor.
  *
  * @author f24team3d
- * @version 10/29/24
+ * @version 10/31/24
  */
 public class MealEditor extends JFrame
 {
+  Container outerPane;
+
   /**
    * Constructor for RecipeEditor.
    */
-  public MealEditor()
+  public MealEditor(ArrayList<Recipe> meal, MealEditorController controller)
   {
     super("KILowBites Meal Editor");
 
-    // The meal being edited
-    ArrayList<Recipe> recipes = new ArrayList<>();
-
-    // creates the controller
-    MealEditorController controller = new MealEditorController();
-
     // creates the outer border layout (contains menubar and content)
-    Container outerPane = new Container();
+    outerPane = new Container();
 
     outerPane.setLayout(new BorderLayout());
 
@@ -66,9 +60,6 @@ public class MealEditor extends JFrame
     // creates the main content panel
     Container contentPane = new MealEditorContent(controller);
 
-    // final window setup
-    // this.setMinimumSize(new Dimension(1350, 1200));
-    // this.setMaximumSize(new Dimension(1350, 1200));
     this.setSize(new Dimension(900, 500));
     this.setResizable(false);
     this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

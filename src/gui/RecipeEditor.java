@@ -2,7 +2,6 @@ package gui;
 
 import java.awt.*;
 import javax.swing.*;
-import javax.swing.text.JTextComponent;
 
 import controller.RecipeEditorController;
 import cooking.*;
@@ -12,11 +11,12 @@ import utilities.ImageUtilities;
  * RecipeEditor class. Handles the toolbar and main container of the Recipe Editor.
  *
  * @author f24team3d
- * @version 10/26/24
+ * @version 10/31/24
  */
 public class RecipeEditor extends JFrame
 {
   Container outerPane;
+
   /**
    * Constructor for RecipeEditor.
    */

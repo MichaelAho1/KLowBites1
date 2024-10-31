@@ -4,12 +4,6 @@ import java.awt.event.*;
 
 import cooking.*;
 import gui.RecipeEditor;
-import utilities.FileUtilities;
-
-import java.awt.event.*;
-import utilities.FileUtilities;
-
-import javax.swing.*;
 
 /**
  * RecipeEditor controller class. Handles the actions of the RecipeEditor GUI elements
@@ -52,6 +46,11 @@ public class RecipeEditorController implements ActionListener
   {
     recipe = new Recipe();
     editor = new RecipeEditor(recipe, this);
+  }
+
+  private void addUtensil(Utensils utensil)
+  {
+    recipe.addUtensils(utensil);
   }
 
   /**

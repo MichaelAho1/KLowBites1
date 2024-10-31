@@ -2,6 +2,12 @@ package controller;
 
 import java.awt.event.*;
 
+import java.util.ArrayList;
+
+import cooking.*;
+import gui.MealEditor;
+
+
 /**
  * MealEditor controller class. Handles the actions of the MealEditor GUI elements
  *
@@ -19,12 +25,20 @@ public class MealEditorController implements ActionListener
   private static String RECIPEADD = "Recipe Add";
   private static String RECIPEDELETE = "Recipe Delete";
 
+  private MealEditor editor;
+  private ArrayList<Recipe> meal;
+
   /**
    * Constructor for controller.
    */
   public MealEditorController()
   {
+    createMealEditor();
+  }
 
+  private void createMealEditor()
+  {
+    editor = new MealEditor(meal, this);
   }
 
   /**

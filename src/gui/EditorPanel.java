@@ -24,13 +24,14 @@ public class EditorPanel extends JPanel
 
   Container contentPane;
 
+  // shared variables
   JPanel fileEditorPanel;
-
-  JTextArea detailsText;
+  JButton deleteButton;
   JScrollPane scrollPane;
 
-  JButton deleteButton;
-
+  // MealEditor variables
+  DefaultListModel<Recipe> mealFileArea;
+  JList<Recipe> mealList;
 
   /**
    * Constructor for EditorPanel (for RecipeEditor).
@@ -54,14 +55,15 @@ public class EditorPanel extends JPanel
     // creates the file editor
     fileEditorPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
+    // creates the lists shown in the file editor
     DefaultListModel<RecipeElement> fileArea = new DefaultListModel<>();
     JList<RecipeElement> list = new JList<>(fileArea);
 
     // creates the file area for the editor panel
     scrollPane = new JScrollPane(list);
-    scrollPane.setSize(new Dimension(500, 800));
     scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
     scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+    scrollPane.setPreferredSize(new Dimension(500, 125));
 
     // creates the delete button
     deleteButton = new JButton("Delete");
@@ -110,17 +112,18 @@ public class EditorPanel extends JPanel
     // creates the file editor
     JPanel fileEditorPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
+    // creates the lists shown in the file editor
+    mealFileArea = new DefaultListModel<Recipe>();
+    mealList = new JList<Recipe>(mealFileArea);
+
     // creates the file area for the editor panel
-    JTextArea detailsText = new JTextArea(8, 50);
-    JScrollPane scrollPane = new JScrollPane(detailsText);
+    JScrollPane scrollPane = new JScrollPane(mealList);
     scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
     scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-
-    DefaultListModel<Recipe> recipeFileArea = new DefaultListModel<Recipe>();
-    JList<Recipe> recipeList = new JList<Recipe>(recipeFileArea);
+    scrollPane.setPreferredSize(new Dimension(500, 150));
 
     // creates the delete button
-    JButton deleteButton = new JButton("Delete");
+    deleteButton = new JButton("Delete");
     deleteButton.setActionCommand("Recipe Delete");
     deleteButton.addActionListener(controller);
 

@@ -44,7 +44,7 @@ public class KILowBitesController implements ActionListener
 
   private RecipeEditorController recipeController;
 
-  private MealEditor mealEditor;
+  private MealEditorController mealController;
 
   /**
    * Constructor for controller.
@@ -76,8 +76,7 @@ public class KILowBitesController implements ActionListener
     }
     if (command.equals(MEAL))
     {
-      mealEditor = new MealEditor();
-      mealEditor.setVisible(true);
+      mealController = new MealEditorController();
     }
 
     // commands for Search

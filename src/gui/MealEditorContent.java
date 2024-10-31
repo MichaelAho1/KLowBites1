@@ -2,6 +2,9 @@ package gui;
 
 import java.awt.*;
 import javax.swing.*;
+import java.util.ArrayList;
+
+import cooking.*;
 
 import controller.MealEditorController;
 
@@ -13,6 +16,13 @@ import controller.MealEditorController;
  */
 public class MealEditorContent extends JPanel
 {
+  Container contentPane;
+
+  ArrayList<Recipe> currentMeal; // meal being used
+
+  InputFieldPanel mainIFP;
+  InputFieldPanel recipeIFP;
+
   /**
    * Constructor for RecipeEditorContent.
    *
@@ -26,34 +36,25 @@ public class MealEditorContent extends JPanel
     contentPane.setLayout(new BorderLayout());
 
     // **** INPUT FIELDS ****
-
-    // creates the elements for the input fields
-    JLabel nameLabel = new JLabel("Name: ");
-    JTextField nameField = new JTextField(50);
-
-    // adds all the elements to the input fields
-    JComponent[] fields = {nameLabel, nameField};
-    InputFieldPanel inputFieldPanel = new InputFieldPanel(fields);
+    mainIFP = new InputFieldPanel();
+    mainIFP.addJTextField("Name: ", 50);
 
     // **** EDITOR PANELS ****
 
     // Recipes
-    JButton recipeEditorAddButton = new JButton("Add Recipe");
-    recipeEditorAddButton.setActionCommand("Recipe Add");
-    recipeEditorAddButton.addActionListener(controller);
-
-    InputFieldPanel recipeEditorInputFieldPanel = new InputFieldPanel(new JComponent[] {recipeEditorAddButton});
+    recipeIFP = new InputFieldPanel();
+    recipeIFP.addJButton("Add Recipe", "Recipe Add", controller);
 
     // creates the panel for recipes
     JPanel editorPanel = new JPanel();
     editorPanel.setLayout(new BorderLayout());
 
-    EditorPanel recipeEditorPanel = new EditorPanel("Recipes", recipeEditorInputFieldPanel, controller);
+    EditorPanel recipeEditorPanel = new EditorPanel("Recipes", recipeIFP, controller);
 
     editorPanel.add(recipeEditorPanel, BorderLayout.CENTER);
 
     // adds the input fields into the content pane
-    contentPane.add(inputFieldPanel, BorderLayout.NORTH);
+    contentPane.add(mainIFP, BorderLayout.NORTH);
 
     // adds the editorPane into the content pane
     contentPane.add(editorPanel, BorderLayout.CENTER);

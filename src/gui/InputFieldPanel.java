@@ -41,5 +41,8 @@ public class InputFieldPanel extends JPanel
     this.add(contentPane);
   }
 
-  //TODO: NEED TO WRITE GETTERS FOR THE TEXT FIELDS
+  public void resetFields()
+  {
+    System.out.println(";-;");
+  }
 }

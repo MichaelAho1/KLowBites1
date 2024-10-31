@@ -2,7 +2,9 @@ package gui;
 
 import java.awt.*;
 import javax.swing.*;
+import javax.swing.text.JTextComponent;
 
+import controller.RecipeEditorController;
 import cooking.*;
 import utilities.ImageUtilities;
 
@@ -14,22 +16,19 @@ import utilities.ImageUtilities;
  */
 public class RecipeEditor extends JFrame
 {
+  Container outerPane;
   /**
    * Constructor for RecipeEditor.
    */
-  public RecipeEditor()
+  public RecipeEditor(Recipe recipe, RecipeEditorController controller)
   {
     super("KILowBites Recipe Editor");
 
-    // The recipe being edited
-    // Recipe recipe = new Recipe();
-    // TODO: NEED TO EDIT RECIPE TO ALLOW NULL VALUES WITH DEFAULT CONSTRUCTOR
-
     // creates the controller
-    RecipeEditorController controller = new RecipeEditorController();
+    // RecipeEditorController controller = new RecipeEditorController(this, recipe);
 
     // creates the outer border layout (contains menubar and content)
-    Container outerPane = new Container();
+    outerPane = new Container();
 
     outerPane.setLayout(new BorderLayout());
 
@@ -61,11 +60,8 @@ public class RecipeEditor extends JFrame
     }
 
     // creates the main content panel
-    Container contentPane = new RecipeEditorContent(controller);
+    JPanel contentPane = new RecipeEditorContent(controller);
 
-    // final window setup
-    // this.setMinimumSize(new Dimension(1350, 1200));
-    // this.setMaximumSize(new Dimension(1350, 1200));
     this.setSize(new Dimension(800, 800));
     this.setResizable(false);
     this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

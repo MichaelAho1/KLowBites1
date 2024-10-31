@@ -11,7 +11,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
-import gui.KILowBitesController;
+import controller.KILowBitesController;
 import utilities.Foods;
 import utilities.ImageUtilities;
 import utilities.Units;

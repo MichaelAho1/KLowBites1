@@ -3,6 +3,8 @@ package gui;
 import java.awt.*;
 import javax.swing.*;
 
+import controller.RecipeEditorController;
+
 /**
  * RecipeEditorContent class. Handles RecipeEditor main content.
  *
@@ -11,6 +13,15 @@ import javax.swing.*;
  */
 public class RecipeEditorContent extends JPanel
 {
+  Container contentPane;
+
+  JLabel nameLabel;
+  JTextField nameField;
+  JLabel servesLabel;
+  JTextField servesField;
+
+  InputFieldPanel inputFieldPanel;
+
   /**
    * Constructor for RecipeEditorContent.
    *
@@ -20,20 +31,20 @@ public class RecipeEditorContent extends JPanel
   {
     super();
 
-    Container contentPane = new Container();
+    contentPane = new Container();
     contentPane.setLayout(new BorderLayout());
 
     // **** INPUT FIELDS ****
 
     // creates the elements for the input fields
-    JLabel nameLabel = new JLabel("Name: ");
-    JTextField nameField = new JTextField(50);
-    JLabel servesLabel = new JLabel("Serves: ");
-    JTextField servesField = new JTextField(10);
+    nameLabel = new JLabel("Name: ");
+    nameField = new JTextField(50);
+    servesLabel = new JLabel("Serves: ");
+    servesField = new JTextField(10);
 
     // adds all the elements to the input fields
     JComponent[] fields = {nameLabel, nameField, servesLabel, servesField};
-    InputFieldPanel inputFieldPanel = new InputFieldPanel(fields);
+    inputFieldPanel = new InputFieldPanel(fields);
 
     // **** EDITOR PANELS ****
 
@@ -116,5 +127,13 @@ public class RecipeEditorContent extends JPanel
     contentPane.add(editorPanel, BorderLayout.CENTER);
 
     this.add(contentPane);
+  }
+
+  /**
+   * Reset the fields of the editor.
+   */
+  public void resetFields()
+  {
+    nameField.setText("");
   }
 }

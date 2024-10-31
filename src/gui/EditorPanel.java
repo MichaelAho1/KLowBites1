@@ -3,6 +3,8 @@ package gui;
 import java.awt.*;
 import javax.swing.*;
 
+import controller.MealEditorController;
+import controller.RecipeEditorController;
 import cooking.*;
 
 /**

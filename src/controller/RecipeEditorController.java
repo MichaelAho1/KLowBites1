@@ -1,12 +1,12 @@
-package gui;
+package controller;
 
 import java.awt.event.*;
 
-import cooking.Recipe;
+import cooking.*;
+import gui.RecipeEditor;
 import utilities.FileUtilities;
 
 import java.awt.event.*;
-import cooking.Recipe;
 import utilities.FileUtilities;
 
 import javax.swing.*;
@@ -34,14 +34,24 @@ public class RecipeEditorController implements ActionListener
   private static String STEPADD = "Step Add";
   private static String STEPDELETE = "Step Delete";
 
-  private Recipe currentRecipe;
+  private RecipeEditor editor;
+  private Recipe recipe;
 
   /**
    * Constructor for controller.
    */
   public RecipeEditorController()
   {
-    currentRecipe = null;
+    createRecipeEditor();
+  }
+
+  /**
+   * Creates a new RecipeEditor window
+   */
+  private void createRecipeEditor()
+  {
+    recipe = new Recipe();
+    editor = new RecipeEditor(recipe, this);
   }
 
   /**
@@ -57,28 +67,22 @@ public class RecipeEditorController implements ActionListener
     if (command.equals(NEW))
     {
       System.out.println("Recipe Editor ToolBar: New button selected");
-      currentRecipe = new Recipe("Untitled", 0); // Create a new, empty recipe
-
     }
     else if (command.equals(OPEN))
     {
       System.out.println("Recipe Editor ToolBar: Open button selected");
-      openRecipe();
     }
     else if (command.equals(SAVE))
     {
       System.out.println("Recipe Editor ToolBar: Save button selected");
-      saveRecipe();
     }
     else if (command.equals(SAVE_AS))
     {
       System.out.println("Recipe Editor ToolBar: Save As button selected");
-      saveAsRecipe();
     }
     else if (command.equals(CLOSE))
     {
       System.out.println("Recipe Editor ToolBar: Close button selected");
-      closeRecipe();
     }
     else if (command.equals(UTENSILADD))
     {
@@ -106,67 +110,70 @@ public class RecipeEditorController implements ActionListener
     }
   }
 
-  /**
-   * Saves the current recipe to the file, using FileUtilities saveFile method.
-   */
-  private void saveRecipe()
+  private void oldCode()
   {
-    if (currentRecipe != null)
-    {
-      String name = currentRecipe.getName();
-      int serves = currentRecipe.getServes();
-      String ingredients = ""; // Collect ingredients from the UI 
-      String steps = ""; // Collect steps from the UI 
+      // /**
+  //  * Saves the current recipe to the file, using FileUtilities saveFile method.
+  //  */
+  // private void saveRecipe()
+  // {
+  //   if (currentRecipe != null)
+  //   {
+  //     String name = currentRecipe.getName();
+  //     int serves = currentRecipe.getServes();
+  //     String ingredients = ""; // Collect ingredients from the UI 
+  //     String steps = ""; // Collect steps from the UI 
 
-      // Assuming you have a file path from previous saves
-      FileUtilities.saveFile("recipe.txt", name, serves, ingredients, steps);
-    }
-    else
-    {
-      System.out.println("No recipe to save.");
-    }
-  }
+  //     // Assuming you have a file path from previous saves
+  //     FileUtilities.saveFile("recipe.txt", name, serves, ingredients, steps);
+  //   }
+  //   else
+  //   {
+  //     System.out.println("No recipe to save.");
+  //   }
+  // }
 
-  /**
-   * Opens a recipe using the FileUtilities openFile method.
-   */
-  private void openRecipe()
-  {
-    JFileChooser fileChooser = new JFileChooser();
-    int result = fileChooser.showOpenDialog(null);
-    if (result == JFileChooser.APPROVE_OPTION)
-    {
-      String filePath = fileChooser.getSelectedFile().getAbsolutePath();
-      currentRecipe = FileUtilities.openFile(filePath);
-    }
-  }
+  // /**
+  //  * Opens a recipe using the FileUtilities openFile method.
+  //  */
+  // private void openRecipe()
+  // {
+  //   JFileChooser fileChooser = new JFileChooser();
+  //   int result = fileChooser.showOpenDialog(null);
+  //   if (result == JFileChooser.APPROVE_OPTION)
+  //   {
+  //     String filePath = fileChooser.getSelectedFile().getAbsolutePath();
+  //     currentRecipe = FileUtilities.openFile(filePath);
+  //   }
+  // }
 
-  /**
-   * Opens a file dialog for the user to select where to save the recipe.
-   */
-  private void saveAsRecipe()
-  {
-    if (currentRecipe != null)
-    {
-      String name = currentRecipe.getName();
-      int serves = currentRecipe.getServes();
-      String ingredients = ""; // Collect ingredients from the UI
-      String steps = ""; // Collect steps from the UI 
+  // /**
+  //  * Opens a file dialog for the user to select where to save the recipe.
+  //  */
+  // private void saveAsRecipe()
+  // {
+  //   if (currentRecipe != null)
+  //   {
+  //     String name = currentRecipe.getName();
+  //     int serves = currentRecipe.getServes();
+  //     String ingredients = ""; // Collect ingredients from the UI
+  //     String steps = ""; // Collect steps from the UI 
 
-      FileUtilities.saveAsFile(name, serves, ingredients, steps);
-    }
-    else
-    {
-      System.out.println("No recipe to save.");
-    }
-  }
+  //     FileUtilities.saveAsFile(name, serves, ingredients, steps);
+  //   }
+  //   else
+  //   {
+  //     System.out.println("No recipe to save.");
+  //   }
+  // }
 
-  /**
-   * Closes the current recipe (sets it to null).
-   */
-  private void closeRecipe()
-  {
-    currentRecipe = null;
-    System.out.println("Recipe closed.");
+  // /**
+  //  * Closes the current recipe (sets it to null).
+  //  */
+  // private void closeRecipe()
+  // {
+  //   currentRecipe = null;
+  //   System.out.println("Recipe closed.");
+  // }
   }
 }

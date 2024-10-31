@@ -1,9 +1,11 @@
-package gui;
+package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import app.KILowBites;
+import app.*;
+import gui.*;
+import cooking.*;
 
 /**
  * KILowBites controller class. Handles the actions of the main menu items.
@@ -13,41 +15,43 @@ import app.KILowBites;
  */
 public class KILowBitesController implements ActionListener
 {
-  private static String FILE = "File";
+  // File
   private static String EXIT = "Exit";
 
-  private static String EDIT = "Edit";
+  // Edit
   private static String RECIPE = "Recipe";
   private static String MEAL = "Meal";
 
-  private static String SEARCH = "Search";
+  // Search
   private static String RECIPES = "Recipes";
   private static String MEALS = "Meals";
 
-  private static String VIEW = "View";
+  // View
   private static String SHOPPING_LIST = "Shopping List";
   private static String PROCESS = "Process";
 
-  private static String TOOLS = "Tools";
+  // Tools
   private static String CALORIE_CALCULATOR = "Calorie Calculator";
   private static String UNITS_CONVERTER = "Units Converter";
 
-  private static String CONFIGURE = "Configure";
+  // Configure
   private static String PREFERENCES = "Preferences";
   private static String SHORTCUTS = "Shortcuts";
 
-  private static String HELP = "Help";
+  // Help
   private static String ABOUT = "About";
   private static String USER_GUIDE = "User Guide";
 
-  private RecipeEditor recipeEditor;
+  private RecipeEditorController recipeController;
+
+  private MealEditor mealEditor;
 
   /**
    * Constructor for controller.
    */
   public KILowBitesController()
   {
-    // initialize stuff
+    // empty constructor
   }
 
   /**
@@ -68,14 +72,11 @@ public class KILowBitesController implements ActionListener
     // commands for Edit
     if (command.equals(RECIPE))
     {
-      System.out.println("Opening recipe editor...");
-      RecipeEditor recipeEditor = new RecipeEditor();
-      recipeEditor.setVisible(true);
+      recipeController = new RecipeEditorController();
     }
     if (command.equals(MEAL))
     {
-      System.out.println("Opening meal editor...");
-      MealEditor mealEditor = new MealEditor();
+      mealEditor = new MealEditor();
       mealEditor.setVisible(true);
     }
 
@@ -133,22 +134,6 @@ public class KILowBitesController implements ActionListener
     if (command.equals(USER_GUIDE))
     {
       System.out.println("open user guide");
-    }
-  }
-
-  /**
-   * Opens the RecipeEditor window.
-   */
-  private void openRecipeEditor()
-  {
-    if (recipeEditor == null || !recipeEditor.isVisible())
-    {
-      recipeEditor = new RecipeEditor();
-      recipeEditor.setVisible(true);
-    }
-    else
-    {
-      recipeEditor.toFront();
     }
   }
 }

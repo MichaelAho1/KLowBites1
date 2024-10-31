@@ -11,7 +11,7 @@ public class FileUtilities
   private static JFileChooser fileChooser = new JFileChooser();
 
   // Open an existing recipe file and load into currentRecipe
-  public static Recipe openFile(String filePath)
+  public static Recipe openRecipe(String filePath)
   {
     Recipe recipe = null;
     try (BufferedReader reader = new BufferedReader(new FileReader(filePath)))
@@ -33,7 +33,7 @@ public class FileUtilities
   /**
    * Save the current recipe to a specified file.
    */
-  public static void saveFile(String filePath, String name, int serves, String ingredients,
+  public static void saveRecipe(String filePath, String name, int serves, String ingredients,
       String steps)
   {
     try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath)))
@@ -53,7 +53,7 @@ public class FileUtilities
   /**
    * Save As: Open a file explorer and let the user select where to save the recipe.
    */
-  public static void saveAsFile(String name, int serves, String ingredients, String steps)
+  public static void saveAsRecipe(String name, int serves, String ingredients, String steps)
   {
     // set up a file filter for .txt or any specific recipe format (if desired)
     FileNameExtensionFilter filter = new FileNameExtensionFilter("Text Files", "txt");
@@ -73,7 +73,7 @@ public class FileUtilities
       }
 
       // call the saveFile method to actually save the recipe
-      saveFile(filePath, name, serves, ingredients, steps);
+      saveRecipe(filePath, name, serves, ingredients, steps);
     }
     else
     {

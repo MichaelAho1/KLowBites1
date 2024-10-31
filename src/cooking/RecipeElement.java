@@ -10,13 +10,6 @@ package cooking;
 public interface RecipeElement
 {
   /**
-   * Get the details of the RecipeElement.
-   *
-   * @return the details of the RecipeElement
-   */
-  public String getDetails();
-
-  /**
    * Get the name and details of the RecipeElement.
    *
    * @return the name and details of the RecipeElement

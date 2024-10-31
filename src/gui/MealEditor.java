@@ -3,6 +3,10 @@ package gui;
 import java.awt.*;
 import javax.swing.*;
 
+import controller.MealEditorController;
+
+import java.util.ArrayList;
+
 import cooking.*;
 import utilities.ImageUtilities;
 
@@ -22,10 +26,9 @@ public class MealEditor extends JFrame
     super("KILowBites Meal Editor");
 
     // The meal being edited
-    // TODO
+    ArrayList<Recipe> recipes = new ArrayList<>();
 
     // creates the controller
-    // TODO: CREATE CONTROLLER
     MealEditorController controller = new MealEditorController();
 
     // creates the outer border layout (contains menubar and content)

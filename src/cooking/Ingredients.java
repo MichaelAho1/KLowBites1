@@ -14,11 +14,12 @@ public class Ingredients implements RecipeElement
   private String units = "";
   private String details = "";
   private String name = "";
+  private final String space = " ";
 
   /**
    * Default constructor.
    */
-public Ingredients()
+  public Ingredients()
   {
     this.amount = 0.0;
     this.units = "";
@@ -34,7 +35,8 @@ public Ingredients()
    * @param details
    * @param name
    */
-  public Ingredients(double amount, String unit, String details, String name)
+  public Ingredients(final double amount, final String unit, final String details,
+		  final String name)
   {
     this.amount = amount;
     this.units = unit;
@@ -57,7 +59,7 @@ public Ingredients()
    *
    * @param amount
    */
-  public void setAmount(double amount)
+  public void setAmount(final double amount)
   {
     this.amount = amount;
   }
@@ -77,7 +79,7 @@ public Ingredients()
    *
    * @param unit
    */
-  public void setUnit(String unit)
+  public void setUnit(final String unit)
   {
     this.units = unit;
   }
@@ -97,7 +99,7 @@ public Ingredients()
    *
    * @param details
    */
-  public void setDetails(String details)
+  public void setDetails(final String details)
   {
     this.details = details;
   }
@@ -117,7 +119,7 @@ public Ingredients()
    *
    * @param name
    */
-  public void setName(String name)
+  public void setName(final String name)
   {
     this.name = name;
   }
@@ -125,9 +127,13 @@ public Ingredients()
   @Override
   public String toString()
   {
-    return amount + " " + units + " " + details + " " + name;
+    return amount + space + units + space + details + space + name;
   }
 
+  /**
+   * Creates new Jlabel.
+   * @return Jlabel
+   */
   public JLabel add()
   {
     return new JLabel();

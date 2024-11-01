@@ -14,7 +14,8 @@ public class RecipeEditorContent extends JPanel
   /**
    * Constructor for RecipeEditorContent.
    *
-   * @param controller the controller for the RecipeEditor
+   * @param controller
+   *          the controller for the RecipeEditor
    */
   public RecipeEditorContent(RecipeEditorController controller)
   {
@@ -48,7 +49,9 @@ public class RecipeEditorContent extends JPanel
     utensilEditorAddButton.setActionCommand("Utensil Add");
     utensilEditorAddButton.addActionListener(controller);
 
-    InputFieldPanel utensilEditorInputFieldPanel = new InputFieldPanel(new JComponent[] {utensilEditorNameLabel, utensilEditorNameField, utensilEditorDetailsLabel, utensilEditorDetailsField, utensilEditorAddButton});
+    InputFieldPanel utensilEditorInputFieldPanel = new InputFieldPanel(
+        new JComponent[] {utensilEditorNameLabel, utensilEditorNameField, utensilEditorDetailsLabel,
+            utensilEditorDetailsField, utensilEditorAddButton});
 
     // Ingredients
     JLabel ingredientEditorNameLabel = new JLabel("Name: ");
@@ -70,7 +73,10 @@ public class RecipeEditorContent extends JPanel
     ingredientEditorAddButton.setActionCommand("Ingredient Add");
     ingredientEditorAddButton.addActionListener(controller);
 
-    InputFieldPanel ingredientEditorInputFieldPanel = new InputFieldPanel(new JComponent[] {ingredientEditorNameLabel, ingredientEditorNameField, ingredientEditorDetailsLabel, ingredientEditorDetailsField, ingredientEditorAmountLabel, ingredientEditorAmountField, ingredientEditorUnitsLabel, ingredientEditorUnitsComboBox, ingredientEditorAddButton});
+    InputFieldPanel ingredientEditorInputFieldPanel = new InputFieldPanel(new JComponent[] {
+        ingredientEditorNameLabel, ingredientEditorNameField, ingredientEditorDetailsLabel,
+        ingredientEditorDetailsField, ingredientEditorAmountLabel, ingredientEditorAmountField,
+        ingredientEditorUnitsLabel, ingredientEditorUnitsComboBox, ingredientEditorAddButton});
 
     // Steps
     JLabel stepEditorActionLabel = new JLabel("Action: ");
@@ -95,15 +101,21 @@ public class RecipeEditorContent extends JPanel
     stepEditorAddButton.setActionCommand("Step Add");
     stepEditorAddButton.addActionListener(controller);
 
-    InputFieldPanel stepEditorInputFieldPanel = new InputFieldPanel(new JComponent[] {stepEditorActionLabel, stepEditorActionComboBox, stepEditorOnLabel, stepEditorOnComboBox, stepEditorUtensilLabel, stepEditorUtensilComboBox, stepEditorDetailsLabel, stepEditorDetailsField, stepEditorAddButton});
+    InputFieldPanel stepEditorInputFieldPanel = new InputFieldPanel(
+        new JComponent[] {stepEditorActionLabel, stepEditorActionComboBox, stepEditorOnLabel,
+            stepEditorOnComboBox, stepEditorUtensilLabel, stepEditorUtensilComboBox,
+            stepEditorDetailsLabel, stepEditorDetailsField, stepEditorAddButton});
 
     // creates the panel for the Utensils, Ingredients, and Steps
     JPanel editorPanel = new JPanel();
     editorPanel.setLayout(new BoxLayout(editorPanel, BoxLayout.Y_AXIS));
 
-    EditorPanel utensilEditorPanel = new EditorPanel("Utensils", utensilEditorInputFieldPanel, controller, "Utensils");
-    EditorPanel ingredientEditorPanel = new EditorPanel("Ingredients", ingredientEditorInputFieldPanel, controller, "Ingredients");
-    EditorPanel stepEditorPanel = new EditorPanel("Steps", stepEditorInputFieldPanel, controller, "Steps");
+    EditorPanel utensilEditorPanel = new EditorPanel("Utensils", utensilEditorInputFieldPanel,
+        controller, "Utensils");
+    EditorPanel ingredientEditorPanel = new EditorPanel("Ingredients",
+        ingredientEditorInputFieldPanel, controller, "Ingredients");
+    EditorPanel stepEditorPanel = new EditorPanel("Steps", stepEditorInputFieldPanel, controller,
+        "Steps");
 
     editorPanel.add(utensilEditorPanel);
     editorPanel.add(ingredientEditorPanel);

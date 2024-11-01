@@ -87,6 +87,14 @@ public class MealEditor extends JFrame
     content.reset();
   }
 
+  public void disableToolBar()
+  {
+    for (JButton button : buttons)
+    {
+      button.setEnabled(false);
+    }
+  }
+
     /**
    * Updates the toolbar according to the current document state
    */
@@ -125,5 +133,8 @@ public class MealEditor extends JFrame
       // disabled
       buttons[2].setEnabled(false); // save
     }
+
+    // TODO: THIS CODE DEACTIVATES THE TOOLBAR SINCE FILE SUPPORT ISN'T READY
+    this.disableToolBar();
   }
 }

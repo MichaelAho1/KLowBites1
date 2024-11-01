@@ -112,7 +112,9 @@ public class UnitConverterController implements ActionListener, DocumentListener
     {
       if (Arrays.asList(volumeUnits).contains(toUnits)) // Volume to Volume
       {
+        System.out.print("hi");
         amount = VolumeConverter.callerHelp(fromUnits, toUnits, fromAmount);
+        System.out.print(amount);
       }
       else // Volume to Mass
       {
@@ -131,9 +133,8 @@ public class UnitConverterController implements ActionListener, DocumentListener
         // Need to add density (Currently has a placeholder of 1.04
         amount = MassToVolume.interConverting(fromUnits, toUnits, fromAmount, density);
       }
-      UnitConverterWindow.unitOutputField.setText(String.format("%.5f", amount));
-      System.out.println("Calculating...");
     }
+    UnitConverterWindow.unitOutputField.setText(String.format("%.5f", amount));
   }
 
   /**

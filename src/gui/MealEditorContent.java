@@ -23,6 +23,8 @@ public class MealEditorContent extends JPanel
   InputFieldPanel mainIFP;
   InputFieldPanel recipeIFP;
 
+  EditorPanel recipeEditorPanel;
+
   /**
    * Constructor for RecipeEditorContent.
    *
@@ -49,7 +51,7 @@ public class MealEditorContent extends JPanel
     JPanel editorPanel = new JPanel();
     editorPanel.setLayout(new BorderLayout());
 
-    EditorPanel recipeEditorPanel = new EditorPanel("Recipes", recipeIFP, controller);
+    recipeEditorPanel = new EditorPanel("Recipes", recipeIFP, controller);
 
     editorPanel.add(recipeEditorPanel, BorderLayout.CENTER);
 
@@ -81,5 +83,10 @@ public class MealEditorContent extends JPanel
   public InputFieldPanel getRecipeIFP()
   {
     return recipeIFP;
+  }
+
+  public EditorPanel getEditorPanel()
+  {
+    return recipeEditorPanel;
   }
 }

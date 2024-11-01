@@ -192,6 +192,11 @@ public class InputFieldPanel extends JPanel implements DocumentListener, Documen
     return fields.get(label).getText();
   }
 
+  public String getComboBox(String label)
+  {
+    return (String) comboBoxes.get(label).getSelectedItem();
+  }
+
   public void addObserver(DocumentStateObserver observer)
   {
     observers.add(observer);

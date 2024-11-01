@@ -125,7 +125,7 @@ public Ingredients()
   @Override
   public String toString()
   {
-    return amount + " " + units + " " + details + " " + name;
+    return amount + " " + units + " of " + details + " " + name;
   }
 
   public JLabel add()

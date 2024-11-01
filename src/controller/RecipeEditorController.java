@@ -134,6 +134,9 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
     else if (command.equals(SAVE))
     {
       // save
+      recipe.setName(editor.getContent().getNameField());
+      recipe.setServes(Integer.parseInt(editor.getContent().getServesField()));
+
       state = DocumentState.UNCHANGED;
       editor.updateToolBar(state);
     }
@@ -154,19 +157,57 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
     // commands for Editors
     else if (command.equals(UTENSILADD))
     {
-      System.out.println("Recipe Editor Panel: Utensil Add button selected");
+      Utensils utensil = new Utensils();
+
+      String name = editor.getContent().getUtensilIFP().getText("Name: ");
+      String details = editor.getContent().getUtensilIFP().getText("Details: ");
+
+      if (InputUtilities.isAlphaNumeric(name) &&
+        InputUtilities.isAlphaNumeric(details))
+      {
+        utensil.setName(name);
+        utensil.setDetails(details);
+
+        editor.getContent().getUtensilPanel().addRecipeElement(utensil);
+      }
+      else
+      {
+        System.out.println("Invalid input");
+      }
     }
     else if (command.equals(UTENSILDELETE))
     {
-      System.out.println("Recipe Editor Panel: Utensil Delete button selected");
+      editor.getContent().getUtensilPanel().deleteRecipeElement();
     }
     else if (command.equals(INGREDIENTADD))
     {
-      System.out.println("Recipe Editor Panel: Ingredient Add button selected");
+      Ingredients ingredient = new Ingredients();
+
+      String name = editor.getContent().getIngredientIFP().getText("Name: ");
+      String details = editor.getContent().getIngredientIFP().getText("Details: ");
+      String amount = editor.getContent().getIngredientIFP().getText("Amount: ");
+      String unit = editor.getContent().getIngredientIFP().getComboBox("Units: ");
+
+      if (InputUtilities.isAlphaNumeric(name) &&
+        InputUtilities.isAlphaNumeric(details) &&
+        InputUtilities.isPositiveDouble(amount))
+      {
+        ingredient.setName(name);
+        ingredient.setDetails(details);
+        ingredient.setAmount(Double.parseDouble(amount));
+
+        ingredient.setUnit(unit);
+
+        editor.getContent().getIngredientPanel().addRecipeElement(ingredient);
+      }
+      else
+      {
+        System.out.println("Invalid input");
+      }
     }
     else if (command.equals(INGREDIENTDELETE))
     {
-      System.out.println("Recipe Editor Panel: Ingredient Delete button selected");
+      editor.getContent().getIngredientPanel().deleteRecipeElement();
     }
     else if (command.equals(STEPADD))
     {

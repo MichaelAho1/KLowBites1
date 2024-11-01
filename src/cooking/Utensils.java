@@ -6,7 +6,7 @@ package cooking;
  *  @author f24team3d
  *  @version 10/29/24
  */
-public class Utensils
+public class Utensils implements RecipeElement
 {
   private String name;
   private String details;
@@ -75,6 +75,6 @@ public class Utensils
   @Override
   public String toString()
   {
-    return name + "(" + details + ")";
+    return details + " " + name;
   }
 }

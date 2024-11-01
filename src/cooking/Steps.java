@@ -121,7 +121,8 @@ public class Steps implements RecipeElement
   }
 
   @Override
-  public String toString() {
-      return action + " " + source + " in " + destination + " (" + details + ")";
+  public String toString()
+  {
+    return action + " " + source + " in " + destination + " (" + details + ")";
   }
 }

@@ -10,6 +10,7 @@ import cooking.*;
 
 import controller.RecipeEditorController;
 import utilities.DocumentState;
+import utilities.Units;
 
 /**
  * RecipeEditorContent class. Handles RecipeEditor main content.
@@ -23,10 +24,18 @@ public class RecipeEditorContent extends JPanel
 
   Recipe currentRecipe; // recipe being used
 
+  JPanel editorPanel;
+
   InputFieldPanel mainIFP;
   InputFieldPanel utensilIFP;
   InputFieldPanel ingredientIFP;
   InputFieldPanel stepIFP;
+
+  EditorPanel utensilEditorPanel;
+  EditorPanel ingredientEditorPanel;
+  EditorPanel stepEditorPanel;
+
+  Units units;
 
   /**
    * Constructor for RecipeEditorContent.
@@ -41,6 +50,8 @@ public class RecipeEditorContent extends JPanel
 
     contentPane = new Container();
     contentPane.setLayout(new BorderLayout());
+
+    units = new Units();
 
     // **** INPUT FIELDS ****
 
@@ -62,7 +73,8 @@ public class RecipeEditorContent extends JPanel
     ingredientIFP.addJTextField("Name: ", 15);
     ingredientIFP.addJTextField("Details: ", 7);
     ingredientIFP.addJTextField("Amount: ", 7);
-    ingredientIFP.addJComboBox("Units: ", new String[] {"", "test", "test2"});
+    ingredientIFP.addJComboBox("Units: ", units.getAllUnits());
+
     ingredientIFP.addJButton("Add", "Ingredient Add", controller);
 
     // Steps
@@ -77,9 +89,9 @@ public class RecipeEditorContent extends JPanel
     JPanel editorPanel = new JPanel();
     editorPanel.setLayout(new BoxLayout(editorPanel, BoxLayout.Y_AXIS));
 
-    EditorPanel utensilEditorPanel = new EditorPanel(RecipeElementType.UTENSIL, utensilIFP, controller);
-    EditorPanel ingredientEditorPanel = new EditorPanel(RecipeElementType.INGREDIENT, ingredientIFP, controller);
-    EditorPanel stepEditorPanel = new EditorPanel(RecipeElementType.STEP, stepIFP, controller);
+    utensilEditorPanel = new EditorPanel(RecipeElementType.UTENSIL, utensilIFP, controller);
+    ingredientEditorPanel = new EditorPanel(RecipeElementType.INGREDIENT, ingredientIFP, controller);
+    stepEditorPanel = new EditorPanel(RecipeElementType.STEP, stepIFP, controller);
 
     editorPanel.add(utensilEditorPanel);
     editorPanel.add(ingredientEditorPanel);
@@ -102,6 +114,21 @@ public class RecipeEditorContent extends JPanel
   public String getServesField()
   {
     return mainIFP.getText("Serves: ");
+  }
+
+  public EditorPanel getUtensilPanel()
+  {
+    return utensilEditorPanel;
+  }
+
+  public EditorPanel getIngredientPanel()
+  {
+    return ingredientEditorPanel;
+  }
+
+  public EditorPanel getStepPanel()
+  {
+    return stepEditorPanel;
   }
 
   public void reset()

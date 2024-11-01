@@ -106,10 +106,13 @@ public class MealEditorController implements ActionListener, DocumentStateObserv
     else if (command.equals(RECIPEADD))
     {
       System.out.println("Meal Editor Panel: Recipe Add button selected");
+      // open recipe file selection dialog
+      // valid recipe file
     }
     else if (command.equals(RECIPEDELETE))
     {
       System.out.println("Meal Editor Panel: Recipe Delete button selected");
+      editor.getContent().getEditorPanel().deleteMealElement();
     }
   }
 }

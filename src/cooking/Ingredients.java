@@ -8,12 +8,13 @@ import javax.swing.JLabel;
  *  @author f24team3d
  *  @version 10/29/24
  */
-public class Ingredients implements RecipeElement
+public class Ingredients implements RecipeElement, StepSource
 {
   private double amount = 0.0;
   private String units = "";
   private String details = "";
   private String name = "";
+  private RecipeElementType type = RecipeElementType.INGREDIENT;
   private final String space = " ";
 
   /**
@@ -52,6 +53,11 @@ public class Ingredients implements RecipeElement
   public double getAmount()
   {
     return amount;
+  }
+
+  public RecipeElementType getType()
+  {
+    return type;
   }
 
   /**
@@ -127,7 +133,7 @@ public class Ingredients implements RecipeElement
   @Override
   public String toString()
   {
-    return amount + space + units + space + details + space + name;
+	return amount + " " + units + " of " + details + " " + name;
   }
 
   /**

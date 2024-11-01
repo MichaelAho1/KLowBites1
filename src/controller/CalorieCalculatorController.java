@@ -1,4 +1,4 @@
-package gui;
+package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -7,6 +7,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 import app.KILowBites;
+import gui.CalorieCalculatorWindow;
 
 /**
  * Controller for actions in CalorieCalculatorWindow.

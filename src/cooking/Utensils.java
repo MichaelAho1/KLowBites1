@@ -6,10 +6,11 @@ package cooking;
  *  @author f24team3d
  *  @version 10/29/24
  */
-public class Utensils
+public class Utensils implements RecipeElement, StepSource
 {
   private String name;
   private String details;
+  private RecipeElementType type = RecipeElementType.UTENSIL;
 
   /**
    * Default constructor.
@@ -26,7 +27,7 @@ public class Utensils
    * @param name
    * @param details
    */
-  public Utensils(final String name, final String details) 
+  public Utensils(final String name, final String details)
   {
     this.name = name;
     this.details = details;
@@ -40,6 +41,11 @@ public class Utensils
   public String getName()
   {
     return name;
+  }
+
+  public RecipeElementType getType()
+  {
+    return type;
   }
 
   /**
@@ -75,6 +81,6 @@ public class Utensils
   @Override
   public String toString()
   {
-    return name + "(" + details + ")";
+    return details + " " + name;
   }
 }

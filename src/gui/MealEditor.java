@@ -2,34 +2,36 @@ package gui;
 
 import java.awt.*;
 import javax.swing.*;
+import java.util.ArrayList;
 
+import controller.MealEditorController;
 import cooking.*;
+import utilities.DocumentState;
 import utilities.ImageUtilities;
 
 /**
  * MealEditor class. Handles the toolbar and main container of the Meal Editor.
  *
  * @author f24team3d
- * @version 10/29/24
+ * @version 10/31/24
  */
 public class MealEditor extends JFrame
 {
+  Container outerPane;
+  JPanel contentPane;
+  MealEditorContent content;
+
+  JButton[] buttons;
+
   /**
    * Constructor for RecipeEditor.
    */
-  public MealEditor()
+  public MealEditor(ArrayList<Recipe> meal, MealEditorController controller)
   {
     super("KILowBites Meal Editor");
 
-    // The meal being edited
-    // TODO
-
-    // creates the controller
-    // TODO: CREATE CONTROLLER
-    MealEditorController controller = new MealEditorController();
-
     // creates the outer border layout (contains menubar and content)
-    Container outerPane = new Container();
+    outerPane = new Container();
 
     outerPane.setLayout(new BorderLayout());
 
@@ -39,7 +41,7 @@ public class MealEditor extends JFrame
     toolbar.setRollover(true);
 
     // create toolbar buttons
-    JButton[] buttons = new JButton[5];
+    buttons = new JButton[5];
     String[] buttonNames = {"New", "Open", "Save", "Save As", "Close"};
     String[] buttonPaths = {"img/new.png", "img/open.png", "img/save.png", "img/save_as.png",
         "img/close.png"};
@@ -61,11 +63,9 @@ public class MealEditor extends JFrame
     }
 
     // creates the main content panel
-    Container contentPane = new MealEditorContent(controller);
+    content = new MealEditorContent(controller);
+    contentPane = content;
 
-    // final window setup
-    // this.setMinimumSize(new Dimension(1350, 1200));
-    // this.setMaximumSize(new Dimension(1350, 1200));
     this.setSize(new Dimension(900, 500));
     this.setResizable(false);
     this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -75,5 +75,66 @@ public class MealEditor extends JFrame
     outerPane.add(contentPane, BorderLayout.CENTER); // adds the content pane to outerPane center
 
     this.add(outerPane); // adds outerPane to the frame
+  }
+
+  public MealEditorContent getContent()
+  {
+    return content;
+  }
+
+  public void resetMealEditor()
+  {
+    content.reset();
+  }
+
+  public void disableToolBar()
+  {
+    for (JButton button : buttons)
+    {
+      button.setEnabled(false);
+    }
+  }
+
+    /**
+   * Updates the toolbar according to the current document state
+   */
+  public void updateToolBar(DocumentState state)
+  {
+    if (state == DocumentState.NULL)
+    {
+      // enabled
+      buttons[0].setEnabled(true); // new
+      buttons[1].setEnabled(true); // open
+
+      // disabled
+      buttons[2].setEnabled(false); // save
+      buttons[3].setEnabled(false); // save as
+      buttons[4].setEnabled(false); // close
+    }
+    else if (state == DocumentState.CHANGED)
+    {
+      // enabled
+      buttons[2].setEnabled(true); // save
+      buttons[3].setEnabled(true); // save as
+
+      // disabled
+      buttons[0].setEnabled(false); // new
+      buttons[1].setEnabled(false); // open
+      buttons[4].setEnabled(false); // close
+    }
+    else if (state == DocumentState.UNCHANGED)
+    {
+      // enabled
+      buttons[0].setEnabled(true); // new
+      buttons[1].setEnabled(true); // open
+      buttons[3].setEnabled(true); // save as
+      buttons[4].setEnabled(true); // close
+
+      // disabled
+      buttons[2].setEnabled(false); // save
+    }
+
+    // TODO: THIS CODE DEACTIVATES THE TOOLBAR SINCE FILE SUPPORT ISN'T READY
+    this.disableToolBar();
   }
 }

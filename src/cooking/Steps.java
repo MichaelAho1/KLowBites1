@@ -9,9 +9,10 @@ package cooking;
 public class Steps implements RecipeElement
 {
   private String action;
-  private Ingredients source;
+  private StepSource source;
   private Utensils destination;
   private String details;
+  private RecipeElementType type = RecipeElementType.STEP;
 
   /**
    * Default constructor.
@@ -32,8 +33,7 @@ public class Steps implements RecipeElement
    * @param destination
    * @param details
    */
-  public Steps(final String action, final Ingredients source,
-		  final Utensils destination, final String details)
+  public Steps(String action, StepSource source, Utensils destination, String details)
   {
     this.action = action;
     this.source = source;
@@ -66,7 +66,7 @@ public class Steps implements RecipeElement
    *
    * @return the source of the step
    */
-  public Ingredients getSource()
+  public StepSource getSource()
   {
     return source;
   }
@@ -76,7 +76,7 @@ public class Steps implements RecipeElement
    *
    * @param source
    */
-  public void setSource(final Ingredients source)
+  public void setSource(StepSource source)
   {
     this.source = source;
   }
@@ -121,9 +121,33 @@ public class Steps implements RecipeElement
     this.details = details;
   }
 
-  @Override
-  public String toString() 
+  public String getName() // temp fix for step sources, should never be called
   {
-    return action + " " + source + " in " + destination + " (" + details + ")";
+    return "oops";
+  }
+
+  @Override
+  public String toString()
+  {
+    if (source.getType() == RecipeElementType.UTENSIL && destination.getType() == RecipeElementType.UTENSIL
+      &&
+      source.getName().equals(destination.getName()))
+    {
+      return action + " the contents of the " + source.getName() + " " + details;
+    }
+    else if (source.getType() == RecipeElementType.UTENSIL)
+    {
+      return action + " the contents of the " + source.getName() + " in the " + destination.getName() + " " + details;
+    }
+    else if (StepSource.class.isInstance(Utensils.class))
+    {
+      return action + " the contents of the " + source.getName() + " in the " + destination.getName() + " " + details;
+    }
+    return action + " the " + source.getName() + " in the " + destination.getName() + " " + details;
+  }
+
+  public RecipeElementType getType()
+  {
+    return type;
   }
 }

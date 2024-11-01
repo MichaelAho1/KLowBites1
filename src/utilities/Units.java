@@ -62,6 +62,25 @@ public class Units
     return allUnits;
   }
 
+    /**
+   * Return array of all units without first being empty
+   * 
+   * @return all units
+   */
+  public String[] getAllUnitsNoPadding()
+  {
+    Set<String> keys = units.keySet();
+    String[] allUnits = new String[keys.size() + 1];
+
+    int index = 0;
+    for (String key : keys)
+    {
+      allUnits[index++] = key;
+    }
+
+    return allUnits;
+  }
+
   /**
    * Return array of mass units.
    * 

@@ -3,7 +3,10 @@ package gui;
 import java.awt.*;
 import javax.swing.*;
 
+import controller.MealEditorController;
+import controller.RecipeEditorController;
 import cooking.*;
+import utilities.Units;
 
 /**
  * EditorPanel class. Flexibly handles the Editor panels for Editor frames.
@@ -15,81 +18,92 @@ import cooking.*;
  */
 public class EditorPanel extends JPanel
 {
+  // strings needed to determine the type of the input, needed since no interface
+  final String UTENSILS = "Utensils";
+  final String INGREDIENTS = "Ingredients";
+  final String STEPS = "Steps";
+
+  Container contentPane;
+
+  // shared variables
+  JPanel fileEditorPanel;
+  JButton deleteButton;
+  JScrollPane scrollPane;
+
+  // RecipeEditor variables
+  DefaultListModel<RecipeElement> recipeFileArea;
+  JList<RecipeElement> recipeList;
+
+  // MealEditor variables
+  DefaultListModel<Recipe> mealFileArea;
+  JList<Recipe> mealList;
+
   /**
    * Constructor for EditorPanel (for RecipeEditor).
    *
    * @param inputFieldPanel the input field panel
    * @param controller the controller for the RecipeEditor
    */
-  public EditorPanel(String name, InputFieldPanel inputFieldPanel, RecipeEditorController controller, String type)
+  public EditorPanel(RecipeElementType type, Recipe recipe, InputFieldPanel inputFieldPanel, RecipeEditorController controller, boolean isNew)
   {
     super();
 
-    // strings needed to determine the type of the input, needed since no interface
-    final String UTENSILS = "Utensils";
-    final String INGREDIENTS = "Ingredients";
-    final String STEPS = "Steps";
-
-    Container contentPane = new Container();
+    contentPane = new Container();
     contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
 
     // set preferred size for EditorPanels
     this.setPreferredSize(new Dimension(650, 215));
 
     // creates the editor label border
-    this.setBorder(BorderFactory.createTitledBorder(name));
+    this.setBorder(BorderFactory.createTitledBorder(type.getLabel(true)));
 
     // creates the file editor
-    JPanel fileEditorPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+    fileEditorPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+
+    // creates the lists shown in the file editor
+    if (!isNew)
+    {
+      recipeFileArea = new DefaultListModel<>();
+      recipeList = new JList<>(recipeFileArea);
+
+      if (type == RecipeElementType.UTENSIL)
+      {
+        for (Utensils utensil : recipe.getUtensils())
+        {
+          recipeFileArea.addElement(utensil);
+        }
+      }
+      else if (type == RecipeElementType.INGREDIENT)
+      {
+        for (Ingredients ingredient : recipe.getIngredients())
+        {
+          recipeFileArea.addElement(ingredient);
+        }
+      }
+      else if (type == RecipeElementType.STEP)
+      {
+        for (Steps step : recipe.getSteps())
+        {
+          recipeFileArea.addElement(step);
+        }
+      }
+    }
+    else
+    {
+      recipeFileArea = new DefaultListModel<>();
+      recipeList = new JList<>(recipeFileArea);
+    }
 
     // creates the file area for the editor panel
-    JTextArea detailsText = new JTextArea(8, 50);
-    JScrollPane scrollPane = new JScrollPane(detailsText);
+    scrollPane = new JScrollPane(recipeList);
     scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
     scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-
-    DefaultListModel<Utensils> utensilFileArea = new DefaultListModel<Utensils>();
-    JList<Utensils> utensilList = new JList<Utensils>(utensilFileArea);
-
-    DefaultListModel<Ingredients> ingredientsFileArea = new DefaultListModel<Ingredients>();
-    JList<Ingredients> ingredientsList = new JList<Ingredients>(ingredientsFileArea);
-
-    DefaultListModel<Steps> stepsFileArea = new DefaultListModel<Steps>();
-    JList<Steps> stepsList = new JList<Steps>(stepsFileArea);
-    // these 3 do the same thing, needed because we don't have an interface
+    scrollPane.setPreferredSize(new Dimension(500, 125));
 
     // creates the delete button
-    JButton deleteButton = new JButton("Delete");
+    deleteButton = new JButton("Delete");
     deleteButton.addActionListener(controller);
-
-    // fix for delete button (needs to be able to tell what to delete)
-    if (type.equals(UTENSILS))
-    {
-      deleteButton.setActionCommand("Utensil Delete");
-    }
-    else if (type.equals(INGREDIENTS))
-    {
-      deleteButton.setActionCommand("Ingredient Delete");
-    }
-    else if (type.equals(STEPS))
-    {
-      deleteButton.setActionCommand("Step Delete");
-    }
-
-    // adds the file editor and delete button to the file editor container
-    // TODO: once pushed to main, can add a cooking interface to get rid of these if statements
-    if (type.equals(UTENSILS))
-    {
-      // fileEditor.add(utensilList, BorderLayout.CENTER);
-    }
-    else if (type.equals(INGREDIENTS))
-    {
-      // fileEditor.add(ingredientsList, BorderLayout.CENTER);
-    }
-    else if (type.equals(STEPS))
-    {
-      // fileEditor.add(stepsList, BorderLayout.CENTER);
-    }
+    deleteButton.setActionCommand(type.getDeleteCommand());
 
     // adds the details field
     fileEditorPanel.add(scrollPane);
@@ -111,7 +125,7 @@ public class EditorPanel extends JPanel
    *
    * @param name the name of the EditorPanel
    * @param inputFieldPanel the input field panel
-   * @param controller the controller for the RecipeEditor
+   * @param controller the controller for the MealEditor
    * @param type the type of the input
    */
   public EditorPanel(String name, InputFieldPanel inputFieldPanel, MealEditorController controller)
@@ -133,17 +147,18 @@ public class EditorPanel extends JPanel
     // creates the file editor
     JPanel fileEditorPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
+    // creates the lists shown in the file editor
+    mealFileArea = new DefaultListModel<Recipe>();
+    mealList = new JList<Recipe>(mealFileArea);
+
     // creates the file area for the editor panel
-    JTextArea detailsText = new JTextArea(8, 50);
-    JScrollPane scrollPane = new JScrollPane(detailsText);
+    JScrollPane scrollPane = new JScrollPane(mealList);
     scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
     scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-
-    DefaultListModel<Recipe> recipeFileArea = new DefaultListModel<Recipe>();
-    JList<Recipe> recipeList = new JList<Recipe>(recipeFileArea);
+    scrollPane.setPreferredSize(new Dimension(500, 150));
 
     // creates the delete button
-    JButton deleteButton = new JButton("Delete");
+    deleteButton = new JButton("Delete");
     deleteButton.setActionCommand("Recipe Delete");
     deleteButton.addActionListener(controller);
 
@@ -156,5 +171,126 @@ public class EditorPanel extends JPanel
     this.add(contentPane, BorderLayout.SOUTH);
   }
 
-  //TODO: NEED TO WRITE GETTERS FOR THE TEXT FIELDS
+  public void reset()
+  {
+    try
+    {
+      recipeFileArea.clear();
+    }
+    catch (NullPointerException e)
+    {
+      System.out.println("nothing to clear");
+    }
+  }
+
+  public void addRecipeElement(RecipeElement element)
+  {
+    recipeFileArea.addElement(element);
+  }
+
+  public void addMealElement(Recipe e)
+  {
+    mealFileArea.addElement(e);
+  }
+
+  public JList<RecipeElement> getRecipeList()
+  {
+    return recipeList;
+  }
+
+  public JList<Recipe> getMealList()
+  {
+    return mealList;
+  }
+
+  public Ingredients getSelectedIngredient(String name)
+  {
+    Ingredients[] ingredient = new Ingredients[recipeList.getModel().getSize()];
+
+    for (int i = 0; i < ingredient.length; i++)
+    {
+      ingredient[i] = (Ingredients) recipeList.getModel().getElementAt(i);
+    }
+
+    for (int i = 0; i < ingredient.length; i++)
+    {
+      if (ingredient[i].getName().equals(name))
+      {
+        return ingredient[i];
+      }
+    }
+    return null;
+  }
+
+  public Utensils getSelectedUtensil(String name)
+  {
+    Utensils[] utensil = new Utensils[recipeList.getModel().getSize()];
+
+    for (int i = 0; i < utensil.length; i++)
+    {
+      utensil[i] = (Utensils) recipeList.getModel().getElementAt(i);
+    }
+
+    for (int i = 0; i < utensil.length; i++)
+    {
+      if (utensil[i].getName().equals(name))
+      {
+        return utensil[i];
+      }
+    }
+    return null;
+  }
+
+  public Steps getSelectedStep(String action, String details)
+  {
+    Steps[] step = new Steps[recipeList.getModel().getSize()];
+
+    for (int i = 0; i < step.length; i++)
+    {
+      step[i] = (Steps) recipeList.getModel().getElementAt(i);
+    }
+
+    for (int i = 0; i < step.length; i++)
+    {
+      if (step[i].getDetails().equals(details) && step[i].getAction().equals(action))
+      {
+        return step[i];
+      }
+    }
+    return null;
+  }
+
+  public void deleteRecipeElement()
+  {
+    try
+    {
+      int index = recipeList.getSelectedIndex();
+
+      if (index >= 0 && index < recipeList.getModel().getSize());
+      {
+        recipeFileArea.remove(index);
+      }
+    }
+    catch (ArrayIndexOutOfBoundsException e)
+    {
+      System.out.println("No element selected");
+    }
+  }
+
+  public void deleteMealElement()
+  {
+    try
+    {
+      int index = mealList.getSelectedIndex();
+
+      if (index >= 0 && index < mealList.getModel().getSize());
+      {
+        mealFileArea.remove(index);
+      }
+    }
+    catch (ArrayIndexOutOfBoundsException e)
+    {
+      System.out.println("No element selected");
+    }
+  }
 }

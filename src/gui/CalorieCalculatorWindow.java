@@ -16,6 +16,7 @@ import javax.swing.JTextField;
 import javax.swing.JToolBar;
 
 import app.KILowBites;
+import controller.CalorieCalculatorController;
 import utilities.ImageUtilities;
 
 /**
@@ -39,13 +40,13 @@ public class CalorieCalculatorWindow extends JFrame
   private JPanel unitsPanel;
   private JPanel outputPanel;
 
-  static JButton calorieCalcButton;
-  static JButton calorieResetButton;
+  public static JButton calorieCalcButton;
+  public static JButton calorieResetButton;
 
-  static JComboBox calorieIngredientsMenu;
-  static JComboBox calorieUnitsMenu;
-  static JTextField calorieAmountField;
-  static JLabel calorieOutputField;
+  public static JComboBox calorieIngredientsMenu;
+  public static JComboBox calorieUnitsMenu;
+  public static JTextField calorieAmountField;
+  public static JLabel calorieOutputField;
 
   /**
    * Default constructor.

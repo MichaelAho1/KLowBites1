@@ -16,6 +16,7 @@ import javax.swing.JTextField;
 import javax.swing.JToolBar;
 
 import app.KILowBites;
+import controller.UnitConverterController;
 import utilities.ImageUtilities;
 
 /**
@@ -39,14 +40,14 @@ public class UnitConverterWindow extends JFrame
   private JPanel fromAmountPanel;
   private JPanel outputPanel;
 
-  static JButton unitCalcButton;
-  static JButton unitResetButton;
+  public static JButton unitCalcButton;
+  public static JButton unitResetButton;
 
-  static JComboBox fromUnitsMenu;
-  static JComboBox toUnitsMenu;
-  static JComboBox unitIngredientsMenu;
-  static JTextField fromAmountField;
-  static JLabel unitOutputField;
+  public static JComboBox fromUnitsMenu;
+  public static JComboBox toUnitsMenu;
+  public static JComboBox unitIngredientsMenu;
+  public static JTextField fromAmountField;
+  public static JLabel unitOutputField;
 
   /**
    * Default constructor.

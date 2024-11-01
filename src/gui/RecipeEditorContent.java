@@ -44,7 +44,8 @@ public class RecipeEditorContent extends JPanel
   /**
    * Constructor for RecipeEditorContent.
    *
-   * @param controller the controller for the RecipeEditor
+   * @param controller
+   *          the controller for the RecipeEditor
    */
   public RecipeEditorContent(Recipe recipe, RecipeEditorController controller, boolean isNew)
   {

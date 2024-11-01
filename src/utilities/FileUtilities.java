@@ -46,7 +46,6 @@ public class FileUtilities
       System.err.println("Error reading the file: " + e.getMessage());
       return null;
     }
-
     return data;
     }
     return null;

@@ -56,7 +56,7 @@ public class Steps implements RecipeElement
    *
    * @param action
    */
-  public void setAction(String action)
+  public void setAction(final String action)
   {
     this.action = action;
   }
@@ -96,7 +96,7 @@ public class Steps implements RecipeElement
    *
    * @param destination
    */
-  public void setDestination(Utensils destination)
+  public void setDestination(final Utensils destination)
   {
     this.destination = destination;
   }
@@ -116,7 +116,7 @@ public class Steps implements RecipeElement
    *
    * @param details
    */
-  public void setDetails(String details)
+  public void setDetails(final String details)
   {
     this.details = details;
   }

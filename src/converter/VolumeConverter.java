@@ -1,8 +1,25 @@
 package converter;
 
+/**
+ * Converts a certain volume unit to another volume unit.
+ *
+ * @author f24team3d
+ * @version 10/23/24
+ */
 public class VolumeConverter
 {
-  public static Double callerHelp(String fromUnit, String toUnit, Double fromAmount) {
+  /**
+   * Calls a certain converter based on what unit it is given.
+   *
+   * @param toUnit The type of the to amount.
+   * @param fromUnit The type of the from amount.
+   * @param fromAmount The actual from amount.
+   *
+   * @return The converted to amount.
+   */
+  public static Double callerHelp(final String fromUnit, final String toUnit, 
+      final Double fromAmount) 
+  {
     if ("Milliliter".equals(toUnit))
     {
       return milliliterConverter(fromUnit, fromAmount);
@@ -39,6 +56,14 @@ public class VolumeConverter
   }
   
   
+  /**
+   * Calculates any amount of pinches to whatever the to unit is.
+   *
+   * @param toUnit The type of the to amount.
+   * @param pinches The amount of pinches.
+   *
+   * @return The converted to amount.
+   */
   private static Double convertHelp(Double pinches, String toUnit)
   {
     if ("Milliliter".equals(toUnit))
@@ -76,52 +101,132 @@ public class VolumeConverter
     return pinches;
   }
   
-  public static Double teaspoonConverter(String toUnit, Double fromAmount)
+  /**
+   * Calculates teaspoon to whatever the to Unit is.
+   *
+   * @param toUnit The type of the to amount.
+   * @param fromAmount The actual from amount.
+   *
+   * @return The converted to amount.
+   */
+  public static Double teaspoonConverter(final String toUnit, final Double fromAmount)
   {
     return convertHelp(fromAmount * 16, toUnit);
   }
-
-  public static Double tablespoonConverter(String toUnit, Double fromAmount)
+  
+  /**
+   * Calculates tablespoon to whatever the to Unit is.
+   *
+   * @param toUnit The type of the to amount.
+   * @param fromAmount The actual from amount.
+   *
+   * @return The converted to amount.
+   */
+  public static Double tablespoonConverter(final String toUnit, final Double fromAmount)
   {
     return convertHelp(fromAmount * 48, toUnit);
   }
 
-  public static Double fluidOunceConverter(String toUnit, Double fromAmount)
+  /**
+   * Calculates fluid ounce to whatever the to Unit is.
+   *
+   * @param toUnit The type of the to amount.
+   * @param fromAmount The actual from amount.
+   *
+   * @return The converted to amount.
+   */
+  public static Double fluidOunceConverter(final String toUnit, final Double fromAmount)
   {
     return convertHelp(fromAmount * 96, toUnit);
   }
 
-  public static Double cupConverter(String toUnit, Double fromAmount)
+  /**
+   * Calculates cup to whatever the to Unit is.
+   *
+   * @param toUnit The type of the to amount.
+   * @param fromAmount The actual from amount.
+   *
+   * @return The converted to amount.
+   */
+  public static Double cupConverter(final String toUnit, final Double fromAmount)
   {
     return convertHelp(fromAmount * 768, toUnit);
   }
 
-  public static Double pintConverter(String toUnit, Double fromAmount)
+  /**
+   * Calculates pint to whatever the to Unit is.
+   *
+   * @param toUnit The type of the to amount.
+   * @param fromAmount The actual from amount.
+   *
+   * @return The converted to amount.
+   */
+  public static Double pintConverter(final String toUnit, final Double fromAmount)
   {
     return convertHelp(fromAmount * 1536, toUnit);
   }
 
-  public static Double quartConverter(String toUnit, Double fromAmount)
+  /**
+   * Calculates quart to whatever the to Unit is.
+   *
+   * @param toUnit The type of the to amount.
+   * @param fromAmount The actual from amount.
+   *
+   * @return The converted to amount.
+   */
+  public static Double quartConverter(final String toUnit, final Double fromAmount)
   {
     return convertHelp(fromAmount * 3072, toUnit);
   }
 
-  public static Double gallonConverter(String toUnit, Double fromAmount)
+  /**
+   * Calculates gallon to whatever the to Unit is.
+   *
+   * @param toUnit The type of the to amount.
+   * @param fromAmount The actual from amount.
+   *
+   * @return The converted to amount.
+   */
+  public static Double gallonConverter(final String toUnit, final Double fromAmount)
   {
     return convertHelp(fromAmount * 12288, toUnit);
   }
 
-  public static Double milliliterConverter(String toUnit, Double fromAmount)
+  /**
+   * Calculates milliliter to whatever the to Unit is.
+   *
+   * @param toUnit The type of the to amount.
+   * @param fromAmount The actual from amount.
+   *
+   * @return The converted to amount.
+   */
+  public static Double milliliterConverter(final String toUnit, final Double fromAmount)
   {
     return convertHelp((fromAmount * 48) / 14.7867648, toUnit);
   }
 
-  public static Double pinchConverter(String toUnit, Double fromAmount)
+  /**
+   * Calculates pinch to whatever the to Unit is.
+   *
+   * @param toUnit The type of the to amount.
+   * @param fromAmount The actual from amount.
+   *
+   * @return The converted to amount.
+   */
+  public static Double pinchConverter(final String toUnit, final Double fromAmount)
   {
     return convertHelp(fromAmount, toUnit);
   }
   
-  public static Double milliliterToFinal(String toUnit, Double amount)
+  /**
+   * Calculates milliliter to whatever the to Unit is.
+   *
+   * @param toUnit The type of the to amount.
+   * @param amount The amount of milliliters.
+   *
+   * @return The converted to amount.
+   */
+  public static Double milliliterToFinal(final String toUnit, final Double amount)
   {
     if ("Milliliter".equals(toUnit))
     {

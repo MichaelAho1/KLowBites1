@@ -1,6 +1,7 @@
 package app;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.lang.reflect.InvocationTargetException;
 
 import javax.swing.JFrame;
@@ -70,6 +71,10 @@ public class KILowBites implements Runnable
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     JPanel contentPane = (JPanel) frame.getContentPane();
     contentPane.setLayout(new BorderLayout());
+    
+    // Set the background color of the main content pane to white
+    contentPane.setBackground(Color.WHITE);
+
 
     // Construct the controller
     KILowBitesController controller = new KILowBitesController();
@@ -146,6 +151,9 @@ public class KILowBites implements Runnable
     JPanel logoPanel = new JPanel();
     JLabel logo = new JLabel(ImageUtilities.getImage("img/KILowBites_Logo.png", 200, 80));
     logoPanel.add(logo);
+
+    // Set the background color of the logo panel to white to match the content pane
+    logoPanel.setBackground(Color.WHITE);
 
     // Layout the GUI
     contentPane.add(logoPanel, BorderLayout.CENTER);

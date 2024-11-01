@@ -27,7 +27,7 @@ public class Utensils implements RecipeElement, StepSource
    * @param name
    * @param details
    */
-  public Utensils(String name, String details)
+  public Utensils(final String name, final String details)
   {
     this.name = name;
     this.details = details;
@@ -53,7 +53,7 @@ public class Utensils implements RecipeElement, StepSource
    *
    * @param name
    */
-  public void setName(String name)
+  public void setName(final String name)
   {
     this.name = name;
   }
@@ -73,7 +73,7 @@ public class Utensils implements RecipeElement, StepSource
    *
    * @param details
    */
-  public void setDetails(String details)
+  public void setDetails(final String details)
   {
     this.details = details;
   }

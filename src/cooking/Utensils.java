@@ -10,6 +10,7 @@ public class Utensils implements RecipeElement, StepSource
 {
   private String name;
   private String details;
+  private RecipeElementType type = RecipeElementType.UTENSIL;
 
   /**
    * Default constructor.
@@ -40,6 +41,11 @@ public class Utensils implements RecipeElement, StepSource
   public String getName()
   {
     return name;
+  }
+
+  public RecipeElementType getType()
+  {
+    return type;
   }
 
   /**

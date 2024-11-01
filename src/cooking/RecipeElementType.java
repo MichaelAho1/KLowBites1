@@ -52,4 +52,9 @@ public enum RecipeElementType
   {
     return deleteCommand;
   }
+
+  public RecipeElementType getType()
+  {
+	  return this;
+  }
 }

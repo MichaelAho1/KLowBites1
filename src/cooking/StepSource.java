@@ -22,4 +22,6 @@ public interface StepSource
    * @return the details of the source
    */
   public String getDetails();
+
+  public RecipeElementType getType();
 }

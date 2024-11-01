@@ -14,6 +14,7 @@ public class Ingredients implements RecipeElement, StepSource
   private String units = "";
   private String details = "";
   private String name = "";
+  private RecipeElementType type = RecipeElementType.INGREDIENT;
 
   /**
    * Default constructor.
@@ -50,6 +51,11 @@ public Ingredients()
   public double getAmount()
   {
     return amount;
+  }
+
+  public RecipeElementType getType()
+  {
+    return type;
   }
 
   /**

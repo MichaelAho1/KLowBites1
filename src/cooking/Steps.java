@@ -12,6 +12,7 @@ public class Steps implements RecipeElement
   private StepSource source;
   private Utensils destination;
   private String details;
+  private RecipeElementType type = RecipeElementType.STEP;
 
   /**
    * Default constructor.
@@ -128,6 +129,25 @@ public class Steps implements RecipeElement
   @Override
   public String toString()
   {
-    return action + " " + source + " in " + destination + " (" + details + ")";
+    if (source.getType() == RecipeElementType.UTENSIL && destination.getType() == RecipeElementType.UTENSIL
+      &&
+      source.getName().equals(destination.getName()))
+    {
+      return action + " the contents of the " + source.getName() + " " + details;
+    }
+    else if (source.getType() == RecipeElementType.UTENSIL)
+    {
+      return action + " the contents of the " + source.getName() + " " + details;
+    }
+    else if (StepSource.class.isInstance(Utensils.class))
+    {
+      return action + " the contents of the " + source.getName() + " in the " + destination.getName() + " " + details;
+    }
+    return action + " the " + source.getName() + " in the " + destination.getName() + " " + details;
+  }
+
+  public RecipeElementType getType()
+  {
+    return type;
   }
 }

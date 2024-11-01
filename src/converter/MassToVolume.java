@@ -1,9 +1,27 @@
 package converter;
 
+/**
+ * Converts a certain mass unit to another volume unit and vice versa.
+ *
+ * @author f24team3d
+ * @version 10/23/24
+ */
 public class MassToVolume
 {
 
-  public static Double interConverting(final String fromUnit, String toUnit, Double fromAmount, Double density)
+  /**
+  /**
+   * Converts from mass to volume or vice versa.
+   *
+   * @param toUnit The type of the to amount.
+   * @param fromUnit The type of the from amount.
+   * @param density The density of the ingredient.
+   * @param fromAmount The actual from amount.
+   *
+   * @return The converted to amount.
+   */
+  public static Double interConverting(final String fromUnit, final String toUnit, 
+      final Double fromAmount, final Double density)
   {
     Double grams = 0.0;
     double milliliters = 0.0;

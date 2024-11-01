@@ -44,7 +44,7 @@ public class EditorPanel extends JPanel
    * @param inputFieldPanel the input field panel
    * @param controller the controller for the RecipeEditor
    */
-  public EditorPanel(RecipeElementType type, InputFieldPanel inputFieldPanel, RecipeEditorController controller)
+  public EditorPanel(RecipeElementType type, Recipe recipe, InputFieldPanel inputFieldPanel, RecipeEditorController controller, boolean isNew)
   {
     super();
 
@@ -61,8 +61,38 @@ public class EditorPanel extends JPanel
     fileEditorPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
     // creates the lists shown in the file editor
-    recipeFileArea = new DefaultListModel<>();
-    recipeList = new JList<>(recipeFileArea);
+    if (!isNew)
+    {
+      recipeFileArea = new DefaultListModel<>();
+      recipeList = new JList<>(recipeFileArea);
+
+      if (type == RecipeElementType.UTENSIL)
+      {
+        for (Utensils utensil : recipe.getUtensils())
+        {
+          recipeFileArea.addElement(utensil);
+        }
+      }
+      else if (type == RecipeElementType.INGREDIENT)
+      {
+        for (Ingredients ingredient : recipe.getIngredients())
+        {
+          recipeFileArea.addElement(ingredient);
+        }
+      }
+      else if (type == RecipeElementType.STEP)
+      {
+        for (Steps step : recipe.getSteps())
+        {
+          recipeFileArea.addElement(step);
+        }
+      }
+    }
+    else
+    {
+      recipeFileArea = new DefaultListModel<>();
+      recipeList = new JList<>(recipeFileArea);
+    }
 
     // creates the file area for the editor panel
     scrollPane = new JScrollPane(recipeList);

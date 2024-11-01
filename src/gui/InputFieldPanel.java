@@ -23,6 +23,8 @@ public class InputFieldPanel extends JPanel implements DocumentListener, Documen
 
   JPanel inputFields; // the panel for the gui
 
+  Units temp = new Units();
+
   // the editable fields in the IFP. The key is the label of the field.
   HashMap<String, JTextField> fields;
   HashMap<String, JComboBox<String>> comboBoxes;
@@ -120,6 +122,47 @@ public class InputFieldPanel extends JPanel implements DocumentListener, Documen
     fields.put(label, field);
   }
 
+/**
+ * Adds a JLabel and Field to the input field panel.
+ * Has preset content
+ *
+ * @param content the field to add
+ * @param size the size of the field
+ */
+public void addJTextField(String label, int size, String content)
+{
+  inputFields.add(new JLabel(label));
+
+  JTextField field = new JTextField(size);
+  field.setText(content);
+
+  field.getDocument().addDocumentListener(new DocumentListener()
+  {
+    // if text is added or removed from field, state is changed
+    @Override
+    public void insertUpdate(DocumentEvent e)
+    {
+      notifyObservers();
+    }
+
+    @Override
+    public void removeUpdate(DocumentEvent e)
+    {
+      notifyObservers();
+    }
+
+    @Override
+    public void changedUpdate(DocumentEvent e)
+    {
+      // do nothing
+    }
+  });
+
+  inputFields.add(field);
+  fields.put(label, field);
+}
+
+
   /**
    * Adds a JButton to the input field panel.
    */
@@ -166,11 +209,14 @@ public class InputFieldPanel extends JPanel implements DocumentListener, Documen
 
     for (JComboBox<String> comboBox : comboBoxes.values())
     {
-      comboBox.removeAllItems();
+          comboBox.removeAllItems();
 
-      comboBox.addItem("");
-      comboBox.setSelectedIndex(0);
+          comboBox.addItem("");
+          comboBox.setSelectedIndex(0);
     }
+
+    // re adds the units list
+    this.updateComboBox("Units: ", temp.getAllUnitsNoPadding());
   }
 
   /**

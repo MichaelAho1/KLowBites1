@@ -25,7 +25,7 @@ public class RecipeEditor extends JFrame
   /**
    * Constructor for RecipeEditor.
    */
-  public RecipeEditor(Recipe recipe, RecipeEditorController controller)
+  public RecipeEditor(Recipe recipe, RecipeEditorController controller, boolean isNew)
   {
     super("KILowBites Recipe Editor");
 
@@ -62,7 +62,7 @@ public class RecipeEditor extends JFrame
     }
 
     // creates the main content panel
-    content = new RecipeEditorContent(recipe, controller);
+    content = new RecipeEditorContent(recipe, controller, isNew);
     contentPane = content;
 
     this.setSize(new Dimension(800, 800));

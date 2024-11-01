@@ -53,7 +53,7 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
   {
     recipe = new Recipe();
     state = DocumentState.NULL;
-    editor = new RecipeEditor(recipe, this);
+    editor = new RecipeEditor(recipe, this, true);
     editor.updateToolBar(state);
 
     editor.getContent().getMainIFP().addObserver(this);
@@ -99,6 +99,21 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
     }
   }
 
+  private void updateAllElements(Recipe recipe)
+  {
+    // creates everything with preset values
+    editor.dispose();
+
+    state = DocumentState.UNCHANGED;
+    editor = new RecipeEditor(recipe, this, false);
+    editor.updateToolBar(state);
+
+    editor.getContent().getMainIFP().addObserver(this);
+    editor.getContent().getUtensilIFP().addObserver(this);
+    editor.getContent().getIngredientIFP().addObserver(this);
+    editor.getContent().getStepIFP().addObserver(this);
+  }
+
   /**
    * Called when the document state changes
    *
@@ -132,14 +147,15 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
     else if (command.equals(OPEN))
     {
       editor.resetRecipeEditor();
-      // System.out.println(FileUtilities.openRecipe());
       recipe = FileUtilities.parseData(FileUtilities.openRecipe());
+
       state = DocumentState.UNCHANGED;
       editor.updateToolBar(state);
 
-      System.out.println(FileUtilities.dumpRecipe(recipe));
+      editor.dispose();
 
       // propagate changes to window
+      editor = new RecipeEditor(recipe, this, false);
     }
     else if (command.equals(SAVE))
     {
@@ -179,6 +195,27 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
     else if (command.equals(SAVE_AS))
     {
       // save as
+      String name = editor.getContent().getNameField();
+      String serves = editor.getContent().getServesField();
+
+      if (name != null)
+      {
+        recipe.setName(name);
+      }
+      else
+      {
+        System.out.println("Invalid input");
+      }
+
+      if (InputUtilities.isPositiveInt(serves))
+      {
+        recipe.setServes(Integer.parseInt(serves));
+      }
+      else
+      {
+        System.out.println("Invalid input");
+      }
+
       savePath = FileUtilities.saveAsRecipe(FileUtilities.dumpRecipe(recipe));
       state = DocumentState.UNCHANGED;
       editor.updateToolBar(state);
@@ -209,7 +246,14 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
 
         editor.getContent().getUtensilPanel().addRecipeElement(utensil);
 
-      recipe.addUtensils(utensil);
+        try
+        {
+          recipe.addUtensils(utensil);
+        }
+        catch (NullPointerException ex)
+        {
+          System.out.println("idk");
+        }
       }
       else
       {
@@ -219,14 +263,29 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
     }
     else if (command.equals(UTENSILDELETE))
     {
-      for (Utensils utensil : recipe.getUtensils())
+      try
       {
-        if (utensil.getName().equals(editor.getContent().getUtensilPanel().getSelectedUtensil(utensil.getName()).getName()))
+        for (Utensils utensil : recipe.getUtensils())
         {
-          recipe.removeUtensils(utensil);
-          break;
+          try
+          {
+            if (utensil.getName().equals(editor.getContent().getUtensilPanel().getSelectedUtensil(utensil.getName()).getName()))
+            {
+              recipe.removeUtensils(utensil);
+              break;
+            }
+          }
+          catch (NullPointerException ex)
+          {
+            System.out.println("No element selected");
+          }
         }
       }
+      catch (NullPointerException ex)
+      {
+        System.out.println("trying to delete when empty (caused by deleting when file closed)");
+      }
+
 
 
       editor.getContent().getUtensilPanel().deleteRecipeElement();
@@ -263,14 +322,29 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
     }
     else if (command.equals(INGREDIENTDELETE))
     {
-      for (Ingredients ingredient : recipe.getIngredients())
+      try
       {
-        if (ingredient.getName().equals(editor.getContent().getIngredientPanel().getSelectedIngredient(ingredient.getName()).getName()))
+        for (Ingredients ingredient : recipe.getIngredients())
         {
-          recipe.removeIngredients(ingredient);
-          break;
+          try
+          {
+            if (ingredient.getName().equals(editor.getContent().getIngredientPanel().getSelectedIngredient(ingredient.getName()).getName()))
+            {
+              recipe.removeIngredients(ingredient);
+              break;
+            }
+          }
+          catch (NullPointerException ex)
+          {
+            System.out.println("No element selected");
+          }
         }
       }
+      catch (NullPointerException ex)
+      {
+        System.out.println("trying to delete when empty (caused by deleting when file closed)");
+      }
+
 
       editor.getContent().getIngredientPanel().deleteRecipeElement();
       editor.getContent().updateStepSourcePanel();
@@ -312,14 +386,29 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
     }
     else if (command.equals(STEPDELETE))
     {
-      for (Steps step : recipe.getSteps())
+      try
       {
-        if (step.getDetails().equals(editor.getContent().getStepPanel().getSelectedStep(step.getAction(), step.getDetails()).getDetails()))
+        for (Steps step : recipe.getSteps())
         {
-          recipe.removeSteps(step);
-          break;
+          try
+          {
+            if (step.getDetails().equals(editor.getContent().getStepPanel().getSelectedStep(step.getAction(), step.getDetails()).getDetails()))
+            {
+              recipe.removeSteps(step);
+              break;
+            }
+          }
+          catch (NullPointerException ex)
+          {
+            System.out.println("No element selected");
+          }
         }
       }
+      catch (NullPointerException ex)
+      {
+        System.out.println("trying to delete when empty (caused by deleting when file closed)");
+      }
+
 
       editor.getContent().getStepPanel().deleteRecipeElement();
     }

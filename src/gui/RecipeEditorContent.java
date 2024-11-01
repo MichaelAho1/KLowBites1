@@ -46,7 +46,7 @@ public class RecipeEditorContent extends JPanel
    *
    * @param controller the controller for the RecipeEditor
    */
-  public RecipeEditorContent(Recipe recipe, RecipeEditorController controller)
+  public RecipeEditorContent(Recipe recipe, RecipeEditorController controller, boolean isNew)
   {
     super();
 
@@ -61,8 +61,17 @@ public class RecipeEditorContent extends JPanel
 
     // adds all the elements to the input fields
     mainIFP = new InputFieldPanel();
-    mainIFP.addJTextField("Name: ", 50);
-    mainIFP.addJTextField("Serves: ", 10);
+    if (!isNew)
+    {
+      mainIFP.addJTextField("Name: ", 50, recipe.getName());
+      mainIFP.addJTextField("Serves: ", 10, String.valueOf(recipe.getServes()));
+    }
+    else
+    {
+      mainIFP.addJTextField("Name: ", 50);
+      mainIFP.addJTextField("Serves: ", 10);
+    }
+    
 
     // **** EDITOR PANELS ****
 
@@ -88,7 +97,22 @@ public class RecipeEditorContent extends JPanel
     stepUtensils = new String[] {""};
     stepIngredients = new String[] {""};
 
-    stepIFP.addJComboBox("On: ", stepUtensils); // when updated, will contain both utensils and ingredients
+    if (!isNew)
+    {
+      stepUtensils = new String[recipe.getUtensils().size()];
+      for (int i = 0; i < stepUtensils.length; i++)
+      {
+        stepUtensils[i] = recipe.getUtensils().get(i).getName();
+      }
+
+      stepIngredients = new String[recipe.getIngredients().size()];
+      for (int i = 0; i < stepIngredients.length; i++)
+      {
+        stepIngredients[i] = recipe.getIngredients().get(i).getName();
+      }
+    }
+
+    stepIFP.addJComboBox("On: ", stepUtensils);
     stepIFP.addJComboBox("Utensil: ", stepUtensils);
 
     stepIFP.addJTextField("Details: ", 15);
@@ -98,9 +122,9 @@ public class RecipeEditorContent extends JPanel
     JPanel editorPanel = new JPanel();
     editorPanel.setLayout(new BoxLayout(editorPanel, BoxLayout.Y_AXIS));
 
-    utensilEditorPanel = new EditorPanel(RecipeElementType.UTENSIL, utensilIFP, controller);
-    ingredientEditorPanel = new EditorPanel(RecipeElementType.INGREDIENT, ingredientIFP, controller);
-    stepEditorPanel = new EditorPanel(RecipeElementType.STEP, stepIFP, controller);
+    utensilEditorPanel = new EditorPanel(RecipeElementType.UTENSIL, recipe, utensilIFP, controller, isNew);
+    ingredientEditorPanel = new EditorPanel(RecipeElementType.INGREDIENT, recipe, ingredientIFP, controller, isNew);
+    stepEditorPanel = new EditorPanel(RecipeElementType.STEP, recipe, stepIFP, controller, isNew);
 
     editorPanel.add(utensilEditorPanel);
     editorPanel.add(ingredientEditorPanel);

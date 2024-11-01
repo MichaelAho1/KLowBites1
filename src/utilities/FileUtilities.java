@@ -2,12 +2,14 @@ package utilities;
 
 import cooking.Ingredients;
 import cooking.Recipe;
+import cooking.RecipeElementType;
 import cooking.Steps;
 import cooking.Utensils;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.*;
+import java.util.ArrayList;
 
 public class FileUtilities
 {
@@ -70,6 +72,7 @@ public class FileUtilities
     Recipe recipe = new Recipe();
     String[] lines = data.split("\n");
 
+    // sets main fields
     for (String line : lines)
     {
       if (line.startsWith("**Recipe**"))
@@ -82,7 +85,8 @@ public class FileUtilities
       }
       else if (line.startsWith("Main - Name: "))
       {
-        recipe.setName(line.substring(13));
+        String name = line.substring(13);
+        recipe.setName(name);
       }
       else if (line.startsWith("Main - Serves: "))
       {
@@ -90,35 +94,127 @@ public class FileUtilities
       }
       else if (line.startsWith("--Utensils--"))
       {
+        break;
+      }
+    }
+
+    // sets utensils
+    ArrayList<Utensils> utensils = new ArrayList<>();
+    Utensils utensil = new Utensils();
+    for (String line : lines)
+    {
+      if (line.startsWith("--Utensils--"))
+      {
+        utensil = new Utensils();
         continue;
       }
       else if (line.startsWith("Utensil - Name: "))
       {
-        Utensils utensil = new Utensils();
         utensil.setName(line.substring(16));
-        recipe.addUtensils(utensil);
+      }
+      else if (line.startsWith("Utensil - Details: "))
+      {
+        utensil.setDetails(line.substring(19));
+        utensils.add(utensil);
+        utensil = new Utensils();
       }
       else if (line.startsWith("--Ingredients--"))
       {
+        break;
+      }
+    }
+
+    for (Utensils u : utensils)
+    {
+      recipe.addUtensils(u);
+    }
+
+    // sets ingredients
+    ArrayList<Ingredients> ingredients = new ArrayList<>();
+    Ingredients ingredient = new Ingredients();
+    for (String line : lines)
+    {
+      if (line.startsWith("--Ingredients--"))
+      {
+        ingredient = new Ingredients();
         continue;
       }
       else if (line.startsWith("Ingredient - Name: "))
       {
-        Ingredients ingredient = new Ingredients();
         ingredient.setName(line.substring(19));
-        recipe.addIngredient(ingredient);
+      }
+      else if (line.startsWith("Ingredient - Details: "))
+      {
+        ingredient.setDetails(line.substring(22));
+      }
+      else if (line.startsWith("Ingredient - Amount: "))
+      {
+        ingredient.setAmount(Double.parseDouble(line.substring(21)));
+      }
+      else if (line.startsWith("Ingredient - Unit: "))
+      {
+        ingredient.setUnit(line.substring(19));
+        ingredients.add(ingredient);
+        ingredient = new Ingredients();
       }
       else if (line.startsWith("--Steps--"))
       {
+        break;
+      }
+    }
+
+    for (Ingredients i : ingredients)
+    {
+      recipe.addIngredient(i);
+    }
+
+    // sets steps
+
+    ArrayList<Steps> steps = new ArrayList<>();
+    Steps step = new Steps();
+    for (String line : lines)
+    {
+      if (line.startsWith("--Steps--"))
+      {
+        step = new Steps();
         continue;
       }
       else if (line.startsWith("Step - Action: "))
       {
-        Steps step = new Steps();
         step.setAction(line.substring(15));
-        recipe.addStep(step);
+      }
+      else if (line.startsWith("Step - SourceI: "))
+      {
+        Ingredients source = new Ingredients();
+        source.setName(line.substring(16));
+        step.setSource(source);
+      }
+      else if (line.startsWith("Step - SourceU: "))
+      {
+        Utensils source = new Utensils();
+        source.setName(line.substring(16));
+        step.setSource(source);
+      }
+      else if (line.startsWith("Step - Destination: "))
+      {
+        Utensils destination = new Utensils();
+        destination.setName(line.substring(20));
+        step.setDestination(destination);
+      }
+      else if (line.startsWith("Step - Details: "))
+      {
+        step.setDetails(line.substring(16));
+        steps.add(step);
+        step = new Steps();
       }
     }
+
+    for (Steps s : steps)
+    {
+      recipe.addStep(s);
+    }
+
+    System.out.println();
 
     return recipe;
   }
@@ -164,7 +260,7 @@ public class FileUtilities
     output += "Main - Name: " + recipe.getName() + "\n";
     output += "Main - Serves: " + recipe.getServes() + "\n";
 
-    output += "--Utensils--\n";
+    output += "\n--Utensils--\n";
 
     for (Utensils utensil : recipe.getUtensils())
     {
@@ -187,9 +283,16 @@ public class FileUtilities
     for (Steps step : recipe.getSteps())
     {
       output += "Step - Action: " + step.getAction() + "\n";
-      // output += "Step - Source: " + step.getSource().getName() + ", ";
-      // output += "Step - Destination: " + step.getDestination().getName() + ", ";
-      // output += "Step - Details: " + step.getDetails() + ", ; ";
+      if (step.getSource().getType() == RecipeElementType.INGREDIENT)
+      {
+        output += "Step - SourceI: " + step.getSource().getName() + "\n";
+      }
+      else
+      {
+        output += "Step - SourceU: " + step.getSource().getName() + "\n";
+      }
+      output += "Step - Destination: " + step.getDestination().getName() + "\n";
+      output += "Step - Details: " + step.getDetails() + "\n";
     }
 
     return output;

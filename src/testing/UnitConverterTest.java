@@ -80,5 +80,17 @@ class UnitConverterTest
     MassToVolume.interConverting("Yes", pound, ten, 1.04);
     
   }
+  
+  /**
+   * Ensures 100% coverage.
+   */
+  @Test
+  void test2() 
+  {
+	  new MassConverter();
+	  new VolumeConverter();
+	  new MassToVolume();
+  }
+  
 
 }

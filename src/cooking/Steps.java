@@ -137,7 +137,7 @@ public class Steps implements RecipeElement
     }
     else if (source.getType() == RecipeElementType.UTENSIL)
     {
-      return action + " the contents of the " + source.getName() + " " + details;
+      return action + " the contents of the " + source.getName() + " in the " + destination.getName() + " " + details;
     }
     else if (StepSource.class.isInstance(Utensils.class))
     {

@@ -166,6 +166,9 @@ public class InputFieldPanel extends JPanel implements DocumentListener, Documen
 
     for (JComboBox<String> comboBox : comboBoxes.values())
     {
+      comboBox.removeAllItems();
+
+      comboBox.addItem("");
       comboBox.setSelectedIndex(0);
     }
   }

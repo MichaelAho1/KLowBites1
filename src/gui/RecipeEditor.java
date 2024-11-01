@@ -6,6 +6,7 @@ import javax.swing.*;
 import controller.RecipeEditorController;
 import cooking.*;
 import utilities.ImageUtilities;
+import utilities.DocumentState;
 
 /**
  * RecipeEditor class. Handles the toolbar and main container of the Recipe Editor.
@@ -16,6 +17,10 @@ import utilities.ImageUtilities;
 public class RecipeEditor extends JFrame
 {
   Container outerPane;
+  JPanel contentPane;
+  RecipeEditorContent content;
+
+  JButton[] buttons;
 
   /**
    * Constructor for RecipeEditor.
@@ -35,7 +40,7 @@ public class RecipeEditor extends JFrame
     toolbar.setRollover(true);
 
     // create toolbar buttons
-    JButton[] buttons = new JButton[5];
+    buttons = new JButton[5];
     String[] buttonNames = {"New", "Open", "Save", "Save As", "Close"};
     String[] buttonPaths = {"img/new.png", "img/open.png", "img/save.png", "img/save_as.png",
         "img/close.png"};
@@ -57,7 +62,8 @@ public class RecipeEditor extends JFrame
     }
 
     // creates the main content panel
-    JPanel contentPane = new RecipeEditorContent(recipe, controller);
+    content = new RecipeEditorContent(recipe, controller);
+    contentPane = content;
 
     this.setSize(new Dimension(800, 800));
     this.setResizable(false);
@@ -68,5 +74,73 @@ public class RecipeEditor extends JFrame
     outerPane.add(contentPane, BorderLayout.CENTER); // adds the content pane to outerPane center
 
     this.add(outerPane); // adds outerPane to the frame
+  }
+
+  /**
+   * Gets the Content Pane
+   *
+   * @return the content pane
+   */
+  public RecipeEditorContent getContent()
+  {
+    return content;
+  }
+
+  /**
+   * Resets the Recipe Editor
+   */
+  public void resetRecipeEditor()
+  {
+    content.reset();
+  }
+
+  /**
+   * Detects changes in the document
+   *
+   * @return true if changes are detected, false otherwise
+   */
+  public boolean detectChanges()
+  {
+    return false;
+  }
+
+  /**
+   * Updates the toolbar according to the current document state
+   */
+  public void updateToolBar(DocumentState state)
+  {
+    if (state == DocumentState.NULL)
+    {
+      // enabled
+      buttons[0].setEnabled(true); // new
+      buttons[1].setEnabled(true); // open
+
+      // disabled
+      buttons[2].setEnabled(false); // save
+      buttons[3].setEnabled(false); // save as
+      buttons[4].setEnabled(false); // close
+    }
+    else if (state == DocumentState.CHANGED)
+    {
+      // enabled
+      buttons[2].setEnabled(true); // save
+      buttons[3].setEnabled(true); // save as
+
+      // disabled
+      buttons[0].setEnabled(false); // new
+      buttons[1].setEnabled(false); // open
+      buttons[4].setEnabled(false); // close
+    }
+    else if (state == DocumentState.UNCHANGED)
+    {
+      // enabled
+      buttons[0].setEnabled(true); // new
+      buttons[1].setEnabled(true); // open
+      buttons[3].setEnabled(true); // save as
+      buttons[4].setEnabled(true); // close
+
+      // disabled
+      buttons[2].setEnabled(false); // save
+    }
   }
 }

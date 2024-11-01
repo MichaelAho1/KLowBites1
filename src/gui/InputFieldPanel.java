@@ -2,8 +2,12 @@ package gui;
 
 import java.awt.*;
 import javax.swing.*;
-import java.awt.event.ActionListener;
+import javax.swing.event.*;
+import java.awt.event.*;
 import java.util.HashMap;
+import java.util.ArrayList;
+
+import utilities.*;
 
 /**
  * InputFieldPanel class. Flexibly handles the input fields for Editor frames.
@@ -13,7 +17,7 @@ import java.util.HashMap;
  * @author f24team3d
  * @version 10/31/24
  */
-public class InputFieldPanel extends JPanel
+public class InputFieldPanel extends JPanel implements DocumentListener, DocumentStateSubject
 {
   private Container contentPane;
 
@@ -23,12 +27,16 @@ public class InputFieldPanel extends JPanel
   HashMap<String, JTextField> fields;
   HashMap<String, JComboBox<String>> comboBoxes;
 
+  private ArrayList<DocumentStateObserver> observers;
+
   /**
    * Constructor for InputFields.
    */
   public InputFieldPanel()
   {
     super();
+
+    observers = new ArrayList<DocumentStateObserver>();
 
     contentPane = new Container();
     contentPane.setLayout(new BorderLayout());
@@ -45,6 +53,21 @@ public class InputFieldPanel extends JPanel
     contentPane.add(inputFields, BorderLayout.CENTER);
 
     this.add(contentPane);
+  }
+
+  public void insertUpdate(DocumentEvent e)
+  {
+    // do nothing
+  }
+
+  public void removeUpdate(DocumentEvent e)
+  {
+    // do nothing
+  }
+
+  public void changedUpdate(DocumentEvent e)
+  {
+    // do nothing
   }
 
   /**
@@ -68,6 +91,29 @@ public class InputFieldPanel extends JPanel
     inputFields.add(new JLabel(label));
 
     JTextField field = new JTextField(size);
+
+    field.getDocument().addDocumentListener(new DocumentListener()
+    {
+      // if text is added or removed from field, state is changed
+      @Override
+      public void insertUpdate(DocumentEvent e)
+      {
+        notifyObservers();
+      }
+
+      @Override
+      public void removeUpdate(DocumentEvent e)
+      {
+        notifyObservers();
+      }
+
+      @Override
+      public void changedUpdate(DocumentEvent e)
+      {
+        // do nothing
+      }
+    });
+
     inputFields.add(field);
     fields.put(label, field);
   }
@@ -99,5 +145,68 @@ public class InputFieldPanel extends JPanel
 
     comboBoxes.put(label, comboBox);
     inputFields.add(comboBox);
+  }
+
+  /**
+   * Resets the fields in the input field panel.
+   */
+  public void resetFields()
+  {
+    for (JTextField field : fields.values())
+    {
+      field.setText("");
+    }
+
+    for (JComboBox<String> comboBox : comboBoxes.values())
+    {
+      comboBox.setSelectedIndex(0);
+    }
+  }
+
+  /**
+   * Checks if all fields are empty
+   *
+   * @return true if all fields are empty
+   */
+  public boolean allFieldsEmpty()
+  {
+    for (JTextField field : fields.values())
+    {
+      if (!field.getText().equals(""))
+      {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  /**
+   * Gets the text from a JTextField.
+   *
+   * @param label the label of the field
+   * @return the text in the field
+   */
+  public String getText(String label)
+  {
+    return fields.get(label).getText();
+  }
+
+  public void addObserver(DocumentStateObserver observer)
+  {
+    observers.add(observer);
+  }
+
+  public void removeObserver(DocumentStateObserver observer)
+  {
+    observers.remove(observer);
+  }
+
+  public void notifyObservers()
+  {
+    for (DocumentStateObserver observer : observers)
+    {
+      observer.handleNotification(DocumentState.CHANGED);
+    }
   }
 }

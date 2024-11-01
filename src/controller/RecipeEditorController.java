@@ -1,17 +1,20 @@
 package controller;
 
 import java.awt.event.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import cooking.*;
 import gui.RecipeEditor;
+import utilities.*;
 
 /**
  * RecipeEditor controller class. Handles the actions of the RecipeEditor GUI elements
  *
  * @author f24team3d
- * @version 10/26/24
+ * @version 10/31/24
  */
-public class RecipeEditorController implements ActionListener
+public class RecipeEditorController implements ActionListener, DocumentStateObserver
 {
   private static String NEW = "New";
   private static String OPEN = "Open";
@@ -30,6 +33,7 @@ public class RecipeEditorController implements ActionListener
 
   private RecipeEditor editor;
   private Recipe recipe;
+  private DocumentState state;
 
   /**
    * Constructor for controller.
@@ -45,12 +49,66 @@ public class RecipeEditorController implements ActionListener
   private void createRecipeEditor()
   {
     recipe = new Recipe();
+    state = DocumentState.NULL;
     editor = new RecipeEditor(recipe, this);
+    editor.updateToolBar(state);
+
+    editor.getContent().getMainIFP().addObserver(this);
+    editor.getContent().getUtensilIFP().addObserver(this);
+    editor.getContent().getIngredientIFP().addObserver(this);
+    editor.getContent().getStepIFP().addObserver(this);
   }
 
-  private void addUtensil(Utensils utensil)
+  /**
+   * Gets the name of the recipe from the editor
+   * Includes input checking.
+   */
+  private String getName()
   {
-    recipe.addUtensils(utensil);
+    String name = editor.getContent().getNameField();
+    if (name == null || name.equals(""))
+    {
+      name = "Untitled Recipe";
+    }
+
+    return name;
+  }
+
+  /**
+   * Gets the number of serves from the editor
+   * Includes input checking.
+   */
+  private int getServes()
+  {
+    String serves = editor.getContent().getServesField();
+    if (serves == null || serves.equals(""))
+    {
+      serves = "0";
+    }
+
+    if (serves.matches("[0-9]+")) // valid numerical input
+    {
+      return Integer.parseInt(serves);
+    }
+    else
+    {
+      return 0; // default
+    }
+  }
+
+  /**
+   * Called when the state changes
+   *
+   * @param state
+   */
+  public void handleNotification(DocumentState state)
+  {
+    System.out.println("Notified");
+    System.out.println(this.state.getState() + " " + state.getState());
+
+    this.state = state;
+
+    editor.updateToolBar(state);
   }
 
   /**
@@ -65,24 +123,39 @@ public class RecipeEditorController implements ActionListener
     // commands for Toolbar
     if (command.equals(NEW))
     {
-      System.out.println("Recipe Editor ToolBar: New button selected");
+      recipe = new Recipe();
+      editor.resetRecipeEditor();
+      state = DocumentState.UNCHANGED;
+      editor.updateToolBar(state);
     }
     else if (command.equals(OPEN))
     {
-      System.out.println("Recipe Editor ToolBar: Open button selected");
+      editor.resetRecipeEditor();
+      // load
+      state = DocumentState.UNCHANGED;
+      editor.updateToolBar(state);
     }
     else if (command.equals(SAVE))
     {
-      System.out.println("Recipe Editor ToolBar: Save button selected");
+      // save
+      state = DocumentState.UNCHANGED;
+      editor.updateToolBar(state);
     }
     else if (command.equals(SAVE_AS))
     {
-      System.out.println("Recipe Editor ToolBar: Save As button selected");
+      // save as
+      state = DocumentState.UNCHANGED;
+      editor.updateToolBar(state);
     }
     else if (command.equals(CLOSE))
     {
-      System.out.println("Recipe Editor ToolBar: Close button selected");
+      recipe = null;
+      editor.resetRecipeEditor();
+      state = DocumentState.NULL;
+      editor.updateToolBar(state);
     }
+
+    // commands for Editors
     else if (command.equals(UTENSILADD))
     {
       System.out.println("Recipe Editor Panel: Utensil Add button selected");

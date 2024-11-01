@@ -5,7 +5,7 @@ package cooking;
  * Allows grouping of Ingredients, Utensils, and Steps.
  *
  *  @author f24team3d
- *  @version 10/29/24
+ *  @version 10/31/24
  */
 public interface RecipeElement
 {

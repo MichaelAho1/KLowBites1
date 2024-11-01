@@ -1,11 +1,15 @@
 package gui;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.*;
 
 import cooking.*;
 
 import controller.RecipeEditorController;
+import utilities.DocumentState;
 
 /**
  * RecipeEditorContent class. Handles RecipeEditor main content.
@@ -88,5 +92,43 @@ public class RecipeEditorContent extends JPanel
     contentPane.add(editorPanel, BorderLayout.CENTER);
 
     this.add(contentPane);
+  }
+
+  public String getNameField()
+  {
+    return mainIFP.getText("Name: ");
+  }
+
+  public String getServesField()
+  {
+    return mainIFP.getText("Serves: ");
+  }
+
+  public void reset()
+  {
+    mainIFP.resetFields();
+    utensilIFP.resetFields();
+    ingredientIFP.resetFields();
+    stepIFP.resetFields();
+  }
+
+  public InputFieldPanel getMainIFP()
+  {
+    return mainIFP;
+  }
+
+  public InputFieldPanel getUtensilIFP()
+  {
+    return utensilIFP;
+  }
+
+  public InputFieldPanel getIngredientIFP()
+  {
+    return ingredientIFP;
+  }
+
+  public InputFieldPanel getStepIFP()
+  {
+    return stepIFP;
   }
 }

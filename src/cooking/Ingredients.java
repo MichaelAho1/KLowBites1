@@ -8,7 +8,7 @@ import javax.swing.JLabel;
  *  @author f24team3d
  *  @version 10/29/24
  */
-public class Ingredients implements RecipeElement
+public class Ingredients implements RecipeElement, StepSource
 {
   private double amount = 0.0;
   private String units = "";

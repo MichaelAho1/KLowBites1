@@ -6,7 +6,7 @@ package cooking;
  *  @author f24team3d
  *  @version 10/29/24
  */
-public class Utensils implements RecipeElement
+public class Utensils implements RecipeElement, StepSource
 {
   private String name;
   private String details;
@@ -26,7 +26,7 @@ public class Utensils implements RecipeElement
    * @param name
    * @param details
    */
-  public Utensils(String name, String details) 
+  public Utensils(String name, String details)
   {
     this.name = name;
     this.details = details;

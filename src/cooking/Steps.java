@@ -9,7 +9,7 @@ package cooking;
 public class Steps implements RecipeElement
 {
   private String action;
-  private Ingredients source;
+  private StepSource source;
   private Utensils destination;
   private String details;
 
@@ -32,7 +32,7 @@ public class Steps implements RecipeElement
    * @param destination
    * @param details
    */
-  public Steps(String action, Ingredients source, Utensils destination, String details)
+  public Steps(String action, StepSource source, Utensils destination, String details)
   {
     this.action = action;
     this.source = source;
@@ -65,7 +65,7 @@ public class Steps implements RecipeElement
    *
    * @return the source of the step
    */
-  public Ingredients getSource()
+  public StepSource getSource()
   {
     return source;
   }

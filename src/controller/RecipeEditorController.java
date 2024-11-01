@@ -97,17 +97,13 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
   }
 
   /**
-   * Called when the state changes
+   * Called when the document state changes
    *
    * @param state
    */
   public void handleNotification(DocumentState state)
   {
-    System.out.println("Notified");
-    System.out.println(this.state.getState() + " " + state.getState());
-
     this.state = state;
-
     editor.updateToolBar(state);
   }
 

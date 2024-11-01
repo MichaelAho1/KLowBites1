@@ -95,16 +95,6 @@ public class RecipeEditor extends JFrame
   }
 
   /**
-   * Detects changes in the document
-   *
-   * @return true if changes are detected, false otherwise
-   */
-  public boolean detectChanges()
-  {
-    return false;
-  }
-
-  /**
    * Updates the toolbar according to the current document state
    */
   public void updateToolBar(DocumentState state)

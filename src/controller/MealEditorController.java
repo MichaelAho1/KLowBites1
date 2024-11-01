@@ -5,8 +5,9 @@ import java.awt.event.*;
 import java.util.ArrayList;
 
 import cooking.*;
-import gui.MealEditor;
+import utilities.*;
 
+import gui.MealEditor;
 
 /**
  * MealEditor controller class. Handles the actions of the MealEditor GUI elements
@@ -14,7 +15,7 @@ import gui.MealEditor;
  * @author f24team3d
  * @version 10/29/24
  */
-public class MealEditorController implements ActionListener
+public class MealEditorController implements ActionListener, DocumentStateObserver
 {
   private static String NEW = "New";
   private static String OPEN = "Open";
@@ -27,6 +28,7 @@ public class MealEditorController implements ActionListener
 
   private MealEditor editor;
   private ArrayList<Recipe> meal;
+  private DocumentState state;
 
   /**
    * Constructor for controller.
@@ -38,7 +40,24 @@ public class MealEditorController implements ActionListener
 
   private void createMealEditor()
   {
+    state = DocumentState.NULL;
     editor = new MealEditor(meal, this);
+
+    editor.updateToolBar(state);
+
+    editor.getContent().getMainIFP().addObserver(this);
+    editor.getContent().getRecipeIFP().addObserver(this);
+  }
+
+  /**
+   * Called when the document state changes
+   *
+   * @param state
+   */
+  public void handleNotification(DocumentState state)
+  {
+    this.state = state;
+    editor.updateToolBar(state);
   }
 
   /**
@@ -53,23 +72,36 @@ public class MealEditorController implements ActionListener
     // commands for Toolbar
     if (command.equals(NEW))
     {
-      System.out.println("Meal Editor ToolBar: New button selected");
+      meal = new ArrayList<Recipe>();
+      editor.resetMealEditor();
+      state = DocumentState.UNCHANGED;
+      editor.updateToolBar(state);
     }
     else if (command.equals(OPEN))
     {
-      System.out.println("Meal Editor ToolBar: Open button selected");
+      editor.resetMealEditor();
+      // load
+      state = DocumentState.UNCHANGED;
+      editor.updateToolBar(state);
     }
     else if (command.equals(SAVE))
     {
-      System.out.println("Meal Editor ToolBar: Save button selected");
+      // save
+      state = DocumentState.UNCHANGED;
+      editor.updateToolBar(state);
     }
     else if (command.equals(SAVE_AS))
     {
-      System.out.println("Meal Editor ToolBar: Save As button selected");
+      // save as
+      state = DocumentState.UNCHANGED;
+      editor.updateToolBar(state);
     }
     else if (command.equals(CLOSE))
     {
-      System.out.println("Meal Editor ToolBar: Close button selected");
+      meal = null;
+      editor.resetMealEditor();
+      state = DocumentState.NULL;
+      editor.updateToolBar(state);
     }
     else if (command.equals(RECIPEADD))
     {

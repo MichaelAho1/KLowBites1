@@ -61,4 +61,25 @@ public class MealEditorContent extends JPanel
 
     this.add(contentPane);
   }
+
+  public String getNameField()
+  {
+    return mainIFP.getText("Name: ");
+  }
+
+  public void reset()
+  {
+    mainIFP.resetFields();
+    recipeIFP.resetFields();
+  }
+
+  public InputFieldPanel getMainIFP()
+  {
+    return mainIFP;
+  }
+
+  public InputFieldPanel getRecipeIFP()
+  {
+    return recipeIFP;
+  }
 }

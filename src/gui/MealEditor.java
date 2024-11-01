@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import controller.MealEditorController;
 import cooking.*;
+import utilities.DocumentState;
 import utilities.ImageUtilities;
 
 /**
@@ -17,6 +18,10 @@ import utilities.ImageUtilities;
 public class MealEditor extends JFrame
 {
   Container outerPane;
+  JPanel contentPane;
+  MealEditorContent content;
+
+  JButton[] buttons;
 
   /**
    * Constructor for RecipeEditor.
@@ -36,7 +41,7 @@ public class MealEditor extends JFrame
     toolbar.setRollover(true);
 
     // create toolbar buttons
-    JButton[] buttons = new JButton[5];
+    buttons = new JButton[5];
     String[] buttonNames = {"New", "Open", "Save", "Save As", "Close"};
     String[] buttonPaths = {"img/new.png", "img/open.png", "img/save.png", "img/save_as.png",
         "img/close.png"};
@@ -58,7 +63,8 @@ public class MealEditor extends JFrame
     }
 
     // creates the main content panel
-    Container contentPane = new MealEditorContent(controller);
+    content = new MealEditorContent(controller);
+    contentPane = content;
 
     this.setSize(new Dimension(900, 500));
     this.setResizable(false);
@@ -69,5 +75,55 @@ public class MealEditor extends JFrame
     outerPane.add(contentPane, BorderLayout.CENTER); // adds the content pane to outerPane center
 
     this.add(outerPane); // adds outerPane to the frame
+  }
+
+  public MealEditorContent getContent()
+  {
+    return content;
+  }
+
+  public void resetMealEditor()
+  {
+    content.reset();
+  }
+
+    /**
+   * Updates the toolbar according to the current document state
+   */
+  public void updateToolBar(DocumentState state)
+  {
+    if (state == DocumentState.NULL)
+    {
+      // enabled
+      buttons[0].setEnabled(true); // new
+      buttons[1].setEnabled(true); // open
+
+      // disabled
+      buttons[2].setEnabled(false); // save
+      buttons[3].setEnabled(false); // save as
+      buttons[4].setEnabled(false); // close
+    }
+    else if (state == DocumentState.CHANGED)
+    {
+      // enabled
+      buttons[2].setEnabled(true); // save
+      buttons[3].setEnabled(true); // save as
+
+      // disabled
+      buttons[0].setEnabled(false); // new
+      buttons[1].setEnabled(false); // open
+      buttons[4].setEnabled(false); // close
+    }
+    else if (state == DocumentState.UNCHANGED)
+    {
+      // enabled
+      buttons[0].setEnabled(true); // new
+      buttons[1].setEnabled(true); // open
+      buttons[3].setEnabled(true); // save as
+      buttons[4].setEnabled(true); // close
+
+      // disabled
+      buttons[2].setEnabled(false); // save
+    }
   }
 }

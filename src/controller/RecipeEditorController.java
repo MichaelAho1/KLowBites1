@@ -31,6 +31,9 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
   private static String STEPADD = "Step Add";
   private static String STEPDELETE = "Step Delete";
 
+  private boolean savedAs = false;
+  private String savePath = "";
+
   private RecipeEditor editor;
   private Recipe recipe;
   private DocumentState state;
@@ -122,20 +125,53 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
       recipe = new Recipe();
       editor.resetRecipeEditor();
       state = DocumentState.UNCHANGED;
+      savedAs = false;
+      savePath = "";
       editor.updateToolBar(state);
     }
     else if (command.equals(OPEN))
     {
       editor.resetRecipeEditor();
-      // load
+      // System.out.println(FileUtilities.openRecipe());
+      recipe = FileUtilities.parseData(FileUtilities.openRecipe());
       state = DocumentState.UNCHANGED;
       editor.updateToolBar(state);
+
+      System.out.println(FileUtilities.dumpRecipe(recipe));
+
+      // propagate changes to window
     }
     else if (command.equals(SAVE))
     {
-      // save
-      recipe.setName(editor.getContent().getNameField());
-      recipe.setServes(Integer.parseInt(editor.getContent().getServesField()));
+      String name = editor.getContent().getNameField();
+      String serves = editor.getContent().getServesField();
+
+      if (name != null)
+      {
+        recipe.setName(name);
+      }
+      else
+      {
+        System.out.println("Invalid input");
+      }
+      if (InputUtilities.isPositiveInt(serves))
+      {
+        recipe.setServes(Integer.parseInt(serves));
+      }
+      else
+      {
+        System.out.println("Invalid input");
+      }
+
+
+      if (savedAs && !savePath.equals(""))
+      {
+        FileUtilities.saveRecipe(savePath, FileUtilities.dumpRecipe(recipe)); // save
+      }
+      else // if not saved before
+      {
+        FileUtilities.saveAsRecipe(FileUtilities.dumpRecipe(recipe)); // save as
+      }
 
       state = DocumentState.UNCHANGED;
       editor.updateToolBar(state);
@@ -143,12 +179,15 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
     else if (command.equals(SAVE_AS))
     {
       // save as
+      savePath = FileUtilities.saveAsRecipe(FileUtilities.dumpRecipe(recipe));
       state = DocumentState.UNCHANGED;
       editor.updateToolBar(state);
     }
     else if (command.equals(CLOSE))
     {
       recipe = null;
+      savePath = "";
+      savedAs = false;
       editor.resetRecipeEditor();
       state = DocumentState.NULL;
       editor.updateToolBar(state);
@@ -169,6 +208,8 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
         utensil.setDetails(details);
 
         editor.getContent().getUtensilPanel().addRecipeElement(utensil);
+
+      recipe.addUtensils(utensil);
       }
       else
       {
@@ -178,6 +219,16 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
     }
     else if (command.equals(UTENSILDELETE))
     {
+      for (Utensils utensil : recipe.getUtensils())
+      {
+        if (utensil.getName().equals(editor.getContent().getUtensilPanel().getSelectedUtensil(utensil.getName()).getName()))
+        {
+          recipe.removeUtensils(utensil);
+          break;
+        }
+      }
+
+
       editor.getContent().getUtensilPanel().deleteRecipeElement();
       editor.getContent().updateStepSourcePanel();
     }
@@ -201,6 +252,8 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
         ingredient.setUnit(unit);
 
         editor.getContent().getIngredientPanel().addRecipeElement(ingredient);
+
+        recipe.addIngredient(ingredient);
       }
       else
       {
@@ -210,6 +263,15 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
     }
     else if (command.equals(INGREDIENTDELETE))
     {
+      for (Ingredients ingredient : recipe.getIngredients())
+      {
+        if (ingredient.getName().equals(editor.getContent().getIngredientPanel().getSelectedIngredient(ingredient.getName()).getName()))
+        {
+          recipe.removeIngredients(ingredient);
+          break;
+        }
+      }
+
       editor.getContent().getIngredientPanel().deleteRecipeElement();
       editor.getContent().updateStepSourcePanel();
     }
@@ -239,6 +301,8 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
         step.setDetails(details);
 
         editor.getContent().getStepPanel().addRecipeElement(step);
+
+        recipe.addStep(step);
       }
       else
       {
@@ -248,13 +312,22 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
     }
     else if (command.equals(STEPDELETE))
     {
+      for (Steps step : recipe.getSteps())
+      {
+        if (step.getDetails().equals(editor.getContent().getStepPanel().getSelectedStep(step.getAction(), step.getDetails()).getDetails()))
+        {
+          recipe.removeSteps(step);
+          break;
+        }
+      }
+
       editor.getContent().getStepPanel().deleteRecipeElement();
     }
   }
 
   private void oldCode()
   {
-      // /**
+  //     /**
   //  * Saves the current recipe to the file, using FileUtilities saveFile method.
   //  */
   // private void saveRecipe()

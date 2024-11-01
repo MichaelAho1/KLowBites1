@@ -115,6 +115,21 @@ public class Recipe
     utensils.add(utensil);
   }
 
+  public void removeUtensils(Utensils utensil)
+  {
+    utensils.remove(utensil);
+  }
+
+  public void removeIngredients(Ingredients ingredient)
+  {
+    ingredients.remove(ingredient);
+  }
+
+  public void removeSteps(Steps step)
+  {
+    steps.remove(step);
+  }
+
   /**
    * Get the utensils of the recipe.
    *

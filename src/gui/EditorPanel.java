@@ -199,6 +199,25 @@ public class EditorPanel extends JPanel
     return null;
   }
 
+  public Steps getSelectedStep(String action, String details)
+  {
+    Steps[] step = new Steps[recipeList.getModel().getSize()];
+
+    for (int i = 0; i < step.length; i++)
+    {
+      step[i] = (Steps) recipeList.getModel().getElementAt(i);
+    }
+
+    for (int i = 0; i < step.length; i++)
+    {
+      if (step[i].getDetails().equals(details) && step[i].getAction().equals(action))
+      {
+        return step[i];
+      }
+    }
+    return null;
+  }
+
   public void deleteRecipeElement()
   {
     try

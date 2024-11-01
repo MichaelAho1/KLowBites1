@@ -15,4 +15,6 @@ public interface RecipeElement
    * @return the name and details of the RecipeElement
    */
   public String toString();
+
+  public String getName();
 }

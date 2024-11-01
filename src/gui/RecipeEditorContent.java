@@ -35,6 +35,10 @@ public class RecipeEditorContent extends JPanel
   EditorPanel ingredientEditorPanel;
   EditorPanel stepEditorPanel;
 
+  String[] stepUtensils;
+  String[] stepIngredients;
+  String[] stepSources;
+
   Units units;
 
   /**
@@ -79,9 +83,14 @@ public class RecipeEditorContent extends JPanel
 
     // Steps
     stepIFP = new InputFieldPanel();
-    stepIFP.addJComboBox("Action: ", new String[] {"", "test"});
-    stepIFP.addJComboBox("On: ", new String[] {"", "test"});
-    stepIFP.addJComboBox("Utensil: ", new String[] {"", "test"});
+    stepIFP.addJComboBox("Action: ", new String[] {"", "put", "melt", "simmer", "heat", "ignite"});
+
+    stepUtensils = new String[] {""};
+    stepIngredients = new String[] {""};
+
+    stepIFP.addJComboBox("On: ", stepUtensils); // when updated, will contain both utensils and ingredients
+    stepIFP.addJComboBox("Utensil: ", stepUtensils);
+
     stepIFP.addJTextField("Details: ", 15);
     stepIFP.addJButton("Add", "Step Add", controller);
 
@@ -126,6 +135,31 @@ public class RecipeEditorContent extends JPanel
     return ingredientEditorPanel;
   }
 
+  public void updateStepSourcePanel()
+  {
+    stepUtensils = new String[utensilEditorPanel.getRecipeList().getModel().getSize()];
+    
+    for (int i = 0; i < stepUtensils.length; i++)
+    {
+      stepUtensils[i] = utensilEditorPanel.getRecipeList().getModel().getElementAt(i).getName();
+    }
+
+    stepIngredients = new String[ingredientEditorPanel.getRecipeList().getModel().getSize()];
+
+    for (int i = 0; i < stepIngredients.length; i++)
+    {
+      stepIngredients[i] = ingredientEditorPanel.getRecipeList().getModel().getElementAt(i).getName();
+    }
+
+    stepIFP.updateComboBox("Utensil: ", stepUtensils);
+
+    stepSources = new String[stepUtensils.length + stepIngredients.length];
+    System.arraycopy(stepUtensils, 0, stepSources , 0, stepUtensils.length);
+    System.arraycopy(stepIngredients, 0, stepSources , stepUtensils.length, stepIngredients.length);
+
+    stepIFP.updateComboBox("On: ", stepSources);
+  }
+
   public EditorPanel getStepPanel()
   {
     return stepEditorPanel;
@@ -137,6 +171,10 @@ public class RecipeEditorContent extends JPanel
     utensilIFP.resetFields();
     ingredientIFP.resetFields();
     stepIFP.resetFields();
+
+    utensilEditorPanel.reset();
+    ingredientEditorPanel.reset();
+    stepEditorPanel.reset();
   }
 
   public InputFieldPanel getMainIFP()

@@ -75,7 +75,7 @@ public class Steps implements RecipeElement
    *
    * @param source
    */
-  public void setSource(Ingredients source)
+  public void setSource(StepSource source)
   {
     this.source = source;
   }
@@ -118,6 +118,11 @@ public class Steps implements RecipeElement
   public void setDetails(String details)
   {
     this.details = details;
+  }
+
+  public String getName() // temp fix for step sources, should never be called
+  {
+    return "oops";
   }
 
   @Override

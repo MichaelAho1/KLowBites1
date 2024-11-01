@@ -1,5 +1,6 @@
 package controller;
 
+import java.awt.Desktop.Action;
 import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -174,10 +175,12 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
       {
         System.out.println("Invalid input");
       }
+      editor.getContent().updateStepSourcePanel();
     }
     else if (command.equals(UTENSILDELETE))
     {
       editor.getContent().getUtensilPanel().deleteRecipeElement();
+      editor.getContent().updateStepSourcePanel();
     }
     else if (command.equals(INGREDIENTADD))
     {
@@ -204,18 +207,49 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
       {
         System.out.println("Invalid input");
       }
+      editor.getContent().updateStepSourcePanel();
     }
     else if (command.equals(INGREDIENTDELETE))
     {
       editor.getContent().getIngredientPanel().deleteRecipeElement();
+      editor.getContent().updateStepSourcePanel();
     }
     else if (command.equals(STEPADD))
     {
-      System.out.println("Recipe Editor Panel: Step Add button selected");
+      Steps step = new Steps();
+
+      String action = editor.getContent().getStepIFP().getComboBox("Action: ");
+      String on = editor.getContent().getStepIFP().getComboBox("On: ");
+      String utensil = editor.getContent().getStepIFP().getComboBox("Utensil: ");
+      String details = editor.getContent().getStepIFP().getText("Details: ");
+
+      if (InputUtilities.isAlphaNumeric(action) &&
+        InputUtilities.isAlphaNumeric(details) &&
+        !on.equals("") && !utensil.equals(""))
+      {
+        step.setAction(action);
+
+        // if the Utensil and ingredient have the same name, the Utensil will be selected
+        step.setSource(editor.getContent().getUtensilPanel().getSelectedUtensil(on));
+        if (step.getSource() == null)
+        {
+          step.setSource(editor.getContent().getIngredientPanel().getSelectedIngredient(on));
+        }
+
+        step.setDestination(editor.getContent().getUtensilPanel().getSelectedUtensil(utensil));
+        step.setDetails(details);
+
+        editor.getContent().getStepPanel().addRecipeElement(step);
+      }
+      else
+      {
+        System.out.println("Invalid input");
+      }
+
     }
     else if (command.equals(STEPDELETE))
     {
-      System.out.println("Recipe Editor Panel: Step Delete button selected");
+      editor.getContent().getStepPanel().deleteRecipeElement();
     }
   }
 

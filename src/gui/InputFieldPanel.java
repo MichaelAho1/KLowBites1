@@ -26,6 +26,7 @@ public class InputFieldPanel extends JPanel implements DocumentListener, Documen
   // the editable fields in the IFP. The key is the label of the field.
   HashMap<String, JTextField> fields;
   HashMap<String, JComboBox<String>> comboBoxes;
+  HashMap<String, JButton> buttons;
 
   private ArrayList<DocumentStateObserver> observers;
 
@@ -48,6 +49,7 @@ public class InputFieldPanel extends JPanel implements DocumentListener, Documen
     // initializes the ArrayLists of editable fields
     fields = new HashMap<String, JTextField>();
     comboBoxes = new HashMap<String, JComboBox<String>>();
+    buttons = new HashMap<String, JButton>();
 
     // adds the input fields into the content pane
     contentPane.add(inputFields, BorderLayout.CENTER);
@@ -127,6 +129,8 @@ public class InputFieldPanel extends JPanel implements DocumentListener, Documen
     button.setActionCommand(actionCommand);
     button.addActionListener(controller);
 
+    buttons.put(label, button);
+
     inputFields.add(button);
   }
 
@@ -142,6 +146,9 @@ public class InputFieldPanel extends JPanel implements DocumentListener, Documen
     {
       comboBox.addItem(item);
     }
+
+    comboBox.setPreferredSize(new Dimension(70, 20));
+    comboBox.setMaximumSize(new Dimension(70, 20));
 
     comboBoxes.put(label, comboBox);
     inputFields.add(comboBox);
@@ -196,6 +203,29 @@ public class InputFieldPanel extends JPanel implements DocumentListener, Documen
   {
     return (String) comboBoxes.get(label).getSelectedItem();
   }
+
+  public void updateComboBox(String label, String[] newItems)
+  {
+    JComboBox<String> comboBox = comboBoxes.get(label);
+    if (comboBox != null)
+    {
+      comboBox.removeAllItems();
+
+      comboBox.addItem("");
+
+      for (String item : newItems)
+      {
+        comboBox.addItem(item);
+      }
+
+      comboBoxes.put(comboBox.getName(), comboBox);
+
+      comboBox.setPreferredSize(new Dimension(70, 20));
+      comboBox.setMaximumSize(new Dimension(70, 20));
+      comboBox.repaint();
+      comboBox.revalidate();
+    }
+}
 
   public void addObserver(DocumentStateObserver observer)
   {

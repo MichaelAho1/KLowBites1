@@ -95,7 +95,7 @@ public class EditorPanel extends JPanel
    *
    * @param name the name of the EditorPanel
    * @param inputFieldPanel the input field panel
-   * @param controller the controller for the RecipeEditor
+   * @param controller the controller for the MealEditor
    * @param type the type of the input
    */
   public EditorPanel(String name, InputFieldPanel inputFieldPanel, MealEditorController controller)
@@ -159,6 +159,44 @@ public class EditorPanel extends JPanel
   public JList<Recipe> getMealList()
   {
     return mealList;
+  }
+
+  public Ingredients getSelectedIngredient(String name)
+  {
+    Ingredients[] ingredient = new Ingredients[recipeList.getModel().getSize()];
+
+    for (int i = 0; i < ingredient.length; i++)
+    {
+      ingredient[i] = (Ingredients) recipeList.getModel().getElementAt(i);
+    }
+
+    for (int i = 0; i < ingredient.length; i++)
+    {
+      if (ingredient[i].getName().equals(name))
+      {
+        return ingredient[i];
+      }
+    }
+    return null;
+  }
+
+  public Utensils getSelectedUtensil(String name)
+  {
+    Utensils[] utensil = new Utensils[recipeList.getModel().getSize()];
+
+    for (int i = 0; i < utensil.length; i++)
+    {
+      utensil[i] = (Utensils) recipeList.getModel().getElementAt(i);
+    }
+
+    for (int i = 0; i < utensil.length; i++)
+    {
+      if (utensil[i].getName().equals(name))
+      {
+        return utensil[i];
+      }
+    }
+    return null;
   }
 
   public void deleteRecipeElement()

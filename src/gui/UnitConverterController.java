@@ -103,7 +103,10 @@ public class UnitConverterController implements ActionListener, DocumentListener
     String toUnits = UnitConverterWindow.getToUnitsMenu();
     Double fromAmount = UnitConverterWindow.getFromAmountField();
     String ingredient = UnitConverterWindow.getIngredientsUnitsMenu();
-    Double density = KILowBites.FOODS.getDensity(ingredient);
+    Double density = 0.0;
+    
+    if (!sameMeasureType)
+    	density = KILowBites.FOODS.getDensity(ingredient);
 
     if (Arrays.asList(volumeUnits).contains(fromUnits)) // Volume
     {

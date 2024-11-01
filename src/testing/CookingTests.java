@@ -156,9 +156,10 @@ class CookingTests
 	  assertEquals(uten, recipe.getUtensils().getFirst());
 	  assertEquals(steps, recipe.getSteps().getFirst());
 	  recipe.setServes(0);
-	  assertThrows(IllegalArgumentException.class, () -> {
+	  assertThrows(IllegalArgumentException.class, () -> 
+	  {
 		  recipe.getScalingFactor(6);
-      });
+	  });
 	  recipe.setServes(5);
 	  assertEquals(2, recipe.getScalingFactor(10));
   }

@@ -30,6 +30,11 @@ public class MealEditorController implements ActionListener, DocumentStateObserv
   private ArrayList<Recipe> meal;
   private DocumentState state;
 
+  private String mealName = "";
+
+  private boolean savedAs = false;
+  private String savePath = "";
+
   /**
    * Constructor for controller.
    */
@@ -41,6 +46,7 @@ public class MealEditorController implements ActionListener, DocumentStateObserv
   private void createMealEditor()
   {
     state = DocumentState.NULL;
+    meal = new ArrayList<Recipe>();
     editor = new MealEditor(meal, this);
 
     editor.updateToolBar(state);
@@ -75,18 +81,46 @@ public class MealEditorController implements ActionListener, DocumentStateObserv
       meal = new ArrayList<Recipe>();
       editor.resetMealEditor();
       state = DocumentState.UNCHANGED;
+      savedAs = false;
+      savePath = "";
       editor.updateToolBar(state);
     }
     else if (command.equals(OPEN))
     {
       editor.resetMealEditor();
-      // load
+
+      Recipe r = new Recipe();
+      if (r != null)
+      {
+        r = FileUtilities.parseData(FileUtilities.openMeal());
+      }
+
       state = DocumentState.UNCHANGED;
       editor.updateToolBar(state);
+
+      // create new populated editor
+      // editor.dispose();
     }
     else if (command.equals(SAVE))
     {
-      // save
+      String name = editor.getContent().getNameField();
+
+      if (name != null)
+      {
+        mealName = name;
+      }
+
+      if (savedAs && !savePath.equals(""))
+      {
+        FileUtilities.saveMeal(savePath, meal);
+      }
+      else
+      {
+        savePath = FileUtilities.saveAsMeal(meal);
+        state = DocumentState.UNCHANGED;
+        editor.updateToolBar(state);
+      }
+
       state = DocumentState.UNCHANGED;
       editor.updateToolBar(state);
     }
@@ -106,12 +140,19 @@ public class MealEditorController implements ActionListener, DocumentStateObserv
     else if (command.equals(RECIPEADD))
     {
       System.out.println("Meal Editor Panel: Recipe Add button selected");
-      // open recipe file selection dialog
-      // valid recipe file
+      
+      Recipe r = new Recipe();
+      r = FileUtilities.parseData(FileUtilities.openRecipe());
+
+      if (r != null)
+      {
+        editor.getContent().getEditorPanel().addMealElement(r);
+        meal.add(r);
+      }
     }
     else if (command.equals(RECIPEDELETE))
     {
-      System.out.println("Meal Editor Panel: Recipe Delete button selected");
+      meal.remove(editor.getContent().getEditorPanel().getMealList().getSelectedValue());
       editor.getContent().getEditorPanel().deleteMealElement();
     }
   }

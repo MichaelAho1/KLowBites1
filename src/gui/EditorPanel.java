@@ -173,12 +173,24 @@ public class EditorPanel extends JPanel
 
   public void reset()
   {
-    recipeFileArea.clear();
+    try
+    {
+      recipeFileArea.clear();
+    }
+    catch (NullPointerException e)
+    {
+      System.out.println("nothing to clear");
+    }
   }
 
   public void addRecipeElement(RecipeElement element)
   {
     recipeFileArea.addElement(element);
+  }
+
+  public void addMealElement(Recipe e)
+  {
+    mealFileArea.addElement(e);
   }
 
   public JList<RecipeElement> getRecipeList()

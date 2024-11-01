@@ -9,6 +9,7 @@ import cooking.Utensils;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.*;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class FileUtilities
@@ -251,6 +252,108 @@ public class FileUtilities
       System.out.println("Save As operation was canceled.");
       return "";
     }
+  }
+
+  public static void saveMeal(String filePath, ArrayList<Recipe> data)
+  {
+    try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true)))
+    {
+      for (Recipe recipe : data)
+      {
+        writer.write(dumpRecipe(recipe));
+        writer.write("\n\n --Recipe End-- \n\n");
+      }
+
+      System.out.println("Meal saved to file: " + filePath);
+    }
+    catch (IOException e)
+    {
+      System.err.println("Error saving the file: " + e.getMessage());
+    }
+  }
+
+    /**
+   * Save As: Open a file explorer and let the user select where to save the recipe.
+   */
+  public static String saveAsMeal(ArrayList<Recipe> data)
+  {
+    // set up a file filter for .txt or any specific recipe format (if desired)
+    FileNameExtensionFilter filter = new FileNameExtensionFilter("Meal Files", "mel");
+    fileChooser.setFileFilter(filter);
+
+    // open the file explorer and let the user select where to save
+    int result = fileChooser.showSaveDialog(null);
+    if (result == JFileChooser.APPROVE_OPTION)
+    {
+      File selectedFile = fileChooser.getSelectedFile();
+      String filePath = selectedFile.getAbsolutePath();
+
+      // if the file doesn't have the desired extension, append it
+      if (!filePath.endsWith(".mel"))
+      {
+        filePath += ".mel";
+      }
+
+      // call the saveFile method to actually save the recipe
+      saveMeal(filePath, data);
+
+      return filePath;
+    }
+    else
+    {
+      System.out.println("Save As operation was canceled.");
+      return "";
+    }
+  }
+
+  public static String openMeal()
+  {
+    fileChooser = new JFileChooser();
+
+    // Open an existing recipe file and load into currentRecipe
+    String data = "";
+
+    // set up a file filter for .txt or any specific recipe format (if desired)
+    FileNameExtensionFilter filter = new FileNameExtensionFilter("Meal Files", "mel");
+    fileChooser.setFileFilter(filter);
+
+    // open the file explorer and let the user select where to save
+    int result = fileChooser.showOpenDialog(null);
+    if (result == JFileChooser.APPROVE_OPTION)
+    {
+      File selectedFile = fileChooser.getSelectedFile();
+      String filePath = selectedFile.getAbsolutePath();
+
+    try (BufferedReader reader = new BufferedReader(new FileReader(filePath)))
+    {
+      while (reader.ready())
+      {
+        data += reader.readLine() + "\n";
+      }
+
+      System.out.println("Meal opened from file: " + filePath);
+    }
+    catch (IOException e)
+    {
+      System.err.println("Error reading the file: " + e.getMessage());
+      return null;
+    }
+    return data;
+    }
+    return null;
+  }
+
+  public ArrayList<Recipe> parseMealData(String mealData)
+  {
+    ArrayList<Recipe> meal = new ArrayList<>();
+    String[] recipes = mealData.split("\n\n --Recipe End-- \n\n");
+
+    for (String recipe : recipes)
+    {
+      meal.add(parseData(recipe));
+    }
+
+    return meal;
   }
 
   public static String dumpRecipe(Recipe recipe)

@@ -73,6 +73,7 @@ public class MealEditorContent extends JPanel
   {
     mainIFP.resetFields();
     recipeIFP.resetFields();
+	recipeEditorPanel.reset();
   }
 
   public InputFieldPanel getMainIFP()

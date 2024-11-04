@@ -1,0 +1,48 @@
+**Recipe**
+--Main Fields--
+Main - Name: BananasFoster
+Main - Serves: 3
+
+--Utensils--
+Utensil - Name: skillet
+Utensil - Details: large
+Utensil - Name: saucepan
+Utensil - Details: test
+Utensil - Name: plate
+Utensil - Details: test
+
+--Ingredients--
+Ingredient - Name: butter
+Ingredient - Details: test
+Ingredient - Amount: 0.33
+Ingredient - Unit: Cup
+Ingredient - Name: brown sugar
+Ingredient - Details: test
+Ingredient - Amount: 0.33
+Ingredient - Unit: Cup
+Ingredient - Name: bananas
+Ingredient - Details: individual
+Ingredient - Amount: 3.0
+Ingredient - Unit: null
+Ingredient - Name: creme de cacao
+Ingredient - Details: test
+Ingredient - Amount: 2.0
+Ingredient - Unit: Tablespoon
+Ingredient - Name: rum
+Ingredient - Details: test
+Ingredient - Amount: 0.25
+Ingredient - Unit: Cup
+Ingredient - Name: ice cream
+Ingredient - Details: test
+Ingredient - Amount: 2.0
+Ingredient - Unit: Cup
+Ingredient - Name: cinnamon
+Ingredient - Details: ground
+Ingredient - Amount: 0.25
+Ingredient - Unit: Teaspoon
+
+--Steps--
+Step - Action: put
+Step - SourceU: skillet
+Step - Destination: skillet
+Step - Details: test

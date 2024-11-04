@@ -58,7 +58,7 @@ public class MassConverter
       return fromAmount / 28.34952;
     }
     if ("Pound".equals(toUnit))
-    { // Pound
+    { 
       return (fromAmount / 28.34952) / 16;
     }
     else
@@ -85,9 +85,13 @@ public class MassConverter
     {
       return fromAmount / 16;
     }
-    else
-    { // Pound
+    if ("Pound".equals(toUnit))
+    {
       return (fromAmount / 16) / 16;
+    }
+    else
+    { 
+      return fromAmount;
     }
   }
 
@@ -109,9 +113,13 @@ public class MassConverter
     {
       return fromAmount * 16;
     }
+    if("Pound".equals(toUnit))
+    {
+      return fromAmount / 16;
+    }
     else
     { // Pound
-      return fromAmount / 16;
+      return fromAmount;
     }
   }
   
@@ -133,9 +141,13 @@ public class MassConverter
     {
       return (fromAmount * 16) * 16;
     }
+    if("Ounce".equals(toUnit))
+    {
+      return fromAmount * 16;
+    }
     else
     { // Ounce
-      return fromAmount * 16;
+      return fromAmount;
     }
   }
   

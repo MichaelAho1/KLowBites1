@@ -202,7 +202,6 @@ public class VolumeConverter
    */
   public static Double milliliterConverter(final String toUnit, final Double fromAmount)
   {
-    System.out.print(fromAmount);
     return convertHelp((fromAmount * 48) / 14.7867648, toUnit);
   }
 

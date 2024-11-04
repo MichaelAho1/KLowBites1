@@ -63,22 +63,27 @@ class UnitConverterTest
     assertEquals(4920.96 , MassToVolume.interConverting(pint, gram, 10.0, 1.04), 0.1);
     assertEquals(21 , MassToVolume.interConverting(quart, pound, 10.0, 1.04), 1);
     assertEquals(1388 , MassToVolume.interConverting(gallon, ounce, 10.0, 1.04), 1);
-    assertEquals(8.0, VolumeConverter.callerHelp(gallon, quart, 32.0));
-    assertEquals(32.0, VolumeConverter.callerHelp(quart, milliliter, 30283.294), 0.001);
-    assertEquals(32.0, VolumeConverter.callerHelp(quart, tablespoon, 2048.0));
-    assertEquals(32.0, VolumeConverter.callerHelp(quart, fluidOunce, 1024.0));
-    assertEquals(32.0, VolumeConverter.callerHelp(quart, cup, 128.0));
-    assertEquals(32.0, VolumeConverter.callerHelp(quart, pint, 64.0));
-    assertEquals(32.0, VolumeConverter.callerHelp(quart, teaspoon, 6144.0));
-    assertEquals(32.0, VolumeConverter.callerHelp(quart, gallon, 8.0));
-    assertEquals(32.0, VolumeConverter.callerHelp(quart, pinch, 98304.0));
+    assertEquals(128.0, VolumeConverter.callerHelp(gallon, quart, 32.0));
+    assertEquals(30283.294, VolumeConverter.callerHelp(quart, milliliter, 32.0), 0.001);
+    assertEquals(64.0, VolumeConverter.callerHelp(quart, tablespoon, 1.0));
+    assertEquals(16.0, VolumeConverter.callerHelp(pint, fluidOunce, 1.0));
+    assertEquals(8.0, VolumeConverter.callerHelp(cup, cup, 8.0));
+    assertEquals(1.0, VolumeConverter.callerHelp(fluidOunce, cup, 8.0));
+    assertEquals(1.0, VolumeConverter.callerHelp(teaspoon, cup, 48.0));
+    assertEquals(1.0, VolumeConverter.callerHelp(pinch, teaspoon, 16.0));
     assertEquals(0.25, MassConverter.callerHelp(ounce, pound, 4.0));
     assertEquals(0.25, MassConverter.callerHelp(dram, pound, 64.0));
     assertEquals(1.0, MassConverter.callerHelp(gram, ounce, 28.34952), 0.001);
     assertEquals(16.0, MassConverter.callerHelp(pound, ounce, 1.0));
+    assertEquals(1.0, VolumeConverter.callerHelp(milliliter, tablespoon, 14.7), 0.1);
+    assertEquals(1.0, VolumeConverter.callerHelp(tablespoon, fluidOunce, 2.0), 0.1);
+    assertEquals(14.7, VolumeConverter.callerHelp(tablespoon, milliliter, 1.0), 0.1);
+    assertEquals(1.0, MassConverter.callerHelp(ounce, ounce, 1.0));
+    assertEquals(1.0, MassConverter.callerHelp(dram, dram, 1.0));
+    assertEquals(1.0, MassConverter.callerHelp(gram, gram, 1.0));
+    assertEquals(1.0, MassConverter.callerHelp(pound, pound, 1.0));
     MassConverter.callerHelp("yes", ounce, 1.0);
     MassToVolume.interConverting("Yes", pound, ten, 1.04);
-    assertEquals(0.20288, VolumeConverter.callerHelp(pinch, teaspoon, 1.0));
     
   }
   

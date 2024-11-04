@@ -71,10 +71,9 @@ public class KILowBites implements Runnable
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     JPanel contentPane = (JPanel) frame.getContentPane();
     contentPane.setLayout(new BorderLayout());
-    
+
     // Set the background color of the main content pane to white
     contentPane.setBackground(Color.WHITE);
-
 
     // Construct the controller
     KILowBitesController controller = new KILowBitesController();

@@ -7,6 +7,8 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 import app.KILowBites;
+import converter.MassConverter;
+import converter.VolumeConverter;
 import gui.CalorieCalculatorWindow;
 
 /**
@@ -91,12 +93,27 @@ public class CalorieCalculatorController implements ActionListener, DocumentList
 
     // retrieve ingredient name from input and get values associated with ingredient
     String ingredient = CalorieCalculatorWindow.calorieIngredientsMenu.getSelectedItem().toString();
+    String unit = CalorieCalculatorWindow.calorieUnitsMenu.getSelectedItem().toString();
+    String unitMeasure = KILowBites.UNITS.unitMeasure(unit);
     double[] values = KILowBites.FOODS.getFoods().get(ingredient);
 
-    double gramsPerUnit;
-    if (CalorieCalculatorWindow.calorieUnitsMenu.getSelectedItem().toString().equals("g"))
+    // convert to grams/milliliters if not already, depending on mass/volume unit selected
+    if (!(unit.equals("Gram")) || !(unit.equals("Milliliter")))
     {
-      // Use the value in grams directly if "g" is selected
+      if (unitMeasure.equals("Mass"))
+      {
+        amount = MassConverter.callerHelp("Gram", unit, amount);
+      }
+      else
+      {
+        amount = VolumeConverter.callerHelp(unit, "Milliliter", amount);
+      }
+    }
+
+    double gramsPerUnit;
+    if (unitMeasure.equals("Mass"))
+    {
+      // Use the value in grams directly if mass unit
       gramsPerUnit = 1.0; // 1 gram = 1 gram
     }
     else

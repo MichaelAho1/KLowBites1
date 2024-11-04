@@ -61,7 +61,7 @@ public class CalorieCalculatorWindow extends JFrame
     JPanel inputs = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
     ingredients = KILowBites.FOODS.getFoodNames();
-    units = new String[] {"", "g", "mL"};
+    units = KILowBites.UNITS.getAllUnits();
 
     setupInputs();
 
@@ -96,7 +96,7 @@ public class CalorieCalculatorWindow extends JFrame
 
     getContentPane().add(toolbar, BorderLayout.NORTH);
 
-    setSize(650, 200);
+    setSize(700, 200);
     setResizable(false);
     setLocationRelativeTo(null);
     setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

@@ -78,6 +78,7 @@ class UnitConverterTest
     assertEquals(16.0, MassConverter.callerHelp(pound, ounce, 1.0));
     MassConverter.callerHelp("yes", ounce, 1.0);
     MassToVolume.interConverting("Yes", pound, ten, 1.04);
+    assertEquals(0.20288, VolumeConverter.callerHelp(pinch, teaspoon, 1.0));
     
   }
   

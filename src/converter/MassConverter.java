@@ -57,9 +57,13 @@ public class MassConverter
     {
       return fromAmount / 28.34952;
     }
-    else
+    if ("Pound".equals(toUnit))
     { // Pound
       return (fromAmount / 28.34952) / 16;
+    }
+    else
+    {
+      return fromAmount;
     }
   }
   

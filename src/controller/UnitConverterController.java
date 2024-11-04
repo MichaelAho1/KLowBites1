@@ -113,9 +113,7 @@ public class UnitConverterController implements ActionListener, DocumentListener
     {
       if (Arrays.asList(volumeUnits).contains(toUnits)) // Volume to Volume
       {
-        System.out.print("hi");
         amount = VolumeConverter.callerHelp(fromUnits, toUnits, fromAmount);
-        System.out.print(amount);
       }
       else // Volume to Mass
       {

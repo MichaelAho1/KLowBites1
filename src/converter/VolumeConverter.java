@@ -20,39 +20,39 @@ public class VolumeConverter
   public static Double callerHelp(final String fromUnit, final String toUnit, 
       final Double fromAmount) 
   {
-    if ("Milliliter".equals(toUnit))
+    if ("Milliliter".equals(fromUnit))
     {
-      return milliliterConverter(fromUnit, fromAmount);
+      return milliliterConverter(toUnit, fromAmount);
     }
-    if ("Teaspoon".equals(toUnit))
+    if ("Teaspoon".equals(fromUnit))
     {
-      return teaspoonConverter(fromUnit, fromAmount);
+      return teaspoonConverter(toUnit, fromAmount);
     }
-    if ("Tablespoon".equals(toUnit))
+    if ("Tablespoon".equals(fromUnit))
     {
-      return tablespoonConverter(fromUnit, fromAmount);
+      return tablespoonConverter(toUnit, fromAmount);
     }
-    if ("Fluid Ounce".equals(toUnit))
+    if ("Fluid Ounce".equals(fromUnit))
     {
-      return fluidOunceConverter(fromUnit, fromAmount);
+      return fluidOunceConverter(toUnit, fromAmount);
     }
-    if ("Cup".equals(toUnit))
+    if ("Cup".equals(fromUnit))
     {
-      return cupConverter(fromUnit, fromAmount);
+      return cupConverter(toUnit, fromAmount);
     }
-    if ("Pint".equals(toUnit))
+    if ("Pint".equals(fromUnit))
     {
-      return pintConverter(fromUnit, fromAmount);
+      return pintConverter(toUnit, fromAmount);
     }
-    if ("Quart".equals(toUnit))
+    if ("Quart".equals(fromUnit))
     {
-      return quartConverter(fromUnit, fromAmount);
+      return quartConverter(toUnit, fromAmount);
     }
-    if ("Gallon".equals(toUnit))
+    if ("Gallon".equals(fromUnit))
     {
-      return gallonConverter(fromUnit, fromAmount);
+      return gallonConverter(toUnit, fromAmount);
     }
-    return pinchConverter(fromUnit, fromAmount);
+    return pinchConverter(toUnit, fromAmount);
   }
   
   
@@ -202,6 +202,7 @@ public class VolumeConverter
    */
   public static Double milliliterConverter(final String toUnit, final Double fromAmount)
   {
+    System.out.print(fromAmount);
     return convertHelp((fromAmount * 48) / 14.7867648, toUnit);
   }
 

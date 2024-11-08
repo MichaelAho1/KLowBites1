@@ -57,7 +57,14 @@ public class UnitConverterWindow extends JFrame
     super("KiLowBites Unit Converter");
 
     controller = new UnitConverterController();
-
+    
+    // if User selected Metric {
+    //   units = UnitType.getMetricUnits();
+    // }
+    /* else {
+     *   units = UnitType.getImperialUnits();
+     * }
+     */
     units = KILowBites.UNITS.getAllUnits();
 
     ingredients = KILowBites.FOODS.getFoodNames();

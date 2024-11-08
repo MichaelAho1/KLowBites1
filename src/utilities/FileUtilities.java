@@ -1,16 +1,21 @@
 package utilities;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 import cooking.Ingredients;
 import cooking.Recipe;
 import cooking.RecipeElementType;
 import cooking.Steps;
 import cooking.Utensils;
-
-import javax.swing.*;
-import javax.swing.filechooser.FileNameExtensionFilter;
-import java.io.*;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 
 public class FileUtilities
 {
@@ -32,21 +37,21 @@ public class FileUtilities
       File selectedFile = fileChooser.getSelectedFile();
       String filePath = selectedFile.getAbsolutePath();
 
-    try (BufferedReader reader = new BufferedReader(new FileReader(filePath)))
-    {
-      while (reader.ready())
+      try (BufferedReader reader = new BufferedReader(new FileReader(filePath)))
       {
-        data += reader.readLine() + "\n";
-      }
+        while (reader.ready())
+        {
+          data += reader.readLine() + "\n";
+        }
 
-      System.out.println("Recipe opened from file: " + filePath);
-    }
-    catch (IOException e)
-    {
-      System.err.println("Error reading the file: " + e.getMessage());
-      return null;
-    }
-    return data;
+        System.out.println("Recipe opened from file: " + filePath);
+      }
+      catch (IOException e)
+      {
+        System.err.println("Error reading the file: " + e.getMessage());
+        return null;
+      }
+      return data;
     }
     return null;
   }
@@ -271,7 +276,7 @@ public class FileUtilities
     }
   }
 
-    /**
+  /**
    * Save As: Open a file explorer and let the user select where to save the recipe.
    */
   public static String saveAsMeal(ArrayList<Recipe> data)
@@ -323,21 +328,21 @@ public class FileUtilities
       File selectedFile = fileChooser.getSelectedFile();
       String filePath = selectedFile.getAbsolutePath();
 
-    try (BufferedReader reader = new BufferedReader(new FileReader(filePath)))
-    {
-      while (reader.ready())
+      try (BufferedReader reader = new BufferedReader(new FileReader(filePath)))
       {
-        data += reader.readLine() + "\n";
-      }
+        while (reader.ready())
+        {
+          data += reader.readLine() + "\n";
+        }
 
-      System.out.println("Meal opened from file: " + filePath);
-    }
-    catch (IOException e)
-    {
-      System.err.println("Error reading the file: " + e.getMessage());
-      return null;
-    }
-    return data;
+        System.out.println("Meal opened from file: " + filePath);
+      }
+      catch (IOException e)
+      {
+        System.err.println("Error reading the file: " + e.getMessage());
+        return null;
+      }
+      return data;
     }
     return null;
   }

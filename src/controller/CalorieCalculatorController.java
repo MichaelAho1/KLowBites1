@@ -10,6 +10,7 @@ import app.KILowBites;
 import converter.MassConverter;
 import converter.VolumeConverter;
 import gui.CalorieCalculatorWindow;
+import gui.CalorieOutputWindow;
 
 /**
  * Controller for actions in CalorieCalculatorWindow.
@@ -24,6 +25,7 @@ public class CalorieCalculatorController implements ActionListener, DocumentList
   private static final String RESET = "Reset";
   private static final String CHOOSE_INGREDIENT = "Choose Ingredient";
   private static final String CHOOSE_UNIT = "Choose Unit";
+  private static final String OPEN = "Open";
 
   @Override
   public void actionPerformed(ActionEvent e)
@@ -49,6 +51,20 @@ public class CalorieCalculatorController implements ActionListener, DocumentList
     {
       updateResetButton();
       updateCalculateButton();
+    }
+    if (ac.equals(OPEN))
+    {
+      // open recipe/meal, parse, and store in object
+      // using stored recipe/meal, call calculateRecipe/calculateMeal
+      // make output window and pass in recipe/meal & calories
+
+      System.out.println("Opening recipe/meal...");
+
+      String name = "Recipe/Meal Name Placeholder";
+      double calories = calculateRecipe();
+
+      CalorieOutputWindow output = new CalorieOutputWindow(name, calories);
+      output.setVisible(true);
     }
   }
 
@@ -127,6 +143,13 @@ public class CalorieCalculatorController implements ActionListener, DocumentList
 
     // Display result to 2 decimal places
     CalorieCalculatorWindow.calorieOutputField.setText(String.format("%.2f", calories));
+  }
+
+  private double calculateRecipe()
+  {
+    double calories = 0.0;
+
+    return calories;
   }
 
   /**

@@ -1,13 +1,17 @@
 package controller;
 
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
 
-import java.util.ArrayList;
+import javax.swing.JFileChooser;
 
-import cooking.*;
-import utilities.*;
-
+import cooking.Meal;
+import cooking.Recipe;
 import gui.MealEditor;
+import utilities.DocumentState;
+import utilities.DocumentStateObserver;
+import utilities.FileUtilities;
 
 /**
  * MealEditor controller class. Handles the actions of the MealEditor GUI elements
@@ -27,7 +31,7 @@ public class MealEditorController implements ActionListener, DocumentStateObserv
   private static String RECIPEDELETE = "Recipe Delete";
 
   private MealEditor editor;
-  private ArrayList<Recipe> meal;
+  private Meal meal;
   private DocumentState state;
 
   private String mealName = "";
@@ -46,7 +50,7 @@ public class MealEditorController implements ActionListener, DocumentStateObserv
   private void createMealEditor()
   {
     state = DocumentState.NULL;
-    meal = new ArrayList<Recipe>();
+    meal = new Meal();
     editor = new MealEditor(meal, this);
 
     editor.updateToolBar(state);
@@ -78,12 +82,28 @@ public class MealEditorController implements ActionListener, DocumentStateObserv
     // commands for Toolbar
     if (command.equals(NEW))
     {
-      meal = new ArrayList<Recipe>();
-      editor.resetMealEditor();
-      state = DocumentState.UNCHANGED;
-      savedAs = false;
-      savePath = "";
-      editor.updateToolBar(state);
+      JFileChooser directoryChooser = new JFileChooser();
+      directoryChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY); // Set to select
+                                                                            // directories only
+      int result = directoryChooser.showOpenDialog(null);
+
+      if (result == JFileChooser.APPROVE_OPTION)
+      {
+        File selectedDirectory = directoryChooser.getSelectedFile();
+        savePath = selectedDirectory.getAbsolutePath(); // Set the selected directory as savePath
+
+        meal = new Meal(); // Create a new meal
+        editor.resetMealEditor(); // Reset editor
+        state = DocumentState.UNCHANGED; // Set document state
+        savedAs = false; // Indicate not yet saved
+        editor.updateToolBar(state); // Update toolbar state
+
+        System.out.println("New directory selected: " + savePath);
+      }
+      else
+      {
+        System.out.println("Directory selection was cancelled.");
+      }
     }
     else if (command.equals(OPEN))
     {
@@ -140,19 +160,19 @@ public class MealEditorController implements ActionListener, DocumentStateObserv
     else if (command.equals(RECIPEADD))
     {
       System.out.println("Meal Editor Panel: Recipe Add button selected");
-      
+
       Recipe r = new Recipe();
       r = FileUtilities.parseData(FileUtilities.openRecipe());
 
       if (r != null)
       {
         editor.getContent().getEditorPanel().addMealElement(r);
-        meal.add(r);
+        meal.addRecipe(r);
       }
     }
     else if (command.equals(RECIPEDELETE))
     {
-      meal.remove(editor.getContent().getEditorPanel().getMealList().getSelectedValue());
+      meal.removeRecipe(editor.getContent().getEditorPanel().getMealList().getSelectedValue());
       editor.getContent().getEditorPanel().deleteMealElement();
     }
   }

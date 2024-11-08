@@ -1,12 +1,13 @@
 package gui;
 
-import java.awt.*;
-import javax.swing.*;
+import java.awt.BorderLayout;
+import java.awt.Container;
 import java.util.ArrayList;
 
-import cooking.*;
+import javax.swing.JPanel;
 
 import controller.MealEditorController;
+import cooking.Recipe;
 
 /**
  * MealEditorContent class. Handles MealEditor main content.
@@ -28,7 +29,8 @@ public class MealEditorContent extends JPanel
   /**
    * Constructor for RecipeEditorContent.
    *
-   * @param controller the controller for the RecipeEditor
+   * @param controller
+   *          the controller for the RecipeEditor
    */
   public MealEditorContent(MealEditorController controller)
   {
@@ -73,7 +75,7 @@ public class MealEditorContent extends JPanel
   {
     mainIFP.resetFields();
     recipeIFP.resetFields();
-	recipeEditorPanel.reset();
+    recipeEditorPanel.reset();
   }
 
   public InputFieldPanel getMainIFP()

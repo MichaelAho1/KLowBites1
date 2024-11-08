@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 import javax.swing.JFileChooser;
@@ -20,6 +21,55 @@ import cooking.Utensils;
 public class FileUtilities
 {
   private static JFileChooser fileChooser = new JFileChooser();
+
+  /**
+   * Generic opening method for both recipe and meal files.
+   * 
+   * @return String containing data from file opened
+   */
+  public static String[] open()
+  {
+    String data[] = {"", ""};
+
+    if (fileChooser == null)
+    {
+      fileChooser = new JFileChooser();
+    }
+    else
+    {
+      fileChooser.resetChoosableFileFilters(); // Clear any existing filters
+    }
+
+    // set up a file filter for .txt or any specific recipe format (if desired)
+    FileNameExtensionFilter filter = new FileNameExtensionFilter("Recipe/Meal Files", "rcp", "mel");
+    fileChooser.setFileFilter(filter);
+
+    int result = fileChooser.showOpenDialog(null);
+    if (result == JFileChooser.APPROVE_OPTION)
+    {
+      File selectedFile = fileChooser.getSelectedFile();
+      String filePath = selectedFile.getAbsolutePath();
+      try (BufferedReader reader = new BufferedReader(new FileReader(filePath)))
+      {
+        data[0] += Paths.get(filePath).getFileName().toString();
+
+        while (reader.ready())
+        {
+          data[1] += reader.readLine() + "\n";
+        }
+
+        System.out.println("Recipe opened from file: " + filePath);
+      }
+      catch (IOException e)
+      {
+        System.err.println("Error reading the file: " + e.getMessage());
+        return null;
+      }
+      return data;
+    }
+
+    return null;
+  }
 
   // Open an existing recipe file and load into currentRecipe
   public static String openRecipe()

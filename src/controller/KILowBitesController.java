@@ -33,8 +33,6 @@ public class KILowBitesController implements ActionListener
   // Tools
   private static String CALORIE_CALCULATOR = "Calorie Calculator";
   private static String UNITS_CONVERTER = "Units Converter";
-  private static String RECIPE_CALORIES = "Calculate Recipe Calories";
-  private static String MEAL_CALORIES = "Calculate Meal Calories";
 
   // Configure
   private static String PREFERENCES = "Preferences";
@@ -115,14 +113,6 @@ public class KILowBitesController implements ActionListener
       UnitConverterWindow unitConverter = new UnitConverterWindow();
       unitConverter.setVisible(true);
       KILowBites.openConvert.setEnabled(false);
-    }
-    if (command.equals(RECIPE_CALORIES))
-    {
-      System.out.println("Calculating calories in recipe...");
-    }
-    if (command.equals(MEAL_CALORIES))
-    {
-      System.out.println("Calculating calories in meal...");
     }
 
     // commands for Configure

@@ -127,13 +127,6 @@ public class KILowBites implements Runnable
     openConvert = new JMenuItem("Units Converter");
     openConvert.addActionListener(controller);
     menu.add(openConvert);
-    menuItem = new JMenuItem("Calculate Recipe Calories");
-    menuItem.addActionListener(controller);
-    menu.add(menuItem);
-    menuItem = new JMenuItem("Calculate Meal Calories");
-    menuItem.addActionListener(controller);
-    menu.add(menuItem);
-
     // menu = new JMenu("Configure");
     // menuBar.add(menu);
     // menuItem = new JMenuItem("Preferences");

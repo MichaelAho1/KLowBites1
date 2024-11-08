@@ -42,6 +42,7 @@ public class CalorieCalculatorWindow extends JFrame
 
   public static JButton calorieCalcButton;
   public static JButton calorieResetButton;
+  public static JButton calorieOpenButton;
 
   public static JComboBox calorieIngredientsMenu;
   public static JComboBox calorieUnitsMenu;
@@ -53,7 +54,7 @@ public class CalorieCalculatorWindow extends JFrame
    */
   public CalorieCalculatorWindow()
   {
-    super("KiLowBites Calorie Calculator");
+    super("KILowBites Calorie Calculator");
 
     controller = new CalorieCalculatorController();
 
@@ -91,6 +92,13 @@ public class CalorieCalculatorWindow extends JFrame
     calorieResetButton.setActionCommand("Reset");
     calorieResetButton.addActionListener(controller);
 
+    calorieOpenButton = new JButton(
+        ImageUtilities.getColoredIconAndScale("img/open.png", Color.GRAY, 25, 25));
+    calorieOpenButton.setToolTipText("Open Recipe/Meal");
+    calorieOpenButton.setActionCommand("Open");
+    calorieOpenButton.addActionListener(controller);
+
+    toolbar.add(calorieOpenButton);
     toolbar.add(calorieCalcButton);
     toolbar.add(calorieResetButton);
 

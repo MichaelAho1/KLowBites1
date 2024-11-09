@@ -62,7 +62,29 @@ public class Units
     return allUnits;
   }
 
-    /**
+  /**
+   * Return array of all units
+   * 
+   * @return all units
+   */
+  public String[] getAllUnitsPlusIndividual()
+  {
+    Set<String> keys = units.keySet();
+    String[] allUnits = new String[keys.size() + 2];
+
+    allUnits[0] = "";
+    allUnits[1] = "Individual";
+
+    int index = 2;
+    for (String key : keys)
+    {
+      allUnits[index++] = key;
+    }
+
+    return allUnits;
+  }
+
+  /**
    * Return array of all units without first being empty
    * 
    * @return all units

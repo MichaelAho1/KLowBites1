@@ -1,11 +1,17 @@
 package gui;
 
-import java.awt.*;
-import javax.swing.*;
-import java.util.ArrayList;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.Dimension;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JToolBar;
 
 import controller.MealEditorController;
-import cooking.*;
+import cooking.Meal;
 import utilities.DocumentState;
 import utilities.ImageUtilities;
 
@@ -26,7 +32,7 @@ public class MealEditor extends JFrame
   /**
    * Constructor for RecipeEditor.
    */
-  public MealEditor(ArrayList<Recipe> meal, MealEditorController controller)
+  public MealEditor(Meal meal, MealEditorController controller)
   {
     super("KILowBites Meal Editor");
 
@@ -95,7 +101,7 @@ public class MealEditor extends JFrame
     }
   }
 
-    /**
+  /**
    * Updates the toolbar according to the current document state
    */
   public void updateToolBar(DocumentState state)
@@ -135,6 +141,6 @@ public class MealEditor extends JFrame
     }
 
     // TODO: THIS CODE DEACTIVATES THE TOOLBAR SINCE FILE SUPPORT ISN'T READY
-    this.disableToolBar();
+    // this.disableToolBar();
   }
 }

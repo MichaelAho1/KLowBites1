@@ -1,18 +1,29 @@
 package gui;
 
-import java.awt.*;
-import javax.swing.*;
-import javax.swing.event.*;
-import java.awt.event.*;
-import java.util.HashMap;
+import java.awt.BorderLayout;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.HashMap;
 
-import utilities.*;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+
+import utilities.DocumentState;
+import utilities.DocumentStateObserver;
+import utilities.DocumentStateSubject;
+import utilities.Units;
 
 /**
- * InputFieldPanel class. Flexibly handles the input fields for Editor frames.
- * Examples: Name, Serves, Number of People
- * (whats below the ribbon, but above the EditorPanel)
+ * InputFieldPanel class. Flexibly handles the input fields for Editor frames. Examples: Name,
+ * Serves, Number of People (whats below the ribbon, but above the EditorPanel)
  *
  * @author f24team3d
  * @version 10/31/24
@@ -77,19 +88,22 @@ public class InputFieldPanel extends JPanel implements DocumentListener, Documen
   /**
    * Adds a JLabel to the input field panel.
    *
-   * @param content the label to add
+   * @param content
+   *          the label to add
    */
   public void addJLabel(String label)
   {
     inputFields.add(new JLabel(label));
   }
 
-/**
- * Adds a JLabel and Field to the input field panel.
- *
- * @param content the field to add
- * @param size the size of the field
- */
+  /**
+   * Adds a JLabel and Field to the input field panel.
+   *
+   * @param content
+   *          the field to add
+   * @param size
+   *          the size of the field
+   */
   public void addJTextField(String label, int size)
   {
     inputFields.add(new JLabel(label));
@@ -122,46 +136,46 @@ public class InputFieldPanel extends JPanel implements DocumentListener, Documen
     fields.put(label, field);
   }
 
-/**
- * Adds a JLabel and Field to the input field panel.
- * Has preset content
- *
- * @param content the field to add
- * @param size the size of the field
- */
-public void addJTextField(String label, int size, String content)
-{
-  inputFields.add(new JLabel(label));
-
-  JTextField field = new JTextField(size);
-  field.setText(content);
-
-  field.getDocument().addDocumentListener(new DocumentListener()
+  /**
+   * Adds a JLabel and Field to the input field panel. Has preset content
+   *
+   * @param content
+   *          the field to add
+   * @param size
+   *          the size of the field
+   */
+  public void addJTextField(String label, int size, String content)
   {
-    // if text is added or removed from field, state is changed
-    @Override
-    public void insertUpdate(DocumentEvent e)
+    inputFields.add(new JLabel(label));
+
+    JTextField field = new JTextField(size);
+    field.setText(content);
+
+    field.getDocument().addDocumentListener(new DocumentListener()
     {
-      notifyObservers();
-    }
+      // if text is added or removed from field, state is changed
+      @Override
+      public void insertUpdate(DocumentEvent e)
+      {
+        notifyObservers();
+      }
 
-    @Override
-    public void removeUpdate(DocumentEvent e)
-    {
-      notifyObservers();
-    }
+      @Override
+      public void removeUpdate(DocumentEvent e)
+      {
+        notifyObservers();
+      }
 
-    @Override
-    public void changedUpdate(DocumentEvent e)
-    {
-      // do nothing
-    }
-  });
+      @Override
+      public void changedUpdate(DocumentEvent e)
+      {
+        // do nothing
+      }
+    });
 
-  inputFields.add(field);
-  fields.put(label, field);
-}
-
+    inputFields.add(field);
+    fields.put(label, field);
+  }
 
   /**
    * Adds a JButton to the input field panel.
@@ -209,14 +223,30 @@ public void addJTextField(String label, int size, String content)
 
     for (JComboBox<String> comboBox : comboBoxes.values())
     {
-          comboBox.removeAllItems();
+      comboBox.removeAllItems();
 
-          comboBox.addItem("");
-          comboBox.setSelectedIndex(0);
+      comboBox.addItem("");
+      comboBox.setSelectedIndex(0);
     }
 
     // re adds the units list
-    this.updateComboBox("Units: ", temp.getAllUnitsNoPadding());
+    this.updateComboBox("Units: ", temp.getAllUnitsPlusIndividual());
+  }
+
+  /**
+   * Reset the fields in the step input.
+   */
+  public void resetStepInput()
+  {
+    for (JTextField field : fields.values())
+    {
+      field.setText("");
+    }
+
+    for (JComboBox<String> comboBox : comboBoxes.values())
+    {
+      comboBox.setSelectedIndex(0);
+    }
   }
 
   /**
@@ -240,7 +270,8 @@ public void addJTextField(String label, int size, String content)
   /**
    * Gets the text from a JTextField.
    *
-   * @param label the label of the field
+   * @param label
+   *          the label of the field
    * @return the text in the field
    */
   public String getText(String label)
@@ -260,8 +291,6 @@ public void addJTextField(String label, int size, String content)
     {
       comboBox.removeAllItems();
 
-      comboBox.addItem("");
-
       for (String item : newItems)
       {
         comboBox.addItem(item);
@@ -274,7 +303,7 @@ public void addJTextField(String label, int size, String content)
       comboBox.repaint();
       comboBox.revalidate();
     }
-}
+  }
 
   public void addObserver(DocumentStateObserver observer)
   {

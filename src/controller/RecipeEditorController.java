@@ -1,12 +1,20 @@
 package controller;
 
-import java.awt.event.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
 
-import cooking.*;
+import javax.swing.JFileChooser;
+
+import cooking.Ingredients;
+import cooking.Recipe;
+import cooking.Steps;
+import cooking.Utensils;
 import gui.RecipeEditor;
-import utilities.*;
+import utilities.DocumentState;
+import utilities.DocumentStateObserver;
+import utilities.FileUtilities;
+import utilities.InputUtilities;
 
 /**
  * RecipeEditor controller class. Handles the actions of the RecipeEditor GUI elements
@@ -32,7 +40,7 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
   private static String STEPDELETE = "Step Delete";
 
   private boolean savedAs = false;
-  private String savePath = "";
+  public static String recipeSavePath = "";
 
   private RecipeEditor editor;
   private Recipe recipe;
@@ -63,8 +71,7 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
   }
 
   /**
-   * Gets the name of the recipe from the editor
-   * Includes input checking.
+   * Gets the name of the recipe from the editor Includes input checking.
    */
   private String getName()
   {
@@ -78,8 +85,7 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
   }
 
   /**
-   * Gets the number of serves from the editor
-   * Includes input checking.
+   * Gets the number of serves from the editor Includes input checking.
    */
   private int getServes()
   {
@@ -137,17 +143,36 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
     // commands for Toolbar
     if (command.equals(NEW))
     {
-      recipe = new Recipe();
-      editor.resetRecipeEditor();
-      state = DocumentState.UNCHANGED;
-      savedAs = false;
-      savePath = "";
-      editor.updateToolBar(state);
+      // ALLOW USERS TO CHOOSE DIRECTORY TO SAVE RECIPE
+
+      JFileChooser directoryChooser = new JFileChooser();
+      directoryChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+      int result = directoryChooser.showOpenDialog(null);
+
+      if (result == JFileChooser.APPROVE_OPTION)
+      {
+        File selectedDirectory = directoryChooser.getSelectedFile();
+        recipeSavePath = selectedDirectory.getAbsolutePath(); // Set the selected directory as
+                                                              // savePath
+
+        recipe = new Recipe(); // Create a new meal
+        editor.resetRecipeEditor(); // Reset editor
+        state = DocumentState.UNCHANGED; // Set document state
+        savedAs = false; // Indicate not yet saved
+        editor.updateToolBar(state); // Update toolbar state
+
+        System.out.println("New directory selected: " + recipeSavePath);
+      }
+      else
+      {
+        System.out.println("Directory selection was cancelled.");
+      }
     }
     else if (command.equals(OPEN))
     {
       editor.resetRecipeEditor();
-      recipe = FileUtilities.parseData(FileUtilities.openRecipe());
+
+      recipe = FileUtilities.openRecipe();
 
       state = DocumentState.UNCHANGED;
       editor.updateToolBar(state);
@@ -162,6 +187,7 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
       String name = editor.getContent().getNameField();
       String serves = editor.getContent().getServesField();
 
+      // Validating inputs
       if (name != null)
       {
         recipe.setName(name);
@@ -170,6 +196,7 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
       {
         System.out.println("Invalid input");
       }
+
       if (InputUtilities.isPositiveInt(serves))
       {
         recipe.setServes(Integer.parseInt(serves));
@@ -179,14 +206,9 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
         System.out.println("Invalid input");
       }
 
-
-      if (savedAs && !savePath.equals(""))
+      if (!recipeSavePath.equals(""))
       {
-        FileUtilities.saveRecipe(savePath, FileUtilities.dumpRecipe(recipe)); // save
-      }
-      else // if not saved before
-      {
-        FileUtilities.saveAsRecipe(FileUtilities.dumpRecipe(recipe)); // save as
+        FileUtilities.saveRecipe(recipeSavePath, recipe); // save
       }
 
       state = DocumentState.UNCHANGED;
@@ -216,14 +238,14 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
         System.out.println("Invalid input");
       }
 
-      savePath = FileUtilities.saveAsRecipe(FileUtilities.dumpRecipe(recipe));
+      recipeSavePath = FileUtilities.saveAsRecipe(FileUtilities.dumpRecipe(recipe));
       state = DocumentState.UNCHANGED;
       editor.updateToolBar(state);
     }
     else if (command.equals(CLOSE))
     {
       recipe = null;
-      savePath = "";
+      recipeSavePath = "";
       savedAs = false;
       editor.resetRecipeEditor();
       state = DocumentState.NULL;
@@ -238,22 +260,26 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
       String name = editor.getContent().getUtensilIFP().getText("Name: ");
       String details = editor.getContent().getUtensilIFP().getText("Details: ");
 
-      if (InputUtilities.isAlphaNumeric(name) &&
-        InputUtilities.isAlphaNumeric(details))
+      if (InputUtilities.isAlphaNumeric(name))
       {
         utensil.setName(name);
-        utensil.setDetails(details);
+        if (InputUtilities.isAlphaNumeric(details) && !details.equals(""))
+        {
+          utensil.setDetails(details);
+        }
 
         editor.getContent().getUtensilPanel().addRecipeElement(utensil);
 
         try
         {
           recipe.addUtensils(utensil);
+          editor.getContent().getUtensilIFP().resetFields();
         }
         catch (NullPointerException ex)
         {
           System.out.println("idk");
         }
+        editor.getContent().getUtensilIFP().resetFields();
       }
       else
       {
@@ -269,7 +295,8 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
         {
           try
           {
-            if (utensil.getName().equals(editor.getContent().getUtensilPanel().getSelectedUtensil(utensil.getName()).getName()))
+            if (utensil.getName().equals(editor.getContent().getUtensilPanel()
+                .getSelectedUtensil(utensil.getName()).getName()))
             {
               recipe.removeUtensils(utensil);
               break;
@@ -286,8 +313,6 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
         System.out.println("trying to delete when empty (caused by deleting when file closed)");
       }
 
-
-
       editor.getContent().getUtensilPanel().deleteRecipeElement();
       editor.getContent().updateStepSourcePanel();
     }
@@ -300,19 +325,22 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
       String amount = editor.getContent().getIngredientIFP().getText("Amount: ");
       String unit = editor.getContent().getIngredientIFP().getComboBox("Units: ");
 
-      if (InputUtilities.isAlphaNumeric(name) &&
-        InputUtilities.isAlphaNumeric(details) &&
-        InputUtilities.isPositiveDouble(amount))
+      if (InputUtilities.isAlphaNumeric(name) && InputUtilities.isPositiveDouble(amount))
       {
         ingredient.setName(name);
-        ingredient.setDetails(details);
         ingredient.setAmount(Double.parseDouble(amount));
+        if (InputUtilities.isAlphaNumeric(details))
+        {
+          ingredient.setDetails(details);
+        }
 
         ingredient.setUnit(unit);
 
         editor.getContent().getIngredientPanel().addRecipeElement(ingredient);
 
         recipe.addIngredient(ingredient);
+        editor.getContent().getIngredientIFP().resetFields();
+
       }
       else
       {
@@ -328,7 +356,8 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
         {
           try
           {
-            if (ingredient.getName().equals(editor.getContent().getIngredientPanel().getSelectedIngredient(ingredient.getName()).getName()))
+            if (ingredient.getName().equals(editor.getContent().getIngredientPanel()
+                .getSelectedIngredient(ingredient.getName()).getName()))
             {
               recipe.removeIngredients(ingredient);
               break;
@@ -345,7 +374,6 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
         System.out.println("trying to delete when empty (caused by deleting when file closed)");
       }
 
-
       editor.getContent().getIngredientPanel().deleteRecipeElement();
       editor.getContent().updateStepSourcePanel();
     }
@@ -353,14 +381,12 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
     {
       Steps step = new Steps();
 
-      String action = editor.getContent().getStepIFP().getComboBox("Action: ");
+      String action = editor.getContent().getStepIFP().getText("Action: ");
       String on = editor.getContent().getStepIFP().getComboBox("On: ");
       String utensil = editor.getContent().getStepIFP().getComboBox("Utensil: ");
       String details = editor.getContent().getStepIFP().getText("Details: ");
 
-      if (InputUtilities.isAlphaNumeric(action) &&
-        InputUtilities.isAlphaNumeric(details) &&
-        !on.equals("") && !utensil.equals(""))
+      if (InputUtilities.isAlphaNumeric(action) && !on.equals("") && !utensil.equals(""))
       {
         step.setAction(action);
 
@@ -377,6 +403,7 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
         editor.getContent().getStepPanel().addRecipeElement(step);
 
         recipe.addStep(step);
+        editor.getContent().getStepIFP().resetStepInput();
       }
       else
       {
@@ -392,7 +419,8 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
         {
           try
           {
-            if (step.getDetails().equals(editor.getContent().getStepPanel().getSelectedStep(step.getAction(), step.getDetails()).getDetails()))
+            if (step.getDetails().equals(editor.getContent().getStepPanel()
+                .getSelectedStep(step.getAction(), step.getDetails()).getDetails()))
             {
               recipe.removeSteps(step);
               break;
@@ -409,75 +437,74 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
         System.out.println("trying to delete when empty (caused by deleting when file closed)");
       }
 
-
       editor.getContent().getStepPanel().deleteRecipeElement();
     }
   }
 
   private void oldCode()
   {
-  //     /**
-  //  * Saves the current recipe to the file, using FileUtilities saveFile method.
-  //  */
-  // private void saveRecipe()
-  // {
-  //   if (currentRecipe != null)
-  //   {
-  //     String name = currentRecipe.getName();
-  //     int serves = currentRecipe.getServes();
-  //     String ingredients = ""; // Collect ingredients from the UI 
-  //     String steps = ""; // Collect steps from the UI 
+    // /**
+    // * Saves the current recipe to the file, using FileUtilities saveFile method.
+    // */
+    // private void saveRecipe()
+    // {
+    // if (currentRecipe != null)
+    // {
+    // String name = currentRecipe.getName();
+    // int serves = currentRecipe.getServes();
+    // String ingredients = ""; // Collect ingredients from the UI
+    // String steps = ""; // Collect steps from the UI
 
-  //     // Assuming you have a file path from previous saves
-  //     FileUtilities.saveFile("recipe.txt", name, serves, ingredients, steps);
-  //   }
-  //   else
-  //   {
-  //     System.out.println("No recipe to save.");
-  //   }
-  // }
+    // // Assuming you have a file path from previous saves
+    // FileUtilities.saveFile("recipe.txt", name, serves, ingredients, steps);
+    // }
+    // else
+    // {
+    // System.out.println("No recipe to save.");
+    // }
+    // }
 
-  // /**
-  //  * Opens a recipe using the FileUtilities openFile method.
-  //  */
-  // private void openRecipe()
-  // {
-  //   JFileChooser fileChooser = new JFileChooser();
-  //   int result = fileChooser.showOpenDialog(null);
-  //   if (result == JFileChooser.APPROVE_OPTION)
-  //   {
-  //     String filePath = fileChooser.getSelectedFile().getAbsolutePath();
-  //     currentRecipe = FileUtilities.openFile(filePath);
-  //   }
-  // }
+    // /**
+    // * Opens a recipe using the FileUtilities openFile method.
+    // */
+    // private void openRecipe()
+    // {
+    // JFileChooser fileChooser = new JFileChooser();
+    // int result = fileChooser.showOpenDialog(null);
+    // if (result == JFileChooser.APPROVE_OPTION)
+    // {
+    // String filePath = fileChooser.getSelectedFile().getAbsolutePath();
+    // currentRecipe = FileUtilities.openFile(filePath);
+    // }
+    // }
 
-  // /**
-  //  * Opens a file dialog for the user to select where to save the recipe.
-  //  */
-  // private void saveAsRecipe()
-  // {
-  //   if (currentRecipe != null)
-  //   {
-  //     String name = currentRecipe.getName();
-  //     int serves = currentRecipe.getServes();
-  //     String ingredients = ""; // Collect ingredients from the UI
-  //     String steps = ""; // Collect steps from the UI 
+    // /**
+    // * Opens a file dialog for the user to select where to save the recipe.
+    // */
+    // private void saveAsRecipe()
+    // {
+    // if (currentRecipe != null)
+    // {
+    // String name = currentRecipe.getName();
+    // int serves = currentRecipe.getServes();
+    // String ingredients = ""; // Collect ingredients from the UI
+    // String steps = ""; // Collect steps from the UI
 
-  //     FileUtilities.saveAsFile(name, serves, ingredients, steps);
-  //   }
-  //   else
-  //   {
-  //     System.out.println("No recipe to save.");
-  //   }
-  // }
+    // FileUtilities.saveAsFile(name, serves, ingredients, steps);
+    // }
+    // else
+    // {
+    // System.out.println("No recipe to save.");
+    // }
+    // }
 
-  // /**
-  //  * Closes the current recipe (sets it to null).
-  //  */
-  // private void closeRecipe()
-  // {
-  //   currentRecipe = null;
-  //   System.out.println("Recipe closed.");
-  // }
+    // /**
+    // * Closes the current recipe (sets it to null).
+    // */
+    // private void closeRecipe()
+    // {
+    // currentRecipe = null;
+    // System.out.println("Recipe closed.");
+    // }
   }
 }

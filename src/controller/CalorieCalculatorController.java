@@ -9,8 +9,11 @@ import javax.swing.event.DocumentListener;
 import app.KILowBites;
 import converter.MassConverter;
 import converter.VolumeConverter;
+import cooking.Meal;
+import cooking.Recipe;
 import gui.CalorieCalculatorWindow;
 import gui.CalorieOutputWindow;
+import utilities.FileUtilities;
 
 /**
  * Controller for actions in CalorieCalculatorWindow.
@@ -60,10 +63,31 @@ public class CalorieCalculatorController implements ActionListener, DocumentList
 
       System.out.println("Opening recipe/meal...");
 
-      String name = "Recipe/Meal Name Placeholder";
-      double calories = calculateRecipe();
+      CalorieOutputWindow output;
+      double calories;
+      String data[] = FileUtilities.open();
+      String extension = data[0].substring(data[0].length() - 4, data[0].length());
 
-      CalorieOutputWindow output = new CalorieOutputWindow(name, calories);
+      if (!extension.equals(".rcp") && !extension.equals(".mel"))
+      {
+        output = new CalorieOutputWindow("Invalid file", 0.0);
+      }
+      else
+      {
+        if (extension.equals(".rcp"))
+        {
+          // Recipe recipe = FileUtilities.open();
+          calories = calculateRecipe(null);
+        }
+        else
+        {
+          Meal meal = new Meal();
+          calories = calculateMeal();
+        }
+
+        output = new CalorieOutputWindow(data[0], calories);
+      }
+
       output.setVisible(true);
     }
   }
@@ -145,7 +169,14 @@ public class CalorieCalculatorController implements ActionListener, DocumentList
     CalorieCalculatorWindow.calorieOutputField.setText(String.format("%.2f", calories));
   }
 
-  private double calculateRecipe()
+  private double calculateMeal()
+  {
+    double calories = 0.0;
+
+    return calories;
+  }
+
+  private double calculateRecipe(Recipe recipe)
   {
     double calories = 0.0;
 

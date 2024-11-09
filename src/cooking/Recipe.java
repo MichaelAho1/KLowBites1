@@ -1,19 +1,22 @@
 package cooking;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
 /**
- * Recipe class. Contains a name, people served.
- * Also includes ingredients, utensils, and steps of a recipe.
+ * Recipe class. Contains a name, people served. Also includes ingredients, utensils, and steps of a
+ * recipe.
  *
  * @author f24team3d
  * @version 10/24/24
  */
-public class Recipe
+public class Recipe implements Serializable
 {
+  private static final long serialVersionUID = -8722115314424841498L;
+
   private String name; // Name of the recipe
   private int serves; // Number of people served
   private List<Ingredients> ingredients;

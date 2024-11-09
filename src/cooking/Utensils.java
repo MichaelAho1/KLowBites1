@@ -1,13 +1,17 @@
 package cooking;
 
+import java.io.Serializable;
+
 /**
  * Utensils Class, a RecipeElement.
  *
- *  @author f24team3d
- *  @version 10/29/24
+ * @author f24team3d
+ * @version 10/29/24
  */
-public class Utensils implements RecipeElement, StepSource
+public class Utensils implements RecipeElement, StepSource, Serializable
 {
+  private static final long serialVersionUID = -5893006419542005136L;
+
   private String name;
   private String details;
   private RecipeElementType type = RecipeElementType.UTENSIL;
@@ -81,6 +85,13 @@ public class Utensils implements RecipeElement, StepSource
   @Override
   public String toString()
   {
-    return details + " " + name;
+    if (details.isEmpty())
+    {
+      return name;
+    }
+    else
+    {
+      return details + " " + name;
+    }
   }
 }

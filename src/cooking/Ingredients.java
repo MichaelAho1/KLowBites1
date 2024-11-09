@@ -1,15 +1,19 @@
 package cooking;
 
+import java.io.Serializable;
+
 import javax.swing.JLabel;
 
 /**
  * Ingredients Class, a RecipeElement.
  *
- *  @author f24team3d
- *  @version 10/29/24
+ * @author f24team3d
+ * @version 10/29/24
  */
-public class Ingredients implements RecipeElement, StepSource
+public class Ingredients implements RecipeElement, StepSource, Serializable
 {
+  private static final long serialVersionUID = 9078168612703222174L;
+
   private double amount = 0.0;
   private String units = "";
   private String details = "";
@@ -37,7 +41,7 @@ public class Ingredients implements RecipeElement, StepSource
    * @param name
    */
   public Ingredients(final double amount, final String unit, final String details,
-		  final String name)
+      final String name)
   {
     this.amount = amount;
     this.units = unit;
@@ -133,11 +137,12 @@ public class Ingredients implements RecipeElement, StepSource
   @Override
   public String toString()
   {
-	return amount + " " + units + " of " + details + " " + name;
+    return amount + " " + units + " of " + details + " " + name;
   }
 
   /**
    * Creates new Jlabel.
+   * 
    * @return Jlabel
    */
   public JLabel add()

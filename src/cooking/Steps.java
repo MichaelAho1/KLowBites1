@@ -1,13 +1,17 @@
 package cooking;
 
+import java.io.Serializable;
+
 /**
  * Ingredients Class, a RecipeElement.
  *
- *  @author f24team3d
- *  @version 10/29/24
+ * @author f24team3d
+ * @version 10/29/24
  */
-public class Steps implements RecipeElement
+public class Steps implements RecipeElement, Serializable
 {
+  private static final long serialVersionUID = 2378201077635363735L;
+
   private String action;
   private StepSource source;
   private Utensils destination;
@@ -129,19 +133,21 @@ public class Steps implements RecipeElement
   @Override
   public String toString()
   {
-    if (source.getType() == RecipeElementType.UTENSIL && destination.getType() == RecipeElementType.UTENSIL
-      &&
-      source.getName().equals(destination.getName()))
+    if (source.getType() == RecipeElementType.UTENSIL
+        && destination.getType() == RecipeElementType.UTENSIL
+        && source.getName().equals(destination.getName()))
     {
       return action + " the contents of the " + source.getName() + " " + details;
     }
     else if (source.getType() == RecipeElementType.UTENSIL)
     {
-      return action + " the contents of the " + source.getName() + " in the " + destination.getName() + " " + details;
+      return action + " the contents of the " + source.getName() + " in the "
+          + destination.getName() + " " + details;
     }
     else if (StepSource.class.isInstance(Utensils.class))
     {
-      return action + " the contents of the " + source.getName() + " in the " + destination.getName() + " " + details;
+      return action + " the contents of the " + source.getName() + " in the "
+          + destination.getName() + " " + details;
     }
     return action + " the " + source.getName() + " in the " + destination.getName() + " " + details;
   }

@@ -1,15 +1,14 @@
 package gui;
 
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.awt.BorderLayout;
+import java.awt.Container;
 
-import javax.swing.*;
-
-import cooking.*;
+import javax.swing.BoxLayout;
+import javax.swing.JPanel;
 
 import controller.RecipeEditorController;
-import utilities.DocumentState;
+import cooking.Recipe;
+import cooking.RecipeElementType;
 import utilities.Units;
 
 /**
@@ -35,6 +34,7 @@ public class RecipeEditorContent extends JPanel
   EditorPanel ingredientEditorPanel;
   EditorPanel stepEditorPanel;
 
+  String[] stepOn;
   String[] stepUtensils;
   String[] stepIngredients;
   String[] stepSources;
@@ -72,7 +72,6 @@ public class RecipeEditorContent extends JPanel
       mainIFP.addJTextField("Name: ", 50);
       mainIFP.addJTextField("Serves: ", 10);
     }
-    
 
     // **** EDITOR PANELS ****
 
@@ -87,19 +86,33 @@ public class RecipeEditorContent extends JPanel
     ingredientIFP.addJTextField("Name: ", 15);
     ingredientIFP.addJTextField("Details: ", 7);
     ingredientIFP.addJTextField("Amount: ", 7);
-    ingredientIFP.addJComboBox("Units: ", units.getAllUnits());
+    ingredientIFP.addJComboBox("Units: ", units.getAllUnitsPlusIndividual());
 
     ingredientIFP.addJButton("Add", "Ingredient Add", controller);
 
     // Steps
     stepIFP = new InputFieldPanel();
-    stepIFP.addJComboBox("Action: ", new String[] {"", "put", "melt", "simmer", "heat", "ignite"});
+    stepIFP.addJTextField("Action: ", 7);
 
+    stepOn = new String[] {""};
     stepUtensils = new String[] {""};
     stepIngredients = new String[] {""};
 
     if (!isNew)
     {
+      stepOn = new String[recipe.getUtensils().size() + recipe.getIngredients().size()];
+      for (int i = 0; i < recipe.getUtensils().size(); i++)
+      {
+        stepOn[i] = recipe.getUtensils().get(i).getName();
+      }
+
+      int ingredientIndex = 0; // Track position in ingredients list
+      for (int i = recipe.getUtensils().size(); i < stepOn.length; i++)
+      {
+        stepOn[i] = recipe.getIngredients().get(ingredientIndex).getName();
+        ingredientIndex++;
+      }
+
       stepUtensils = new String[recipe.getUtensils().size()];
       for (int i = 0; i < stepUtensils.length; i++)
       {
@@ -113,7 +126,7 @@ public class RecipeEditorContent extends JPanel
       }
     }
 
-    stepIFP.addJComboBox("On: ", stepUtensils);
+    stepIFP.addJComboBox("On: ", stepOn);
     stepIFP.addJComboBox("Utensil: ", stepUtensils);
 
     stepIFP.addJTextField("Details: ", 15);
@@ -123,8 +136,10 @@ public class RecipeEditorContent extends JPanel
     JPanel editorPanel = new JPanel();
     editorPanel.setLayout(new BoxLayout(editorPanel, BoxLayout.Y_AXIS));
 
-    utensilEditorPanel = new EditorPanel(RecipeElementType.UTENSIL, recipe, utensilIFP, controller, isNew);
-    ingredientEditorPanel = new EditorPanel(RecipeElementType.INGREDIENT, recipe, ingredientIFP, controller, isNew);
+    utensilEditorPanel = new EditorPanel(RecipeElementType.UTENSIL, recipe, utensilIFP, controller,
+        isNew);
+    ingredientEditorPanel = new EditorPanel(RecipeElementType.INGREDIENT, recipe, ingredientIFP,
+        controller, isNew);
     stepEditorPanel = new EditorPanel(RecipeElementType.STEP, recipe, stepIFP, controller, isNew);
 
     editorPanel.add(utensilEditorPanel);
@@ -163,7 +178,7 @@ public class RecipeEditorContent extends JPanel
   public void updateStepSourcePanel()
   {
     stepUtensils = new String[utensilEditorPanel.getRecipeList().getModel().getSize()];
-    
+
     for (int i = 0; i < stepUtensils.length; i++)
     {
       stepUtensils[i] = utensilEditorPanel.getRecipeList().getModel().getElementAt(i).getName();
@@ -173,14 +188,15 @@ public class RecipeEditorContent extends JPanel
 
     for (int i = 0; i < stepIngredients.length; i++)
     {
-      stepIngredients[i] = ingredientEditorPanel.getRecipeList().getModel().getElementAt(i).getName();
+      stepIngredients[i] = ingredientEditorPanel.getRecipeList().getModel().getElementAt(i)
+          .getName();
     }
 
     stepIFP.updateComboBox("Utensil: ", stepUtensils);
 
     stepSources = new String[stepUtensils.length + stepIngredients.length];
-    System.arraycopy(stepUtensils, 0, stepSources , 0, stepUtensils.length);
-    System.arraycopy(stepIngredients, 0, stepSources , stepUtensils.length, stepIngredients.length);
+    System.arraycopy(stepUtensils, 0, stepSources, 0, stepUtensils.length);
+    System.arraycopy(stepIngredients, 0, stepSources, stepUtensils.length, stepIngredients.length);
 
     stepIFP.updateComboBox("On: ", stepSources);
   }

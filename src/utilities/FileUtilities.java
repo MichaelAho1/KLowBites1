@@ -3,15 +3,21 @@ package utilities;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import controller.RecipeEditorController;
 import cooking.Ingredients;
 import cooking.Recipe;
 import cooking.RecipeElementType;
@@ -71,208 +77,134 @@ public class FileUtilities
     return null;
   }
 
-  // Open an existing recipe file and load into currentRecipe
-  public static String openRecipe()
+  /**
+   * Open an existing recipe file and return deserialized version.
+   * 
+   * @return Deserialized recipe
+   */
+  public static Recipe openRecipe()
   {
-    String data = "";
+    // Create a JFileChooser for selecting directories
+    JFileChooser fileChooser = new JFileChooser();
+    fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+    fileChooser.setDialogTitle("Select the directory containing recipe files");
 
-    // set up a file filter for .txt or any specific recipe format (if desired)
-    FileNameExtensionFilter filter = new FileNameExtensionFilter("Recipe Files", "rcp");
-    fileChooser.setFileFilter(filter);
-
-    // open the file explorer and let the user select where to save
+    // Show the directory chooser dialog
     int result = fileChooser.showOpenDialog(null);
-    if (result == JFileChooser.APPROVE_OPTION)
+    if (result != JFileChooser.APPROVE_OPTION)
     {
-      File selectedFile = fileChooser.getSelectedFile();
-      String filePath = selectedFile.getAbsolutePath();
-
-      try (BufferedReader reader = new BufferedReader(new FileReader(filePath)))
-      {
-        while (reader.ready())
-        {
-          data += reader.readLine() + "\n";
-        }
-
-        System.out.println("Recipe opened from file: " + filePath);
-      }
-      catch (IOException e)
-      {
-        System.err.println("Error reading the file: " + e.getMessage());
-        return null;
-      }
-      return data;
+      System.out.println("No directory selected.");
+      return null;
     }
-    return null;
+
+    // Get the selected directory
+    File directory = fileChooser.getSelectedFile();
+    System.out.println("Selected directory: " + directory.getAbsolutePath());
+    RecipeEditorController.recipeSavePath = directory.getAbsolutePath();
+
+    // Let user select a recipe file within the chosen directory
+    File[] files = directory.listFiles((dir, name) -> name.endsWith(".rcp"));
+    if (files == null || files.length == 0)
+    {
+      System.out.println("No recipe files found in the selected directory.");
+      return null;
+    }
+
+    // Show a list of available recipe files and ask the user to select one
+    String[] fileNames = new String[files.length];
+    for (int i = 0; i < files.length; i++)
+    {
+      fileNames[i] = files[i].getName();
+    }
+
+    // Use JOptionPane to let the user pick a file from the list
+    String selectedFile = (String) JOptionPane.showInputDialog(null, "Select a recipe file:",
+        "Recipe Files", JOptionPane.PLAIN_MESSAGE, null, fileNames, fileNames[0]);
+
+    // If no file was selected, return null
+    if (selectedFile == null)
+    {
+      System.out.println("No file selected.");
+      return null;
+    }
+
+    // Deserialize the selected recipe file
+    File file = new File(directory, selectedFile);
+    try (FileInputStream fileIn = new FileInputStream(file);
+        ObjectInputStream in = new ObjectInputStream(fileIn))
+    {
+
+      Recipe loadedRecipe = (Recipe) in.readObject();
+      System.out.println("Recipe loaded successfully from " + file.getAbsolutePath());
+      return loadedRecipe;
+
+    }
+    catch (IOException | ClassNotFoundException e)
+    {
+      System.err.println("Error loading recipe: " + e.getMessage());
+      e.printStackTrace();
+      return null;
+    }
   }
 
   /**
-   * Save the current recipe to a specified file.
+   * Save a recipe to the designated file path.
+   * 
+   * @param filePath
+   *          File path
+   * @param recipe
+   *          Recipe being saved
    */
-  public static void saveRecipe(String filePath, String data)
+  public static void saveRecipe(String filePath, Recipe recipe)
   {
-    try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath)))
+    // Step 1: Extract the directory path from the file path
+    File file = new File(filePath, recipe.getName() + ".rcp");
+
+    // Step 2: Ensure the directory exists
+    File parentDirectory = file.getParentFile();
+    if (parentDirectory != null && !parentDirectory.exists())
     {
-      writer.write(data);
-      System.out.println("Recipe saved to file: " + filePath);
+      if (parentDirectory.mkdirs())
+      {
+        System.out.println("Directory created at " + parentDirectory.getAbsolutePath());
+      }
+      else
+      {
+        System.err.println("Failed to create directory at " + parentDirectory.getAbsolutePath());
+        return;
+      }
+    }
+
+    // Step 3: Serialize and save the recipe to the file
+    try (FileOutputStream fileOut = new FileOutputStream(file);
+        ObjectOutputStream out = new ObjectOutputStream(fileOut))
+    {
+      out.writeObject(recipe);
+      System.out.println("Recipe saved successfully to " + filePath);
     }
     catch (IOException e)
     {
-      System.err.println("Error saving the file: " + e.getMessage());
+      System.err.println("Error saving recipe: " + e.getMessage());
+      e.printStackTrace();
     }
   }
 
-  public static Recipe parseData(String data)
+  public static Recipe loadRecipe2(String filePath)
   {
-    Recipe recipe = new Recipe();
-    String[] lines = data.split("\n");
-
-    // sets main fields
-    for (String line : lines)
+    try (FileInputStream fileIn = new FileInputStream(filePath);
+        ObjectInputStream in = new ObjectInputStream(fileIn))
     {
-      if (line.startsWith("**Recipe**"))
-      {
-        continue;
-      }
-      else if (line.startsWith("--Main Fields--"))
-      {
-        continue;
-      }
-      else if (line.startsWith("Main - Name: "))
-      {
-        String name = line.substring(13);
-        recipe.setName(name);
-      }
-      else if (line.startsWith("Main - Serves: "))
-      {
-        recipe.setServes(Integer.parseInt(line.substring(15)));
-      }
-      else if (line.startsWith("--Utensils--"))
-      {
-        break;
-      }
+      return (Recipe) in.readObject(); // Deserialize the Recipe object
     }
-
-    // sets utensils
-    ArrayList<Utensils> utensils = new ArrayList<>();
-    Utensils utensil = new Utensils();
-    for (String line : lines)
+    catch (IOException | ClassNotFoundException e)
     {
-      if (line.startsWith("--Utensils--"))
-      {
-        utensil = new Utensils();
-        continue;
-      }
-      else if (line.startsWith("Utensil - Name: "))
-      {
-        utensil.setName(line.substring(16));
-      }
-      else if (line.startsWith("Utensil - Details: "))
-      {
-        utensil.setDetails(line.substring(19));
-        utensils.add(utensil);
-        utensil = new Utensils();
-      }
-      else if (line.startsWith("--Ingredients--"))
-      {
-        break;
-      }
+      System.err.println("Error loading recipe: " + e.getMessage());
+      e.printStackTrace();
+      return null;
     }
-
-    for (Utensils u : utensils)
-    {
-      recipe.addUtensils(u);
-    }
-
-    // sets ingredients
-    ArrayList<Ingredients> ingredients = new ArrayList<>();
-    Ingredients ingredient = new Ingredients();
-    for (String line : lines)
-    {
-      if (line.startsWith("--Ingredients--"))
-      {
-        ingredient = new Ingredients();
-        continue;
-      }
-      else if (line.startsWith("Ingredient - Name: "))
-      {
-        ingredient.setName(line.substring(19));
-      }
-      else if (line.startsWith("Ingredient - Details: "))
-      {
-        ingredient.setDetails(line.substring(22));
-      }
-      else if (line.startsWith("Ingredient - Amount: "))
-      {
-        ingredient.setAmount(Double.parseDouble(line.substring(21)));
-      }
-      else if (line.startsWith("Ingredient - Unit: "))
-      {
-        ingredient.setUnit(line.substring(19));
-        ingredients.add(ingredient);
-        ingredient = new Ingredients();
-      }
-      else if (line.startsWith("--Steps--"))
-      {
-        break;
-      }
-    }
-
-    for (Ingredients i : ingredients)
-    {
-      recipe.addIngredient(i);
-    }
-
-    // sets steps
-
-    ArrayList<Steps> steps = new ArrayList<>();
-    Steps step = new Steps();
-    for (String line : lines)
-    {
-      if (line.startsWith("--Steps--"))
-      {
-        step = new Steps();
-        continue;
-      }
-      else if (line.startsWith("Step - Action: "))
-      {
-        step.setAction(line.substring(15));
-      }
-      else if (line.startsWith("Step - SourceI: "))
-      {
-        Ingredients source = new Ingredients();
-        source.setName(line.substring(16));
-        step.setSource(source);
-      }
-      else if (line.startsWith("Step - SourceU: "))
-      {
-        Utensils source = new Utensils();
-        source.setName(line.substring(16));
-        step.setSource(source);
-      }
-      else if (line.startsWith("Step - Destination: "))
-      {
-        Utensils destination = new Utensils();
-        destination.setName(line.substring(20));
-        step.setDestination(destination);
-      }
-      else if (line.startsWith("Step - Details: "))
-      {
-        step.setDetails(line.substring(16));
-        steps.add(step);
-        step = new Steps();
-      }
-    }
-
-    for (Steps s : steps)
-    {
-      recipe.addStep(s);
-    }
-
-    System.out.println();
-
-    return recipe;
   }
+
+  ///////////////////////////
 
   /**
    * Save As: Open a file explorer and let the user select where to save the recipe.
@@ -308,6 +240,11 @@ public class FileUtilities
     }
   }
 
+  /**
+   * 
+   * @param filePath
+   * @param data
+   */
   public static void saveMeal(String filePath, ArrayList<Recipe> data)
   {
     try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true)))

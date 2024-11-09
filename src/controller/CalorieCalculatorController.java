@@ -9,6 +9,7 @@ import javax.swing.event.DocumentListener;
 import app.KILowBites;
 import converter.MassConverter;
 import converter.VolumeConverter;
+import cooking.Meal;
 import cooking.Recipe;
 import gui.CalorieCalculatorWindow;
 import gui.CalorieOutputWindow;
@@ -75,11 +76,12 @@ public class CalorieCalculatorController implements ActionListener, DocumentList
       {
         if (extension.equals(".rcp"))
         {
-          Recipe recipe = FileUtilities.parseData(data[1]);
-          calories = calculateRecipe(recipe);
+          // Recipe recipe = FileUtilities.open();
+          calories = calculateRecipe(null);
         }
         else
         {
+          Meal meal = new Meal();
           calories = calculateMeal();
         }
 

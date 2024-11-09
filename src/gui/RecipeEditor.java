@@ -1,12 +1,19 @@
 package gui;
 
-import java.awt.*;
-import javax.swing.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.Dimension;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JToolBar;
 
 import controller.RecipeEditorController;
-import cooking.*;
-import utilities.ImageUtilities;
+import cooking.Recipe;
 import utilities.DocumentState;
+import utilities.ImageUtilities;
 
 /**
  * RecipeEditor class. Handles the toolbar and main container of the Recipe Editor.
@@ -69,6 +76,7 @@ public class RecipeEditor extends JFrame
     this.setResizable(false);
     this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     this.setVisible(true);
+    this.setLocationRelativeTo(null);
 
     outerPane.add(toolbar, BorderLayout.NORTH); // adds the toolbar to outerPane north
     outerPane.add(contentPane, BorderLayout.CENTER); // adds the content pane to outerPane center

@@ -1,6 +1,8 @@
 package cooking;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -93,6 +95,7 @@ public class Recipe
   public void addIngredient(final Ingredients ingredient)
   {
     ingredients.add(ingredient);
+    Collections.sort(ingredients, Comparator.comparing(Ingredients::getName));
   }
 
   /**
@@ -113,6 +116,17 @@ public class Recipe
   public void addUtensils(final Utensils utensil)
   {
     utensils.add(utensil);
+    Collections.sort(utensils, Comparator.comparing(Utensils::getName));
+  }
+
+  /**
+   * Get the utensils of the recipe.
+   *
+   * @return the utensils of the recipe
+   */
+  public List<Utensils> getUtensils()
+  {
+    return utensils;
   }
 
   public void removeUtensils(Utensils utensil)
@@ -130,15 +144,6 @@ public class Recipe
     steps.remove(step);
   }
 
-  /**
-   * Get the utensils of the recipe.
-   *
-   * @return the utensils of the recipe
-   */
-  public List<Utensils> getUtensils()
-  {
-    return utensils;
-  }
 
   /**
    * Add a step to the recipe.

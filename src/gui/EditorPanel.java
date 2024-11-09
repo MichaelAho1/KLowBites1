@@ -183,7 +183,8 @@ public class EditorPanel extends JPanel
     }
   }
 
-  public void addRecipeElement(RecipeElement element)
+
+    public void addRecipeElement(RecipeElement element)
   {
     recipeFileArea.addElement(element);
   }

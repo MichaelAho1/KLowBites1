@@ -21,12 +21,18 @@ public class CalorieOutputWindow extends JFrame
    * @param calories
    *          Number of calories in recipe/meal
    */
-  public CalorieOutputWindow(String name, double calories)
+  public CalorieOutputWindow(String name, String omitted, double calories)
   {
-    super("KILowBites Recipe/Meal Calories");
+    super(name);
 
     JLabel rmName = new JLabel(name);
     JLabel rmCalories = new JLabel(String.format("%.2f calories", calories));
+    JLabel omittedLabel = null;
+
+    if (omitted != null && !omitted.isEmpty())
+    {
+      omittedLabel = new JLabel("Omitted ingredients: " + omitted);
+    }
 
     // Set layout to GridBagLayout
     setLayout(new GridBagLayout());
@@ -39,8 +45,14 @@ public class CalorieOutputWindow extends JFrame
     // Add name label
     add(rmName, gbc);
 
+    if (omittedLabel != null)
+    {
+      gbc.gridy = 1; // Move to row 1
+      add(omittedLabel, gbc);
+    }
+
     // Move to the next row for the calories label
-    gbc.gridy = 1;
+    gbc.gridy = 2;
     add(rmCalories, gbc);
 
     setLocationRelativeTo(null);

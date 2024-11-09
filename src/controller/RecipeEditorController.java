@@ -238,7 +238,7 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
         System.out.println("Invalid input");
       }
 
-      recipeSavePath = FileUtilities.saveAsRecipe(FileUtilities.dumpRecipe(recipe));
+      recipeSavePath = FileUtilities.saveAsRecipe(recipe);
       state = DocumentState.UNCHANGED;
       editor.updateToolBar(state);
     }

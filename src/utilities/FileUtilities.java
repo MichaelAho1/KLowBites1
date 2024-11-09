@@ -2,6 +2,7 @@ package utilities;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -10,8 +11,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -19,6 +20,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import controller.RecipeEditorController;
 import cooking.Ingredients;
+import cooking.Meal;
 import cooking.Recipe;
 import cooking.RecipeElementType;
 import cooking.Steps;
@@ -31,50 +33,94 @@ public class FileUtilities
   /**
    * Generic opening method for both recipe and meal files.
    * 
-   * @return String containing data from file opened
+   * @return Recipe/Meal returned
    */
-  public static String[] open()
+  public static List<Object> open()
   {
-    String data[] = {"", ""};
+    List<Object> data = new ArrayList<>();
 
-    if (fileChooser == null)
-    {
-      fileChooser = new JFileChooser();
-    }
-    else
-    {
-      fileChooser.resetChoosableFileFilters(); // Clear any existing filters
-    }
+    // Create a JFileChooser for selecting directories
+    JFileChooser fileChooser = new JFileChooser();
+    fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+    fileChooser.setDialogTitle("Select the directory containing recipe or meal files");
 
-    // set up a file filter for .txt or any specific recipe format (if desired)
-    FileNameExtensionFilter filter = new FileNameExtensionFilter("Recipe/Meal Files", "rcp", "mel");
-    fileChooser.setFileFilter(filter);
-
+    // Show the directory chooser dialog
     int result = fileChooser.showOpenDialog(null);
-    if (result == JFileChooser.APPROVE_OPTION)
+    if (result != JFileChooser.APPROVE_OPTION)
     {
-      File selectedFile = fileChooser.getSelectedFile();
-      String filePath = selectedFile.getAbsolutePath();
-      try (BufferedReader reader = new BufferedReader(new FileReader(filePath)))
-      {
-        data[0] += Paths.get(filePath).getFileName().toString();
-
-        while (reader.ready())
-        {
-          data[1] += reader.readLine() + "\n";
-        }
-
-        System.out.println("Recipe opened from file: " + filePath);
-      }
-      catch (IOException e)
-      {
-        System.err.println("Error reading the file: " + e.getMessage());
-        return null;
-      }
-      return data;
+      System.out.println("No directory selected.");
+      return null;
     }
 
-    return null;
+    // Get the selected directory
+    File directory = fileChooser.getSelectedFile();
+    System.out.println("Selected directory: " + directory.getAbsolutePath());
+
+    // List files in the directory that have .rcp or .mel extensions
+    File[] files = directory
+        .listFiles((dir, name) -> name.endsWith(".rcp") || name.endsWith(".mel"));
+    if (files == null || files.length == 0)
+    {
+      System.out.println("No recipe or meal files found in the selected directory.");
+      return null;
+    }
+
+    // Show a list of available files and let the user pick one
+    String[] fileNames = new String[files.length];
+    for (int i = 0; i < files.length; i++)
+    {
+      fileNames[i] = files[i].getName();
+    }
+
+    String selectedFile = (String) JOptionPane.showInputDialog(null, "Select a file:",
+        "Recipe/Meal Files", JOptionPane.PLAIN_MESSAGE, null, fileNames, fileNames[0]);
+
+    if (selectedFile == null)
+    {
+      System.out.println("No file selected.");
+      return null;
+    }
+
+    // Add the selected filename as the first element in the data list
+    data.add(selectedFile);
+
+    // Deserialize the selected file
+    File file = new File(directory, selectedFile);
+    try (FileInputStream fileIn = new FileInputStream(file);
+        ObjectInputStream in = new ObjectInputStream(fileIn))
+    {
+
+      // Read objects from the file
+      while (true)
+      {
+        try
+        {
+          Object obj = in.readObject();
+          if (obj instanceof Recipe || obj instanceof Meal)
+          {
+            data.add(obj); // Add Recipe or Meal objects to the data list
+          }
+          else
+          {
+            System.out.println("Unknown object type: " + obj.getClass().getName());
+          }
+        }
+        catch (EOFException eof)
+        {
+          break; // End of file reached
+        }
+      }
+
+      System.out.println("File loaded successfully from " + file.getAbsolutePath());
+    }
+    catch (IOException | ClassNotFoundException e)
+    {
+      System.err.println("Error loading file: " + e.getMessage());
+      e.printStackTrace();
+      return null;
+    }
+
+    return data;
   }
 
   /**
@@ -136,6 +182,10 @@ public class FileUtilities
 
       Recipe loadedRecipe = (Recipe) in.readObject();
       System.out.println("Recipe loaded successfully from " + file.getAbsolutePath());
+      for (Ingredients i : loadedRecipe.getIngredients())
+      {
+        System.out.println(i.getName());
+      }
       return loadedRecipe;
 
     }
@@ -189,27 +239,14 @@ public class FileUtilities
     }
   }
 
-  public static Recipe loadRecipe2(String filePath)
-  {
-    try (FileInputStream fileIn = new FileInputStream(filePath);
-        ObjectInputStream in = new ObjectInputStream(fileIn))
-    {
-      return (Recipe) in.readObject(); // Deserialize the Recipe object
-    }
-    catch (IOException | ClassNotFoundException e)
-    {
-      System.err.println("Error loading recipe: " + e.getMessage());
-      e.printStackTrace();
-      return null;
-    }
-  }
-
-  ///////////////////////////
-
   /**
-   * Save As: Open a file explorer and let the user select where to save the recipe.
+   * Open file explorer and let user decide save location.
+   * 
+   * @param recipe
+   *          Recipe being saved
+   * @return file path
    */
-  public static String saveAsRecipe(String data)
+  public static String saveAsRecipe(Recipe recipe)
   {
     // set up a file filter for .txt or any specific recipe format (if desired)
     FileNameExtensionFilter filter = new FileNameExtensionFilter("Recipe Files", "rcp");
@@ -229,7 +266,7 @@ public class FileUtilities
       }
 
       // call the saveFile method to actually save the recipe
-      saveRecipe(filePath, data);
+      saveRecipe(filePath, recipe);
 
       return filePath;
     }
@@ -241,6 +278,7 @@ public class FileUtilities
   }
 
   /**
+   * 
    * 
    * @param filePath
    * @param data
@@ -332,19 +370,6 @@ public class FileUtilities
       return data;
     }
     return null;
-  }
-
-  public ArrayList<Recipe> parseMealData(String mealData)
-  {
-    ArrayList<Recipe> meal = new ArrayList<>();
-    String[] recipes = mealData.split("\n\n --Recipe End-- \n\n");
-
-    for (String recipe : recipes)
-    {
-      meal.add(parseData(recipe));
-    }
-
-    return meal;
   }
 
   public static String dumpRecipe(Recipe recipe)

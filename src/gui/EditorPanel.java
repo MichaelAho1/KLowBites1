@@ -68,6 +68,7 @@ public class EditorPanel extends JPanel
 
       if (type == RecipeElementType.UTENSIL)
       {
+        recipeFileArea.clear();
         for (Utensils utensil : recipe.getUtensils())
         {
           recipeFileArea.addElement(utensil);
@@ -75,6 +76,7 @@ public class EditorPanel extends JPanel
       }
       else if (type == RecipeElementType.INGREDIENT)
       {
+        recipeFileArea.clear();
         for (Ingredients ingredient : recipe.getIngredients())
         {
           recipeFileArea.addElement(ingredient);
@@ -82,6 +84,7 @@ public class EditorPanel extends JPanel
       }
       else if (type == RecipeElementType.STEP)
       {
+        recipeFileArea.clear();
         for (Steps step : recipe.getSteps())
         {
           recipeFileArea.addElement(step);

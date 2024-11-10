@@ -98,7 +98,7 @@ public class RecipeEditorContent extends JPanel
     stepUtensils = new String[] {""};
     stepIngredients = new String[] {""};
 
-    if (!isNew)
+    if (!isNew) 
     {
       stepOn = new String[recipe.getUtensils().size() + recipe.getIngredients().size()];
       for (int i = 0; i < recipe.getUtensils().size(); i++)

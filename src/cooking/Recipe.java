@@ -82,7 +82,7 @@ public class Recipe implements Serializable
 
   /**
    * Set the number of people served.
-   *
+   * 
    * @param serves
    */
   public void setServes(final int serves)
@@ -98,7 +98,7 @@ public class Recipe implements Serializable
   public void addIngredient(final Ingredients ingredient)
   {
     ingredients.add(ingredient);
-    Collections.sort(ingredients, Comparator.comparing(Ingredients::getName));
+    Collections.sort(ingredients, Comparator.comparing(i -> i.getName().toLowerCase()));
   }
 
   /**
@@ -119,7 +119,7 @@ public class Recipe implements Serializable
   public void addUtensils(final Utensils utensil)
   {
     utensils.add(utensil);
-    Collections.sort(utensils, Comparator.comparing(Utensils::getName));
+    Collections.sort(utensils, Comparator.comparing(u -> u.getName().toLowerCase()));
   }
 
   /**

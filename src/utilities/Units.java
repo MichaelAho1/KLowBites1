@@ -16,8 +16,26 @@ import java.util.Set;
  */
 public class Units
 {
-  private Map<String, String> units;
+  private static Map<String, String> units;
 
+  private static final String MASS = "Mass";
+  private static final String VOLUME = "Volume";
+  
+  private static final String GRAM = "Gram";
+  private static final String DRAM = "Dram";
+  private static final String OUNCE = "Ounce";
+  private static final String POUND = "Pound";
+  
+  private static final String MILLILITER = "Milliliter";
+  private static final String PINCH = "Pinch";
+  private static final String TEASPOON = "Teaspoon";
+  private static final String TABLESPOON = "Tablespoon";
+  private static final String FLUID_OUNCE = "Fluid Ounce";
+  private static final String CUP = "Cup";
+  private static final String PINT = "Pint";
+  private static final String QUART = "Quart";
+  private static final String GALLON = "Gallon";
+  
   /**
    * Default constructor.
    */
@@ -25,20 +43,20 @@ public class Units
   {
     units = new LinkedHashMap<>();
 
-    units.put("Gram", "Mass");
-    units.put("Dram", "Mass");
-    units.put("Ounce", "Mass");
-    units.put("Pound", "Mass");
+    units.put(GRAM, MASS);
+    units.put(DRAM, MASS);
+    units.put(OUNCE, MASS);
+    units.put(POUND, MASS);
 
-    units.put("Milliliter", "Volume");
-    units.put("Pinch", "Volume");
-    units.put("Teaspoon", "Volume");
-    units.put("Tablespoon", "Volume");
-    units.put("Fluid Ounce", "Volume");
-    units.put("Cup", "Volume");
-    units.put("Pint", "Volume");
-    units.put("Quart", "Volume");
-    units.put("Gallon", "Volume");
+    units.put(MILLILITER, VOLUME);
+    units.put(PINCH, VOLUME);
+    units.put(TEASPOON, VOLUME);
+    units.put(TABLESPOON, VOLUME);
+    units.put(FLUID_OUNCE, VOLUME);
+    units.put(CUP, VOLUME);
+    units.put(PINT, VOLUME);
+    units.put(QUART, VOLUME);
+    units.put(GALLON, VOLUME);
   }
 
   /**
@@ -108,7 +126,7 @@ public class Units
    * 
    * @return array of mass units
    */
-  public String[] getMassUnits()
+  public static String[] getMassUnits()
   {
     List<String> massUnits = new ArrayList<>();
 
@@ -136,7 +154,7 @@ public class Units
    * 
    * @return array of volume units
    */
-  public String[] getVolumeUnits()
+  public static String[] getVolumeUnits()
   {
     List<String> volumeUnits = new ArrayList<>();
 
@@ -147,7 +165,6 @@ public class Units
         volumeUnits.add(entry.getKey());
       }
     }
-
     return volumeUnits.toArray(new String[0]);
   }
 

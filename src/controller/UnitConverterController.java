@@ -12,6 +12,7 @@ import converter.MassConverter;
 import converter.MassToVolume;
 import converter.VolumeConverter;
 import gui.UnitConverterWindow;
+import utilities.Units;
 
 public class UnitConverterController implements ActionListener, DocumentListener
 {
@@ -97,8 +98,8 @@ public class UnitConverterController implements ActionListener, DocumentListener
     }
 
     // TODO: implement calculate
-    String[] volumeUnits = KILowBites.UNITS.getVolumeUnits();
-    String[] massUnits = KILowBites.UNITS.getMassUnits();
+    String[] volumeUnits = Units.getVolumeUnits();
+    String[] massUnits = Units.getMassUnits();
 
     String fromUnits = UnitConverterWindow.getFromUnitsMenu();
     String toUnits = UnitConverterWindow.getToUnitsMenu();

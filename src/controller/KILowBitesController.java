@@ -37,6 +37,7 @@ public class KILowBitesController implements ActionListener
   // Configure
   private static String PREFERENCES = "Preferences";
   private static String SHORTCUTS = "Shortcuts";
+  private static String ADD_INGREDIENT = "Add Ingredient";
 
   // Help
   private static String ABOUT = "About";
@@ -125,6 +126,10 @@ public class KILowBitesController implements ActionListener
     if (command.equals(SHORTCUTS))
     {
       System.out.println("open shortcuts");
+    }
+    if (command.equals(ADD_INGREDIENT))
+    {
+      System.out.println("Get this shiiii");
     }
 
     // commands for Help

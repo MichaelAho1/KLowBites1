@@ -69,7 +69,6 @@ public class Foods
     foods.put("garlic", new double[] {111, 0.32});
     foods.put("grapefruit", new double[] {32, 0.33});
     foods.put("grape", new double[] {62, 0.37});
-    foods.put("grapefruit", new double[] {60, 1.04});
     foods.put("grape juice", new double[] {60, 0.53});
     foods.put("green bean", new double[] {31, 0.53});
 

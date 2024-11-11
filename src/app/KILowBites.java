@@ -130,15 +130,19 @@ public class KILowBites implements Runnable
     openConvert = new JMenuItem("Units Converter");
     openConvert.addActionListener(controller);
     menu.add(openConvert);
-    // menu = new JMenu("Configure");
-    // menuBar.add(menu);
-    // menuItem = new JMenuItem("Preferences");
-    // menu.add(menuItem);
-    // menuItem.addActionListener(controller);
+
+    menu = new JMenu("Configure");
+    menuBar.add(menu);
+    menuItem = new JMenuItem("Preferences");
+    menu.add(menuItem);
+    menuItem.addActionListener(controller);
     // menuItem = new JMenuItem("Shortcuts");
     // menu.add(menuItem);
     // menuItem.addActionListener(controller);
-    //
+    menuItem = new JMenuItem("Add Ingredient");
+    menu.add(menuItem);
+    menuItem.addActionListener(controller);
+
     // menu = new JMenu("Help");
     // menuBar.add(menu);
     // menuItem = new JMenuItem("About");

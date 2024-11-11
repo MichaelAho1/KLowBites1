@@ -35,14 +35,11 @@ public class KILowBitesController implements ActionListener
   private static final String UNITS_CONVERTER = "Units Converter";
 
   // Configure
-<<<<<<< HEAD
-  private static final String PREFERENCES = "Preferences";
-  private static final String SHORTCUTS = "Shortcuts";
-=======
+
   private static String PREFERENCES = "Preferences";
   private static String SHORTCUTS = "Shortcuts";
   private static String ADD_INGREDIENT = "Add Ingredient";
->>>>>>> e25f913ed71b05a19a44e5f92cbd6a133eabe6ec
+
 
   // Help
   private static final String ABOUT = "About";

@@ -14,6 +14,7 @@ public class UnitType
   private static String[] imperialUnitsIndividual = {"", "Individual", "Pinch", "Teaspoon", "Tablespoon", "Fluid Ounce", "Cup", "Pint", "Quart", "Gallon", "Dram", "Ounce", "Pound"};
   public static boolean imperialSelected = true; // Imperial is automatically used unless user specifies to use metric.
   public static boolean metricSelected = false;
+
   
   public static String[] getImperialMassUnits() {
     return imperialMassUnits;

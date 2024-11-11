@@ -16,32 +16,37 @@ import gui.UnitConverterWindow;
 public class KILowBitesController implements ActionListener
 {
   // File
-  private static String EXIT = "Exit";
+  private static final String EXIT = "Exit";
 
   // Edit
-  private static String RECIPE = "Recipe";
-  private static String MEAL = "Meal";
+  private static final String RECIPE = "Recipe";
+  private static final String MEAL = "Meal";
 
   // Search
-  private static String RECIPES = "Recipes";
-  private static String MEALS = "Meals";
+  private static final String RECIPES = "Recipes";
+  private static final String MEALS = "Meals";
 
   // View
-  private static String SHOPPING_LIST = "Shopping List";
-  private static String PROCESS = "Process";
+  private static final String SHOPPING_LIST = "Shopping List";
+  private static final String PROCESS = "Process";
 
   // Tools
-  private static String CALORIE_CALCULATOR = "Calorie Calculator";
-  private static String UNITS_CONVERTER = "Units Converter";
+  private static final String CALORIE_CALCULATOR = "Calorie Calculator";
+  private static final String UNITS_CONVERTER = "Units Converter";
 
   // Configure
+<<<<<<< HEAD
+  private static final String PREFERENCES = "Preferences";
+  private static final String SHORTCUTS = "Shortcuts";
+=======
   private static String PREFERENCES = "Preferences";
   private static String SHORTCUTS = "Shortcuts";
   private static String ADD_INGREDIENT = "Add Ingredient";
+>>>>>>> e25f913ed71b05a19a44e5f92cbd6a133eabe6ec
 
   // Help
-  private static String ABOUT = "About";
-  private static String USER_GUIDE = "User Guide";
+  private static final String ABOUT = "About";
+  private static final String USER_GUIDE = "User Guide";
 
   private RecipeEditorController recipeController;
   private ProcessViewerController recipeViewerController;

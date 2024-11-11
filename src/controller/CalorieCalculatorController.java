@@ -13,6 +13,7 @@ import converter.VolumeConverter;
 import cooking.Ingredients;
 import cooking.Meal;
 import cooking.Recipe;
+import gui.CalorieCalculatorWindow;
 import gui.CalorieOutputWindow;
 import utilities.FileUtilities;
 

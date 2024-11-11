@@ -2,12 +2,12 @@ package utilities;
 
 public class UnitType
 {
-  private static String[] imperialVolumeUnits = {"Pinches", "Teaspoon", "Tabelspoon", "Fluid Ounce", "Cup", "Pint", "Quart", "Gallon"};
-  private static String[] metricVolumeUnits = {"Milliliters"};
-  private static String[] metricMassUnits = {"Gram"};
-  private static String[] imperialMassUnits = {"Dram", "Ounce", "Pound"};
-  private static String[] imperialUnits = {"Pinches", "Teaspoon", "Tabelspoon", "Fluid Ounce", "Cup", "Pint", "Quart", "Gallon", "Dram", "Ounce", "Pound"};
-  private static String[] metricUnits = {"Gram", "Milliliters"};
+  private static final String[] imperialVolumeUnits = {"Pinches", "Teaspoon", "Tabelspoon", "Fluid Ounce", "Cup", "Pint", "Quart", "Gallon"};
+  private static final String[] metricVolumeUnits = {"Milliliters"};
+  private static final String[] metricMassUnits = {"Gram"};
+  private static final String[] imperialMassUnits = {"Dram", "Ounce", "Pound"};
+  private static final String[] imperialUnits = {"Pinches", "Teaspoon", "Tabelspoon", "Fluid Ounce", "Cup", "Pint", "Quart", "Gallon", "Dram", "Ounce", "Pound"};
+  private static final String[] metricUnits = {"Gram", "Milliliters"};
   
   public static String[] getImperialMassUnits() {
     return imperialMassUnits;

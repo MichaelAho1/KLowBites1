@@ -33,6 +33,17 @@ public class KILowBites implements Runnable
 
   private static final String FILE = "File";
   private static final String MAIN_WINDOW = "KILowBites Main Window";
+  private static final String EXIT = "Exit";
+  private static final String EDIT = "Edit";
+  private static final String RECIPE = "Recipe";
+  private static final String MEAL = "Meal";
+  private static final String VIEW = "View";
+  private static final String PROCESS = "Process";
+  private static final String TOOLS = "Tools";
+  private static final String CALORIE_CALCULATOR = "Calorie Calculator";
+  private static final String UNITS_CONVERTER = "Units Converter";
+
+  
 
   private String[] args;
 
@@ -91,16 +102,16 @@ public class KILowBites implements Runnable
 
     menu = new JMenu(FILE);
     menuBar.add(menu);
-    menuItem = new JMenuItem("Exit");
+    menuItem = new JMenuItem(EXIT);
     menu.add(menuItem);
     menuItem.addActionListener(controller);
 
-    menu = new JMenu("Edit");
+    menu = new JMenu(EDIT);
     menuBar.add(menu);
-    menuItem = new JMenuItem("Recipe");
+    menuItem = new JMenuItem(RECIPE);
     menu.add(menuItem);
     menuItem.addActionListener(controller);
-    menuItem = new JMenuItem("Meal");
+    menuItem = new JMenuItem(MEAL);
     menu.add(menuItem);
     menuItem.addActionListener(controller);
 
@@ -113,21 +124,21 @@ public class KILowBites implements Runnable
     // menu.add(menuItem);
     // menuItem.addActionListener(controller);
 
-    menu = new JMenu("View");
+    menu = new JMenu(VIEW);
     menuBar.add(menu);
     // menuItem = new JMenuItem("Shopping List");
     // menu.add(menuItem);
     // menuItem.addActionListener(controller);
-    menuItem = new JMenuItem("Process");
+    menuItem = new JMenuItem(PROCESS);
     menu.add(menuItem);
     menuItem.addActionListener(controller);
 
-    menu = new JMenu("Tools");
+    menu = new JMenu(TOOLS);
     menuBar.add(menu);
-    openCalc = new JMenuItem("Calorie Calculator");
+    openCalc = new JMenuItem(CALORIE_CALCULATOR);
     menu.add(openCalc);
     openCalc.addActionListener(controller);
-    openConvert = new JMenuItem("Units Converter");
+    openConvert = new JMenuItem(UNITS_CONVERTER);
     openConvert.addActionListener(controller);
     menu.add(openConvert);
     // menu = new JMenu("Configure");

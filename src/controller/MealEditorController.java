@@ -21,6 +21,7 @@ import utilities.FileUtilities;
  */
 public class MealEditorController implements ActionListener, DocumentStateObserver
 {
+  
   private static String NEW = "New";
   private static String OPEN = "Open";
   private static String SAVE = "Save";

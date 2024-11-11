@@ -16,14 +16,16 @@ import cooking.Meal;
  */
 public class MealEditorContent extends JPanel
 {
+  private static final long serialVersionUID = 1204273009868162205L;
+
   Container contentPane;
 
   Meal currentMeal; // meal being used
 
-  InputFieldPanel mainIFP;
-  InputFieldPanel recipeIFP;
+  InputFieldPanel mainMealIFP;
+  InputFieldPanel recipeMealIFP;
 
-  EditorPanel recipeEditorPanel;
+  EditorPanel mealEditorPanel;
 
   /**
    * Constructor for RecipeEditorContent.
@@ -31,7 +33,7 @@ public class MealEditorContent extends JPanel
    * @param controller
    *          the controller for the RecipeEditor
    */
-  public MealEditorContent(Meal meal, MealEditorController controller)
+  public MealEditorContent(Meal meal, MealEditorController controller, boolean isNew)
   {
     super();
 
@@ -41,25 +43,32 @@ public class MealEditorContent extends JPanel
     contentPane.setLayout(new BorderLayout());
 
     // **** INPUT FIELDS ****
-    mainIFP = new InputFieldPanel();
-    mainIFP.addJTextField("Name: ", 50);
+    mainMealIFP = new InputFieldPanel();
+    if (!isNew)
+    {
+      mainMealIFP.addJTextField("Name: ", 50, meal.getName());
+    }
+    else
+    {
+      mainMealIFP.addJTextField("Name: ", 50);
+    }
 
     // **** EDITOR PANELS ****
 
     // Recipes
-    recipeIFP = new InputFieldPanel();
-    recipeIFP.addJButton("Add Recipe", "Recipe Add", controller);
+    recipeMealIFP = new InputFieldPanel();
+    recipeMealIFP.addJButton("Add Recipe", "Recipe Add", controller);
 
     // creates the panel for recipes
     JPanel editorPanel = new JPanel();
     editorPanel.setLayout(new BorderLayout());
 
-    recipeEditorPanel = new EditorPanel("Recipes", recipeIFP, controller);
+    mealEditorPanel = new EditorPanel("Recipes", meal, recipeMealIFP, controller, isNew);
 
-    editorPanel.add(recipeEditorPanel, BorderLayout.CENTER);
+    editorPanel.add(mealEditorPanel, BorderLayout.CENTER);
 
     // adds the input fields into the content pane
-    contentPane.add(mainIFP, BorderLayout.NORTH);
+    contentPane.add(mainMealIFP, BorderLayout.NORTH);
 
     // adds the editorPane into the content pane
     contentPane.add(editorPanel, BorderLayout.CENTER);
@@ -69,28 +78,28 @@ public class MealEditorContent extends JPanel
 
   public String getNameField()
   {
-    return mainIFP.getText("Name: ");
+    return mainMealIFP.getText("Name: ");
   }
 
   public void reset()
   {
-    mainIFP.resetFields();
-    recipeIFP.resetFields();
-    recipeEditorPanel.reset();
+    mainMealIFP.resetFields();
+    recipeMealIFP.resetFields();
+    mealEditorPanel.reset();
   }
 
   public InputFieldPanel getMainIFP()
   {
-    return mainIFP;
+    return mainMealIFP;
   }
 
   public InputFieldPanel getRecipeIFP()
   {
-    return recipeIFP;
+    return recipeMealIFP;
   }
 
   public EditorPanel getEditorPanel()
   {
-    return recipeEditorPanel;
+    return mealEditorPanel;
   }
 }

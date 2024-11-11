@@ -63,7 +63,7 @@ public class Meal implements Serializable
     }
   }
 
-  public void setString(String name)
+  public void setName(String name)
   {
     this.name = name;
   }

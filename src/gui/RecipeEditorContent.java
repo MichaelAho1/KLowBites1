@@ -19,6 +19,8 @@ import utilities.Units;
  */
 public class RecipeEditorContent extends JPanel
 {
+  private static final long serialVersionUID = -5218221163153774982L;
+
   Container contentPane;
 
   Recipe currentRecipe; // recipe being used
@@ -98,7 +100,7 @@ public class RecipeEditorContent extends JPanel
     stepUtensils = new String[] {""};
     stepIngredients = new String[] {""};
 
-    if (!isNew) 
+    if (!isNew)
     {
       stepOn = new String[recipe.getUtensils().size() + recipe.getIngredients().size()];
       for (int i = 0; i < recipe.getUtensils().size(); i++)

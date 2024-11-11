@@ -23,6 +23,8 @@ import utilities.ImageUtilities;
  */
 public class MealEditor extends JFrame
 {
+  private static final long serialVersionUID = -2406924416722235203L;
+
   Container outerPane;
   JPanel contentPane;
   MealEditorContent content;
@@ -32,7 +34,7 @@ public class MealEditor extends JFrame
   /**
    * Constructor for RecipeEditor.
    */
-  public MealEditor(Meal meal, MealEditorController controller)
+  public MealEditor(Meal meal, MealEditorController controller, boolean isNew)
   {
     super("KILowBites Meal Editor");
 
@@ -69,7 +71,7 @@ public class MealEditor extends JFrame
     }
 
     // creates the main content panel
-    content = new MealEditorContent(meal, controller);
+    content = new MealEditorContent(meal, controller, isNew);
     contentPane = content;
 
     this.setSize(new Dimension(900, 500));

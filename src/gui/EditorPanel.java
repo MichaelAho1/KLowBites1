@@ -1,17 +1,32 @@
 package gui;
 
-import java.awt.*;
-import javax.swing.*;
+import java.awt.BorderLayout;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.DefaultListModel;
+import javax.swing.JButton;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
 
 import controller.MealEditorController;
 import controller.RecipeEditorController;
-import cooking.*;
-import utilities.Units;
+import cooking.Ingredients;
+import cooking.Meal;
+import cooking.Recipe;
+import cooking.RecipeElement;
+import cooking.RecipeElementType;
+import cooking.Steps;
+import cooking.Utensils;
 
 /**
- * EditorPanel class. Flexibly handles the Editor panels for Editor frames.
- * Examples: Utensils, Ingredients, Steps, Recipes
- * (where the file changes go)
+ * EditorPanel class. Flexibly handles the Editor panels for Editor frames. Examples: Utensils,
+ * Ingredients, Steps, Recipes (where the file changes go)
  *
  * @author f24team3d
  * @version 10/26/24
@@ -41,10 +56,13 @@ public class EditorPanel extends JPanel
   /**
    * Constructor for EditorPanel (for RecipeEditor).
    *
-   * @param inputFieldPanel the input field panel
-   * @param controller the controller for the RecipeEditor
+   * @param inputFieldPanel
+   *          the input field panel
+   * @param controller
+   *          the controller for the RecipeEditor
    */
-  public EditorPanel(RecipeElementType type, Recipe recipe, InputFieldPanel inputFieldPanel, RecipeEditorController controller, boolean isNew)
+  public EditorPanel(RecipeElementType type, Recipe recipe, InputFieldPanel inputFieldPanel,
+      RecipeEditorController controller, boolean isNew)
   {
     super();
 
@@ -126,12 +144,17 @@ public class EditorPanel extends JPanel
   /**
    * Constructor for EditorPanel (for MealEditor).
    *
-   * @param name the name of the EditorPanel
-   * @param inputFieldPanel the input field panel
-   * @param controller the controller for the MealEditor
-   * @param type the type of the input
+   * @param name
+   *          the name of the EditorPanel
+   * @param inputFieldPanel
+   *          the input field panel
+   * @param controller
+   *          the controller for the MealEditor
+   * @param type
+   *          the type of the input
    */
-  public EditorPanel(String name, InputFieldPanel inputFieldPanel, MealEditorController controller)
+  public EditorPanel(String name, Meal meal, InputFieldPanel inputFieldPanel,
+      MealEditorController controller, boolean isNew)
   {
     super();
 
@@ -151,8 +174,21 @@ public class EditorPanel extends JPanel
     JPanel fileEditorPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
     // creates the lists shown in the file editor
-    mealFileArea = new DefaultListModel<Recipe>();
-    mealList = new JList<Recipe>(mealFileArea);
+    if (!isNew)
+    {
+      mealFileArea = new DefaultListModel<>();
+      mealList = new JList<>(mealFileArea);
+
+      for (Recipe r : meal.getRecipes())
+      {
+        addMealElement(r);
+      }
+    }
+    else
+    {
+      mealFileArea = new DefaultListModel<>();
+      mealList = new JList<>(mealFileArea);
+    }
 
     // creates the file area for the editor panel
     JScrollPane scrollPane = new JScrollPane(mealList);
@@ -168,7 +204,6 @@ public class EditorPanel extends JPanel
     fileEditorPanel.add(scrollPane);
     fileEditorPanel.add(deleteButton);
 
-
     this.add(inputFieldPanel, BorderLayout.NORTH);
     this.add(fileEditorPanel, BorderLayout.CENTER);
     this.add(contentPane, BorderLayout.SOUTH);
@@ -179,6 +214,7 @@ public class EditorPanel extends JPanel
     try
     {
       recipeFileArea.clear();
+      mealFileArea.clear();
     }
     catch (NullPointerException e)
     {
@@ -186,8 +222,7 @@ public class EditorPanel extends JPanel
     }
   }
 
-
-    public void addRecipeElement(RecipeElement element)
+  public void addRecipeElement(RecipeElement element)
   {
     recipeFileArea.addElement(element);
   }
@@ -270,7 +305,8 @@ public class EditorPanel extends JPanel
     {
       int index = recipeList.getSelectedIndex();
 
-      if (index >= 0 && index < recipeList.getModel().getSize());
+      if (index >= 0 && index < recipeList.getModel().getSize())
+        ;
       {
         recipeFileArea.remove(index);
       }
@@ -287,7 +323,8 @@ public class EditorPanel extends JPanel
     {
       int index = mealList.getSelectedIndex();
 
-      if (index >= 0 && index < mealList.getModel().getSize());
+      if (index >= 0 && index < mealList.getModel().getSize())
+        ;
       {
         mealFileArea.remove(index);
       }

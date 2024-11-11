@@ -34,8 +34,6 @@ public class MealEditorController implements ActionListener, DocumentStateObserv
   private Meal meal;
   private DocumentState state;
 
-  private String mealName = "";
-
   private boolean savedAs = false;
   private String savePath = "";
 
@@ -51,7 +49,7 @@ public class MealEditorController implements ActionListener, DocumentStateObserv
   {
     state = DocumentState.NULL;
     meal = new Meal();
-    editor = new MealEditor(meal, this);
+    editor = new MealEditor(meal, this, true);
 
     editor.updateToolBar(state);
 
@@ -115,8 +113,7 @@ public class MealEditorController implements ActionListener, DocumentStateObserv
       editor.updateToolBar(state);
 
       editor.dispose();
-      editor = new MealEditor(meal, this);
-
+      editor = new MealEditor(meal, this, false);
     }
     else if (command.equals(SAVE))
     {
@@ -124,7 +121,7 @@ public class MealEditorController implements ActionListener, DocumentStateObserv
 
       if (name != null)
       {
-        mealName = name;
+        meal.setName(name);
       }
 
       if (!savePath.equals(""))
@@ -144,6 +141,7 @@ public class MealEditorController implements ActionListener, DocumentStateObserv
     else if (command.equals(CLOSE))
     {
       meal = null;
+      savePath = "";
       editor.resetMealEditor();
       state = DocumentState.NULL;
       editor.updateToolBar(state);

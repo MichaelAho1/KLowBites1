@@ -1,13 +1,9 @@
 package utilities;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -283,21 +279,37 @@ public class FileUtilities
    * @param filePath
    * @param data
    */
-  public static void saveMeal(String filePath, ArrayList<Recipe> data)
+  public static void saveMeal(String filePath, Meal meal)
   {
-    try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true)))
-    {
-      for (Recipe recipe : data)
-      {
-        writer.write(dumpRecipe(recipe));
-        writer.write("\n\n --Recipe End-- \n\n");
-      }
+    // Step 1: Extract the directory path from the file path
+    File file = new File(filePath, meal.getName() + ".mel");
 
-      System.out.println("Meal saved to file: " + filePath);
+    // Step 2: Ensure the directory exists
+    File parentDirectory = file.getParentFile();
+    if (parentDirectory != null && !parentDirectory.exists())
+    {
+      if (parentDirectory.mkdirs())
+      {
+        System.out.println("Directory created at " + parentDirectory.getAbsolutePath());
+      }
+      else
+      {
+        System.err.println("Failed to create directory at " + parentDirectory.getAbsolutePath());
+        return;
+      }
+    }
+
+    // Step 3: Serialize and save the recipe to the file
+    try (FileOutputStream fileOut = new FileOutputStream(file);
+        ObjectOutputStream out = new ObjectOutputStream(fileOut))
+    {
+      out.writeObject(meal);
+      System.out.println("Meal saved successfully to " + filePath);
     }
     catch (IOException e)
     {
-      System.err.println("Error saving the file: " + e.getMessage());
+      System.err.println("Error saving meal: " + e.getMessage());
+      e.printStackTrace();
     }
   }
 
@@ -335,41 +347,72 @@ public class FileUtilities
     }
   }
 
-  public static String openMeal()
+  public static Meal openMeal()
   {
-    fileChooser = new JFileChooser();
+    // Create a JFileChooser for selecting directories
+    JFileChooser fileChooser = new JFileChooser();
+    fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+    fileChooser.setDialogTitle("Select the directory containing meal files");
 
-    // Open an existing recipe file and load into currentRecipe
-    String data = "";
-
-    // set up a file filter for .txt or any specific recipe format (if desired)
-    FileNameExtensionFilter filter = new FileNameExtensionFilter("Meal Files", "mel");
-    fileChooser.setFileFilter(filter);
-
-    // open the file explorer and let the user select where to save
+    // Show the directory chooser dialog
     int result = fileChooser.showOpenDialog(null);
-    if (result == JFileChooser.APPROVE_OPTION)
+    if (result != JFileChooser.APPROVE_OPTION)
     {
-      File selectedFile = fileChooser.getSelectedFile();
-      String filePath = selectedFile.getAbsolutePath();
-
-      try (BufferedReader reader = new BufferedReader(new FileReader(filePath)))
-      {
-        while (reader.ready())
-        {
-          data += reader.readLine() + "\n";
-        }
-
-        System.out.println("Meal opened from file: " + filePath);
-      }
-      catch (IOException e)
-      {
-        System.err.println("Error reading the file: " + e.getMessage());
-        return null;
-      }
-      return data;
+      System.out.println("No directory selected.");
+      return null;
     }
-    return null;
+
+    // Get the selected directory
+    File directory = fileChooser.getSelectedFile();
+    System.out.println("Selected directory: " + directory.getAbsolutePath());
+    RecipeEditorController.recipeSavePath = directory.getAbsolutePath();
+
+    // Let user select a recipe file within the chosen directory
+    File[] files = directory.listFiles((dir, name) -> name.endsWith(".mel"));
+    if (files == null || files.length == 0)
+    {
+      System.out.println("No meal files found in the selected directory.");
+      return null;
+    }
+
+    // Show a list of available recipe files and ask the user to select one
+    String[] fileNames = new String[files.length];
+    for (int i = 0; i < files.length; i++)
+    {
+      fileNames[i] = files[i].getName();
+    }
+
+    // Use JOptionPane to let the user pick a file from the list
+    String selectedFile = (String) JOptionPane.showInputDialog(null, "Select a meal file:",
+        "Meal Files", JOptionPane.PLAIN_MESSAGE, null, fileNames, fileNames[0]);
+
+    // If no file was selected, return null
+    if (selectedFile == null)
+    {
+      System.out.println("No file selected.");
+      return null;
+    }
+
+    // Deserialize the selected recipe file
+    File file = new File(directory, selectedFile);
+    try (FileInputStream fileIn = new FileInputStream(file);
+        ObjectInputStream in = new ObjectInputStream(fileIn))
+    {
+
+      Meal loadedMeal = (Meal) in.readObject();
+      System.out.println("Recipe loaded successfully from " + file.getAbsolutePath());
+      for (Recipe i : loadedMeal.getRecipes())
+      {
+        System.out.println(i.getName());
+      }
+      return loadedMeal;
+    }
+    catch (IOException | ClassNotFoundException e)
+    {
+      System.err.println("Error loading recipe: " + e.getMessage());
+      e.printStackTrace();
+      return null;
+    }
   }
 
   public static String dumpRecipe(Recipe recipe)

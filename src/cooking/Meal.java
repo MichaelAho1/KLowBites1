@@ -8,10 +8,12 @@ public class Meal implements Serializable
 {
   private static final long serialVersionUID = -3270513840760669938L;
 
+  private String name;
   private List<Recipe> recipes;
 
   public Meal()
   {
+    name = "";
     recipes = new ArrayList<>();
   }
 
@@ -24,6 +26,16 @@ public class Meal implements Serializable
   public void addRecipe(Recipe recipe)
   {
     recipes.add(recipe);
+  }
+
+  /**
+   * Return name of meal.
+   * 
+   * @return Name of meal
+   */
+  public String getName()
+  {
+    return name;
   }
 
   /**
@@ -44,6 +56,15 @@ public class Meal implements Serializable
    */
   public void removeRecipe(Recipe recipe)
   {
-    recipes.remove(recipe);
+    // add checking for available recipe
+    if (recipes.contains(recipe))
+    {
+      recipes.remove(recipe);
+    }
+  }
+
+  public void setString(String name)
+  {
+    this.name = name;
   }
 }

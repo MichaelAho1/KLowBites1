@@ -109,17 +109,14 @@ public class MealEditorController implements ActionListener, DocumentStateObserv
     {
       editor.resetMealEditor();
 
-      Recipe r = new Recipe();
-      if (r != null)
-      {
-        r = FileUtilities.parseData(FileUtilities.openMeal());
-      }
+      meal = FileUtilities.openMeal();
 
       state = DocumentState.UNCHANGED;
       editor.updateToolBar(state);
 
-      // create new populated editor
-      // editor.dispose();
+      editor.dispose();
+      editor = new MealEditor(meal, this);
+
     }
     else if (command.equals(SAVE))
     {
@@ -130,15 +127,9 @@ public class MealEditorController implements ActionListener, DocumentStateObserv
         mealName = name;
       }
 
-      if (savedAs && !savePath.equals(""))
+      if (!savePath.equals(""))
       {
-        FileUtilities.saveMeal(savePath, meal);
-      }
-      else
-      {
-        savePath = FileUtilities.saveAsMeal(meal);
-        state = DocumentState.UNCHANGED;
-        editor.updateToolBar(state);
+        FileUtilities.saveMeal(savePath, meal); // save
       }
 
       state = DocumentState.UNCHANGED;
@@ -159,16 +150,10 @@ public class MealEditorController implements ActionListener, DocumentStateObserv
     }
     else if (command.equals(RECIPEADD))
     {
-      System.out.println("Meal Editor Panel: Recipe Add button selected");
+      Recipe r = FileUtilities.openRecipe();
 
-      Recipe r = new Recipe();
-      r = FileUtilities.parseData(FileUtilities.openRecipe());
-
-      if (r != null)
-      {
-        editor.getContent().getEditorPanel().addMealElement(r);
-        meal.addRecipe(r);
-      }
+      editor.getContent().getEditorPanel().addMealElement(r);
+      meal.addRecipe(r);
     }
     else if (command.equals(RECIPEDELETE))
     {

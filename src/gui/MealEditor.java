@@ -69,7 +69,7 @@ public class MealEditor extends JFrame
     }
 
     // creates the main content panel
-    content = new MealEditorContent(controller);
+    content = new MealEditorContent(meal, controller);
     contentPane = content;
 
     this.setSize(new Dimension(900, 500));

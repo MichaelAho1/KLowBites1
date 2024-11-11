@@ -2,12 +2,11 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
-import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
 import controller.MealEditorController;
-import cooking.Recipe;
+import cooking.Meal;
 
 /**
  * MealEditorContent class. Handles MealEditor main content.
@@ -19,7 +18,7 @@ public class MealEditorContent extends JPanel
 {
   Container contentPane;
 
-  ArrayList<Recipe> currentMeal; // meal being used
+  Meal currentMeal; // meal being used
 
   InputFieldPanel mainIFP;
   InputFieldPanel recipeIFP;
@@ -32,9 +31,11 @@ public class MealEditorContent extends JPanel
    * @param controller
    *          the controller for the RecipeEditor
    */
-  public MealEditorContent(MealEditorController controller)
+  public MealEditorContent(Meal meal, MealEditorController controller)
   {
     super();
+
+    currentMeal = meal;
 
     Container contentPane = new Container();
     contentPane.setLayout(new BorderLayout());

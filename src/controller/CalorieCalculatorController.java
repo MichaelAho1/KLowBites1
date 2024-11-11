@@ -139,6 +139,12 @@ public class CalorieCalculatorController implements ActionListener, DocumentList
       return;
     }
 
+    if (amount < 0)
+    {
+      CalorieCalculatorWindow.calorieOutputField.setText("Invalid input");
+      return;
+    }
+
     // retrieve ingredient name from input and get values associated with ingredient
     String ingredient = CalorieCalculatorWindow.calorieIngredientsMenu.getSelectedItem().toString();
     String unit = CalorieCalculatorWindow.calorieUnitsMenu.getSelectedItem().toString();

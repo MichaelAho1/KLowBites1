@@ -155,7 +155,7 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
         recipeSavePath = selectedDirectory.getAbsolutePath(); // Set the selected directory as
                                                               // savePath
 
-        recipe = new Recipe(); // Create a new meal
+        recipe = new Recipe(); // Create a new recipe
         editor.resetRecipeEditor(); // Reset editor
         state = DocumentState.UNCHANGED; // Set document state
         savedAs = false; // Indicate not yet saved

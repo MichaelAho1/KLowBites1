@@ -23,9 +23,26 @@ public class Meal implements Serializable
    * @param recipe
    *          Recipe being added to meal
    */
-  public void addRecipe(Recipe recipe)
+  public boolean addRecipe(Recipe recipe)
   {
-    recipes.add(recipe);
+    boolean exists = false;
+
+    for (Recipe r : recipes)
+    {
+      if (r.getName().equals(recipe.getName()))
+      {
+        exists = true;
+        // System.out.println("this recipe exists");
+      }
+    }
+
+    if (!exists)
+    {
+      recipes.add(recipe);
+      // System.out.println("Should not get here");
+    }
+
+    return exists;
   }
 
   /**
@@ -54,17 +71,29 @@ public class Meal implements Serializable
    * @param recipe
    *          Recipe being removed from meal
    */
-  public void removeRecipe(Recipe recipe)
+  public void removeRecipe(String recipeName)
   {
     // add checking for available recipe
-    if (recipes.contains(recipe))
+    for (Recipe r : recipes)
     {
-      recipes.remove(recipe);
+      if (r.getName().equals(recipeName))
+      {
+        recipes.remove(r);
+        return;
+      }
     }
   }
 
   public void setName(String name)
   {
     this.name = name;
+  }
+
+  public void printRecipes()
+  {
+    for (Recipe r : recipes)
+    {
+      System.out.println(r.getName());
+    }
   }
 }

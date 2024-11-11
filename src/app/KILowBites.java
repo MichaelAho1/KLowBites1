@@ -30,8 +30,8 @@ public class KILowBites implements Runnable
 
   public static final Foods FOODS = new Foods();
   public static final Units UNITS = new Units();
-  
-  private static final String FILE = "file";
+
+  private static final String FILE = "File";
   private static final String MAIN_WINDOW = "KILowBites Main Window";
 
   private String[] args;
@@ -113,14 +113,14 @@ public class KILowBites implements Runnable
     // menu.add(menuItem);
     // menuItem.addActionListener(controller);
 
-     menu = new JMenu("View");
-     menuBar.add(menu);
+    menu = new JMenu("View");
+    menuBar.add(menu);
     // menuItem = new JMenuItem("Shopping List");
     // menu.add(menuItem);
     // menuItem.addActionListener(controller);
-     menuItem = new JMenuItem("Process");
-     menu.add(menuItem);
-     menuItem.addActionListener(controller);
+    menuItem = new JMenuItem("Process");
+    menu.add(menuItem);
+    menuItem.addActionListener(controller);
 
     menu = new JMenu("Tools");
     menuBar.add(menu);

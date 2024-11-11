@@ -50,8 +50,8 @@ public class EditorPanel extends JPanel
   JList<RecipeElement> recipeList;
 
   // MealEditor variables
-  DefaultListModel<Recipe> mealFileArea;
-  JList<Recipe> mealList;
+  DefaultListModel<String> mealFileArea;
+  JList<String> mealList;
 
   /**
    * Constructor for EditorPanel (for RecipeEditor).
@@ -181,7 +181,7 @@ public class EditorPanel extends JPanel
 
       for (Recipe r : meal.getRecipes())
       {
-        addMealElement(r);
+        addMealElement(r.getName());
       }
     }
     else
@@ -227,7 +227,7 @@ public class EditorPanel extends JPanel
     recipeFileArea.addElement(element);
   }
 
-  public void addMealElement(Recipe e)
+  public void addMealElement(String e)
   {
     mealFileArea.addElement(e);
   }
@@ -237,7 +237,7 @@ public class EditorPanel extends JPanel
     return recipeList;
   }
 
-  public JList<Recipe> getMealList()
+  public JList<String> getMealList()
   {
     return mealList;
   }

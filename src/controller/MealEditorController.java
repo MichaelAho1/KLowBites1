@@ -35,7 +35,7 @@ public class MealEditorController implements ActionListener, DocumentStateObserv
   private DocumentState state;
 
   private boolean savedAs = false;
-  private String savePath = "";
+  public static String mealSavePath = "";
 
   /**
    * Constructor for controller.
@@ -88,7 +88,8 @@ public class MealEditorController implements ActionListener, DocumentStateObserv
       if (result == JFileChooser.APPROVE_OPTION)
       {
         File selectedDirectory = directoryChooser.getSelectedFile();
-        savePath = selectedDirectory.getAbsolutePath(); // Set the selected directory as savePath
+        mealSavePath = selectedDirectory.getAbsolutePath(); // Set the selected directory as
+                                                            // savePath
 
         meal = new Meal(); // Create a new meal
         editor.resetMealEditor(); // Reset editor
@@ -96,7 +97,7 @@ public class MealEditorController implements ActionListener, DocumentStateObserv
         savedAs = false; // Indicate not yet saved
         editor.updateToolBar(state); // Update toolbar state
 
-        System.out.println("New directory selected: " + savePath);
+        System.out.println("New directory selected: " + mealSavePath);
       }
       else
       {
@@ -124,9 +125,9 @@ public class MealEditorController implements ActionListener, DocumentStateObserv
         meal.setName(name);
       }
 
-      if (!savePath.equals(""))
+      if (!mealSavePath.equals(""))
       {
-        FileUtilities.saveMeal(savePath, meal); // save
+        FileUtilities.saveMeal(mealSavePath, meal); // save
       }
 
       state = DocumentState.UNCHANGED;
@@ -141,7 +142,7 @@ public class MealEditorController implements ActionListener, DocumentStateObserv
     else if (command.equals(CLOSE))
     {
       meal = null;
-      savePath = "";
+      mealSavePath = "";
       editor.resetMealEditor();
       state = DocumentState.NULL;
       editor.updateToolBar(state);
@@ -150,13 +151,18 @@ public class MealEditorController implements ActionListener, DocumentStateObserv
     {
       Recipe r = FileUtilities.openRecipe();
 
-      editor.getContent().getEditorPanel().addMealElement(r);
-      meal.addRecipe(r);
+      boolean added = meal.addRecipe(r);
+
+      if (!added)
+      {
+        editor.getContent().getEditorPanel().addMealElement(r.getName());
+      }
     }
     else if (command.equals(RECIPEDELETE))
     {
       meal.removeRecipe(editor.getContent().getEditorPanel().getMealList().getSelectedValue());
       editor.getContent().getEditorPanel().deleteMealElement();
+      meal.printRecipes();
     }
   }
 }

@@ -76,6 +76,7 @@ public class MealEditor extends JFrame
 
     this.setSize(new Dimension(900, 500));
     this.setResizable(false);
+    this.setLocationRelativeTo(null);
     this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     this.setVisible(true);
 

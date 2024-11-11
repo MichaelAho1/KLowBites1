@@ -14,6 +14,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import controller.MealEditorController;
 import controller.RecipeEditorController;
 import cooking.Ingredients;
 import cooking.Meal;
@@ -178,10 +179,12 @@ public class FileUtilities
 
       Recipe loadedRecipe = (Recipe) in.readObject();
       System.out.println("Recipe loaded successfully from " + file.getAbsolutePath());
-      for (Ingredients i : loadedRecipe.getIngredients())
-      {
-        System.out.println(i.getName());
-      }
+
+      // for (Ingredients i : loadedRecipe.getIngredients())
+      // {
+      // System.out.println(i.getName());
+      // }
+
       return loadedRecipe;
 
     }
@@ -365,7 +368,7 @@ public class FileUtilities
     // Get the selected directory
     File directory = fileChooser.getSelectedFile();
     System.out.println("Selected directory: " + directory.getAbsolutePath());
-    RecipeEditorController.recipeSavePath = directory.getAbsolutePath();
+    MealEditorController.mealSavePath = directory.getAbsolutePath();
 
     // Let user select a recipe file within the chosen directory
     File[] files = directory.listFiles((dir, name) -> name.endsWith(".mel"));

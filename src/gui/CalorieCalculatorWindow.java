@@ -16,7 +16,6 @@ import javax.swing.JTextField;
 import javax.swing.JToolBar;
 
 import app.KILowBites;
-import controller.CalorieCalculatorController;
 import utilities.ImageUtilities;
 
 /**
@@ -62,15 +61,14 @@ public class CalorieCalculatorWindow extends JFrame
     JPanel inputs = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
     ingredients = KILowBites.FOODS.getFoodNames();
-    
+
     // if User selected Metric {
-    //   units = UnitType.getMetricUnits();
+    // units = UnitType.getMetricUnits();
     // }
-    /* else {
-     *   units = UnitType.getImperialUnits();
-     * }
+    /*
+     * else { units = UnitType.getImperialUnits(); }
      */
-    
+
     units = KILowBites.UNITS.getAllUnits();
 
     setupInputs();

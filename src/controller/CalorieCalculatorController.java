@@ -11,6 +11,7 @@ import app.KILowBites;
 import converter.MassConverter;
 import converter.VolumeConverter;
 import cooking.Ingredients;
+import cooking.Meal;
 import cooking.Recipe;
 import gui.CalorieCalculatorWindow;
 import gui.CalorieOutputWindow;
@@ -92,7 +93,10 @@ public class CalorieCalculatorController implements ActionListener, DocumentList
         }
         else
         {
-          output = new CalorieOutputWindow(openedFile, omitted, 0.0);
+          Meal meal = (Meal) data.get(1);
+
+          calories = calculateMeal(meal);
+          output = new CalorieOutputWindow(separateByCapital(openedFile), omitted, calories);
         }
       }
 
@@ -221,9 +225,21 @@ public class CalorieCalculatorController implements ActionListener, DocumentList
     return calories;
   }
 
-  private double calculateMeal()
+  /**
+   * 
+   * @param meal
+   * @return
+   */
+  private double calculateMeal(Meal meal)
   {
     double calories = 0.0;
+
+    List<Recipe> recipes = meal.getRecipes();
+
+    for (Recipe r : recipes)
+    {
+      calories += calculateRecipe(r);
+    }
 
     return calories;
   }
@@ -267,8 +283,8 @@ public class CalorieCalculatorController implements ActionListener, DocumentList
 
   private String separateByCapital(String input)
   {
-    // Remove the .rcp extension if present
-    if (input.endsWith(".rcp"))
+    // Remove the .rcp/.mel extension if present
+    if (input.endsWith(".rcp") || input.endsWith(".mel"))
     {
       input = input.substring(0, input.length() - 4);
     }

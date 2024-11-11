@@ -7,7 +7,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
 import controller.RecipeEditorController;
-import controller.RecipeViewerController;
+import controller.ProcessViewerController;
 import cooking.Recipe;
 import cooking.RecipeElementType;
 import utilities.Units;
@@ -18,7 +18,7 @@ import utilities.Units;
  * @author f24team3d
  * @version 10/26/24
  */
-public class RecipeViewerContent extends JPanel
+public class ProcessViewerContent extends JPanel
 {
   Container contentPane;
 
@@ -48,7 +48,7 @@ public class RecipeViewerContent extends JPanel
    * @param controller
    *          the controller for the RecipeEditor
    */
-  public RecipeViewerContent(Recipe recipe, RecipeViewerController controller, boolean isNew)
+  public ProcessViewerContent(Recipe recipe, ProcessViewerController controller, boolean isNew)
   {
     super();
 

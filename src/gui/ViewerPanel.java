@@ -5,7 +5,7 @@ import javax.swing.*;
 
 import controller.MealEditorController;
 import controller.RecipeEditorController;
-import controller.RecipeViewerController;
+import controller.ProcessViewerController;
 import cooking.*;
 import utilities.Units;
 
@@ -45,7 +45,7 @@ public class ViewerPanel extends JPanel
    * @param inputFieldPanel the input field panel
    * @param recipeViewerController the controller for the RecipeEditor
    */
-  public ViewerPanel(RecipeElementType type, Recipe recipe, InputFieldPanel inputFieldPanel, RecipeViewerController recipeViewerController, boolean isNew)
+  public ViewerPanel(RecipeElementType type, Recipe recipe, InputFieldPanel inputFieldPanel, ProcessViewerController recipeViewerController, boolean isNew)
   {
     super();
 

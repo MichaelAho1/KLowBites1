@@ -319,7 +319,7 @@ public class FileUtilities
   /**
    * Save As: Open a file explorer and let the user select where to save the recipe.
    */
-  public static String saveAsMeal(ArrayList<Recipe> data)
+  public static String saveAsMeal(Meal meal)
   {
     // set up a file filter for .txt or any specific recipe format (if desired)
     FileNameExtensionFilter filter = new FileNameExtensionFilter("Meal Files", "mel");
@@ -333,13 +333,13 @@ public class FileUtilities
       String filePath = selectedFile.getAbsolutePath();
 
       // if the file doesn't have the desired extension, append it
-      if (!filePath.endsWith(".mel"))
+      if (!filePath.endsWith(".rcp"))
       {
-        filePath += ".mel";
+        filePath += ".rcp";
       }
 
       // call the saveFile method to actually save the recipe
-      saveMeal(filePath, data);
+      saveMeal(filePath, meal);
 
       return filePath;
     }

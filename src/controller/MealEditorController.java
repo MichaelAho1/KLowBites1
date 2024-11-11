@@ -135,7 +135,15 @@ public class MealEditorController implements ActionListener, DocumentStateObserv
     }
     else if (command.equals(SAVE_AS))
     {
-      // save as
+      String name = editor.getContent().getNameField();
+
+      if (name != null)
+      {
+        meal.setName(name);
+      }
+
+      mealSavePath = FileUtilities.saveAsMeal(meal); // save as
+
       state = DocumentState.UNCHANGED;
       editor.updateToolBar(state);
     }

@@ -214,6 +214,17 @@ public class EditorPanel extends JPanel
     try
     {
       recipeFileArea.clear();
+    }
+    catch (NullPointerException e)
+    {
+      System.out.println("nothing to clear");
+    }
+  }
+
+  public void resetMeal()
+  {
+    try
+    {
       mealFileArea.clear();
     }
     catch (NullPointerException e)

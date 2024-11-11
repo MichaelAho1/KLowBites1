@@ -70,6 +70,7 @@ public class CalorieCalculatorWindow extends JFrame
      *   units = UnitType.getImperialUnits();
      * }
      */
+    
     units = KILowBites.UNITS.getAllUnits();
 
     setupInputs();

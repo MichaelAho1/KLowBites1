@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import app.KILowBites;
+import gui.AddIngredientWindow;
 import gui.CalorieCalculatorWindow;
 import gui.UnitConverterWindow;
 
@@ -129,7 +130,8 @@ public class KILowBitesController implements ActionListener
     }
     if (command.equals(ADD_INGREDIENT))
     {
-      System.out.println("Get this shiiii");
+      AddIngredientWindow addIngreWindow = new AddIngredientWindow();
+      addIngreWindow.setVisible(true);
     }
 
     // commands for Help

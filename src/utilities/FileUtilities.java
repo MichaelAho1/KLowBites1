@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +15,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import app.KILowBites;
 import controller.MealEditorController;
 import controller.RecipeEditorController;
 import cooking.Ingredients;
@@ -461,5 +463,24 @@ public class FileUtilities
     }
 
     return output;
+  }
+
+  public static void saveFoods()
+  {
+    // Step 1: Extract the directory path from the file path
+    File file = new File(Paths.get("").toAbsolutePath().toString(), "Foods.mel");
+
+    // Step 2: Serialize and save the foods to the file
+    try (FileOutputStream fileOut = new FileOutputStream(file);
+        ObjectOutputStream out = new ObjectOutputStream(fileOut))
+    {
+      out.writeObject(KILowBites.FOODS.getFoods());
+      System.out.println("Foods.mel saved successfully to " + file.getAbsolutePath());
+    }
+    catch (IOException e)
+    {
+      System.err.println("Error saving Foods.mel: " + e.getMessage());
+      e.printStackTrace();
+    }
   }
 }

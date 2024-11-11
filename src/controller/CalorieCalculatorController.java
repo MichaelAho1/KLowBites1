@@ -1,4 +1,4 @@
-package gui;
+package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,6 +13,7 @@ import converter.VolumeConverter;
 import cooking.Ingredients;
 import cooking.Meal;
 import cooking.Recipe;
+import gui.CalorieOutputWindow;
 import utilities.FileUtilities;
 
 /**

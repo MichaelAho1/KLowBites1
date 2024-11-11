@@ -30,6 +30,9 @@ public class KILowBites implements Runnable
 
   public static final Foods FOODS = new Foods();
   public static final Units UNITS = new Units();
+  
+  private static final String FILE = "file";
+  private static final String MAIN_WINDOW = "KILowBites Main Window";
 
   private String[] args;
 
@@ -67,7 +70,7 @@ public class KILowBites implements Runnable
   public void run()
   {
     // initial setup
-    JFrame frame = new JFrame("KILowBites Main Window");
+    JFrame frame = new JFrame(MAIN_WINDOW);
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     JPanel contentPane = (JPanel) frame.getContentPane();
     contentPane.setLayout(new BorderLayout());
@@ -86,7 +89,7 @@ public class KILowBites implements Runnable
     JMenu menu;
     JMenuItem menuItem;
 
-    menu = new JMenu("File");
+    menu = new JMenu(FILE);
     menuBar.add(menu);
     menuItem = new JMenuItem("Exit");
     menu.add(menuItem);

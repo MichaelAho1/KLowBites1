@@ -105,35 +105,37 @@ public class UnitConverterController implements ActionListener, DocumentListener
     Double fromAmount = UnitConverterWindow.getFromAmountField();
     String ingredient = UnitConverterWindow.getIngredientsUnitsMenu();
     Double density = 0.0;
-    
-    if (!sameMeasureType)
-    	density = KILowBites.FOODS.getDensity(ingredient);
-
-    if (Arrays.asList(volumeUnits).contains(fromUnits)) // Volume
-    {
-      if (Arrays.asList(volumeUnits).contains(toUnits)) // Volume to Volume
+    if (fromAmount < 0) {
+      UnitConverterWindow.unitOutputField.setText("Cannot be a negative input.");
+    } else {
+      if (!sameMeasureType)
+        density = KILowBites.FOODS.getDensity(ingredient);
+      if (Arrays.asList(volumeUnits).contains(fromUnits)) // Volume
       {
-        amount = VolumeConverter.callerHelp(fromUnits, toUnits, fromAmount);
+        if (Arrays.asList(volumeUnits).contains(toUnits)) // Volume to Volume
+        {
+          amount = VolumeConverter.callerHelp(fromUnits, toUnits, fromAmount);
+        }
+        else // Volume to Mass
+        {
+          // Need to add density (Currently has a placeholder of 1.04)
+          amount = MassToVolume.interConverting(fromUnits, toUnits, fromAmount, density);
+        }
       }
-      else // Volume to Mass
+      else // Mass
       {
-        // Need to add density (Currently has a placeholder of 1.04)
-        amount = MassToVolume.interConverting(fromUnits, toUnits, fromAmount, density);
+        if (Arrays.asList(massUnits).contains(toUnits)) // Mass to Mass
+        {
+          amount = MassConverter.callerHelp(fromUnits, toUnits, fromAmount);
+        }
+        else // Mass To Volume
+        {
+          // Need to add density (Currently has a placeholder of 1.04
+          amount = MassToVolume.interConverting(fromUnits, toUnits, fromAmount, density);
+        }
       }
+      UnitConverterWindow.unitOutputField.setText(String.format("%.5f", amount));
     }
-    else // Mass
-    {
-      if (Arrays.asList(massUnits).contains(toUnits)) // Mass to Mass
-      {
-        amount = MassConverter.callerHelp(fromUnits, toUnits, fromAmount);
-      }
-      else // Mass To Volume
-      {
-        // Need to add density (Currently has a placeholder of 1.04
-        amount = MassToVolume.interConverting(fromUnits, toUnits, fromAmount, density);
-      }
-    }
-    UnitConverterWindow.unitOutputField.setText(String.format("%.5f", amount));
   }
 
   /**

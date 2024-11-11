@@ -10,7 +10,7 @@ import cooking.Ingredients;
 import cooking.Recipe;
 import cooking.Steps;
 import cooking.Utensils;
-import gui.RecipeViewer;
+import gui.ProcessViewer;
 import utilities.DocumentState;
 import utilities.DocumentStateObserver;
 import utilities.FileUtilities;
@@ -22,7 +22,7 @@ import utilities.InputUtilities;
  * @author f24team3d
  * @version 10/31/24
  */
-public class RecipeViewerController implements ActionListener, DocumentStateObserver
+public class ProcessViewerController implements ActionListener, DocumentStateObserver
 {
   private static String NEW = "New";
   private static String OPEN = "Open";
@@ -42,14 +42,14 @@ public class RecipeViewerController implements ActionListener, DocumentStateObse
   private boolean savedAs = false;
   public static String recipeSavePath = "";
 
-  private RecipeViewer viewer;
+  private ProcessViewer viewer;
   private Recipe recipe;
   private DocumentState state;
 
   /**
    * Constructor for controller.
    */
-  public RecipeViewerController()
+  public ProcessViewerController()
   {
     createRecipeViewer();
   }
@@ -61,7 +61,7 @@ public class RecipeViewerController implements ActionListener, DocumentStateObse
   {
     recipe = new Recipe();
     state = DocumentState.NULL;
-    viewer = new RecipeViewer(recipe, this, true);
+    viewer = new ProcessViewer(recipe, this, true);
     viewer.updateToolBar(state);
 
     viewer.getContent().getMainIFP().addObserver(this);
@@ -111,7 +111,7 @@ public class RecipeViewerController implements ActionListener, DocumentStateObse
     viewer.dispose();
 
     state = DocumentState.UNCHANGED;
-    viewer = new RecipeViewer(recipe, this, false);
+    viewer = new ProcessViewer(recipe, this, false);
     viewer.updateToolBar(state);
 
     viewer.getContent().getMainIFP().addObserver(this);
@@ -180,7 +180,7 @@ public class RecipeViewerController implements ActionListener, DocumentStateObse
       viewer.dispose();
 
       // propagate changes to window
-      viewer = new RecipeViewer(recipe, this, false);
+      viewer = new ProcessViewer(recipe, this, false);
     }
     else if (command.equals(SAVE))
     {

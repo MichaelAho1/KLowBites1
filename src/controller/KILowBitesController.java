@@ -43,7 +43,7 @@ public class KILowBitesController implements ActionListener
   private static String USER_GUIDE = "User Guide";
 
   private RecipeEditorController recipeController;
-  private RecipeViewerController recipeViewerController;
+  private ProcessViewerController recipeViewerController;
 
   private MealEditorController mealController;
 
@@ -97,7 +97,7 @@ public class KILowBitesController implements ActionListener
     }
     if (command.equals(PROCESS))
     {
-      recipeViewerController = new RecipeViewerController();
+      recipeViewerController = new ProcessViewerController();
       System.out.println("view process");
     }
 

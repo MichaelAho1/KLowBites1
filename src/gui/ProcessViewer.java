@@ -10,8 +10,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JToolBar;
 
-import controller.RecipeViewerController;
-import controller.RecipeViewerController;
+import controller.ProcessViewerController;
+import controller.ProcessViewerController;
 import cooking.Recipe;
 import utilities.DocumentState;
 import utilities.ImageUtilities;
@@ -22,18 +22,18 @@ import utilities.ImageUtilities;
  * @author f24team3d
  * @version 10/31/24
  */
-public class RecipeViewer extends JFrame
+public class ProcessViewer extends JFrame
 {
   Container outerPane;
   JPanel contentPane;
-  RecipeViewerContent content;
+  ProcessViewerContent content;
 
   JButton[] buttons;
 
   /**
    * Constructor for RecipeViewer.
    */
-  public RecipeViewer(Recipe recipe, RecipeViewerController recipeViewerController, boolean isNew)
+  public ProcessViewer(Recipe recipe, ProcessViewerController recipeViewerController, boolean isNew)
   {
     super("KILowBites Recipe Viewer");
 
@@ -70,7 +70,7 @@ public class RecipeViewer extends JFrame
     }
 
     // creates the main content panel
-    content = new RecipeViewerContent(recipe, recipeViewerController, isNew);
+    content = new ProcessViewerContent(recipe, recipeViewerController, isNew);
     contentPane = content;
 
     this.setSize(new Dimension(800, 800));
@@ -90,7 +90,7 @@ public class RecipeViewer extends JFrame
    *
    * @return the content pane
    */
-  public RecipeViewerContent getContent()
+  public ProcessViewerContent getContent()
   {
     return content;
   }

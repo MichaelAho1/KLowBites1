@@ -160,11 +160,19 @@ public class Foods
 
     foods.put(FLOUR, new double[] {364, 0.45});
 
+<<<<<<< HEAD
     foods.put(GARLIC, new double[] {111, 0.32});
     foods.put(GRAPEFRUIT, new double[] {32, 0.33});
     foods.put(GRAPE, new double[] {62, 0.37});
     foods.put(GRAPE_JUICE, new double[] {60, 1.04});
     foods.put(GREEN_BEAN, new double[] {31, 0.53});
+=======
+    foods.put("garlic", new double[] {111, 0.32});
+    foods.put("grapefruit", new double[] {32, 0.33});
+    foods.put("grape", new double[] {62, 0.37});
+    foods.put("grape juice", new double[] {60, 0.53});
+    foods.put("green bean", new double[] {31, 0.53});
+>>>>>>> e25f913ed71b05a19a44e5f92cbd6a133eabe6ec
 
     foods.put(HADDOCK, new double[] {110, 0.58});
     foods.put(HAM, new double[] {240, 1.4});

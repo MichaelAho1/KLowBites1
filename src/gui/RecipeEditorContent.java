@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import controller.RecipeEditorController;
 import cooking.Recipe;
 import cooking.RecipeElementType;
+import utilities.UnitType;
 import utilities.Units;
 
 /**
@@ -88,10 +89,15 @@ public class RecipeEditorContent extends JPanel
     ingredientIFP.addJTextField("Name: ", 15);
     ingredientIFP.addJTextField("Details: ", 7);
     ingredientIFP.addJTextField("Amount: ", 7);
-    ingredientIFP.addJComboBox("Units: ", units.getAllUnitsPlusIndividual());
+    if (UnitType.imperialSelected == true) {    //Checks what the user selected for unit type
+      ingredientIFP.addJComboBox("Units: ", UnitType.getImperialUnitsIndividual());
+    } 
+    else 
+    {
+      ingredientIFP.addJComboBox("Units: ", UnitType.getMetricUnitsIndividual());
+    }
     
-    //
-
+    
     ingredientIFP.addJButton("Add", "Ingredient Add", controller);
 
     // Steps

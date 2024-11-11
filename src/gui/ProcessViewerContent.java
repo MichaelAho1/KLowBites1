@@ -87,6 +87,7 @@ public class ProcessViewerContent extends JPanel
     ingredientIFP.addJTextField("Name: ", 15);
     ingredientIFP.addJTextField("Details: ", 7);
     ingredientIFP.addJTextField("Amount: ", 7);
+    
     ingredientIFP.addJComboBox("Units: ", units.getAllUnitsPlusIndividual());
 
     ingredientIFP.addJButton("Add", "Ingredient Add", controller);

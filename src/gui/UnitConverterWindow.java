@@ -18,6 +18,7 @@ import javax.swing.JToolBar;
 import app.KILowBites;
 import controller.UnitConverterController;
 import utilities.ImageUtilities;
+import utilities.UnitType;
 
 /**
  * Main window for KiLowBites unit converter.
@@ -58,14 +59,14 @@ public class UnitConverterWindow extends JFrame
 
     controller = new UnitConverterController();
 
-    // if User selected Metric {
-    // units = UnitType.getMetricUnits();
-    // }
-    /*
-     * else { units = UnitType.getImperialUnits(); }
-     */
-    units = KILowBites.UNITS.getAllUnits();
-    //
+    if (UnitType.imperialSelected == true) 
+    {
+      units = UnitType.getImperialUnitsSpace();
+    } 
+    else 
+    {
+      units = UnitType.getMetricUnitsSpace();
+    }
 
     ingredients = KILowBites.FOODS.getFoodNames();
 

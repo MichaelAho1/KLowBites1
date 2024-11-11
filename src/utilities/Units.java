@@ -16,7 +16,7 @@ import java.util.Set;
  */
 public class Units
 {
-  private Map<String, String> units;
+  private static Map<String, String> units;
 
   /**
    * Default constructor.
@@ -108,7 +108,7 @@ public class Units
    * 
    * @return array of mass units
    */
-  public String[] getMassUnits()
+  public static String[] getMassUnits()
   {
     List<String> massUnits = new ArrayList<>();
 
@@ -136,7 +136,7 @@ public class Units
    * 
    * @return array of volume units
    */
-  public String[] getVolumeUnits()
+  public static String[] getVolumeUnits()
   {
     List<String> volumeUnits = new ArrayList<>();
 
@@ -147,7 +147,6 @@ public class Units
         volumeUnits.add(entry.getKey());
       }
     }
-
     return volumeUnits.toArray(new String[0]);
   }
 

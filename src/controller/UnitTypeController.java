@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-public class UnitTypeController implements ActionListener, DocumentListener
+public class UnitTypeController implements ActionListener
 {
   private static final String IMPERIAL = "Imperial";
   private static final String METRIC = "Metric";
@@ -22,26 +22,4 @@ public class UnitTypeController implements ActionListener, DocumentListener
       //Metric
     }
   }
-
-  @Override
-  public void insertUpdate(DocumentEvent e)
-  {
-    // TODO Auto-generated method stub
-    
-  }
-
-  @Override
-  public void removeUpdate(DocumentEvent e)
-  {
-    // TODO Auto-generated method stub
-    
-  }
-
-  @Override
-  public void changedUpdate(DocumentEvent e)
-  {
-    // TODO Auto-generated method stub
-    
-  }
-  
 }

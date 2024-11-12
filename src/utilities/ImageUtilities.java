@@ -1,26 +1,39 @@
 package utilities;
 
 import java.awt.AlphaComposite;
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.FlowLayout;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JToolBar;
 
+/**
+ * ImageUtilities class.
+ *
+ * @author f24team3d
+ * @version 11/12/24
+ */
 public class ImageUtilities
 {
-  public static ImageIcon getColoredIconAndScale(String path, Color color, int width, int height)
+  /**
+   * Scale and color correction for icons.
+   * 
+   * @param path
+   *          Path of icon
+   * @param color
+   *          Color of icon
+   * @param width
+   *          Width of icon
+   * @param height
+   *          Height of icon
+   * @return colored and scaled icon
+   */
+  public static ImageIcon getColoredIconAndScale(final String path, final Color color,
+      final int width, final int height)
   {
     try
     {
@@ -43,14 +56,25 @@ public class ImageUtilities
       // Return the scaled image wrapped in an ImageIcon
       return new ImageIcon(scaledImage);
     }
-    catch (Exception e)
+    catch (IOException e)
     {
       e.printStackTrace();
       return null;
     }
   }
 
-  public static ImageIcon getImage(String path, int width, int height)
+  /**
+   * Get image from path.
+   * 
+   * @param path
+   *          Path of image
+   * @param width
+   *          Width of image
+   * @param height
+   *          Height of image
+   * @return image
+   */
+  public static ImageIcon getImage(final String path, final int width, final int height)
   {
     try
     {
@@ -63,7 +87,7 @@ public class ImageUtilities
       // Return the scaled image wrapped in an ImageIcon
       return new ImageIcon(scaledImage);
     }
-    catch (Exception e)
+    catch (IOException e)
     {
       e.printStackTrace();
       return null;

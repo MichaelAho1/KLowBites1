@@ -1,18 +1,45 @@
 package utilities;
 
+/**
+ * InputUtilites class.
+ *
+ * @author f24team3d
+ * @version 11/12/24
+ */
 public class InputUtilities
 {
-  public static boolean isInt(String str)
+  /**
+   * Checks if string is an integer.
+   * 
+   * @param str
+   *          String being checked
+   * @return whether string is an integer
+   */
+  public static boolean isInt(final String str)
   {
     return str.matches("[0-9]+");
   }
 
-  public static boolean isDouble(String str)
+  /**
+   * Checks if string is a double.
+   * 
+   * @param str
+   *          String being checked
+   * @return whether string is a double
+   */
+  public static boolean isDouble(final String str)
   {
     return str.matches("[0-9]+(\\.[0-9]+)?");
   }
 
-  public static boolean isPositiveInt(String str)
+  /**
+   * Checks if string is a positive integer.
+   * 
+   * @param str
+   *          String being checked
+   * @return whether string is positive integer
+   */
+  public static boolean isPositiveInt(final String str)
   {
     if (isInt(str))
     {
@@ -24,7 +51,14 @@ public class InputUtilities
     }
   }
 
-  public static boolean isPositiveDouble(String str)
+  /**
+   * Checks if string is a positive double.
+   * 
+   * @param str
+   *          String being checked
+   * @return whether string is positive double
+   */
+  public static boolean isPositiveDouble(final String str)
   {
     if (isDouble(str))
     {
@@ -36,12 +70,26 @@ public class InputUtilities
     }
   }
 
-  public static boolean isAlphaNumeric(String str)
+  /**
+   * Checks if string is alphanumeric.
+   * 
+   * @param str
+   *          String being checked
+   * @return whether string is alphanumeric
+   */
+  public static boolean isAlphaNumeric(final String str)
   {
     return str.matches("[a-zA-Z0-9 ]+");
   }
 
-  public static boolean isAlphabetical(String str)
+  /**
+   * Checks if string is alphabetical.
+   * 
+   * @param str
+   *          String being checked
+   * @return whether string is alphabetical
+   */
+  public static boolean isAlphabetical(final String str)
   {
     return str.matches("[a-zA-Z ]+");
   }

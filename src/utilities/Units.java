@@ -20,12 +20,12 @@ public class Units
 
   private static final String MASS = "Mass";
   private static final String VOLUME = "Volume";
-  
+
   private static final String GRAM = "Gram";
   private static final String DRAM = "Dram";
   private static final String OUNCE = "Ounce";
   private static final String POUND = "Pound";
-  
+
   private static final String MILLILITER = "Milliliter";
   private static final String PINCH = "Pinch";
   private static final String TEASPOON = "Teaspoon";
@@ -35,7 +35,7 @@ public class Units
   private static final String PINT = "Pint";
   private static final String QUART = "Quart";
   private static final String GALLON = "Gallon";
-  
+
   /**
    * Default constructor.
    */
@@ -60,7 +60,7 @@ public class Units
   }
 
   /**
-   * Return array of all units
+   * Return array of all units.
    * 
    * @return all units
    */
@@ -81,9 +81,9 @@ public class Units
   }
 
   /**
-   * Return array of all units
+   * Return array of all units + individual.
    * 
-   * @return all units
+   * @return all units + individual
    */
   public String[] getAllUnitsPlusIndividual()
   {
@@ -103,7 +103,7 @@ public class Units
   }
 
   /**
-   * Return array of all units without first being empty
+   * Return array of all units without first being empty.
    * 
    * @return all units
    */
@@ -132,7 +132,7 @@ public class Units
 
     for (Map.Entry<String, String> entry : units.entrySet())
     {
-      if ("Mass".equals(entry.getValue()))
+      if (MASS.equals(entry.getValue()))
       {
         massUnits.add(entry.getKey());
       }
@@ -143,6 +143,8 @@ public class Units
 
   /**
    * Return map of units.
+   * 
+   * @return map of units
    */
   public Map<String, String> getUnits()
   {
@@ -160,7 +162,7 @@ public class Units
 
     for (Map.Entry<String, String> entry : units.entrySet())
     {
-      if ("Volume".equals(entry.getValue()))
+      if (VOLUME.equals(entry.getValue()))
       {
         volumeUnits.add(entry.getKey());
       }
@@ -175,7 +177,7 @@ public class Units
    *          Unit of measurement
    * @return mass or volume
    */
-  public String unitMeasure(String unit)
+  public String unitMeasure(final String unit)
   {
     return units.get(unit);
   }

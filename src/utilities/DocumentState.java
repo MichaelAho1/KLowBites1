@@ -36,13 +36,13 @@ public enum DocumentState
   /**
    * Change the state of the document.
    *
-   * @param state
+   * @param s
    *          the new state of the document
    * @return State of document
    */
-  public boolean setState(final DocumentState state)
+  public boolean setState(final DocumentState s)
   {
-    this.state = state.getState();
+    this.state = s.getState();
     return true;
   }
 }

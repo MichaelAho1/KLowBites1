@@ -18,12 +18,6 @@ import java.util.TreeMap;
  */
 public class Foods
 {
-  // string -> name of food
-  // double[2]
-  // double[0] -> cal/100g
-  // double[1] -> g/ml
-  private Map<String, double[]> foods;
-
   private static final String ALCOHOL = "alcohol";
   private static final String ALMOND = "almond";
   private static final String AMERICAN_CHEESE = "american cheese";
@@ -117,6 +111,12 @@ public class Foods
   private static final String TOMATO = "tomato";
 
   private static final String WINE = "wine";
+
+  // string -> name of food
+  // double[2]
+  // double[0] -> cal/100g
+  // double[1] -> g/ml
+  private Map<String, double[]> foods;
 
   /**
    * Default constructor.
@@ -322,6 +322,7 @@ public class Foods
    * 
    * @return Existing foods list or default foods
    */
+  @SuppressWarnings("unchecked")
   private Map<String, double[]> loadFoods()
   {
     // Step 1: Define the file in the current working directory

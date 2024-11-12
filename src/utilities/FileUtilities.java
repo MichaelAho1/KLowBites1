@@ -18,16 +18,24 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import app.KILowBites;
 import controller.MealEditorController;
 import controller.RecipeEditorController;
-import cooking.Ingredients;
 import cooking.Meal;
 import cooking.Recipe;
-import cooking.RecipeElementType;
-import cooking.Steps;
-import cooking.Utensils;
 
+/**
+ * FileUtilities class. Handles opening and saving files.
+ *
+ * @author f24team3d
+ * @version 11/12/24
+ */
 public class FileUtilities
 {
   private static JFileChooser fileChooser = new JFileChooser();
+  private static String noDirectory = "No directory selected";
+  private static String selectedDirectory = "Selected directory: ";
+  private static String mel = ".mel";
+  private static String rcp = ".rcp";
+  private static String mealFiles = "Meal Files";
+  private static String recipeFiles = "Recipe Files";
 
   /**
    * Generic opening method for both recipe and meal files.
@@ -39,7 +47,6 @@ public class FileUtilities
     List<Object> data = new ArrayList<>();
 
     // Create a JFileChooser for selecting directories
-    JFileChooser fileChooser = new JFileChooser();
     fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
     fileChooser.setDialogTitle("Select the directory containing recipe or meal files");
 
@@ -47,17 +54,16 @@ public class FileUtilities
     int result = fileChooser.showOpenDialog(null);
     if (result != JFileChooser.APPROVE_OPTION)
     {
-      System.out.println("No directory selected.");
+      System.out.println(noDirectory);
       return null;
     }
 
     // Get the selected directory
     File directory = fileChooser.getSelectedFile();
-    System.out.println("Selected directory: " + directory.getAbsolutePath());
+    System.out.println(selectedDirectory + directory.getAbsolutePath());
 
     // List files in the directory that have .rcp or .mel extensions
-    File[] files = directory
-        .listFiles((dir, name) -> name.endsWith(".rcp") || name.endsWith(".mel"));
+    File[] files = directory.listFiles((dir, name) -> name.endsWith(rcp) || name.endsWith(mel));
     if (files == null || files.length == 0)
     {
       System.out.println("No recipe or meal files found in the selected directory.");
@@ -76,7 +82,7 @@ public class FileUtilities
 
     if (selectedFile == null)
     {
-      System.out.println("No file selected.");
+      // System.out.println("No file selected.");
       return null;
     }
 
@@ -129,8 +135,6 @@ public class FileUtilities
    */
   public static Recipe openRecipe()
   {
-    // Create a JFileChooser for selecting directories
-    JFileChooser fileChooser = new JFileChooser();
     fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
     fileChooser.setDialogTitle("Select the directory containing recipe files");
 
@@ -138,17 +142,17 @@ public class FileUtilities
     int result = fileChooser.showOpenDialog(null);
     if (result != JFileChooser.APPROVE_OPTION)
     {
-      System.out.println("No directory selected.");
+      System.out.println(noDirectory);
       return null;
     }
 
     // Get the selected directory
     File directory = fileChooser.getSelectedFile();
-    System.out.println("Selected directory: " + directory.getAbsolutePath());
+    System.out.println(selectedDirectory + directory.getAbsolutePath());
     RecipeEditorController.recipeSavePath = directory.getAbsolutePath();
 
     // Let user select a recipe file within the chosen directory
-    File[] files = directory.listFiles((dir, name) -> name.endsWith(".rcp"));
+    File[] files = directory.listFiles((dir, name) -> name.endsWith(rcp));
     if (files == null || files.length == 0)
     {
       System.out.println("No recipe files found in the selected directory.");
@@ -164,12 +168,12 @@ public class FileUtilities
 
     // Use JOptionPane to let the user pick a file from the list
     String selectedFile = (String) JOptionPane.showInputDialog(null, "Select a recipe file:",
-        "Recipe Files", JOptionPane.PLAIN_MESSAGE, null, fileNames, fileNames[0]);
+        recipeFiles, JOptionPane.PLAIN_MESSAGE, null, fileNames, fileNames[0]);
 
     // If no file was selected, return null
     if (selectedFile == null)
     {
-      System.out.println("No file selected.");
+      // System.out.println("No file selected.");
       return null;
     }
 
@@ -180,7 +184,7 @@ public class FileUtilities
     {
 
       Recipe loadedRecipe = (Recipe) in.readObject();
-      System.out.println("Recipe loaded successfully from " + file.getAbsolutePath());
+      // System.out.println("Recipe loaded successfully from " + file.getAbsolutePath());
 
       // for (Ingredients i : loadedRecipe.getIngredients())
       // {
@@ -192,7 +196,78 @@ public class FileUtilities
     }
     catch (IOException | ClassNotFoundException e)
     {
-      System.err.println("Error loading recipe: " + e.getMessage());
+      e.printStackTrace();
+      return null;
+    }
+  }
+
+  /**
+   * Open meal and deserialize.
+   * 
+   * @return Deserialized meal
+   */
+  public static Meal openMeal()
+  {
+    // Create a JFileChooser for selecting directories
+    fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+    fileChooser.setDialogTitle("Select the directory containing meal files");
+
+    // Show the directory chooser dialog
+    int result = fileChooser.showOpenDialog(null);
+    if (result != JFileChooser.APPROVE_OPTION)
+    {
+      System.out.println("No directory selected.");
+      return null;
+    }
+
+    // Get the selected directory
+    File directory = fileChooser.getSelectedFile();
+    System.out.println(selectedDirectory + directory.getAbsolutePath());
+    MealEditorController.mealSavePath = directory.getAbsolutePath();
+
+    // Let user select a meal file within the chosen directory
+    File[] files = directory.listFiles((dir, name) -> name.endsWith(mel));
+    if (files == null || files.length == 0)
+    {
+      // System.out.println("No meal files found in the selected directory.");
+      return null;
+    }
+
+    // Show a list of available meal files and ask the user to select one
+    String[] fileNames = new String[files.length];
+    for (int i = 0; i < files.length; i++)
+    {
+      fileNames[i] = files[i].getName();
+    }
+
+    // Use JOptionPane to let the user pick a file from the list
+    String selectedFile = (String) JOptionPane.showInputDialog(null, "Select a meal file:",
+        mealFiles, JOptionPane.PLAIN_MESSAGE, null, fileNames, fileNames[0]);
+
+    // If no file was selected, return null
+    if (selectedFile == null)
+    {
+      System.out.println("No file selected.");
+      return null;
+    }
+
+    // Deserialize the selected meal file
+    File file = new File(directory, selectedFile);
+    try (FileInputStream fileIn = new FileInputStream(file);
+        ObjectInputStream in = new ObjectInputStream(fileIn))
+    {
+
+      Meal loadedMeal = (Meal) in.readObject();
+      System.out.println("Meal loaded successfully from " + file.getAbsolutePath());
+      for (Recipe i : loadedMeal.getRecipes())
+      {
+        System.out.println(i.getName());
+      }
+      return loadedMeal;
+    }
+    catch (IOException | ClassNotFoundException e)
+    {
+      System.err.println("Error loading meal: " + e.getMessage());
       e.printStackTrace();
       return null;
     }
@@ -206,10 +281,10 @@ public class FileUtilities
    * @param recipe
    *          Recipe being saved
    */
-  public static void saveRecipe(String filePath, Recipe recipe)
+  public static void saveRecipe(final String filePath, final Recipe recipe)
   {
     // Step 1: Extract the directory path from the file path
-    File file = new File(filePath, recipe.getName() + ".rcp");
+    File file = new File(filePath, recipe.getName() + rcp);
 
     // Step 2: Ensure the directory exists
     File parentDirectory = file.getParentFile();
@@ -217,11 +292,11 @@ public class FileUtilities
     {
       if (parentDirectory.mkdirs())
       {
-        System.out.println("Directory created at " + parentDirectory.getAbsolutePath());
+        System.out.println("Success");
       }
       else
       {
-        System.err.println("Failed to create directory at " + parentDirectory.getAbsolutePath());
+        // System.err.println("Failed to create directory at " + parentDirectory.getAbsolutePath());
         return;
       }
     }
@@ -247,11 +322,11 @@ public class FileUtilities
    *          Recipe being saved
    * @return file path
    */
-  public static String saveAsRecipe(Recipe recipe)
+  public static String saveAsRecipe(final Recipe recipe)
   {
     // set up a file filter for .txt or any specific recipe format (if desired)
-    FileNameExtensionFilter filter = new FileNameExtensionFilter("Recipe Files", "rcp");
-    fileChooser.setFileFilter(filter);
+    FileNameExtensionFilter recipeFilter = new FileNameExtensionFilter(recipeFiles, "rcp");
+    fileChooser.setFileFilter(recipeFilter);
 
     // open the file explorer and let the user select where to save
     int result = fileChooser.showSaveDialog(null);
@@ -261,9 +336,9 @@ public class FileUtilities
       String filePath = selectedFile.getAbsolutePath();
 
       // if the file doesn't have the desired extension, append it
-      if (!filePath.endsWith(".rcp"))
+      if (!filePath.endsWith(rcp))
       {
-        filePath += ".rcp";
+        filePath += rcp;
       }
 
       // call the saveFile method to actually save the recipe
@@ -273,21 +348,23 @@ public class FileUtilities
     }
     else
     {
-      System.out.println("Save As operation was canceled.");
+      // System.out.println("Save As operation was canceled.");
       return "";
     }
   }
 
   /**
-   * 
+   * Saves meal in file path.
    * 
    * @param filePath
-   * @param data
+   *          File path for saving meal
+   * @param meal
+   *          Meal being saved
    */
-  public static void saveMeal(String filePath, Meal meal)
+  public static void saveMeal(final String filePath, final Meal meal)
   {
     // Step 1: Extract the directory path from the file path
-    File file = new File(filePath, meal.getName() + ".mel");
+    File file = new File(filePath, meal.getName() + mel);
 
     // Step 2: Ensure the directory exists
     File parentDirectory = file.getParentFile();
@@ -319,13 +396,19 @@ public class FileUtilities
   }
 
   /**
-   * Save As: Open a file explorer and let the user select where to save the recipe.
+   * Allow user to choose directory to save meal file.
+   * 
+   * @param meal
+   *          Meal being saved
+   * @return file path
    */
-  public static String saveAsMeal(Meal meal)
+  public static String saveAsMeal(final Meal meal)
   {
     // set up a file filter for .txt or any specific recipe format (if desired)
-    FileNameExtensionFilter filter = new FileNameExtensionFilter("Meal Files", "mel");
-    fileChooser.setFileFilter(filter);
+    String mealExtension = "mel";
+
+    FileNameExtensionFilter mealFilter = new FileNameExtensionFilter(mealFiles, mealExtension);
+    fileChooser.setFileFilter(mealFilter);
 
     // open the file explorer and let the user select where to save
     int result = fileChooser.showSaveDialog(null);
@@ -335,9 +418,9 @@ public class FileUtilities
       String filePath = selectedFile.getAbsolutePath();
 
       // if the file doesn't have the desired extension, append it
-      if (!filePath.endsWith(".rcp"))
+      if (!filePath.endsWith(rcp))
       {
-        filePath += ".rcp";
+        filePath += rcp;
       }
 
       // call the saveFile method to actually save the recipe
@@ -352,125 +435,15 @@ public class FileUtilities
     }
   }
 
-  public static Meal openMeal()
-  {
-    // Create a JFileChooser for selecting directories
-    JFileChooser fileChooser = new JFileChooser();
-    fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-    fileChooser.setDialogTitle("Select the directory containing meal files");
-
-    // Show the directory chooser dialog
-    int result = fileChooser.showOpenDialog(null);
-    if (result != JFileChooser.APPROVE_OPTION)
-    {
-      System.out.println("No directory selected.");
-      return null;
-    }
-
-    // Get the selected directory
-    File directory = fileChooser.getSelectedFile();
-    System.out.println("Selected directory: " + directory.getAbsolutePath());
-    MealEditorController.mealSavePath = directory.getAbsolutePath();
-
-    // Let user select a recipe file within the chosen directory
-    File[] files = directory.listFiles((dir, name) -> name.endsWith(".mel"));
-    if (files == null || files.length == 0)
-    {
-      System.out.println("No meal files found in the selected directory.");
-      return null;
-    }
-
-    // Show a list of available recipe files and ask the user to select one
-    String[] fileNames = new String[files.length];
-    for (int i = 0; i < files.length; i++)
-    {
-      fileNames[i] = files[i].getName();
-    }
-
-    // Use JOptionPane to let the user pick a file from the list
-    String selectedFile = (String) JOptionPane.showInputDialog(null, "Select a meal file:",
-        "Meal Files", JOptionPane.PLAIN_MESSAGE, null, fileNames, fileNames[0]);
-
-    // If no file was selected, return null
-    if (selectedFile == null)
-    {
-      System.out.println("No file selected.");
-      return null;
-    }
-
-    // Deserialize the selected recipe file
-    File file = new File(directory, selectedFile);
-    try (FileInputStream fileIn = new FileInputStream(file);
-        ObjectInputStream in = new ObjectInputStream(fileIn))
-    {
-
-      Meal loadedMeal = (Meal) in.readObject();
-      System.out.println("Recipe loaded successfully from " + file.getAbsolutePath());
-      for (Recipe i : loadedMeal.getRecipes())
-      {
-        System.out.println(i.getName());
-      }
-      return loadedMeal;
-    }
-    catch (IOException | ClassNotFoundException e)
-    {
-      System.err.println("Error loading recipe: " + e.getMessage());
-      e.printStackTrace();
-      return null;
-    }
-  }
-
-  public static String dumpRecipe(Recipe recipe)
-  {
-    String output = "**Recipe**\n--Main Fields--\n";
-
-    output += "Main - Name: " + recipe.getName() + "\n";
-    output += "Main - Serves: " + recipe.getServes() + "\n";
-
-    output += "\n--Utensils--\n";
-
-    for (Utensils utensil : recipe.getUtensils())
-    {
-      output += "Utensil - Name: " + utensil.getName() + "\n";
-      output += "Utensil - Details: " + utensil.getDetails() + "\n";
-    }
-
-    output += "\n--Ingredients--\n";
-
-    for (Ingredients ingredient : recipe.getIngredients())
-    {
-      output += "Ingredient - Name: " + ingredient.getName() + "\n";
-      output += "Ingredient - Details: " + ingredient.getDetails() + "\n";
-      output += "Ingredient - Amount: " + ingredient.getAmount() + "\n";
-      output += "Ingredient - Unit: " + ingredient.getUnit() + "\n";
-    }
-
-    output += "\n--Steps--\n";
-
-    for (Steps step : recipe.getSteps())
-    {
-      output += "Step - Action: " + step.getAction() + "\n";
-      if (step.getSource().getType() == RecipeElementType.INGREDIENT)
-      {
-        output += "Step - SourceI: " + step.getSource().getName() + "\n";
-      }
-      else
-      {
-        output += "Step - SourceU: " + step.getSource().getName() + "\n";
-      }
-      output += "Step - Destination: " + step.getDestination().getName() + "\n";
-      output += "Step - Details: " + step.getDetails() + "\n";
-    }
-
-    return output;
-  }
-
+  /**
+   * Save foods file.
+   */
   public static void saveFoods()
   {
-    // Step 1: Extract the directory path from the file path
+    // Retrieve directory path from file path
     File file = new File(Paths.get("").toAbsolutePath().toString(), "Foods.mel");
 
-    // Step 2: Serialize and save the foods to the file
+    // Serialize and save foods to file
     try (FileOutputStream fileOut = new FileOutputStream(file);
         ObjectOutputStream out = new ObjectOutputStream(fileOut))
     {

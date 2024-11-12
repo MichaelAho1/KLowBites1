@@ -1,24 +1,22 @@
 package utilities;
 
 /**
- * An interface for Document States.
- * Contains the states of a document.
+ * An interface for Document States. Contains the states of a document.
  *
- *  @author f24team3d
- *  @version 10/31/24
+ * @author f24team3d
+ * @version 10/31/24
  */
 public enum DocumentState
 {
-  NULL("Null"),
-  CHANGED("Changed"),
-  UNCHANGED("Unchanged");
+  NULL("Null"), CHANGED("Changed"), UNCHANGED("Unchanged");
 
   String state;
 
   /**
    * Constructor for DocumentState.
    *
-   * @param state the state of the document
+   * @param state
+   *          the state of the document
    */
   private DocumentState(final String state)
   {
@@ -38,7 +36,9 @@ public enum DocumentState
   /**
    * Change the state of the document.
    *
-   * @param state the new state of the document
+   * @param state
+   *          the new state of the document
+   * @return State of document
    */
   public boolean setState(final DocumentState state)
   {

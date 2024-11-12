@@ -10,9 +10,8 @@ import java.util.Set;
 import java.util.TreeMap;
 
 /**
- * Foods class.
- * 
- * Contains all foods mentioned in product domain glossary and their calories.
+ * The Foods class contains all foods mentioned in product domain glossary, alongside their calories
+ * and densities. Able to add more ingredients and load in existing added ingredients.
  *
  * @author f24team3d
  * @version 10/25/24
@@ -23,7 +22,7 @@ public class Foods
   // double[2]
   // double[0] -> cal/100g
   // double[1] -> g/ml
-  public static Map<String, double[]> foods;
+  private Map<String, double[]> foods;
 
   private static final String ALCOHOL = "alcohol";
   private static final String ALMOND = "almond";
@@ -127,7 +126,16 @@ public class Foods
     foods = loadFoods();
   }
 
-  public boolean addFoods(String name, double[] values)
+  /**
+   * Attempt to add food to existing list, return true if added.
+   * 
+   * @param name
+   *          Name of food
+   * @param values
+   *          Calorie and density information
+   * @return whether food was added or not
+   */
+  public boolean addFoods(final String name, final double[] values)
   {
     if (foods.containsKey(name))
     {
@@ -142,8 +150,9 @@ public class Foods
   }
 
   /**
+   * Returns default list of foods provided.
    * 
-   * @return
+   * @return Default list of foods
    */
   private Map<String, double[]> defaultFoods()
   {
@@ -247,7 +256,14 @@ public class Foods
     return defaultFoods;
   }
 
-  public double getDensity(String ingredient)
+  /**
+   * Retrieve density information of given food name.
+   * 
+   * @param ingredient
+   *          Name of ingredient
+   * @return density (g/mL)
+   */
+  public double getDensity(final String ingredient)
   {
     Map<String, Double> densities = new TreeMap<>();
 
@@ -302,8 +318,9 @@ public class Foods
   }
 
   /**
+   * Load in foods on startup from previous start-up (if existing). If not, return default foods.
    * 
-   * @return
+   * @return Existing foods list or default foods
    */
   private Map<String, double[]> loadFoods()
   {

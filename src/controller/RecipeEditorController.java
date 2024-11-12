@@ -170,17 +170,27 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
     }
     else if (command.equals(OPEN))
     {
-      editor.resetRecipeEditor();
+      try
+      {
 
-      recipe = FileUtilities.openRecipe();
+        recipe = FileUtilities.openRecipe();
+        state = DocumentState.UNCHANGED;
 
-      state = DocumentState.UNCHANGED;
-      editor.updateToolBar(state);
+        // tests the constructor so that it only resets if the user selects a file
+        RecipeEditor testEditor = new RecipeEditor(recipe, this, false);
 
-      editor.dispose();
+        editor.resetRecipeEditor();
 
-      // propagate changes to window
-      editor = new RecipeEditor(recipe, this, false);
+        editor.updateToolBar(state);
+        editor.dispose();
+
+        // propagate changes to window
+        editor = new RecipeEditor(recipe, this, false);
+      }
+      catch (Exception anotherException)
+      {
+        System.out.println("RecipeEditor: user cancelled recipe file selection, caught exception");
+      }
     }
     else if (command.equals(SAVE))
     {

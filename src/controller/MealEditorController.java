@@ -107,15 +107,26 @@ public class MealEditorController implements ActionListener, DocumentStateObserv
     }
     else if (command.equals(OPEN))
     {
-      editor.resetMealEditor();
+      try
+      {
+        // editor.resetMealEditor();
 
-      meal = FileUtilities.openMeal();
+        meal = FileUtilities.openMeal();
+        state = DocumentState.UNCHANGED;
+        editor.updateToolBar(state);
 
-      state = DocumentState.UNCHANGED;
-      editor.updateToolBar(state);
+        // all this line does it test the constructor so it only resets if the user selects a file
+        MealEditor testEditor = new MealEditor(meal, this, false);
 
-      editor.dispose();
-      editor = new MealEditor(meal, this, false);
+        // creates a new clean meal editor with the details from the file
+        editor.resetMealEditor();
+        editor.dispose();
+        editor = new MealEditor(meal, this, false);
+      }
+      catch (Exception anotherException)
+      {
+        System.out.println("MealEditor: user cancelled recipe file selection, caught exception");
+      }
     }
     else if (command.equals(SAVE))
     {

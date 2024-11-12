@@ -194,12 +194,6 @@ public class Foods
     defaultFoods.put(GRAPE_JUICE, new double[] {60, 1.04});
     defaultFoods.put(GREEN_BEAN, new double[] {31, 0.53});
 
-    defaultFoods.put("garlic", new double[] {111, 0.32});
-    defaultFoods.put("grapefruit", new double[] {32, 0.33});
-    defaultFoods.put("grape", new double[] {62, 0.37});
-    defaultFoods.put("grape juice", new double[] {60, 0.53});
-    defaultFoods.put("green bean", new double[] {31, 0.53});
-
     defaultFoods.put(HADDOCK, new double[] {110, 0.58});
     defaultFoods.put(HAM, new double[] {240, 1.4});
     defaultFoods.put(HONEY, new double[] {280, 1.5});

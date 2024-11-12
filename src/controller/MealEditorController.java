@@ -169,20 +169,33 @@ public class MealEditorController implements ActionListener, DocumentStateObserv
     }
     else if (command.equals(RECIPEADD))
     {
-      Recipe r = FileUtilities.openRecipe();
-
-      boolean added = meal.addRecipe(r);
-
-      if (!added)
+      try
       {
-        editor.getContent().getEditorPanel().addMealElement(r.getName());
+        Recipe r = FileUtilities.openRecipe();
+
+        boolean added = meal.addRecipe(r);
+        if (!added)
+        {
+          editor.getContent().getEditorPanel().addMealElement(r.getName());
+        }
+      }
+      catch (Exception anotherException)
+      {
+        System.out.println("MealEditor: user cancelled recipe file selection, caught exception");
       }
     }
     else if (command.equals(RECIPEDELETE))
     {
-      meal.removeRecipe(editor.getContent().getEditorPanel().getMealList().getSelectedValue());
-      editor.getContent().getEditorPanel().deleteMealElement();
-      meal.printRecipes();
+      try
+      {
+        meal.removeRecipe(editor.getContent().getEditorPanel().getMealList().getSelectedValue());
+        editor.getContent().getEditorPanel().deleteMealElement();
+        meal.printRecipes();
+      }
+      catch (Exception anotherException)
+      {
+        System.out.println("MealEditor: No meal to delete");
+      }
     }
   }
 }

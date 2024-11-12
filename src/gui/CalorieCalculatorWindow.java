@@ -18,6 +18,7 @@ import javax.swing.JToolBar;
 import app.KILowBites;
 import controller.CalorieCalculatorController;
 import utilities.ImageUtilities;
+import utilities.UnitType;
 
 /**
  * Main window for KiLowBites calorie calculator.
@@ -63,14 +64,14 @@ public class CalorieCalculatorWindow extends JFrame
 
     ingredients = KILowBites.FOODS.getFoodNames();
 
-    // if User selected Metric {
-    // units = UnitType.getMetricUnits();
-    // }
-    /*
-     * else { units = UnitType.getImperialUnits(); }
-     */
-
-    units = KILowBites.UNITS.getAllUnits();
+    if (UnitType.imperialSelected == true) 
+    {
+      units = UnitType.getImperialUnitsSpace();
+    } 
+    else 
+    {
+      units = UnitType.getMetricUnitsSpace();
+    }
 
     setupInputs();
 

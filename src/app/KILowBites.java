@@ -11,6 +11,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 import controller.KILowBitesController;
 import utilities.Foods;
@@ -78,6 +80,9 @@ public class KILowBites implements Runnable
    */
   public void run()
   {
+    // options: "Nimbus", "CDE/Motif"
+    setLookAndFeel("CDE/Motif");
+
     // initial setup
     JFrame frame = new JFrame(MAIN_WINDOW);
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -176,5 +181,47 @@ public class KILowBites implements Runnable
     frame.setResizable(false);
     frame.setLocationRelativeTo(null);
     frame.setVisible(true);
+  }
+
+  private void setLookAndFeel(String selection)
+  {
+    // Setup the look and feel
+    boolean done = false;
+    try
+    {
+      // Use selection if it is available
+      UIManager.LookAndFeelInfo[] lfs = UIManager.getInstalledLookAndFeels();
+      for (int i=0; i<lfs.length && !done; i++)
+      {
+        if (selection.equals(lfs[i].getName()))
+        {
+          UIManager.setLookAndFeel(lfs[i].getClassName());
+          done = true;
+        }
+      }
+
+      // If selection isn't available, use the system look and feel
+      if (!done)
+      {
+        String lookAndFeel = UIManager.getSystemLookAndFeelClassName();
+        UIManager.setLookAndFeel(lookAndFeel);
+      }
+    }
+    catch (ClassNotFoundException cnfe)
+    {
+      // Use the default look and feel
+    }
+    catch(IllegalAccessException iae)
+    {
+      // Use the default look and feel
+    }
+    catch (InstantiationException ie)
+    {
+      // Use the default look and feel
+    }
+    catch (UnsupportedLookAndFeelException ulale)
+    {
+      // Use the default look and feel
+    }
   }
 }

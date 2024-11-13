@@ -7,6 +7,7 @@ import app.KILowBites;
 import gui.AddIngredientWindow;
 import gui.CalorieCalculatorWindow;
 import gui.UnitConverterWindow;
+import gui.UnitTypeWindow;
 
 /**
  * KILowBites controller class. Handles the actions of the main menu items.
@@ -40,7 +41,6 @@ public class KILowBitesController implements ActionListener
   private static String PREFERENCES = "Preferences";
   private static String SHORTCUTS = "Shortcuts";
   private static String ADD_INGREDIENT = "Add Ingredient";
-
 
   // Help
   private static final String ABOUT = "About";
@@ -125,6 +125,8 @@ public class KILowBitesController implements ActionListener
     if (command.equals(PREFERENCES))
     {
       System.out.println("open preferences");
+      UnitTypeWindow unitTypeWindow = new UnitTypeWindow();
+      unitTypeWindow.setVisible(true);
     }
     if (command.equals(SHORTCUTS))
     {

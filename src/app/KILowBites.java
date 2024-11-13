@@ -43,8 +43,6 @@ public class KILowBites implements Runnable
   private static final String CALORIE_CALCULATOR = "Calorie Calculator";
   private static final String UNITS_CONVERTER = "Units Converter";
 
-  
-
   private String[] args;
 
   /**

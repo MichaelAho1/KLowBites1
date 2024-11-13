@@ -11,6 +11,7 @@ public class UnitType
   public static boolean imperialSelected = true; // Imperial is automatically used unless user
   // specifies to use metric.
   public static boolean metricSelected = false;
+
   private static final String[] imperialVolumeUnits = {"Pinch", "Teaspoon", "Tablespoon", "Fluid Ounce",
       "Cup", "Pint", "Quart", "Gallon"};
   private static final String[] metricVolumeUnits = {"Milliliters"};

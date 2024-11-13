@@ -4,14 +4,12 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
-import java.lang.ModuleLayer.Controller;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JToolBar;
 
-import controller.ProcessViewerController;
 import controller.ProcessViewerController;
 import cooking.Recipe;
 import utilities.DocumentState;
@@ -108,39 +106,39 @@ public class ProcessViewer extends JFrame
    */
   public void updateToolBar(DocumentState state)
   {
-	  buttons[5].setEnabled(true); // Print
-//    if (state == DocumentState.NULL)
-//    {
-//      // enabled
-//    	buttons[5].setEnabled(true); // Print
-//      // disabled
-//    	buttons[0].setEnabled(false); // new
-//    	buttons[1].setEnabled(false); // open
-//      buttons[2].setEnabled(false); // save
-//      buttons[3].setEnabled(false); // save as
-//      buttons[4].setEnabled(false); // close
-//    }
-//    else if (state == DocumentState.CHANGED)
-//    {
-//      // enabled
-//      buttons[2].setEnabled(true); // save
-//      buttons[3].setEnabled(true); // save as
-//
-//      // disabled
-//      buttons[0].setEnabled(false); // new
-//      buttons[1].setEnabled(false); // open
-//      buttons[4].setEnabled(false); // close
-//    }
-//    else if (state == DocumentState.UNCHANGED)
-//    {
-//      // enabled
-//      buttons[0].setEnabled(true); // new
-//      buttons[1].setEnabled(true); // open
-//      buttons[3].setEnabled(true); // save as
-//      buttons[4].setEnabled(true); // close
-//
-//      // disabled
-//      buttons[2].setEnabled(false); // save
-//    }
+    buttons[5].setEnabled(true); // Print
+    // if (state == DocumentState.NULL)
+    // {
+    // // enabled
+    // buttons[5].setEnabled(true); // Print
+    // // disabled
+    // buttons[0].setEnabled(false); // new
+    // buttons[1].setEnabled(false); // open
+    // buttons[2].setEnabled(false); // save
+    // buttons[3].setEnabled(false); // save as
+    // buttons[4].setEnabled(false); // close
+    // }
+    // else if (state == DocumentState.CHANGED)
+    // {
+    // // enabled
+    // buttons[2].setEnabled(true); // save
+    // buttons[3].setEnabled(true); // save as
+    //
+    // // disabled
+    // buttons[0].setEnabled(false); // new
+    // buttons[1].setEnabled(false); // open
+    // buttons[4].setEnabled(false); // close
+    // }
+    // else if (state == DocumentState.UNCHANGED)
+    // {
+    // // enabled
+    // buttons[0].setEnabled(true); // new
+    // buttons[1].setEnabled(true); // open
+    // buttons[3].setEnabled(true); // save as
+    // buttons[4].setEnabled(true); // close
+    //
+    // // disabled
+    // buttons[2].setEnabled(false); // save
+    // }
   }
 }

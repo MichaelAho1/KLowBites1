@@ -81,7 +81,7 @@ public class KILowBites implements Runnable
   public void run()
   {
     // options: "Nimbus", "CDE/Motif"
-    setLookAndFeel("CDE/Motif");
+    setLookAndFeel("Nimbus");
 
     // initial setup
     JFrame frame = new JFrame(MAIN_WINDOW);
@@ -191,7 +191,7 @@ public class KILowBites implements Runnable
     {
       // Use selection if it is available
       UIManager.LookAndFeelInfo[] lfs = UIManager.getInstalledLookAndFeels();
-      for (int i=0; i<lfs.length && !done; i++)
+      for (int i = 0; i < lfs.length && !done; i++)
       {
         if (selection.equals(lfs[i].getName()))
         {
@@ -211,7 +211,7 @@ public class KILowBites implements Runnable
     {
       // Use the default look and feel
     }
-    catch(IllegalAccessException iae)
+    catch (IllegalAccessException iae)
     {
       // Use the default look and feel
     }

@@ -24,16 +24,16 @@ public class ProcessViewerContent extends JPanel
 
   Recipe currentRecipe; // recipe being used
 
-  JPanel ViewerPanel;
+  JPanel ProcessViewerPanel;
 
   InputFieldPanel mainIFP;
   InputFieldPanel utensilIFP;
   InputFieldPanel ingredientIFP;
   InputFieldPanel stepIFP;
 
-  ViewerPanel utensilViewerPanel;
-  ViewerPanel ingredientViewerPanel;
-  ViewerPanel stepViewerPanel;
+  ProcessViewerPanel utensilProcessViewerPanel;
+  ProcessViewerPanel ingredientProcessViewerPanel;
+  ProcessViewerPanel stepProcessViewerPanel;
 
   String[] stepOn;
   String[] stepUtensils;
@@ -62,25 +62,25 @@ public class ProcessViewerContent extends JPanel
     // **** INPUT FIELDS ****
 
     // adds all the elements to the input fields
-    mainIFP = new InputFieldPanel();
-    if (!isNew)
-    {
-      mainIFP.addJTextField("Name: ", 50, recipe.getName());
-      mainIFP.addJTextField("Serves: ", 10, String.valueOf(recipe.getServes()));
-    }
-    else
-    {
-      mainIFP.addJTextField("Name: ", 50);
-      mainIFP.addJTextField("Serves: ", 10);
-    }
+//    mainIFP = new InputFieldPanel();
+//    if (!isNew)
+//    {
+//      mainIFP.addJTextField("Name: ", 50, recipe.getName());
+//      mainIFP.addJTextField("Serves: ", 10, String.valueOf(recipe.getServes()));
+//    }
+//    else
+//    {
+//      mainIFP.addJTextField("Name: ", 50);
+//      mainIFP.addJTextField("Serves: ", 10);
+//    }
 
     // **** EDITOR PANELS ****
 
     // Utensils
     utensilIFP = new InputFieldPanel();
-    utensilIFP.addJTextField("Name: ", 25);
-    utensilIFP.addJTextField("Details: ", 25);
-    utensilIFP.addJButton("Add", "Utensil Add", controller);
+//    utensilIFP.addJTextField("Name: ", 25);
+//    utensilIFP.addJTextField("Details: ", 25);
+//    utensilIFP.addJButton("Add", "Utensil Add", controller);
 
     // Ingredients
     ingredientIFP = new InputFieldPanel();
@@ -135,24 +135,24 @@ public class ProcessViewerContent extends JPanel
     stepIFP.addJButton("Add", "Step Add", controller);
 
     // creates the panel for the Utensils, Ingredients, and Steps
-    JPanel ViewerPanel = new JPanel();
-    ViewerPanel.setLayout(new BoxLayout(ViewerPanel, BoxLayout.Y_AXIS));
+    JPanel ProcessViewerPanel = new JPanel();
+    ProcessViewerPanel.setLayout(new BoxLayout(ProcessViewerPanel, BoxLayout.Y_AXIS));
 
-    utensilViewerPanel = new ViewerPanel(RecipeElementType.UTENSIL, recipe, utensilIFP, controller,
+    utensilProcessViewerPanel = new ProcessViewerPanel(RecipeElementType.UTENSIL, recipe, utensilIFP, controller,
         isNew);
-    ingredientViewerPanel = new ViewerPanel(RecipeElementType.INGREDIENT, recipe, ingredientIFP,
+    ingredientProcessViewerPanel = new ProcessViewerPanel(RecipeElementType.INGREDIENT, recipe, ingredientIFP,
         controller, isNew);
-    stepViewerPanel = new ViewerPanel(RecipeElementType.STEP, recipe, stepIFP, controller, isNew);
+    stepProcessViewerPanel = new ProcessViewerPanel(RecipeElementType.STEP, recipe, stepIFP, controller, isNew);
 
-    ViewerPanel.add(utensilViewerPanel);
-    ViewerPanel.add(ingredientViewerPanel);
-    ViewerPanel.add(stepViewerPanel);
+    ProcessViewerPanel.add(utensilProcessViewerPanel);
+    ProcessViewerPanel.add(ingredientProcessViewerPanel);
+    ProcessViewerPanel.add(stepProcessViewerPanel);
 
     // adds the input fields into the content pane
-    contentPane.add(mainIFP, BorderLayout.NORTH);
+//    contentPane.add(mainIFP, BorderLayout.NORTH);
 
     // adds the editorPane into the content pane
-    contentPane.add(ViewerPanel, BorderLayout.CENTER);
+    contentPane.add(ProcessViewerPanel, BorderLayout.CENTER);
 
     this.add(contentPane);
   }
@@ -167,30 +167,30 @@ public class ProcessViewerContent extends JPanel
     return mainIFP.getText("Serves: ");
   }
 
-  public ViewerPanel getUtensilPanel()
+  public ProcessViewerPanel getUtensilPanel()
   {
-    return utensilViewerPanel;
+    return utensilProcessViewerPanel;
   }
 
-  public ViewerPanel getIngredientPanel()
+  public ProcessViewerPanel getIngredientPanel()
   {
-    return ingredientViewerPanel;
+    return ingredientProcessViewerPanel;
   }
 
   public void updateStepSourcePanel()
   {
-    stepUtensils = new String[utensilViewerPanel.getRecipeList().getModel().getSize()];
+    stepUtensils = new String[utensilProcessViewerPanel.getRecipeList().getModel().getSize()];
 
     for (int i = 0; i < stepUtensils.length; i++)
     {
-      stepUtensils[i] = utensilViewerPanel.getRecipeList().getModel().getElementAt(i).getName();
+      stepUtensils[i] = utensilProcessViewerPanel.getRecipeList().getModel().getElementAt(i).getName();
     }
 
-    stepIngredients = new String[ingredientViewerPanel.getRecipeList().getModel().getSize()];
+    stepIngredients = new String[ingredientProcessViewerPanel.getRecipeList().getModel().getSize()];
 
     for (int i = 0; i < stepIngredients.length; i++)
     {
-      stepIngredients[i] = ingredientViewerPanel.getRecipeList().getModel().getElementAt(i)
+      stepIngredients[i] = ingredientProcessViewerPanel.getRecipeList().getModel().getElementAt(i)
           .getName();
     }
 
@@ -203,9 +203,9 @@ public class ProcessViewerContent extends JPanel
     stepIFP.updateComboBox("On: ", stepSources);
   }
 
-  public ViewerPanel getStepPanel()
+  public ProcessViewerPanel getStepPanel()
   {
-    return stepViewerPanel;
+    return stepProcessViewerPanel;
   }
 
   public void reset()
@@ -215,9 +215,9 @@ public class ProcessViewerContent extends JPanel
     ingredientIFP.resetFields();
     stepIFP.resetFields();
 
-    utensilViewerPanel.reset();
-    ingredientViewerPanel.reset();
-    stepViewerPanel.reset();
+    utensilProcessViewerPanel.reset();
+    ingredientProcessViewerPanel.reset();
+    stepProcessViewerPanel.reset();
   }
 
   public InputFieldPanel getMainIFP()
@@ -239,4 +239,7 @@ public class ProcessViewerContent extends JPanel
   {
     return stepIFP;
   }
+  public JPanel getProcessViewerPanel() {
+	return ProcessViewerPanel;
+}
 }

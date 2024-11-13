@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.lang.ModuleLayer.Controller;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -35,7 +36,7 @@ public class ProcessViewer extends JFrame
    */
   public ProcessViewer(Recipe recipe, ProcessViewerController recipeViewerController, boolean isNew)
   {
-    super("KILowBites Recipe Viewer");
+    super("KILowBites Recipe Viewer" + "  " + recipe.getName());
 
     // creates the outer border layout (contains menubar and content)
     outerPane = new Container();
@@ -48,10 +49,9 @@ public class ProcessViewer extends JFrame
     toolbar.setRollover(true);
 
     // create toolbar buttons
-    buttons = new JButton[5];
-    String[] buttonNames = {"New", "Open", "Save", "Save As", "Close"};
-    String[] buttonPaths = {"img/new.png", "img/open.png", "img/save.png", "img/save_as.png",
-        "img/close.png"};
+    buttons = new JButton[1];
+    String[] buttonNames = {"Print"};
+    String[] buttonPaths = {"img/print.png"};
 
     for (int i = 0; i < buttons.length; i++)
     {
@@ -108,38 +108,39 @@ public class ProcessViewer extends JFrame
    */
   public void updateToolBar(DocumentState state)
   {
-    if (state == DocumentState.NULL)
-    {
-      // enabled
-      buttons[0].setEnabled(true); // new
-      buttons[1].setEnabled(true); // open
-
-      // disabled
-      buttons[2].setEnabled(false); // save
-      buttons[3].setEnabled(false); // save as
-      buttons[4].setEnabled(false); // close
-    }
-    else if (state == DocumentState.CHANGED)
-    {
-      // enabled
-      buttons[2].setEnabled(true); // save
-      buttons[3].setEnabled(true); // save as
-
-      // disabled
-      buttons[0].setEnabled(false); // new
-      buttons[1].setEnabled(false); // open
-      buttons[4].setEnabled(false); // close
-    }
-    else if (state == DocumentState.UNCHANGED)
-    {
-      // enabled
-      buttons[0].setEnabled(true); // new
-      buttons[1].setEnabled(true); // open
-      buttons[3].setEnabled(true); // save as
-      buttons[4].setEnabled(true); // close
-
-      // disabled
-      buttons[2].setEnabled(false); // save
-    }
+	  buttons[5].setEnabled(true); // Print
+//    if (state == DocumentState.NULL)
+//    {
+//      // enabled
+//    	buttons[5].setEnabled(true); // Print
+//      // disabled
+//    	buttons[0].setEnabled(false); // new
+//    	buttons[1].setEnabled(false); // open
+//      buttons[2].setEnabled(false); // save
+//      buttons[3].setEnabled(false); // save as
+//      buttons[4].setEnabled(false); // close
+//    }
+//    else if (state == DocumentState.CHANGED)
+//    {
+//      // enabled
+//      buttons[2].setEnabled(true); // save
+//      buttons[3].setEnabled(true); // save as
+//
+//      // disabled
+//      buttons[0].setEnabled(false); // new
+//      buttons[1].setEnabled(false); // open
+//      buttons[4].setEnabled(false); // close
+//    }
+//    else if (state == DocumentState.UNCHANGED)
+//    {
+//      // enabled
+//      buttons[0].setEnabled(true); // new
+//      buttons[1].setEnabled(true); // open
+//      buttons[3].setEnabled(true); // save as
+//      buttons[4].setEnabled(true); // close
+//
+//      // disabled
+//      buttons[2].setEnabled(false); // save
+//    }
   }
 }

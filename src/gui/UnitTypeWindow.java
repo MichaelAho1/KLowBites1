@@ -55,11 +55,6 @@ public class UnitTypeWindow extends JFrame
     add(inputs, BorderLayout.CENTER);
     
     setSize(300, 100);
-    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     setLocationRelativeTo(null); 
-  }
-  public static void main(String[] args) {
-    UnitTypeWindow unitTypeWindow = new UnitTypeWindow();
-    unitTypeWindow.setVisible(true);
   }
 }

@@ -13,6 +13,8 @@ import javax.swing.JLabel;
 
 public class CalorieOutputWindow extends JFrame
 {
+  private static final String OMITTED_INGREDIENTS = "Omitted ingredients: ";
+  
   /**
    * Explicit value constructor.
    * 
@@ -31,7 +33,7 @@ public class CalorieOutputWindow extends JFrame
 
     if (omitted != null && !omitted.isEmpty())
     {
-      omittedLabel = new JLabel("Omitted ingredients: " + omitted);
+      omittedLabel = new JLabel(OMITTED_INGREDIENTS + omitted);
     }
 
     // Set layout to GridBagLayout

@@ -18,6 +18,9 @@ public class Steps implements RecipeElement, Serializable
   private String details;
   private RecipeElementType type = RecipeElementType.STEP;
 
+  private static final String THE_CONTENTS_OF_THE = " the contents of the ";
+  private static final String IN_THE = " in the ";
+  private static final String THE = " the ";
   /**
    * Default constructor.
    */
@@ -137,19 +140,19 @@ public class Steps implements RecipeElement, Serializable
         && destination.getType() == RecipeElementType.UTENSIL
         && source.getName().equals(destination.getName()))
     {
-      return action + " the contents of the " + source.getName() + " " + details;
+      return action + THE_CONTENTS_OF_THE + source.getName() + " " + details;
     }
     else if (source.getType() == RecipeElementType.UTENSIL)
     {
-      return action + " the contents of the " + source.getName() + " in the "
+      return action + THE_CONTENTS_OF_THE + source.getName() + IN_THE
           + destination.getName() + " " + details;
     }
     else if (StepSource.class.isInstance(Utensils.class))
     {
-      return action + " the contents of the " + source.getName() + " in the "
+      return action + THE_CONTENTS_OF_THE + source.getName() + IN_THE
           + destination.getName() + " " + details;
     }
-    return action + " the " + source.getName() + " in the " + destination.getName() + " " + details;
+    return action + THE + source.getName() + IN_THE + destination.getName() + " " + details;
   }
 
   public RecipeElementType getType()

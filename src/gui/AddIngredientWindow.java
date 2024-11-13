@@ -35,6 +35,10 @@ public class AddIngredientWindow extends JFrame
   public static JTextField ingredientCalorieField;
   public static JTextField ingredientDensityField;
   public static JLabel successfulAdd;
+  
+  private static final String ADD_INGREDIENT = "Add Ingredient";
+  private static final String RESET = "Reset";
+  private static final String INGREDIENT_NAME = "Ingredient name:";
 
   public AddIngredientWindow()
   {
@@ -56,17 +60,17 @@ public class AddIngredientWindow extends JFrame
     JToolBar toolbar = new JToolBar();
     toolbar.setFloatable(false);
 
-    ingredientAddButton = new JButton("Add Ingredient");
+    ingredientAddButton = new JButton(ADD_INGREDIENT);
     ingredientAddButton.setEnabled(false);
-    ingredientAddButton.setToolTipText("Add Ingredient");
-    ingredientAddButton.setActionCommand("Add Ingredient");
+    ingredientAddButton.setToolTipText(ADD_INGREDIENT);
+    ingredientAddButton.setActionCommand(ADD_INGREDIENT);
     ingredientAddButton.addActionListener(controller);
 
     ingredientResetButton = new JButton(
         ImageUtilities.getColoredIconAndScale("img/reset.png", Color.GRAY, 25, 25));
     ingredientResetButton.setEnabled(false);
-    ingredientResetButton.setToolTipText("Reset");
-    ingredientResetButton.setActionCommand("Reset");
+    ingredientResetButton.setToolTipText(RESET);
+    ingredientResetButton.setActionCommand(RESET);
     ingredientResetButton.addActionListener(controller);
 
     toolbar.add(ingredientAddButton);
@@ -99,7 +103,7 @@ public class AddIngredientWindow extends JFrame
     gbc.gridy = 0;
     gbc.anchor = GridBagConstraints.WEST;
     gbc.insets = new Insets(10, 20, 10, 10);
-    boxPanel.add(new JLabel("Ingredient name:"), gbc);
+    boxPanel.add(new JLabel(INGREDIENT_NAME), gbc);
 
     gbc.gridx = 1;
     gbc.gridy = 0;

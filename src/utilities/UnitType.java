@@ -12,12 +12,6 @@ public class UnitType
   // specifies to use metric.
   public static boolean metricSelected = false;
 
-  private static final String[] imperialVolumeUnits = {"Pinch", "Teaspoon", "Tablespoon", "Fluid Ounce",
-      "Cup", "Pint", "Quart", "Gallon"};
-  private static final String[] metricVolumeUnits = {"Milliliters"};
-  private static final String[] metricMassUnits = {"Gram"};
-  private static final String[] imperialMassUnits = {"Dram", "Ounce", "Pound"};
-
   private static final String[] imperialUnits = {"Pinch", "Teaspoon", "Tablespoon", "Fluid Ounce", "Cup",
       "Pint", "Quart", "Gallon", "Dram", "Ounce", "Pound"};
   private static final String[] imperialUnitsSpace = {"", "Pinch", "Teaspoon", "Tablespoon",

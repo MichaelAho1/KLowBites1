@@ -22,12 +22,8 @@ import utilities.InputUtilities;
  */
 public class ProcessViewerController implements ActionListener, DocumentStateObserver
 {
-  // ALEX START METHOD, RECIPE EDITOR CONTENT
-  private static String NEW = "New";
-  private static String OPEN = "Open";
-  private static String SAVE = "Save";
-  private static String SAVE_AS = "Save As";
-  private static String CLOSE = "Print";
+// ALEX START METHOD, RECIPE EDITOR CONTENT
+  private static String PRINT = "Print";
 
   private boolean savedAs = false;
   public static String processSavePath = "";
@@ -36,7 +32,6 @@ public class ProcessViewerController implements ActionListener, DocumentStateObs
   private Recipe recipe;
   private Meal meal;
   private DocumentState state;
-
   /**
    * Constructor for controller.
    */
@@ -132,117 +127,119 @@ public class ProcessViewerController implements ActionListener, DocumentStateObs
 
     command = e.getActionCommand();
 
+    if (command.equals(PRINT))
+      {}
     // commands for Toolbar
-    if (command.equals(NEW))
-    {
-      // ALLOW USERS TO CHOOSE DIRECTORY TO SAVE RECIPE
-
-      JFileChooser directoryChooser = new JFileChooser();
-      directoryChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-      int result = directoryChooser.showOpenDialog(null);
-
-      if (result == JFileChooser.APPROVE_OPTION)
-      {
-        File selectedDirectory = directoryChooser.getSelectedFile();
-        processSavePath = selectedDirectory.getAbsolutePath(); // Set the selected directory as
-                                                               // savePath
-
-        recipe = new Recipe(); // Create a new meal
-        viewer.resetRecipeViewer(); // Reset viewer
-        state = DocumentState.UNCHANGED; // Set document state
-        savedAs = false; // Indicate not yet saved
-        viewer.updateToolBar(state); // Update toolbar state
-
-        System.out.println("New directory selected: " + processSavePath);
-      }
-      else
-      {
-        System.out.println("Directory selection was cancelled.");
-      }
-    }
-    else if (command.equals(OPEN))
-    {
-      viewer.resetRecipeViewer();
-
-      recipe = FileUtilities.openRecipe();
-
-      state = DocumentState.UNCHANGED;
-      viewer.updateToolBar(state);
-
-      viewer.dispose();
-
-      // propagate changes to window
-      viewer = new ProcessViewer(recipe, this, false);
-    }
-    else if (command.equals(SAVE))
-    {
-      String name = viewer.getContent().getNameField();
-      String serves = viewer.getContent().getServesField();
-
-      // Validating inputs
-      if (name != null)
-      {
-        recipe.setName(name);
-      }
-      else
-      {
-        System.out.println("Invalid input");
-      }
-
-      if (InputUtilities.isPositiveInt(serves))
-      {
-        recipe.setServes(Integer.parseInt(serves));
-      }
-      else
-      {
-        System.out.println("Invalid input");
-      }
-
-      if (!processSavePath.equals(""))
-      {
-        FileUtilities.saveRecipe(processSavePath, recipe); // save
-      }
-
-      state = DocumentState.UNCHANGED;
-      viewer.updateToolBar(state);
-    }
-    else if (command.equals(SAVE_AS))
-    {
-      // save as
-      String name = viewer.getContent().getNameField();
-      String serves = viewer.getContent().getServesField();
-
-      if (name != null)
-      {
-        recipe.setName(name);
-      }
-      else
-      {
-        System.out.println("Invalid input");
-      }
-
-      if (InputUtilities.isPositiveInt(serves))
-      {
-        recipe.setServes(Integer.parseInt(serves));
-      }
-      else
-      {
-        System.out.println("Invalid input");
-      }
-
-      processSavePath = FileUtilities.saveAsRecipe(recipe);
-      state = DocumentState.UNCHANGED;
-      viewer.updateToolBar(state);
-    }
-    else if (command.equals(CLOSE))
-    {
-      recipe = null;
-      processSavePath = "";
-      savedAs = false;
-      viewer.resetRecipeViewer();
-      state = DocumentState.NULL;
-      viewer.updateToolBar(state);
-    }
+//    if (command.equals(NEW))
+//    {
+//      // ALLOW USERS TO CHOOSE DIRECTORY TO SAVE RECIPE
+//
+//      JFileChooser directoryChooser = new JFileChooser();
+//      directoryChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+//      int result = directoryChooser.showOpenDialog(null);
+//
+//      if (result == JFileChooser.APPROVE_OPTION)
+//      {
+//        File selectedDirectory = directoryChooser.getSelectedFile();
+//        processSavePath = selectedDirectory.getAbsolutePath(); // Set the selected directory as
+//                                                               // savePath
+//
+//        recipe = new Recipe(); // Create a new meal
+//        viewer.resetRecipeViewer(); // Reset viewer
+//        state = DocumentState.UNCHANGED; // Set document state
+//        savedAs = false; // Indicate not yet saved
+//        viewer.updateToolBar(state); // Update toolbar state
+//
+//        System.out.println("New directory selected: " + processSavePath);
+//      }
+//      else
+//      {
+//        System.out.println("Directory selection was cancelled.");
+//      }
+//    }
+//    else if (command.equals(OPEN))
+//    {
+//      viewer.resetRecipeViewer();
+//
+//      recipe = FileUtilities.openRecipe();
+//
+//      state = DocumentState.UNCHANGED;
+//      viewer.updateToolBar(state);
+//
+//      viewer.dispose();
+//
+//      // propagate changes to window
+//      viewer = new ProcessViewer(recipe, this, false);
+//    }
+//    else if (command.equals(SAVE))
+//    {
+//      String name = viewer.getContent().getNameField();
+//      String serves = viewer.getContent().getServesField();
+//
+//      // Validating inputs
+//      if (name != null)
+//      {
+//        recipe.setName(name);
+//      }
+//      else
+//      {
+//        System.out.println("Invalid input");
+//      }
+//
+//      if (InputUtilities.isPositiveInt(serves))
+//      {
+//        recipe.setServes(Integer.parseInt(serves));
+//      }
+//      else
+//      {
+//        System.out.println("Invalid input");
+//      }
+//
+//      if (!processSavePath.equals(""))
+//      {
+//        FileUtilities.saveRecipe(processSavePath, recipe); // save
+//      }
+//
+//      state = DocumentState.UNCHANGED;
+//      viewer.updateToolBar(state);
+//    }
+//    else if (command.equals(SAVE_AS))
+//    {
+//      // save as
+//      String name = viewer.getContent().getNameField();
+//      String serves = viewer.getContent().getServesField();
+//
+//      if (name != null)
+//      {
+//        recipe.setName(name);
+//      }
+//      else
+//      {
+//        System.out.println("Invalid input");
+//      }
+//
+//      if (InputUtilities.isPositiveInt(serves))
+//      {
+//        recipe.setServes(Integer.parseInt(serves));
+//      }
+//      else
+//      {
+//        System.out.println("Invalid input");
+//      }
+//
+//      processSavePath = FileUtilities.saveAsRecipe(recipe);
+//      state = DocumentState.UNCHANGED;
+//      viewer.updateToolBar(state);
+//    }
+//    else if (command.equals(CLOSE))
+//    {
+//      recipe = null;
+//      processSavePath = "";
+//      savedAs = false;
+//      viewer.resetRecipeViewer();
+//      state = DocumentState.NULL;
+//      viewer.updateToolBar(state);
+//    }
   }
   // // commands for Editors
   // else if (command.equals(UTENSILADD))

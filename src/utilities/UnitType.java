@@ -17,6 +17,7 @@ public class UnitType
   private static final String[] metricVolumeUnits = {"Milliliters"};
   private static final String[] metricMassUnits = {"Gram"};
   private static final String[] imperialMassUnits = {"Dram", "Ounce", "Pound"};
+
   private static final String[] imperialUnits = {"Pinch", "Teaspoon", "Tablespoon", "Fluid Ounce", "Cup",
       "Pint", "Quart", "Gallon", "Dram", "Ounce", "Pound"};
   private static final String[] imperialUnitsSpace = {"", "Pinch", "Teaspoon", "Tablespoon",
@@ -26,27 +27,7 @@ public class UnitType
   private static final String[] metricUnitsIndividual = {"", "Individual", "Gram", "Milliliters"};
   private static final String[] imperialUnitsIndividual = {"", "Individual", "Pinch", "Teaspoon",
       "Tablespoon", "Fluid Ounce", "Cup", "Pint", "Quart", "Gallon", "Dram", "Ounce", "Pound"};
-
-  public static String[] getImperialMassUnits()
-  {
-    return imperialMassUnits;
-  }
-
-  public static String[] getImperialVolumeUnits()
-  {
-    return imperialVolumeUnits;
-  }
-
-  public static String[] getMetricMassUnits()
-  {
-    return metricMassUnits;
-  }
-
-  public static String[] getMetricVolumeUnits()
-  {
-    return metricVolumeUnits;
-  }
-
+  
   public static String[] getMetricUnits()
   {
     return metricUnits;

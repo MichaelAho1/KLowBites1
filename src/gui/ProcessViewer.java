@@ -24,6 +24,8 @@ import utilities.ImageUtilities;
  */
 public class ProcessViewer extends JFrame
 {
+  private static final String KILOWBITES_RECIPE_VIEWER = "KILowBites Recipe Viewer";
+  
   Container outerPane;
   JPanel contentPane;
   ProcessViewerContent content;
@@ -35,8 +37,13 @@ public class ProcessViewer extends JFrame
    */
   public ProcessViewer(Recipe recipe, ProcessViewerController recipeViewerController, boolean isNew)
   {
+<<<<<<< HEAD
     super("KILowBites Process Viewer" + "  " + recipe.getName());
 
+=======
+    super(KILOWBITES_RECIPE_VIEWER + "  " + recipe.getName());
+    
+>>>>>>> 8a86e9c546a1f289d413e6702ac803f62339be8c
     // creates the outer border layout (contains menubar and content)
     outerPane = new Container();
 

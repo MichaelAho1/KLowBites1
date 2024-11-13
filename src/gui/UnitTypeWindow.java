@@ -26,7 +26,11 @@ public class UnitTypeWindow extends JFrame
   private static final String CURRENT_UNIT_TYPE_IMPERIAL = "Current Unit Type: Imperial";
   private static final String CURRENT_UNIT_TYPE_METRIC = "Current Unit Type: Metric";
   
-  public UnitTypeWindow() {
+  /**
+   * Creates the Unit Type Window.
+   */
+  public UnitTypeWindow() 
+  {
     setTitle(UNIT_TYPE_SELECTOR);
     controller = new UnitTypeController();
     
@@ -44,9 +48,11 @@ public class UnitTypeWindow extends JFrame
     JPanel inputs = new JPanel(new GridLayout(1, 2, 0, 0)); 
     inputs.add(metricButton);
     inputs.add(imperialButton);
-    if (UnitType.imperialSelected == true) {
+    if (UnitType.getImperialSelected()) 
+    {
       titleLabel = new JLabel(CURRENT_UNIT_TYPE_IMPERIAL, JLabel.CENTER);
-    } else {
+    } else 
+    {
       titleLabel = new JLabel(CURRENT_UNIT_TYPE_METRIC, JLabel.CENTER);
     }
     

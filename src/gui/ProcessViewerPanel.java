@@ -46,7 +46,7 @@ public class ProcessViewerPanel extends JPanel
    * @param inputFieldPanel the input field panel
    * @param recipeViewerController the controller for the RecipeEditor
    */
-  public ProcessViewerPanel(RecipeElementType type, Recipe recipe, InputFieldPanel inputFieldPanel, ProcessViewerController recipeViewerController, boolean isNew)
+  public ProcessViewerPanel(final RecipeElementType type, Recipe recipe, InputFieldPanel inputFieldPanel, ProcessViewerController recipeViewerController, boolean isNew)
   {
     super();
 

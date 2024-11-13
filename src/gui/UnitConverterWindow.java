@@ -67,7 +67,7 @@ public class UnitConverterWindow extends JFrame
 
     controller = new UnitConverterController();
 
-    if (UnitType.imperialSelected == true) 
+    if (UnitType.getImperialSelected()) 
     {
       units = UnitType.getImperialUnitsSpace();
     } 
@@ -119,7 +119,7 @@ public class UnitConverterWindow extends JFrame
   }
 
   @Override
-  protected void processWindowEvent(java.awt.event.WindowEvent e)
+  protected void processWindowEvent(final java.awt.event.WindowEvent e)
   {
     super.processWindowEvent(e);
     if (e.getID() == java.awt.event.WindowEvent.WINDOW_CLOSING)
@@ -249,21 +249,42 @@ public class UnitConverterWindow extends JFrame
     outputPanel.add(boxPanel, BorderLayout.CENTER);
   }
 
+  /**
+   * Gets the selected from Item.
+   * 
+   * @return The string representation of the selected item.
+   */
   public static String getFromUnitsMenu()
   {
     return (String) fromUnitsMenu.getSelectedItem();
   }
 
+  
+  /**
+   * Gets the selected to Item.
+   * 
+   * @return The string representation of the selected item.
+   */
   public static String getToUnitsMenu()
   {
     return (String) toUnitsMenu.getSelectedItem();
   }
-
+  
+  /**
+   * Gets the selected Ingredient.
+   * 
+   * @return The string representation of the selected item.
+   */
   public static String getIngredientsUnitsMenu()
   {
     return (String) unitIngredientsMenu.getSelectedItem();
   }
 
+  /**
+   * Gets the number from the from Amount field.
+   * 
+   * @return The string representation of the selected item.
+   */
   public static Double getFromAmountField()
   {
     return Double.parseDouble(fromAmountField.getText());

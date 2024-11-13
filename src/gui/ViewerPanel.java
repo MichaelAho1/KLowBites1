@@ -17,6 +17,7 @@ import utilities.Units;
  * @author f24team3d
  * @version 10/26/24
  */
+@SuppressWarnings("serial")
 public class ViewerPanel extends JPanel
 {
   // strings needed to determine the type of the input, needed since no interface
@@ -25,7 +26,6 @@ public class ViewerPanel extends JPanel
   final String STEPS = "Steps";
   private static final String DELETE = "Delete";
   private static final String RECIPE_DELETE = "Recipe Delete";
-
   Container contentPane;
 
   // shared variables

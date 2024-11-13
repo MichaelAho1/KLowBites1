@@ -31,9 +31,15 @@ public class RecipeEditor extends JFrame
   JButton[] buttons;
 
   /**
-   * Constructor for RecipeEditor.
+   * Constructor for RecipeEditorContent.
+   *
+   * @param controller
+   *          the controller for the RecipeEditor
+   * @param isNew Checks if it a new Recipe.
+   * @param recipe The recipe.
    */
-  public RecipeEditor(Recipe recipe, RecipeEditorController controller, boolean isNew)
+  public RecipeEditor(final Recipe recipe, final RecipeEditorController controller, 
+      final boolean isNew)
   {
     super(KILOWBITES_RECIPE_EDITOR);
 
@@ -86,7 +92,7 @@ public class RecipeEditor extends JFrame
   }
 
   /**
-   * Gets the Content Pane
+   * Gets the Content Pane.
    *
    * @return the content pane
    */
@@ -96,7 +102,7 @@ public class RecipeEditor extends JFrame
   }
 
   /**
-   * Resets the Recipe Editor
+   * Resets the Recipe Editor.
    */
   public void resetRecipeEditor()
   {
@@ -104,9 +110,11 @@ public class RecipeEditor extends JFrame
   }
 
   /**
-   * Updates the toolbar according to the current document state
+   * Updates the toolbar according to the current document state.
+   * 
+   * @param state the current state of the document.
    */
-  public void updateToolBar(DocumentState state)
+  public void updateToolBar(final DocumentState state)
   {
     if (state == DocumentState.NULL)
     {

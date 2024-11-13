@@ -77,7 +77,7 @@ public class CalorieCalculatorWindow extends JFrame
 
     ingredients = KILowBites.FOODS.getFoodNames();
 
-    if (UnitType.imperialSelected == true) 
+    if (UnitType.getImperialSelected()) 
     {
       units = UnitType.getImperialUnitsSpace();
     } 

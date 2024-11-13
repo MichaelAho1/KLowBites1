@@ -13,7 +13,7 @@ import utilities.UnitType;
 public class UnitTypeController implements ActionListener
 {
   private static final String IMPERIAL = "Imperial";
-  private static final String METRIC = "Metric";
+  
   
   public void actionPerformed(ActionEvent e)
   {
@@ -24,13 +24,14 @@ public class UnitTypeController implements ActionListener
       UnitTypeWindow.imperialButton.setEnabled(false);
       UnitTypeWindow.metricButton.setEnabled(true);
       UnitTypeWindow.titleLabel.setText("Current Unit Type: Imperial");
-      UnitType.imperialSelected = true;
+      UnitType.setImperialSelected();
       //imperial
-    } else {
+    } else 
+    {
       UnitTypeWindow.imperialButton.setEnabled(true);
       UnitTypeWindow.metricButton.setEnabled(false);
       UnitTypeWindow.titleLabel.setText("Current Unit Type: Metric");
-      UnitType.metricSelected = true;
+      UnitType.setMetricSelected();
     }
   }
 }

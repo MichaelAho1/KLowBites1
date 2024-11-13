@@ -63,8 +63,11 @@ public class RecipeEditorContent extends JPanel
    *
    * @param controller
    *          the controller for the RecipeEditor
+   * @param isNew Checks if it a new Recipe.
+   * @param recipe The recipe.
    */
-  public RecipeEditorContent(Recipe recipe, RecipeEditorController controller, boolean isNew)
+  public RecipeEditorContent(final Recipe recipe, final RecipeEditorController controller, 
+      final boolean isNew)
   {
     super();
 
@@ -103,7 +106,8 @@ public class RecipeEditorContent extends JPanel
     ingredientIFP.addJTextField(NAME, 15);
     ingredientIFP.addJTextField(DETAILS, 7);
     ingredientIFP.addJTextField(AMOUNT, 7);
-    if (UnitType.imperialSelected == true) {    //Checks what the user selected for unit type
+    if (UnitType.getImperialSelected()) //Checks what the user selected for unit type
+    {    
       ingredientIFP.addJComboBox(UNITS, UnitType.getImperialUnitsIndividual());
     } 
     else 
@@ -179,26 +183,49 @@ public class RecipeEditorContent extends JPanel
     this.add(contentPane);
   }
 
+  /**
+   * Gets the Name Field.
+   * 
+   * @return The string representation of the name field.
+   */
   public String getNameField()
   {
     return mainIFP.getText(NAME);
   }
 
+  /**
+   * Gets the serves Field.
+   * 
+   * @return The string representation of the serves field.
+   */
   public String getServesField()
   {
     return mainIFP.getText(SERVES);
   }
 
+  /**
+   * Gets the Utensil panel.
+   * 
+   * @return A panel.
+   */
   public EditorPanel getUtensilPanel()
   {
     return utensilEditorPanel;
   }
 
+  /**
+   * Gets the Ingredient panel.
+   * 
+   * @return A panel.
+   */
   public EditorPanel getIngredientPanel()
   {
     return ingredientEditorPanel;
   }
-
+  
+  /**
+   * Updates the Step source panel.
+   */
   public void updateStepSourcePanel()
   {
     stepUtensils = new String[utensilEditorPanel.getRecipeList().getModel().getSize()];
@@ -225,11 +252,19 @@ public class RecipeEditorContent extends JPanel
     stepIFP.updateComboBox(ON, stepSources);
   }
 
+  /**
+   * Gets the step panel.
+   * 
+   * @return A panel.
+   */
   public EditorPanel getStepPanel()
   {
     return stepEditorPanel;
   }
 
+  /**
+   * Resets all the fields.
+   */
   public void reset()
   {
     mainIFP.resetFields();
@@ -242,21 +277,41 @@ public class RecipeEditorContent extends JPanel
     stepEditorPanel.reset();
   }
 
+  /**
+   * Gets the main input field panel.
+   * 
+   * @return The input field panel.
+   */
   public InputFieldPanel getMainIFP()
   {
     return mainIFP;
   }
 
+  /**
+   * Gets the Utensil input field panel.
+   * 
+   * @return The input field panel.
+   */
   public InputFieldPanel getUtensilIFP()
   {
     return utensilIFP;
   }
-
+  
+  /**
+   * Gets the Ingredient input field panel.
+   * 
+   * @return The input field panel.
+   */
   public InputFieldPanel getIngredientIFP()
   {
     return ingredientIFP;
   }
 
+  /**
+   * Gets the Step input field panel.
+   * 
+   * @return The input field panel.
+   */
   public InputFieldPanel getStepIFP()
   {
     return stepIFP;

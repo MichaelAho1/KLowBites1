@@ -45,6 +45,8 @@ public class KILowBites implements Runnable
   private static final String CALORIE_CALCULATOR = "Calorie Calculator";
   private static final String UNITS_CONVERTER = "Units Converter";
 
+  private static final Color COLOR = Color.WHITE;
+
   private String[] args;
 
   /**
@@ -90,7 +92,8 @@ public class KILowBites implements Runnable
     contentPane.setLayout(new BorderLayout());
 
     // Set the background color of the main content pane to white
-    contentPane.setBackground(Color.WHITE);
+    frame.setBackground(COLOR);
+    contentPane.setBackground(COLOR);
 
     // Construct the controller
     KILowBitesController controller = new KILowBitesController();
@@ -172,7 +175,7 @@ public class KILowBites implements Runnable
     logoPanel.add(logo);
 
     // Set the background color of the logo panel to white to match the content pane
-    logoPanel.setBackground(Color.WHITE);
+    logoPanel.setBackground(COLOR);
 
     // Layout the GUI
     contentPane.add(logoPanel, BorderLayout.CENTER);

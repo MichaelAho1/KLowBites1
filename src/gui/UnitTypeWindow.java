@@ -17,19 +17,21 @@ public class UnitTypeWindow extends JFrame
   public static JButton imperialButton;
   public static JLabel titleLabel;
   private UnitTypeController controller;
+  private static String metric = "Metric";
+  private static String imperial = "Imperial";
   
   public UnitTypeWindow() {
     setTitle("Unit Type Selector");
     controller = new UnitTypeController();
     
-    metricButton = new JButton("Metric");
+    metricButton = new JButton(metric);
     metricButton.setToolTipText("Change Unit types to Metric");
-    metricButton.setActionCommand("Metric");
+    metricButton.setActionCommand(metric);
     metricButton.addActionListener(controller);
     
-    imperialButton = new JButton("Imperial");
+    imperialButton = new JButton(imperial);
     imperialButton.setToolTipText("Change Unit types to Imperial");
-    imperialButton.setActionCommand("Imperial");
+    imperialButton.setActionCommand(imperial);
     imperialButton.addActionListener(controller);
     imperialButton.setEnabled(false);
     

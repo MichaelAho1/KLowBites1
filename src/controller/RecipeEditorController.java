@@ -30,14 +30,14 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
   private static String SAVE_AS = "Save As";
   private static String CLOSE = "Close";
 
-  private static String UTENSILADD = "Utensil Add";
-  private static String UTENSILDELETE = "Utensil Delete";
+  private static String UTENSIL_ADD = "Utensil Add";
+  private static String UTENSIL_DELETE = "Utensil Delete";
 
-  private static String INGREDIENTADD = "Ingredient Add";
-  private static String INGREDIENTDELETE = "Ingredient Delete";
+  private static String INGREDIENT_ADD = "Ingredient Add";
+  private static String INGREDIENT_DELETE = "Ingredient Delete";
 
-  private static String STEPADD = "Step Add";
-  private static String STEPDELETE = "Step Delete";
+  private static String STEP_ADD = "Step Add";
+  private static String STEP_DELETE = "Step Delete";
 
   private boolean savedAs = false;
   public static String recipeSavePath = "";
@@ -263,7 +263,7 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
     }
 
     // commands for Editors
-    else if (command.equals(UTENSILADD))
+    else if (command.equals(UTENSIL_ADD))
     {
       Utensils utensil = new Utensils();
 
@@ -297,7 +297,7 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
       }
       editor.getContent().updateStepSourcePanel();
     }
-    else if (command.equals(UTENSILDELETE))
+    else if (command.equals(UTENSIL_DELETE))
     {
       try
       {
@@ -326,7 +326,7 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
       editor.getContent().getUtensilPanel().deleteRecipeElement();
       editor.getContent().updateStepSourcePanel();
     }
-    else if (command.equals(INGREDIENTADD))
+    else if (command.equals(INGREDIENT_ADD))
     {
       Ingredients ingredient = new Ingredients();
 
@@ -358,7 +358,7 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
       }
       editor.getContent().updateStepSourcePanel();
     }
-    else if (command.equals(INGREDIENTDELETE))
+    else if (command.equals(INGREDIENT_DELETE))
     {
       try
       {
@@ -387,7 +387,7 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
       editor.getContent().getIngredientPanel().deleteRecipeElement();
       editor.getContent().updateStepSourcePanel();
     }
-    else if (command.equals(STEPADD))
+    else if (command.equals(STEP_ADD))
     {
       Steps step = new Steps();
 
@@ -421,7 +421,7 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
       }
 
     }
-    else if (command.equals(STEPDELETE))
+    else if (command.equals(STEP_DELETE))
     {
       try
       {

@@ -28,8 +28,8 @@ public class MealEditorController implements ActionListener, DocumentStateObserv
   private static String SAVE_AS = "Save As";
   private static String CLOSE = "Close";
 
-  private static String RECIPEADD = "Recipe Add";
-  private static String RECIPEDELETE = "Recipe Delete";
+  private static String RECIPE_ADD = "Recipe Add";
+  private static String RECIPE_DELETE = "Recipe Delete";
 
   private MealEditor editor;
   private Meal meal;
@@ -167,7 +167,7 @@ public class MealEditorController implements ActionListener, DocumentStateObserv
       state = DocumentState.NULL;
       editor.updateToolBar(state);
     }
-    else if (command.equals(RECIPEADD))
+    else if (command.equals(RECIPE_ADD))
     {
       try
       {
@@ -184,7 +184,7 @@ public class MealEditorController implements ActionListener, DocumentStateObserv
         System.out.println("MealEditor: user cancelled recipe file selection, caught exception");
       }
     }
-    else if (command.equals(RECIPEDELETE))
+    else if (command.equals(RECIPE_DELETE))
     {
       try
       {

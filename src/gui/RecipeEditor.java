@@ -23,6 +23,7 @@ import utilities.ImageUtilities;
  */
 public class RecipeEditor extends JFrame
 {
+  private static final String KILOWBITES_RECIPE_EDITOR = "KILowBites Recipe Editor";
   Container outerPane;
   JPanel contentPane;
   RecipeEditorContent content;
@@ -34,7 +35,7 @@ public class RecipeEditor extends JFrame
    */
   public RecipeEditor(Recipe recipe, RecipeEditorController controller, boolean isNew)
   {
-    super("KILowBites Recipe Editor");
+    super(KILOWBITES_RECIPE_EDITOR);
 
     // creates the outer border layout (contains menubar and content)
     outerPane = new Container();

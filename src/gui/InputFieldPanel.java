@@ -31,7 +31,7 @@ import utilities.Units;
 public class InputFieldPanel extends JPanel implements DocumentListener, DocumentStateSubject
 {
   private Container contentPane;
-  private static final String UNITS_LABEL = "Units: ";
+  private static final String UNITS = "Units: ";
 
 
   JPanel inputFields; // the panel for the gui
@@ -232,7 +232,7 @@ public class InputFieldPanel extends JPanel implements DocumentListener, Documen
     }
 
     // re adds the units list
-    this.updateComboBox(UNITS_LABEL, temp.getAllUnitsPlusIndividual());
+    this.updateComboBox(UNITS, temp.getAllUnitsPlusIndividual());
   }
 
   /**

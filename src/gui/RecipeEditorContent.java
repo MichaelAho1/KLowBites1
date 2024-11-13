@@ -22,6 +22,20 @@ public class RecipeEditorContent extends JPanel
 {
   private static final long serialVersionUID = -5218221163153774982L;
 
+  private static final String NAME = "Name: ";
+  private static final String SERVES = "Serves: ";
+  private static final String DETAILS = "Details: ";
+  private static final String AMOUNT = "Amount: ";
+  private static final String UNITS = "Units: ";
+  private static final String ADD = "Add";
+  private static final String UTENSIL_ADD = "Utensil Add";
+  private static final String INGREDIENT_ADD = "Ingredient Add";
+  private static final String ACTION = "Action: ";
+  private static final String ON = "On: ";
+  private static final String UTENSIL = "Utensil: ";
+  private static final String STEP_ADD = "Step Add";
+
+  
   Container contentPane;
 
   Recipe currentRecipe; // recipe being used
@@ -67,42 +81,42 @@ public class RecipeEditorContent extends JPanel
     mainIFP = new InputFieldPanel();
     if (!isNew)
     {
-      mainIFP.addJTextField("Name: ", 50, recipe.getName());
-      mainIFP.addJTextField("Serves: ", 10, String.valueOf(recipe.getServes()));
+      mainIFP.addJTextField(NAME, 50, recipe.getName());
+      mainIFP.addJTextField(SERVES, 10, String.valueOf(recipe.getServes()));
     }
     else
     {
-      mainIFP.addJTextField("Name: ", 50);
-      mainIFP.addJTextField("Serves: ", 10);
+      mainIFP.addJTextField(NAME, 50);
+      mainIFP.addJTextField(SERVES, 10);
     }
 
     // **** EDITOR PANELS ****
 
     // Utensils
     utensilIFP = new InputFieldPanel();
-    utensilIFP.addJTextField("Name: ", 25);
-    utensilIFP.addJTextField("Details: ", 25);
-    utensilIFP.addJButton("Add", "Utensil Add", controller);
+    utensilIFP.addJTextField(NAME, 25);
+    utensilIFP.addJTextField(DETAILS, 25);
+    utensilIFP.addJButton(ADD, UTENSIL_ADD, controller);
 
     // Ingredients
     ingredientIFP = new InputFieldPanel();
-    ingredientIFP.addJTextField("Name: ", 15);
-    ingredientIFP.addJTextField("Details: ", 7);
-    ingredientIFP.addJTextField("Amount: ", 7);
+    ingredientIFP.addJTextField(NAME, 15);
+    ingredientIFP.addJTextField(DETAILS, 7);
+    ingredientIFP.addJTextField(AMOUNT, 7);
     if (UnitType.imperialSelected == true) {    //Checks what the user selected for unit type
-      ingredientIFP.addJComboBox("Units: ", UnitType.getImperialUnitsIndividual());
+      ingredientIFP.addJComboBox(UNITS, UnitType.getImperialUnitsIndividual());
     } 
     else 
     {
-      ingredientIFP.addJComboBox("Units: ", UnitType.getMetricUnitsIndividual());
+      ingredientIFP.addJComboBox(UNITS, UnitType.getMetricUnitsIndividual());
     }
     
     
-    ingredientIFP.addJButton("Add", "Ingredient Add", controller);
+    ingredientIFP.addJButton(ADD, INGREDIENT_ADD, controller);
 
     // Steps
     stepIFP = new InputFieldPanel();
-    stepIFP.addJTextField("Action: ", 7);
+    stepIFP.addJTextField(ACTION, 7);
 
     stepOn = new String[] {""};
     stepUtensils = new String[] {""};
@@ -136,11 +150,11 @@ public class RecipeEditorContent extends JPanel
       }
     }
 
-    stepIFP.addJComboBox("On: ", stepOn);
-    stepIFP.addJComboBox("Utensil: ", stepUtensils);
+    stepIFP.addJComboBox(ON, stepOn);
+    stepIFP.addJComboBox(UTENSIL, stepUtensils);
 
-    stepIFP.addJTextField("Details: ", 15);
-    stepIFP.addJButton("Add", "Step Add", controller);
+    stepIFP.addJTextField(DETAILS, 15);
+    stepIFP.addJButton(ADD, STEP_ADD, controller);
 
     // creates the panel for the Utensils, Ingredients, and Steps
     JPanel editorPanel = new JPanel();
@@ -167,12 +181,12 @@ public class RecipeEditorContent extends JPanel
 
   public String getNameField()
   {
-    return mainIFP.getText("Name: ");
+    return mainIFP.getText(NAME);
   }
 
   public String getServesField()
   {
-    return mainIFP.getText("Serves: ");
+    return mainIFP.getText(SERVES);
   }
 
   public EditorPanel getUtensilPanel()
@@ -202,13 +216,13 @@ public class RecipeEditorContent extends JPanel
           .getName();
     }
 
-    stepIFP.updateComboBox("Utensil: ", stepUtensils);
+    stepIFP.updateComboBox(UTENSIL, stepUtensils);
 
     stepSources = new String[stepUtensils.length + stepIngredients.length];
     System.arraycopy(stepUtensils, 0, stepSources, 0, stepUtensils.length);
     System.arraycopy(stepIngredients, 0, stepSources, stepUtensils.length, stepIngredients.length);
 
-    stepIFP.updateComboBox("On: ", stepSources);
+    stepIFP.updateComboBox(ON, stepSources);
   }
 
   public EditorPanel getStepPanel()

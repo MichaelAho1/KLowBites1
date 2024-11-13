@@ -31,12 +31,13 @@ public class MealEditor extends JFrame
 
   JButton[] buttons;
 
+  private static final String KILOWBITES_MEAL_EDITOR = "KILowBites Meal Editor";
   /**
    * Constructor for RecipeEditor.
    */
   public MealEditor(Meal meal, MealEditorController controller, boolean isNew)
   {
-    super("KILowBites Meal Editor");
+    super(KILOWBITES_MEAL_EDITOR);
 
     // creates the outer border layout (contains menubar and content)
     outerPane = new Container();

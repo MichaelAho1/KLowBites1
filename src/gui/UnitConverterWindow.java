@@ -52,9 +52,12 @@ public class UnitConverterWindow extends JFrame
 
   private static final String CALCULATE = "Calculate";
   private static final String RESET = "Reset";
-  private static final String 
-  private static final String 
-  private static final String 
+  private static final String FROM_UNITS = "From Units:";
+  private static final String TO_UNITS = "To Units:";
+  private static final String INGREDIENT = "Ingredient:";
+  private static final String AMOUNT = "Amount:";
+  private static final String TO_AMOUNT = "To Amount:";
+  private static final String CHOOSE_INGREDIENT =  "Choose Ingredient";
   /**
    * Default constructor.
    */
@@ -136,7 +139,7 @@ public class UnitConverterWindow extends JFrame
     fromUnitsPanel.setLayout(new BorderLayout());
 
     fromUnitsMenu = new JComboBox(units);
-    fromUnitsMenu.setActionCommand("From Unit");
+    fromUnitsMenu.setActionCommand(FROM_UNITS);
     fromUnitsMenu.addActionListener(controller);
 
     JPanel boxPanel = new JPanel(new GridBagLayout());
@@ -147,7 +150,7 @@ public class UnitConverterWindow extends JFrame
     gbc.gridy = 0;
     gbc.anchor = GridBagConstraints.WEST;
     gbc.insets = new Insets(10, 20, 10, 10);
-    boxPanel.add(new JLabel("From Units:"), gbc);
+    boxPanel.add(new JLabel(FROM_UNITS), gbc);
 
     gbc.gridx = 1;
     gbc.gridy = 0;
@@ -161,7 +164,7 @@ public class UnitConverterWindow extends JFrame
     toUnitsPanel.setLayout(new BorderLayout());
 
     toUnitsMenu = new JComboBox(units);
-    toUnitsMenu.setActionCommand("To Unit");
+    toUnitsMenu.setActionCommand(TO_UNITS);
     toUnitsMenu.addActionListener(controller);
 
     boxPanel = new JPanel(new GridBagLayout());
@@ -170,7 +173,7 @@ public class UnitConverterWindow extends JFrame
     gbc.gridy = 0;
     gbc.anchor = GridBagConstraints.WEST;
     gbc.insets = new Insets(10, 20, 10, 10);
-    boxPanel.add(new JLabel("To Units:"), gbc);
+    boxPanel.add(new JLabel(TO_UNITS), gbc);
 
     gbc.gridx = 1;
     gbc.gridy = 0;
@@ -184,7 +187,7 @@ public class UnitConverterWindow extends JFrame
     ingredientsPanel.setLayout(new BorderLayout());
 
     unitIngredientsMenu = new JComboBox(ingredients);
-    unitIngredientsMenu.setActionCommand("Choose Ingredient");
+    unitIngredientsMenu.setActionCommand(CHOOSE_INGREDIENT);
     unitIngredientsMenu.addActionListener(controller);
 
     boxPanel = new JPanel(new GridBagLayout());
@@ -193,7 +196,7 @@ public class UnitConverterWindow extends JFrame
     gbc.gridy = 0;
     gbc.anchor = GridBagConstraints.WEST;
     gbc.insets = new Insets(10, 20, 10, 10);
-    boxPanel.add(new JLabel("Ingredient:"), gbc);
+    boxPanel.add(new JLabel(INGREDIENT), gbc);
 
     gbc.gridx = 1;
     gbc.gridy = 0;
@@ -215,7 +218,7 @@ public class UnitConverterWindow extends JFrame
     gbc.gridy = 0;
     gbc.anchor = GridBagConstraints.WEST;
     gbc.insets = new Insets(10, 20, 10, 10);
-    boxPanel.add(new JLabel("Amount:"), gbc);
+    boxPanel.add(new JLabel(AMOUNT), gbc);
 
     gbc.gridx = 1;
     gbc.gridy = 0;
@@ -236,7 +239,7 @@ public class UnitConverterWindow extends JFrame
     gbc.gridy = 0;
     gbc.anchor = GridBagConstraints.WEST;
     gbc.insets = new Insets(10, 20, 10, 10);
-    boxPanel.add(new JLabel("To Amount:"), gbc);
+    boxPanel.add(new JLabel(TO_AMOUNT), gbc);
 
     gbc.gridx = 1;
     gbc.gridy = 0;

@@ -23,7 +23,8 @@ public class ProcessViewerPanel extends JPanel
   final String UTENSILS = "Utensils";
   final String INGREDIENTS = "Ingredients";
   final String STEPS = "Steps";
-
+  private static final String DELETE = "Delete";
+  private static final String RECIPE_DELETE = "Recipe Delete";
   Container contentPane;
 
   // shared variables
@@ -105,7 +106,7 @@ public class ProcessViewerPanel extends JPanel
     scrollPane.setPreferredSize(new Dimension(500, 125));
 
     // creates the delete button
-    deleteButton = new JButton("Delete");
+    deleteButton = new JButton(DELETE);
     deleteButton.addActionListener(recipeViewerController);
     deleteButton.setActionCommand(type.getDeleteCommand());
 
@@ -162,8 +163,8 @@ public class ProcessViewerPanel extends JPanel
     scrollPane.setPreferredSize(new Dimension(500, 150));
 
     // creates the delete button
-    deleteButton = new JButton("Delete");
-    deleteButton.setActionCommand("Recipe Delete");
+    deleteButton = new JButton(DELETE);
+    deleteButton.setActionCommand(RECIPE_DELETE );
     deleteButton.addActionListener(controller);
 
     fileViewerPanel.add(scrollPane);

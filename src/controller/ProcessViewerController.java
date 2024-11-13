@@ -6,6 +6,7 @@ import java.io.File;
 
 import javax.swing.JFileChooser;
 
+import cooking.Meal;
 import cooking.Recipe;
 import gui.ProcessViewer;
 import utilities.DocumentState;
@@ -33,6 +34,7 @@ public class ProcessViewerController implements ActionListener, DocumentStateObs
 
   private ProcessViewer viewer;
   private Recipe recipe;
+  private Meal meal;
   private DocumentState state;
 
   /**
@@ -49,14 +51,14 @@ public class ProcessViewerController implements ActionListener, DocumentStateObs
   private void createRecipeViewer()
   {
     // viewer.resetRecipeViewer();
-
-    recipe = FileUtilities.openRecipe();
-    state = DocumentState.UNCHANGED;
-
-    // tests the constructor so that it only resets if the user selects a file
-    // ProcessViewer testEditor = new ProcessViewer(recipe, this, false);
-
-    viewer = new ProcessViewer(recipe, this, false);
+    recipe = FileUtilities.openRecipe(); 
+    //ALEX ADD FILE TYPE DETECTION, Likely by using file name/extension
+	viewer = new ProcessViewer(recipe, this, false);
+	state = DocumentState.UNCHANGED;
+    
+//	meal = FileUtilities.openMeal();
+//    viewer = new ProcessViewer(meal, this, false);
+//    state = DocumentState.UNCHANGED;
 
     // propagate changes to window
   }

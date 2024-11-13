@@ -11,20 +11,19 @@ public class UnitType
   public static boolean imperialSelected = true; // Imperial is automatically used unless user
   // specifies to use metric.
   public static boolean metricSelected = false;
-
-  private static String[] imperialVolumeUnits = {"Pinch", "Teaspoon", "Tablespoon", "Fluid Ounce",
+  private static final String[] imperialVolumeUnits = {"Pinch", "Teaspoon", "Tablespoon", "Fluid Ounce",
       "Cup", "Pint", "Quart", "Gallon"};
-  private static String[] metricVolumeUnits = {"Milliliters"};
-  private static String[] metricMassUnits = {"Gram"};
-  private static String[] imperialMassUnits = {"Dram", "Ounce", "Pound"};
-  private static String[] imperialUnits = {"Pinch", "Teaspoon", "Tablespoon", "Fluid Ounce", "Cup",
+  private static final String[] metricVolumeUnits = {"Milliliters"};
+  private static final String[] metricMassUnits = {"Gram"};
+  private static final String[] imperialMassUnits = {"Dram", "Ounce", "Pound"};
+  private static final String[] imperialUnits = {"Pinch", "Teaspoon", "Tablespoon", "Fluid Ounce", "Cup",
       "Pint", "Quart", "Gallon", "Dram", "Ounce", "Pound"};
-  private static String[] imperialUnitsSpace = {"", "Pinch", "Teaspoon", "Tablespoon",
+  private static final String[] imperialUnitsSpace = {"", "Pinch", "Teaspoon", "Tablespoon",
       "Fluid Ounce", "Cup", "Pint", "Quart", "Gallon", "Dram", "Ounce", "Pound"};
-  private static String[] metricUnits = {"Gram", "Milliliters"};
-  private static String[] metricUnitsSpace = {"", "Gram", "Milliliters"};
-  private static String[] metricUnitsIndividual = {"", "Individual", "Gram", "Milliliters"};
-  private static String[] imperialUnitsIndividual = {"", "Individual", "Pinch", "Teaspoon",
+  private static final String[] metricUnits = {"Gram", "Milliliters"};
+  private static final String[] metricUnitsSpace = {"", "Gram", "Milliliters"};
+  private static final String[] metricUnitsIndividual = {"", "Individual", "Gram", "Milliliters"};
+  private static final String[] imperialUnitsIndividual = {"", "Individual", "Pinch", "Teaspoon",
       "Tablespoon", "Fluid Ounce", "Cup", "Pint", "Quart", "Gallon", "Dram", "Ounce", "Pound"};
 
   public static String[] getImperialMassUnits()

@@ -17,6 +17,7 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import controller.KILowBitesController;
+import gui.LanguageSelectionDialog;
 import utilities.Foods;
 import utilities.ImageUtilities;
 import utilities.Units;
@@ -35,21 +36,21 @@ public class KILowBites implements Runnable
   public static final Foods FOODS = new Foods();
   public static final Units UNITS = new Units();
 
-//  private static final String FILE = "File";
-//  private static final String MAIN_WINDOW = "KILowBites Main Window";
-//  private static final String EXIT = "Exit";
-//  private static final String EDIT = "Edit";
-//  private static final String RECIPE = "Recipe";
-//  private static final String MEAL = "Meal";
-//  private static final String VIEW = "View";
-//  private static final String PROCESS = "Process";
-//  private static final String TOOLS = "Tools";
-//  private static final String CALORIE_CALCULATOR = "Calorie Calculator";
-//  private static final String UNITS_CONVERTER = "Units Converter";
+  // private static final String FILE = "File";
+  // private static final String MAIN_WINDOW = "KILowBites Main Window";
+  // private static final String EXIT = "Exit";
+  // private static final String EDIT = "Edit";
+  // private static final String RECIPE = "Recipe";
+  // private static final String MEAL = "Meal";
+  // private static final String VIEW = "View";
+  // private static final String PROCESS = "Process";
+  // private static final String TOOLS = "Tools";
+  // private static final String CALORIE_CALCULATOR = "Calorie Calculator";
+  // private static final String UNITS_CONVERTER = "Units Converter";
 
   private static final Color COLOR = Color.WHITE;
   public static ResourceBundle STRINGS;
-  static final Locale        LOCALE = Locale.getDefault();
+  static final Locale LOCALE = Locale.getDefault();
 
   private String[] args;
 
@@ -65,7 +66,7 @@ public class KILowBites implements Runnable
    */
   public static void main(String[] args) throws InterruptedException, InvocationTargetException
   {
-    
+
     // Perform all of the setup activities in the event dispatch thread
     SwingUtilities.invokeAndWait(new KILowBites(args));
   }
@@ -80,11 +81,20 @@ public class KILowBites implements Runnable
   {
     // Store the command-line arguments if needed
     this.args = args;
-//    Locale.setDefault(new Locale("es", "ES"));  // Uncomment for Spanish
-    Locale.setDefault(LOCALE.FRANCE);           // Uncomment for French
-    
+
+    showLanguageSelectionDialog();
+
     System.out.println("Current Locale: " + Locale.getDefault());
     STRINGS = ResourceBundle.getBundle("Strings");
+  }
+
+  /**
+   * Open menu for user to select language.
+   */
+  private void showLanguageSelectionDialog()
+  {
+    LanguageSelectionDialog dialog = new LanguageSelectionDialog();
+    dialog.setVisible(true);
   }
 
   /**

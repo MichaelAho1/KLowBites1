@@ -38,13 +38,14 @@ public class AddIngredientWindow extends JFrame
   public static JTextField ingredientCalorieField;
   public static JTextField ingredientDensityField;
   public static JLabel successfulAdd;
-  
-//  private static final String ADD_INGREDIENT = "Add Ingredient";
-//  private static final String RESET = "Reset";
-//  private static final String INGREDIENT_NAME = "Ingredient name:";
 
-  static final Locale         LOCALE  = Locale.getDefault();
+  // private static final String ADD_INGREDIENT = "Add Ingredient";
+  // private static final String RESET = "Reset";
+  // private static final String INGREDIENT_NAME = "Ingredient name:";
+
+  static final Locale LOCALE = Locale.getDefault();
   private static final ResourceBundle STRINGS = KILowBites.STRINGS;
+
   public AddIngredientWindow()
   {
     super("Add Ingredient to System");
@@ -83,7 +84,7 @@ public class AddIngredientWindow extends JFrame
 
     getContentPane().add(toolbar, BorderLayout.NORTH);
 
-    setSize(700, 200);
+    setSize(800, 200);
     setResizable(false);
     setLocationRelativeTo(null);
     setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

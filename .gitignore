@@ -18,6 +18,9 @@ local.properties
 .factorypath
 .checkstyle
 
+# VsCode #
+.vscode/
+
 # Log Files #
 *.log
 

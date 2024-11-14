@@ -80,8 +80,32 @@ public class KILowBites implements Runnable
   {
     // Store the command-line arguments if needed
     this.args = args;
+
+    // set the language if its specified
+    try
+    {
+      if (args[0].equals("es"))
+      {
+        Locale.setDefault(new Locale("es", "ES"));
+      }
+      else if (args[0].equals("fr"))
+      {
+        Locale.setDefault(LOCALE.FRANCE);
+      }
+      else
+      {
+        Locale.setDefault(LOCALE.US);
+      }
+    }
+    catch (Exception e) // set language to english by default
+    {
+      Locale.setDefault(LOCALE.US);
+    }
+
+
+
     // Locale.setDefault(new Locale("es", "ES")); // Uncomment for Spanish
-    Locale.setDefault(LOCALE.FRANCE); // Uncomment for French
+    // Locale.setDefault(LOCALE.FRANCE); // Uncomment for French
 
     System.out.println("Current Locale: " + Locale.getDefault());
     STRINGS = ResourceBundle.getBundle("Strings");

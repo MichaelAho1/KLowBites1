@@ -19,17 +19,17 @@ class FoodsTest
   void testFoods()
   {
     Foods foods = new Foods();
-    assertEquals(77, foods.getSize());
+    assertEquals(83, foods.getSize());
 
     String[] foodNames = foods.getFoodNames();
-    assertEquals(78, foodNames.length);
+    assertEquals(84, foodNames.length);
     System.out.println();
 
-    assertEquals("Apple juice", foodNames[5]);
+    assertEquals("apple juice", foodNames[5]);
 
-    assertEquals(77, foods.getFoods().size());
+    assertEquals(83, foods.getFoods().size());
 
-    double density = foods.getDensity("Apple");
+    double density = foods.getDensity("apple");
 
     assertEquals(0.56, density);
   }

@@ -53,7 +53,7 @@ class CookingTests
 	  assertEquals("(sliced ripe)", ing.getDetails());
 	  assertEquals("bananas", ing.getName());
 	  
-	  assertEquals("3.0 individual (sliced ripe) bananas", ing.toString());
+	  assertEquals("3.0 individual of (sliced ripe) bananas", ing.toString());
 	  ing.add();
   }
   @Test
@@ -79,7 +79,7 @@ class CookingTests
 	  assertEquals("small", uten.getDetails());
 	  assertEquals("pan", uten.getName());
 
-	  assertEquals("pan(small)", uten.toString());
+	  assertEquals("small pan", uten.toString());
   }
   @Test
   void testSteps() 
@@ -115,8 +115,7 @@ class CookingTests
 	  assertEquals(ing, steps.getSource());
 	  assertEquals(uten, steps.getDestination());
 	  assertEquals("for 2 minutes", steps.getDetails());
-	  assertEquals("simmer 3.0 individual (sliced ripe) "
-	  		+ "bananas in Skillet(large) (for 2 minutes)", steps.toString());
+	  assertEquals("simmer the bananas in the Skillet for 2 minutes", steps.toString());
   }
   @Test
   void testRecipe()

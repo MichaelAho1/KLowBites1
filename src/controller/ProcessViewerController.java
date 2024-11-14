@@ -3,6 +3,7 @@ package controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -11,6 +12,7 @@ import javax.swing.JFileChooser;
 import app.KILowBites;
 import cooking.Meal;
 import cooking.Recipe;
+import gui.CalorieOutputWindow;
 import gui.ProcessViewer;
 import utilities.DocumentState;
 import utilities.DocumentStateObserver;
@@ -43,19 +45,54 @@ public class ProcessViewerController implements ActionListener, DocumentStateObs
    */
   public ProcessViewerController()
   {
-    createRecipeViewer();
-  }
+	  List<Object> data = FileUtilities.open();
+
+	if (data == null)
+      {
+//		viewer = new ProcessViewer(null, this, false);
+      }
+      else
+      {
+        String openedFile = (String) data.get(0);
+        String extension = openedFile.substring(openedFile.length() - 4, openedFile.length());
+
+        // System.out.println(extension);
+
+        if (data.get(1) instanceof Recipe)
+        {
+          recipe = (Recipe) data.get(1);
+          viewer = new ProcessViewer(recipe, this, false);
+        }
+        else
+        {
+          meal = (Meal) data.get(1);
+          viewer = new ProcessViewer(meal, this, false);
+        }
+      }
+    }
+
 
   /**
    * Creates a new RecipeViewer window
    */
-  private void createRecipeViewer()
+//  private void createRecipeViewer()
   {
     // viewer.resetRecipeViewer();
-    recipe = FileUtilities.openRecipe(); 
+//	  Recipe test1 = (Recipe) FileUtilities.open().getLast();
+//	  String test2 = FileUtilities.open().getFirst().toString();
+//	  List<Object> test0 = FileUtilities.open();
+//	  System.out.println(test2);
+//	  System.out.println(test1.getName());
+//	  System.out.println(FileUtilities.open().getLast().toString());
+//    recipe = test1; 
+//    if (FileUtilities.open().get() == null) 
+//    {
+//    	FileUtilities.openRecipe();
+//    	return;
+//    }
     //ALEX ADD FILE TYPE DETECTION, Likely by using file name/extension
-	viewer = new ProcessViewer(recipe, this, false);
-	state = DocumentState.UNCHANGED;
+//	viewer = new ProcessViewer(recipe, this, false);
+//	state = DocumentState.UNCHANGED;
     
 //	meal = FileUtilities.openMeal();
 //    viewer = new ProcessViewer(meal, this, false);

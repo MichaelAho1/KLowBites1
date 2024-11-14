@@ -43,7 +43,8 @@ public class ProcessViewer extends JFrame
    */
   public ProcessViewer(Recipe recipe, ProcessViewerController recipeViewerController, boolean isNew)
   {
-    super(STRINGS.getString("KILOWBITES_RECIPE_VIEWER") + "  " + recipe.getName());
+//    super(STRINGS.getString("KILOWBITES_RECIPE_VIEWER") + "  " + recipe.getName());
+    super(STRINGS.getString("KILOWBITES_RECIPE_VIEWER"));
     // creates the outer border layout (contains menubar and content)
     outerPane = new Container();
 

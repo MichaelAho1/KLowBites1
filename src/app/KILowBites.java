@@ -3,6 +3,8 @@ package app;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -33,19 +35,21 @@ public class KILowBites implements Runnable
   public static final Foods FOODS = new Foods();
   public static final Units UNITS = new Units();
 
-  private static final String FILE = "File";
-  private static final String MAIN_WINDOW = "KILowBites Main Window";
-  private static final String EXIT = "Exit";
-  private static final String EDIT = "Edit";
-  private static final String RECIPE = "Recipe";
-  private static final String MEAL = "Meal";
-  private static final String VIEW = "View";
-  private static final String PROCESS = "Process";
-  private static final String TOOLS = "Tools";
-  private static final String CALORIE_CALCULATOR = "Calorie Calculator";
-  private static final String UNITS_CONVERTER = "Units Converter";
+//  private static final String FILE = "File";
+//  private static final String MAIN_WINDOW = "KILowBites Main Window";
+//  private static final String EXIT = "Exit";
+//  private static final String EDIT = "Edit";
+//  private static final String RECIPE = "Recipe";
+//  private static final String MEAL = "Meal";
+//  private static final String VIEW = "View";
+//  private static final String PROCESS = "Process";
+//  private static final String TOOLS = "Tools";
+//  private static final String CALORIE_CALCULATOR = "Calorie Calculator";
+//  private static final String UNITS_CONVERTER = "Units Converter";
 
   private static final Color COLOR = Color.WHITE;
+  static ResourceBundle STRINGS;
+  static final Locale        LOCALE = Locale.getDefault();
 
   private String[] args;
 
@@ -61,6 +65,7 @@ public class KILowBites implements Runnable
    */
   public static void main(String[] args) throws InterruptedException, InvocationTargetException
   {
+    
     // Perform all of the setup activities in the event dispatch thread
     SwingUtilities.invokeAndWait(new KILowBites(args));
   }
@@ -75,6 +80,11 @@ public class KILowBites implements Runnable
   {
     // Store the command-line arguments if needed
     this.args = args;
+//    Locale.setDefault(new Locale("es", "ES"));  // Uncomment for Spanish
+//    Locale.setDefault(LOCALE.FRANCE);           // Uncomment for French
+    
+    System.out.println("Current Locale: " + Locale.getDefault());
+    STRINGS = ResourceBundle.getBundle("Strings");
   }
 
   /**
@@ -86,7 +96,7 @@ public class KILowBites implements Runnable
     setLookAndFeel("Nimbus");
 
     // initial setup
-    JFrame frame = new JFrame(MAIN_WINDOW);
+    JFrame frame = new JFrame(STRINGS.getString("KILOWBITES_MAIN_WINDOW"));
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     JPanel contentPane = (JPanel) frame.getContentPane();
     contentPane.setLayout(new BorderLayout());
@@ -106,18 +116,18 @@ public class KILowBites implements Runnable
     JMenu menu;
     JMenuItem menuItem;
 
-    menu = new JMenu(FILE);
+    menu = new JMenu(STRINGS.getString("FILE"));
     menuBar.add(menu);
-    menuItem = new JMenuItem(EXIT);
+    menuItem = new JMenuItem(STRINGS.getString("EXIT"));
     menu.add(menuItem);
     menuItem.addActionListener(controller);
 
-    menu = new JMenu(EDIT);
+    menu = new JMenu(STRINGS.getString("EDIT"));
     menuBar.add(menu);
-    menuItem = new JMenuItem(RECIPE);
+    menuItem = new JMenuItem(STRINGS.getString("RECIPE"));
     menu.add(menuItem);
     menuItem.addActionListener(controller);
-    menuItem = new JMenuItem(MEAL);
+    menuItem = new JMenuItem(STRINGS.getString("MEAL"));
     menu.add(menuItem);
     menuItem.addActionListener(controller);
 
@@ -130,27 +140,27 @@ public class KILowBites implements Runnable
     // menu.add(menuItem);
     // menuItem.addActionListener(controller);
 
-    menu = new JMenu(VIEW);
+    menu = new JMenu(STRINGS.getString("VIEW"));
     menuBar.add(menu);
     // menuItem = new JMenuItem("Shopping List");
     // menu.add(menuItem);
     // menuItem.addActionListener(controller);
-    menuItem = new JMenuItem(PROCESS);
+    menuItem = new JMenuItem(STRINGS.getString("PROCESS"));
     menu.add(menuItem);
     menuItem.addActionListener(controller);
 
-    menu = new JMenu(TOOLS);
+    menu = new JMenu(STRINGS.getString("TOOLS"));
     menuBar.add(menu);
-    openCalc = new JMenuItem(CALORIE_CALCULATOR);
+    openCalc = new JMenuItem(STRINGS.getString("CALORIE_CALCULATOR"));
     menu.add(openCalc);
     openCalc.addActionListener(controller);
-    openConvert = new JMenuItem(UNITS_CONVERTER);
+    openConvert = new JMenuItem(STRINGS.getString("UNITS_CONVERTER"));
     openConvert.addActionListener(controller);
     menu.add(openConvert);
 
-    menu = new JMenu("Configure");
+    menu = new JMenu(STRINGS.getString("CONFIGURE"));
     menuBar.add(menu);
-    menuItem = new JMenuItem("Preferences");
+    menuItem = new JMenuItem(STRINGS.getString("PREFERENCES"));
     menu.add(menuItem);
     menuItem.addActionListener(controller);
     // menuItem = new JMenuItem("Shortcuts");

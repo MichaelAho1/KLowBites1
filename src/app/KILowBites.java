@@ -48,7 +48,7 @@ public class KILowBites implements Runnable
 //  private static final String UNITS_CONVERTER = "Units Converter";
 
   private static final Color COLOR = Color.WHITE;
-  static ResourceBundle STRINGS;
+  public static ResourceBundle STRINGS;
   static final Locale        LOCALE = Locale.getDefault();
 
   private String[] args;
@@ -81,7 +81,7 @@ public class KILowBites implements Runnable
     // Store the command-line arguments if needed
     this.args = args;
 //    Locale.setDefault(new Locale("es", "ES"));  // Uncomment for Spanish
-//    Locale.setDefault(LOCALE.FRANCE);           // Uncomment for French
+    Locale.setDefault(LOCALE.FRANCE);           // Uncomment for French
     
     System.out.println("Current Locale: " + Locale.getDefault());
     STRINGS = ResourceBundle.getBundle("Strings");
@@ -166,7 +166,7 @@ public class KILowBites implements Runnable
     // menuItem = new JMenuItem("Shortcuts");
     // menu.add(menuItem);
     // menuItem.addActionListener(controller);
-    menuItem = new JMenuItem("Add Ingredient");
+    menuItem = new JMenuItem(STRINGS.getString("ADD_INGREDIENT"));
     menu.add(menuItem);
     menuItem.addActionListener(controller);
 

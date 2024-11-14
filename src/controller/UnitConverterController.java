@@ -3,6 +3,8 @@ package controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -16,12 +18,15 @@ import utilities.Units;
 
 public class UnitConverterController implements ActionListener, DocumentListener
 {
-  private static final String CALCULATE = "Calculate";
-  private static final String RESET = "Reset";
-  private static final String FROM_UNITS = "From Unit";
-  private static final String TO_UNITS = "To Unit";
-  private static final String CHOOSE_INGREDIENT = "Choose Ingredient";
+//  private static final String CALCULATE = "Calculate";
+//  private static final String RESET = "Reset";
+//  private static final String FROM_UNITS = "From Unit";
+//  private static final String TO_UNITS = "To Unit";
+//  private static final String CHOOSE_INGREDIENT = "Choose Ingredient";
 
+  static final Locale         LOCALE  = Locale.getDefault();
+  private static final ResourceBundle STRINGS = KILowBites.STRINGS;
+  
   private boolean sameMeasureType;
 
   @Override
@@ -29,29 +34,29 @@ public class UnitConverterController implements ActionListener, DocumentListener
   {
     String ac = e.getActionCommand();
 
-    if (ac.equals(CALCULATE))
+    if (ac.equals(STRINGS.getString("CALCULATE")))
     {
       calculate();
     }
-    if (ac.equals(RESET))
+    if (ac.equals(STRINGS.getString("RESET")))
     {
       reset();
       updateResetButton();
       updateCalculateButton();
     }
-    if (ac.equals(FROM_UNITS))
+    if (ac.equals(STRINGS.getString("FROM_UNITS")))
     {
       updateResetButton();
       updateCalculateButton();
       disableIngredients();
     }
-    if (ac.equals(TO_UNITS))
+    if (ac.equals(STRINGS.getString("TO_UNITS")))
     {
       updateResetButton();
       updateCalculateButton();
       disableIngredients();
     }
-    if (ac.equals(CHOOSE_INGREDIENT))
+    if (ac.equals(STRINGS.getString("CHOOSE_INGREDIENT")))
     {
       updateResetButton();
       updateCalculateButton();

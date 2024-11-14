@@ -3,9 +3,12 @@ package controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.swing.JFileChooser;
 
+import app.KILowBites;
 import cooking.Meal;
 import cooking.Recipe;
 import gui.MealEditor;
@@ -22,15 +25,18 @@ import utilities.FileUtilities;
 public class MealEditorController implements ActionListener, DocumentStateObserver
 {
   
-  private static String NEW = "New";
-  private static String OPEN = "Open";
-  private static String SAVE = "Save";
-  private static String SAVE_AS = "Save As";
-  private static String CLOSE = "Close";
+//  private static String NEW = "New";
+//  private static String OPEN = "Open";
+//  private static String SAVE = "Save";
+//  private static String SAVE_AS = "Save As";
+//  private static String CLOSE = "Close";
+//
+//  private static String RECIPE_ADD = "Recipe Add";
+//  private static String RECIPE_DELETE = "Recipe Delete";
 
-  private static String RECIPE_ADD = "Recipe Add";
-  private static String RECIPE_DELETE = "Recipe Delete";
-
+  static final Locale         LOCALE  = Locale.getDefault();
+  private static final ResourceBundle STRINGS = KILowBites.STRINGS;
+  
   private MealEditor editor;
   private Meal meal;
   private DocumentState state;
@@ -79,7 +85,7 @@ public class MealEditorController implements ActionListener, DocumentStateObserv
     command = e.getActionCommand();
 
     // commands for Toolbar
-    if (command.equals(NEW))
+    if (command.equals(STRINGS.getString("NEW")))
     {
       JFileChooser directoryChooser = new JFileChooser();
       directoryChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY); // Set to select
@@ -105,7 +111,7 @@ public class MealEditorController implements ActionListener, DocumentStateObserv
         System.out.println("Directory selection was cancelled.");
       }
     }
-    else if (command.equals(OPEN))
+    else if (command.equals(STRINGS.getString("OPEN")))
     {
       try
       {
@@ -128,7 +134,7 @@ public class MealEditorController implements ActionListener, DocumentStateObserv
         System.out.println("MealEditor: user cancelled recipe file selection, caught exception");
       }
     }
-    else if (command.equals(SAVE))
+    else if (command.equals(STRINGS.getString("SAVE")))
     {
       String name = editor.getContent().getNameField();
 
@@ -145,7 +151,7 @@ public class MealEditorController implements ActionListener, DocumentStateObserv
       state = DocumentState.UNCHANGED;
       editor.updateToolBar(state);
     }
-    else if (command.equals(SAVE_AS))
+    else if (command.equals(STRINGS.getString("SAVE_AS")))
     {
       String name = editor.getContent().getNameField();
 
@@ -159,7 +165,7 @@ public class MealEditorController implements ActionListener, DocumentStateObserv
       state = DocumentState.UNCHANGED;
       editor.updateToolBar(state);
     }
-    else if (command.equals(CLOSE))
+    else if (command.equals(STRINGS.getString("CLOSE")))
     {
       meal = null;
       mealSavePath = "";
@@ -167,7 +173,7 @@ public class MealEditorController implements ActionListener, DocumentStateObserv
       state = DocumentState.NULL;
       editor.updateToolBar(state);
     }
-    else if (command.equals(RECIPE_ADD))
+    else if (command.equals(STRINGS.getString("RECIPE_ADD")))
     {
       try
       {
@@ -184,7 +190,7 @@ public class MealEditorController implements ActionListener, DocumentStateObserv
         System.out.println("MealEditor: user cancelled recipe file selection, caught exception");
       }
     }
-    else if (command.equals(RECIPE_DELETE))
+    else if (command.equals(STRINGS.getString("RECIPE_DELETE")))
     {
       try
       {

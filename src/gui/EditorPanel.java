@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -14,6 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
+import app.KILowBites;
 import controller.MealEditorController;
 import controller.RecipeEditorController;
 import cooking.Ingredients;
@@ -37,8 +40,12 @@ public class EditorPanel extends JPanel
   final String UTENSILS = "Utensils";
   final String INGREDIENTS = "Ingredients";
   final String STEPS = "Steps";
-  private static final String DELETE = "Delete";
-  private static final String RECIPE_DELETE = "Recipe Delete";
+//  private static final String DELETE = "Delete";
+//  private static final String RECIPE_DELETE = "Recipe Delete";
+  
+  static final Locale         LOCALE  = Locale.getDefault();
+  private static final ResourceBundle STRINGS = KILowBites.STRINGS;
+  
   Container contentPane;
 
   // shared variables
@@ -123,7 +130,7 @@ public class EditorPanel extends JPanel
     scrollPane.setPreferredSize(new Dimension(500, 125));
 
     // creates the delete button
-    deleteButton = new JButton(DELETE);
+    deleteButton = new JButton(STRINGS.getString("DELETE"));
     deleteButton.addActionListener(controller);
     deleteButton.setActionCommand(type.getDeleteCommand());
 
@@ -198,8 +205,8 @@ public class EditorPanel extends JPanel
     scrollPane.setPreferredSize(new Dimension(500, 150));
 
     // creates the delete button
-    deleteButton = new JButton(DELETE);
-    deleteButton.setActionCommand(RECIPE_DELETE);
+    deleteButton = new JButton(STRINGS.getString("DELETE"));
+    deleteButton.setActionCommand(STRINGS.getString("RECIPE_DELETE"));
     deleteButton.addActionListener(controller);
 
     fileEditorPanel.add(scrollPane);

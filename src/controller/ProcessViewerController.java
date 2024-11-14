@@ -3,9 +3,12 @@ package controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.swing.JFileChooser;
 
+import app.KILowBites;
 import cooking.Meal;
 import cooking.Recipe;
 import gui.ProcessViewer;
@@ -23,11 +26,14 @@ import utilities.InputUtilities;
 public class ProcessViewerController implements ActionListener, DocumentStateObserver
 {
 // ALEX START METHOD, RECIPE EDITOR CONTENT
-  private static String PRINT = "Print";
+//  private static final String PRINT = "Print";
 
   private boolean savedAs = false;
   public static String processSavePath = "";
 
+  static final Locale         LOCALE  = Locale.getDefault();
+  private static final ResourceBundle STRINGS = KILowBites.STRINGS;
+  
   private ProcessViewer viewer;
   private Recipe recipe;
   private Meal meal;
@@ -127,7 +133,7 @@ public class ProcessViewerController implements ActionListener, DocumentStateObs
 
     command = e.getActionCommand();
 
-    if (command.equals(PRINT))
+    if (command.equals(STRINGS.getString("PRINT")))
       {}
     // commands for Toolbar
 //    if (command.equals(NEW))

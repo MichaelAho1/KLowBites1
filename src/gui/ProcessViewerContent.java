@@ -2,10 +2,13 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
+import app.KILowBites;
 import controller.RecipeEditorController;
 import controller.ProcessViewerController;
 import cooking.Meal;
@@ -21,18 +24,20 @@ import utilities.Units;
  */
 public class ProcessViewerContent extends JPanel
 {
-  private static final String NAME = "Name: ";
-  private static final String SERVES = "Serves: ";
-  private static final String ADD = "Add";
-  private static final String AMOUNT = "Amount: ";
-  private static final String INGREDIENT_ADD = "Ingredient Add";
-  private static final String STEP_ADD = "Step Add";
-  private static final String UNITS = "Units: ";
-  private static final String ACTION = "Action: ";
-  private static final String DETAILS = "Details: ";
-  private static final String ON = "On: ";
-  private static final String UTENSIL = "Utensil: ";
+//  private static final String NAME = "Name: ";
+//  private static final String SERVES = "Serves: ";
+//  private static final String ADD = "Add";
+//  private static final String AMOUNT = "Amount: ";
+//  private static final String INGREDIENT_ADD = "Ingredient Add";
+//  private static final String STEP_ADD = "Step Add";
+//  private static final String UNITS = "Units: ";
+//  private static final String ACTION = "Action: ";
+//  private static final String DETAILS = "Details: ";
+//  private static final String ON = "On: ";
+//  private static final String UTENSIL = "Utensil: ";
   
+  static final Locale         LOCALE  = Locale.getDefault();
+  private static final ResourceBundle STRINGS = KILowBites.STRINGS;
   Container contentPane;
 
   Recipe currentRecipe; // recipe being used
@@ -97,17 +102,17 @@ public class ProcessViewerContent extends JPanel
 
     // Ingredients
     ingredientIFP = new InputFieldPanel();
-    ingredientIFP.addJTextField(NAME, 15);
-    ingredientIFP.addJTextField(DETAILS , 7);
-    ingredientIFP.addJTextField(AMOUNT, 7);
+    ingredientIFP.addJTextField(STRINGS.getString("NAME"), 15);
+    ingredientIFP.addJTextField(STRINGS.getString("DETAILS") , 7);
+    ingredientIFP.addJTextField(STRINGS.getString("AMOUNT"), 7);
     
-    ingredientIFP.addJComboBox(UNITS, units.getAllUnitsPlusIndividual());
+    ingredientIFP.addJComboBox(STRINGS.getString("UNITS"), units.getAllUnitsPlusIndividual());
 
-    ingredientIFP.addJButton(ADD, INGREDIENT_ADD, controller);
+    ingredientIFP.addJButton(STRINGS.getString("ADD"), STRINGS.getString("INGREDIENT_ADD"), controller);
 
     // Steps
     stepIFP = new InputFieldPanel();
-    stepIFP.addJTextField(ACTION, 7);
+    stepIFP.addJTextField(STRINGS.getString("ACTION"), 7);
 
     stepOn = new String[] {""};
     stepUtensils = new String[] {""};
@@ -141,11 +146,11 @@ public class ProcessViewerContent extends JPanel
       }
     }
 
-    stepIFP.addJComboBox(ON, stepOn);
-    stepIFP.addJComboBox(UTENSIL, stepUtensils);
+    stepIFP.addJComboBox(STRINGS.getString("ON"), stepOn);
+    stepIFP.addJComboBox(STRINGS.getString("UTENSIL"), stepUtensils);
 
-    stepIFP.addJTextField(DETAILS , 15);
-    stepIFP.addJButton(ADD, STEP_ADD, controller);
+    stepIFP.addJTextField(STRINGS.getString("DETAILS"), 15);
+    stepIFP.addJButton(STRINGS.getString("ADD"), STRINGS.getString("STEP_ADD"), controller);
 
     // creates the panel for the Utensils, Ingredients, and Steps
     JPanel ProcessViewerPanel = new JPanel();
@@ -288,12 +293,12 @@ public class ProcessViewerContent extends JPanel
 
 public String getNameField()
   {
-    return mainIFP.getText(NAME);
+    return mainIFP.getText(STRINGS.getString("NAME"));
   }
 
   public String getServesField()
   {
-    return mainIFP.getText(SERVES);
+    return mainIFP.getText(STRINGS.getString("SERVES"));
   }
 
   public ProcessViewerPanel getUtensilPanel()
@@ -323,13 +328,13 @@ public String getNameField()
           .getName();
     }
 
-    stepIFP.updateComboBox(UTENSIL, stepUtensils);
+    stepIFP.updateComboBox(STRINGS.getString("UTENSIL"), stepUtensils);
 
     stepSources = new String[stepUtensils.length + stepIngredients.length];
     System.arraycopy(stepUtensils, 0, stepSources, 0, stepUtensils.length);
     System.arraycopy(stepIngredients, 0, stepSources, stepUtensils.length, stepIngredients.length);
 
-    stepIFP.updateComboBox(ON, stepSources);
+    stepIFP.updateComboBox(STRINGS.getString("ON"), stepSources);
   }
 
   public ProcessViewerPanel getStepPanel()

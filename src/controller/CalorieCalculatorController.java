@@ -3,6 +3,8 @@ package controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -26,12 +28,14 @@ import utilities.FileUtilities;
 
 public class CalorieCalculatorController implements ActionListener, DocumentListener
 {
-  private static final String CALCULATE = "Calculate";
-  private static final String RESET = "Reset";
-  private static final String CHOOSE_INGREDIENT = "Choose Ingredient";
-  private static final String CHOOSE_UNIT = "Choose Unit";
-  private static final String OPEN = "Open";
-
+//  private static final String CALCULATE = "Calculate";
+//  private static final String RESET = "Reset";
+//  private static final String CHOOSE_INGREDIENT = "Choose Ingredient";
+//  private static final String CHOOSE_UNIT = "Choose Unit";
+//  private static final String OPEN = "Open";
+  static final Locale         LOCALE  = Locale.getDefault();
+  private static final ResourceBundle STRINGS = KILowBites.STRINGS;
+  
   private String omitted;
 
   @Override
@@ -39,27 +43,27 @@ public class CalorieCalculatorController implements ActionListener, DocumentList
   {
     String ac = e.getActionCommand();
 
-    if (ac.equals(CALCULATE))
+    if (ac.equals(STRINGS.getString("CALCULATE")))
     {
       calculate();
     }
-    if (ac.equals(RESET))
+    if (ac.equals(STRINGS.getString("RESET")))
     {
       reset();
       updateResetButton();
       updateCalculateButton();
     }
-    if (ac.equals(CHOOSE_INGREDIENT))
+    if (ac.equals(STRINGS.getString("CHOOSE_INGREDIENT")))
     {
       updateResetButton();
       updateCalculateButton();
     }
-    if (ac.equals(CHOOSE_UNIT))
+    if (ac.equals(STRINGS.getString("CHOOSE_UNIT")))
     {
       updateResetButton();
       updateCalculateButton();
     }
-    if (ac.equals(OPEN))
+    if (ac.equals(STRINGS.getString("OPEN")))
     {
       // open recipe/meal, and store in object
       // using stored recipe/meal, call calculateRecipe/calculateMeal
@@ -184,7 +188,7 @@ public class CalorieCalculatorController implements ActionListener, DocumentList
     double calories = ((amount * gramsPerUnit) / 100) * values[0];
 
     // Display result to 2 decimal places
-    CalorieCalculatorWindow.calorieOutputField.setText(String.format("%.2f", calories));
+    CalorieCalculatorWindow.calorieOutputField.setText(String.format(LOCALE, "%.2f", calories));
   }
 
   private double calculate(String ingredient, String unit, double amount)

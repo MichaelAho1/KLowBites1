@@ -3,6 +3,8 @@ package controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -13,19 +15,23 @@ import utilities.InputUtilities;
 
 public class AddIngredientController implements ActionListener, DocumentListener
 {
-  private static final String ADD_INGREDIENT = "Add Ingredient";
-  private static final String RESET = "Reset";
+  static final Locale         LOCALE  = Locale.getDefault();
+  private static final ResourceBundle STRINGS = KILowBites.STRINGS;
+
+  
+//  private static final String ADD_INGREDIENT = "Add Ingredient";
+//  private static final String RESET = "Reset";
 
   @Override
   public void actionPerformed(ActionEvent e)
   {
     String ac = e.getActionCommand();
 
-    if (ac.equals(ADD_INGREDIENT))
+    if (ac.equals(STRINGS.getString("ADD_INGREDIENT")))
     {
       addIngredient();
     }
-    if (ac.equals(RESET))
+    if (ac.equals(STRINGS.getString("RESET")))
     {
       reset();
       updateResetButton();
@@ -71,7 +77,7 @@ public class AddIngredientController implements ActionListener, DocumentListener
     }
     else
     {
-      AddIngredientWindow.successfulAdd.setText("Invalid input");
+      AddIngredientWindow.successfulAdd.setText(STRINGS.getString("INVALID_INPUT"));
       return;
     }
 
@@ -85,13 +91,13 @@ public class AddIngredientController implements ActionListener, DocumentListener
     catch (NumberFormatException ex)
     {
       // should get here if letters / non-numbers are entered
-      AddIngredientWindow.successfulAdd.setText("Invalid input");
+      AddIngredientWindow.successfulAdd.setText(STRINGS.getString("INVALID_INPUT"));
       return;
     }
 
     if (cals100G < 0 || gML < 0)
     {
-      AddIngredientWindow.successfulAdd.setText("Invalid input");
+      AddIngredientWindow.successfulAdd.setText(STRINGS.getString("INVALID_INPUT"));
       return;
     }
 
@@ -100,11 +106,11 @@ public class AddIngredientController implements ActionListener, DocumentListener
 
     if (success)
     {
-      AddIngredientWindow.successfulAdd.setText(String.format("Successfully added %s!", ingreName));
+      AddIngredientWindow.successfulAdd.setText(String.format(LOCALE, STRINGS.getString("SUCCESSFULLY_ADDED") + " %s!", ingreName));
     }
     else
     {
-      AddIngredientWindow.successfulAdd.setText(String.format("Already in system!", ingreName));
+      AddIngredientWindow.successfulAdd.setText(String.format(LOCALE, STRINGS.getString("ALREADY_IN_SYSTEM"), ingreName));
     }
     System.out.println(Arrays.toString(KILowBites.FOODS.getFoodNames()));
   }

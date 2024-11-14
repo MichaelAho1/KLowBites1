@@ -2,9 +2,12 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.swing.JPanel;
 
+import app.KILowBites;
 import controller.MealEditorController;
 import cooking.Meal;
 
@@ -27,10 +30,13 @@ public class MealEditorContent extends JPanel
 
   EditorPanel mealEditorPanel;
 
-  private static final String NAME = "Name: ";
-  private static final String ADD_RECIPE = "Add Recipe";
-  private static final String RECIPE_ADD = "Recipe Add";
-  private static final String RECIPES = "Recipes";
+//  private static final String NAME = "Name: ";
+//  private static final String ADD_RECIPE = "Add Recipe";
+//  private static final String RECIPE_ADD = "Recipe Add";
+//  private static final String RECIPES = "Recipes";
+  
+  static final Locale         LOCALE  = Locale.getDefault();
+  private static final ResourceBundle STRINGS = KILowBites.STRINGS;
   
   /**
    * Constructor for RecipeEditorContent.
@@ -51,24 +57,24 @@ public class MealEditorContent extends JPanel
     mainMealIFP = new InputFieldPanel();
     if (!isNew)
     {
-      mainMealIFP.addJTextField(NAME, 50, meal.getName());
+      mainMealIFP.addJTextField(STRINGS.getString("NAME"), 50, meal.getName());
     }
     else
     {
-      mainMealIFP.addJTextField(NAME, 50);
+      mainMealIFP.addJTextField(STRINGS.getString("NAME"), 50);
     }
 
     // **** EDITOR PANELS ****
 
     // Recipes
     recipeMealIFP = new InputFieldPanel();
-    recipeMealIFP.addJButton(ADD_RECIPE, RECIPE_ADD, controller);
+    recipeMealIFP.addJButton(STRINGS.getString("ADD_RECIPE"), STRINGS.getString("RECIPE_ADD"), controller);
 
     // creates the panel for recipes
     JPanel editorPanel = new JPanel();
     editorPanel.setLayout(new BorderLayout());
 
-    mealEditorPanel = new EditorPanel(RECIPES, meal, recipeMealIFP, controller, isNew);
+    mealEditorPanel = new EditorPanel(STRINGS.getString("RECIPES"), meal, recipeMealIFP, controller, isNew);
 
     editorPanel.add(mealEditorPanel, BorderLayout.CENTER);
 
@@ -83,7 +89,7 @@ public class MealEditorContent extends JPanel
 
   public String getNameField()
   {
-    return mainMealIFP.getText(NAME);
+    return mainMealIFP.getText(STRINGS.getString("NAME"));
   }
 
   public void reset()

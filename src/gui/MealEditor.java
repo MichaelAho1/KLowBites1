@@ -4,12 +4,15 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JToolBar;
 
+import app.KILowBites;
 import controller.MealEditorController;
 import cooking.Meal;
 import utilities.DocumentState;
@@ -31,13 +34,16 @@ public class MealEditor extends JFrame
 
   JButton[] buttons;
 
-  private static final String KILOWBITES_MEAL_EDITOR = "KILowBites Meal Editor";
+  static final Locale         LOCALE  = Locale.getDefault();
+  private static final ResourceBundle STRINGS = KILowBites.STRINGS;
+  
+//  private static final String KILOWBITES_MEAL_EDITOR = "KILowBites Meal Editor";
   /**
    * Constructor for RecipeEditor.
    */
   public MealEditor(Meal meal, MealEditorController controller, boolean isNew)
   {
-    super(KILOWBITES_MEAL_EDITOR);
+    super(STRINGS.getString("KILOWBITES_MEAL_EDITOR"));
 
     // creates the outer border layout (contains menubar and content)
     outerPane = new Container();

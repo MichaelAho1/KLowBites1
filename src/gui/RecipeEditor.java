@@ -4,12 +4,15 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JToolBar;
 
+import app.KILowBites;
 import controller.RecipeEditorController;
 import cooking.Recipe;
 import utilities.DocumentState;
@@ -23,7 +26,10 @@ import utilities.ImageUtilities;
  */
 public class RecipeEditor extends JFrame
 {
-  private static final String KILOWBITES_RECIPE_EDITOR = "KILowBites Recipe Editor";
+//  private static final String KILOWBITES_RECIPE_EDITOR = "KILowBites Recipe Editor";
+  static final Locale         LOCALE  = Locale.getDefault();
+  private static final ResourceBundle STRINGS = KILowBites.STRINGS;
+  
   Container outerPane;
   JPanel contentPane;
   RecipeEditorContent content;
@@ -41,7 +47,7 @@ public class RecipeEditor extends JFrame
   public RecipeEditor(final Recipe recipe, final RecipeEditorController controller, 
       final boolean isNew)
   {
-    super(KILOWBITES_RECIPE_EDITOR);
+    super(STRINGS.getString("KILOWBITES_RECIPE_EDITOR"));
 
     // creates the outer border layout (contains menubar and content)
     outerPane = new Container();
@@ -55,7 +61,7 @@ public class RecipeEditor extends JFrame
 
     // create toolbar buttons
     buttons = new JButton[5];
-    String[] buttonNames = {"New", "Open", "Save", "Save As", "Close"};
+    String[] buttonNames = {STRINGS.getString("NEW"), STRINGS.getString("OPEN"), STRINGS.getString("SAVE"), STRINGS.getString("SAVE_AS"), STRINGS.getString("CLOSE")};
     String[] buttonPaths = {"img/new.png", "img/open.png", "img/save.png", "img/save_as.png",
         "img/close.png"};
 

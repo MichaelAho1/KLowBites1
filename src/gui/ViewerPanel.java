@@ -1,8 +1,12 @@
 package gui;
 
 import java.awt.*;
+import java.util.Locale;
+import java.util.ResourceBundle;
+
 import javax.swing.*;
 
+import app.KILowBites;
 import controller.MealEditorController;
 import controller.RecipeEditorController;
 import controller.ProcessViewerController;
@@ -24,8 +28,11 @@ public class ViewerPanel extends JPanel
   final String UTENSILS = "Utensils";
   final String INGREDIENTS = "Ingredients";
   final String STEPS = "Steps";
-  private static final String DELETE = "Delete";
-  private static final String RECIPE_DELETE = "Recipe Delete";
+//  private static final String DELETE = "Delete";
+//  private static final String RECIPE_DELETE = "Recipe Delete";
+  static final Locale         LOCALE  = Locale.getDefault();
+  private static final ResourceBundle STRINGS = KILowBites.STRINGS;
+  
   Container contentPane;
 
   // shared variables
@@ -107,7 +114,7 @@ public class ViewerPanel extends JPanel
     scrollPane.setPreferredSize(new Dimension(500, 125));
 
     // creates the delete button
-    deleteButton = new JButton(DELETE);
+    deleteButton = new JButton(STRINGS.getString("DELETE"));
     deleteButton.addActionListener(recipeViewerController);
     deleteButton.setActionCommand(type.getDeleteCommand());
 
@@ -164,13 +171,12 @@ public class ViewerPanel extends JPanel
     scrollPane.setPreferredSize(new Dimension(500, 150));
 
     // creates the delete button
-    deleteButton = new JButton(DELETE);
-    deleteButton.setActionCommand(RECIPE_DELETE);
+    deleteButton = new JButton(STRINGS.getString("DELETE"));
+    deleteButton.setActionCommand(STRINGS.getString("RECIPE_DELETE"));
     deleteButton.addActionListener(controller);
 
     fileViewerPanel.add(scrollPane);
     fileViewerPanel.add(deleteButton);
-
 
     this.add(inputFieldPanel, BorderLayout.NORTH);
     this.add(fileViewerPanel, BorderLayout.CENTER);

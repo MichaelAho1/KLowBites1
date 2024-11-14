@@ -3,9 +3,12 @@ package controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.swing.JFileChooser;
 
+import app.KILowBites;
 import cooking.Ingredients;
 import cooking.Recipe;
 import cooking.Steps;
@@ -24,21 +27,24 @@ import utilities.InputUtilities;
  */
 public class RecipeEditorController implements ActionListener, DocumentStateObserver
 {
-  private static String NEW = "New";
-  private static String OPEN = "Open";
-  private static String SAVE = "Save";
-  private static String SAVE_AS = "Save As";
-  private static String CLOSE = "Close";
+//  private static String NEW = "New";
+//  private static String OPEN = "Open";
+//  private static String SAVE = "Save";
+//  private static String SAVE_AS = "Save As";
+//  private static String CLOSE = "Close";
+//
+//  private static String UTENSIL_ADD = "Utensil Add";
+//  private static String UTENSIL_DELETE = "Utensil Delete";
+//
+//  private static String INGREDIENT_ADD = "Ingredient Add";
+//  private static String INGREDIENT_DELETE = "Ingredient Delete";
+//
+//  private static String STEP_ADD = "Step Add";
+//  private static String STEP_DELETE = "Step Delete";
 
-  private static String UTENSIL_ADD = "Utensil Add";
-  private static String UTENSIL_DELETE = "Utensil Delete";
-
-  private static String INGREDIENT_ADD = "Ingredient Add";
-  private static String INGREDIENT_DELETE = "Ingredient Delete";
-
-  private static String STEP_ADD = "Step Add";
-  private static String STEP_DELETE = "Step Delete";
-
+  static final Locale         LOCALE  = Locale.getDefault();
+  private static final ResourceBundle STRINGS = KILowBites.STRINGS;
+  
   private boolean savedAs = false;
   public static String recipeSavePath = "";
 
@@ -141,7 +147,7 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
     command = e.getActionCommand();
 
     // commands for Toolbar
-    if (command.equals(NEW))
+    if (command.equals(STRINGS.getString("NEW")))
     {
       // ALLOW USERS TO CHOOSE DIRECTORY TO SAVE RECIPE
 
@@ -168,7 +174,7 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
         System.out.println("Directory selection was cancelled.");
       }
     }
-    else if (command.equals(OPEN))
+    else if (command.equals(STRINGS.getString("OPEN")))
     {
       try
       {
@@ -192,7 +198,7 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
         System.out.println("RecipeEditor: user cancelled recipe file selection, caught exception");
       }
     }
-    else if (command.equals(SAVE))
+    else if (command.equals(STRINGS.getString("SAVE")))
     {
       String name = editor.getContent().getNameField();
       String serves = editor.getContent().getServesField();
@@ -224,7 +230,7 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
       state = DocumentState.UNCHANGED;
       editor.updateToolBar(state);
     }
-    else if (command.equals(SAVE_AS))
+    else if (command.equals(STRINGS.getString("SAVE_AS")))
     {
       // save as
       String name = editor.getContent().getNameField();
@@ -252,7 +258,7 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
       state = DocumentState.UNCHANGED;
       editor.updateToolBar(state);
     }
-    else if (command.equals(CLOSE))
+    else if (command.equals(STRINGS.getString("CLOSE")))
     {
       recipe = null;
       recipeSavePath = "";
@@ -263,12 +269,12 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
     }
 
     // commands for Editors
-    else if (command.equals(UTENSIL_ADD))
+    else if (command.equals(STRINGS.getString("UTENSIL_ADD")))
     {
       Utensils utensil = new Utensils();
 
-      String name = editor.getContent().getUtensilIFP().getText("Name: ");
-      String details = editor.getContent().getUtensilIFP().getText("Details: ");
+      String name = editor.getContent().getUtensilIFP().getText(STRINGS.getString("NAME"));
+      String details = editor.getContent().getUtensilIFP().getText(STRINGS.getString("DETAILS"));
 
       if (InputUtilities.isAlphaNumeric(name))
       {
@@ -297,7 +303,7 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
       }
       editor.getContent().updateStepSourcePanel();
     }
-    else if (command.equals(UTENSIL_DELETE))
+    else if (command.equals(STRINGS.getString("UTENSIL_DELETE")))
     {
       try
       {
@@ -326,14 +332,14 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
       editor.getContent().getUtensilPanel().deleteRecipeElement();
       editor.getContent().updateStepSourcePanel();
     }
-    else if (command.equals(INGREDIENT_ADD))
+    else if (command.equals(STRINGS.getString("INGREDIENT_ADD")))
     {
       Ingredients ingredient = new Ingredients();
 
-      String name = editor.getContent().getIngredientIFP().getText("Name: ");
-      String details = editor.getContent().getIngredientIFP().getText("Details: ");
-      String amount = editor.getContent().getIngredientIFP().getText("Amount: ");
-      String unit = editor.getContent().getIngredientIFP().getComboBox("Units: ");
+      String name = editor.getContent().getIngredientIFP().getText(STRINGS.getString("NAME"));
+      String details = editor.getContent().getIngredientIFP().getText(STRINGS.getString("DETAILS"));
+      String amount = editor.getContent().getIngredientIFP().getText(STRINGS.getString("AMOUNT"));
+      String unit = editor.getContent().getIngredientIFP().getComboBox(STRINGS.getString("UNITS"));
 
       if (InputUtilities.isAlphaNumeric(name) && InputUtilities.isPositiveDouble(amount))
       {
@@ -358,7 +364,7 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
       }
       editor.getContent().updateStepSourcePanel();
     }
-    else if (command.equals(INGREDIENT_DELETE))
+    else if (command.equals(STRINGS.getString("INGREDIENT_DELETE")))
     {
       try
       {
@@ -387,14 +393,14 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
       editor.getContent().getIngredientPanel().deleteRecipeElement();
       editor.getContent().updateStepSourcePanel();
     }
-    else if (command.equals(STEP_ADD))
+    else if (command.equals(STRINGS.getString("STEP_ADD")))
     {
       Steps step = new Steps();
 
-      String action = editor.getContent().getStepIFP().getText("Action: ");
-      String on = editor.getContent().getStepIFP().getComboBox("On: ");
-      String utensil = editor.getContent().getStepIFP().getComboBox("Utensil: ");
-      String details = editor.getContent().getStepIFP().getText("Details: ");
+      String action = editor.getContent().getStepIFP().getText(STRINGS.getString("ACTION"));
+      String on = editor.getContent().getStepIFP().getComboBox(STRINGS.getString("ON"));
+      String utensil = editor.getContent().getStepIFP().getComboBox(STRINGS.getString("UTENSIL"));
+      String details = editor.getContent().getStepIFP().getText(STRINGS.getString("DETAILS"));
 
       if (InputUtilities.isAlphaNumeric(action) && !on.equals("") && !utensil.equals(""))
       {
@@ -421,7 +427,7 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
       }
 
     }
-    else if (command.equals(STEP_DELETE))
+    else if (command.equals(STRINGS.getString("STEP_DELETE")))
     {
       try
       {

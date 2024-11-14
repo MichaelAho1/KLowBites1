@@ -4,12 +4,15 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JToolBar;
 
+import app.KILowBites;
 import controller.ProcessViewerController;
 import cooking.Meal;
 import cooking.Recipe;
@@ -24,7 +27,10 @@ import utilities.ImageUtilities;
  */
 public class ProcessViewer extends JFrame
 {
-  private static final String KILOWBITES_RECIPE_VIEWER = "KILowBites Recipe Viewer";
+//  private static final String KILOWBITES_RECIPE_VIEWER = "KILowBites Recipe Viewer";
+  
+  static final Locale         LOCALE  = Locale.getDefault();
+  private static final ResourceBundle STRINGS = KILowBites.STRINGS;
   
   Container outerPane;
   JPanel contentPane;
@@ -37,7 +43,7 @@ public class ProcessViewer extends JFrame
    */
   public ProcessViewer(Recipe recipe, ProcessViewerController recipeViewerController, boolean isNew)
   {
-    super(KILOWBITES_RECIPE_VIEWER + "  " + recipe.getName());
+    super(STRINGS.getString("KILOWBITES_RECIPE_VIEWER") + "  " + recipe.getName());
     // creates the outer border layout (contains menubar and content)
     outerPane = new Container();
 

@@ -6,6 +6,8 @@ import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -16,6 +18,7 @@ import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
+import app.KILowBites;
 import utilities.DocumentState;
 import utilities.DocumentStateObserver;
 import utilities.DocumentStateSubject;
@@ -31,7 +34,10 @@ import utilities.Units;
 public class InputFieldPanel extends JPanel implements DocumentListener, DocumentStateSubject
 {
   private Container contentPane;
-  private static final String UNITS = "Units: ";
+  static final Locale         LOCALE  = Locale.getDefault();
+  private static final ResourceBundle STRINGS = KILowBites.STRINGS;
+  
+//  private static final String UNITS = "Units: ";
 
 
   JPanel inputFields; // the panel for the gui
@@ -232,7 +238,7 @@ public class InputFieldPanel extends JPanel implements DocumentListener, Documen
     }
 
     // re adds the units list
-    this.updateComboBox(UNITS, temp.getAllUnitsPlusIndividual());
+    this.updateComboBox(STRINGS.getString("UNITS"), temp.getAllUnitsPlusIndividual());
   }
 
   /**

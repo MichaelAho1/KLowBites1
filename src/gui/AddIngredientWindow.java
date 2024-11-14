@@ -6,6 +6,8 @@ import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -14,6 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
 
+import app.KILowBites;
 import controller.AddIngredientController;
 import utilities.ImageUtilities;
 
@@ -36,10 +39,12 @@ public class AddIngredientWindow extends JFrame
   public static JTextField ingredientDensityField;
   public static JLabel successfulAdd;
   
-  private static final String ADD_INGREDIENT = "Add Ingredient";
-  private static final String RESET = "Reset";
-  private static final String INGREDIENT_NAME = "Ingredient name:";
+//  private static final String ADD_INGREDIENT = "Add Ingredient";
+//  private static final String RESET = "Reset";
+//  private static final String INGREDIENT_NAME = "Ingredient name:";
 
+  static final Locale         LOCALE  = Locale.getDefault();
+  private static final ResourceBundle STRINGS = KILowBites.STRINGS;
   public AddIngredientWindow()
   {
     super("Add Ingredient to System");
@@ -60,17 +65,17 @@ public class AddIngredientWindow extends JFrame
     JToolBar toolbar = new JToolBar();
     toolbar.setFloatable(false);
 
-    ingredientAddButton = new JButton(ADD_INGREDIENT);
+    ingredientAddButton = new JButton(STRINGS.getString("ADD_INGREDIENT"));
     ingredientAddButton.setEnabled(false);
-    ingredientAddButton.setToolTipText(ADD_INGREDIENT);
-    ingredientAddButton.setActionCommand(ADD_INGREDIENT);
+    ingredientAddButton.setToolTipText(STRINGS.getString("ADD_INGREDIENT"));
+    ingredientAddButton.setActionCommand(STRINGS.getString("ADD_INGREDIENT"));
     ingredientAddButton.addActionListener(controller);
 
     ingredientResetButton = new JButton(
         ImageUtilities.getColoredIconAndScale("img/reset.png", Color.GRAY, 25, 25));
     ingredientResetButton.setEnabled(false);
-    ingredientResetButton.setToolTipText(RESET);
-    ingredientResetButton.setActionCommand(RESET);
+    ingredientResetButton.setToolTipText(STRINGS.getString("RESET"));
+    ingredientResetButton.setActionCommand(STRINGS.getString("RESET"));
     ingredientResetButton.addActionListener(controller);
 
     toolbar.add(ingredientAddButton);
@@ -103,7 +108,7 @@ public class AddIngredientWindow extends JFrame
     gbc.gridy = 0;
     gbc.anchor = GridBagConstraints.WEST;
     gbc.insets = new Insets(10, 20, 10, 10);
-    boxPanel.add(new JLabel(INGREDIENT_NAME), gbc);
+    boxPanel.add(new JLabel(STRINGS.getString("INGREDIENT_NAME")), gbc);
 
     gbc.gridx = 1;
     gbc.gridy = 0;

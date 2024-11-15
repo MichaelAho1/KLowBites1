@@ -42,7 +42,8 @@ public class ImageUtilities
     try
     {
       // Load the original image
-      URL url = KILowBites.class.getResource("/assets/" + name);
+      ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+      URL url = classLoader.getResource(name);
       BufferedImage original = ImageIO.read(url);
 
       // Create a colored version of the original image
@@ -68,12 +69,24 @@ public class ImageUtilities
     }
   }
 
+  /**
+   * Get Scaled image.
+   *
+   * @param path
+   *          Path of image
+   * @param width
+   *          Width of image
+   * @param height
+   *          Height of image
+   * @return scaled image
+   */
   public static ImageIcon getScaledImage(final String name, final int width, final int height)
   {
     try
     {
       // Load the original image
-      URL url = KILowBites.class.getResource("/assets/" + name);
+      ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+      URL url = classLoader.getResource(name);
       BufferedImage original = ImageIO.read(url);
 
       // Scale the colored image

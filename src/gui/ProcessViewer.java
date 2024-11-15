@@ -58,12 +58,12 @@ public class ProcessViewer extends JFrame
     // create toolbar buttons
     buttons = new JButton[1];
     String[] buttonNames = {"Print"};
-    String[] buttonPaths = {"img/print.png"};
+    String[] buttonPaths = {"print.png"};
 
     for (int i = 0; i < buttons.length; i++)
     {
       buttons[i] = new JButton(
-          ImageUtilities.getColoredIconAndScale(buttonPaths[i], Color.GRAY, 25, 25));
+          ImageUtilities.getFormattedImage(buttonPaths[i], Color.GRAY, 25, 25));
       buttons[i].setActionCommand(buttonNames[i]);
       buttons[i].setToolTipText(buttonNames[i]);
       buttons[i].setEnabled(true);
@@ -108,12 +108,12 @@ public class ProcessViewer extends JFrame
 	    // create toolbar buttons
 	    buttons = new JButton[1];
 	    String[] buttonNames = {"Print"};
-	    String[] buttonPaths = {"img/print.png"};
+	    String[] buttonPaths = {"print.png"};
 
 	    for (int i = 0; i < buttons.length; i++)
 	    {
 	      buttons[i] = new JButton(
-	          ImageUtilities.getColoredIconAndScale(buttonPaths[i], Color.GRAY, 25, 25));
+	          ImageUtilities.getFormattedImage(buttonPaths[i], Color.GRAY, 25, 25));
 	      buttons[i].setActionCommand(buttonNames[i]);
 	      buttons[i].setToolTipText(buttonNames[i]);
 	      buttons[i].setEnabled(true);

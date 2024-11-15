@@ -52,6 +52,8 @@ public class AddIngredientWindow extends JFrame
 
     controller = new AddIngredientController();
 
+    this.setBackground(KILowBites.COLOR);
+
     JPanel inputs = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
     setupInputs();
@@ -88,6 +90,8 @@ public class AddIngredientWindow extends JFrame
     setResizable(false);
     setLocationRelativeTo(null);
     setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+    this.setBackground(KILowBites.COLOR);
   }
 
   /**
@@ -99,11 +103,15 @@ public class AddIngredientWindow extends JFrame
     namePanel = new JPanel();
     namePanel.setLayout(new BorderLayout());
 
+    namePanel.setBackground(KILowBites.COLOR);
+
     ingredientNameField = new JTextField(15);
     ingredientNameField.getDocument().addDocumentListener(controller);
 
     JPanel boxPanel = new JPanel(new GridBagLayout());
     GridBagConstraints gbc = new GridBagConstraints();
+
+    boxPanel.setBackground(KILowBites.COLOR);
 
     gbc.gridx = 0;
     gbc.gridy = 0;
@@ -122,10 +130,14 @@ public class AddIngredientWindow extends JFrame
     caloriePanel = new JPanel();
     caloriePanel.setLayout(new BorderLayout());
 
+    caloriePanel.setBackground(KILowBites.COLOR);
+
     ingredientCalorieField = new JTextField(5);
     ingredientCalorieField.getDocument().addDocumentListener(controller);
 
     boxPanel = new JPanel(new GridBagLayout());
+
+    boxPanel.setBackground(KILowBites.COLOR);
 
     gbc.gridx = 0;
     gbc.gridy = 0;
@@ -144,10 +156,14 @@ public class AddIngredientWindow extends JFrame
     densityPanel = new JPanel();
     densityPanel.setLayout(new BorderLayout());
 
+    densityPanel.setBackground(KILowBites.COLOR);
+
     ingredientDensityField = new JTextField(5);
     ingredientDensityField.getDocument().addDocumentListener(controller);
 
     boxPanel = new JPanel(new GridBagLayout());
+
+    boxPanel.setBackground(KILowBites.COLOR);
 
     gbc.gridx = 0;
     gbc.gridy = 0;
@@ -165,6 +181,8 @@ public class AddIngredientWindow extends JFrame
     // SUCCESS PANEL
     successPanel = new JPanel();
     successPanel.setLayout(new BorderLayout());
+
+    successPanel.setBackground(KILowBites.COLOR);
 
     successfulAdd = new JLabel("");
 

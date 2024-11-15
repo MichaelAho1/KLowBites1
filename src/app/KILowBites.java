@@ -47,7 +47,10 @@ public class KILowBites implements Runnable
   // private static final String CALORIE_CALCULATOR = "Calorie Calculator";
   // private static final String UNITS_CONVERTER = "Units Converter";
 
-  private static final Color COLOR = Color.WHITE;
+  // CHANGE THIS LINE TO CHANGE TO COLOR SCHEME
+  public static final Color COLOR = Color.RED;
+
+
   public static ResourceBundle STRINGS;
   static final Locale LOCALE = Locale.getDefault();
 

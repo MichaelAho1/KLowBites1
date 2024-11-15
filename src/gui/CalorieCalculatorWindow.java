@@ -6,6 +6,7 @@ import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.nio.file.WatchEvent.Kind;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -73,6 +74,8 @@ public class CalorieCalculatorWindow extends JFrame
   {
     super((STRINGS.getString("KILOWBITES_CALORIES_CALCULATOR")));
 
+    this.setBackground(KILowBites.COLOR);
+
     controller = new CalorieCalculatorController();
 
     // adding input/output components
@@ -80,7 +83,7 @@ public class CalorieCalculatorWindow extends JFrame
 
     ingredients = KILowBites.FOODS.getFoodNames();
 
-    if (UnitType.getImperialSelected()) 
+    if (UnitType.getImperialSelected())
     {
       units = UnitType.getImperialUnitsSpace();
     } 

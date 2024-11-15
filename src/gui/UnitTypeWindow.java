@@ -40,6 +40,8 @@ public class UnitTypeWindow extends JFrame
   {
     setTitle(STRINGS.getString("UNIT_TYPE_SELECTOR"));
     controller = new UnitTypeController();
+
+    this.setBackground(KILowBites.COLOR);
     
     metricButton = new JButton(STRINGS.getString("METRIC"));
     metricButton.setToolTipText(STRINGS.getString("CHANGE_UNIT_TYPE_TO_METRIC"));

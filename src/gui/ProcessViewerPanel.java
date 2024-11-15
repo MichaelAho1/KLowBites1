@@ -64,8 +64,12 @@ public class ProcessViewerPanel extends JPanel
   {
     super();
 
+    this.setBackground(KILowBites.COLOR);
+
     contentPane = new Container();
     contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
+
+    contentPane.setBackground(KILowBites.COLOR);
 
     // set preferred size for ViewerPanels
     this.setPreferredSize(new Dimension(650, 215));

@@ -50,6 +50,8 @@ public class MealEditor extends JFrame
 
     outerPane.setLayout(new BorderLayout());
 
+    this.setBackground(KILowBites.COLOR);
+
     // creates the tool bar
     JToolBar toolbar = new JToolBar();
     toolbar.setFloatable(false);

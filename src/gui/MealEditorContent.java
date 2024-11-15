@@ -50,6 +50,8 @@ public class MealEditorContent extends JPanel
 
     currentMeal = meal;
 
+    this.setBackground(KILowBites.COLOR);
+
     Container contentPane = new Container();
     contentPane.setLayout(new BorderLayout());
 

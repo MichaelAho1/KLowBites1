@@ -34,6 +34,8 @@ public class CalorieOutputWindow extends JFrame
   {
     super(name);
 
+    this.setBackground(KILowBites.COLOR);
+
     JLabel rmName = new JLabel(name);
     JLabel rmCalories = new JLabel(String.format(LOCALE, "%.2f" + STRINGS.getString("CALORIES_LOWER_CASE"), calories));
     JLabel omittedLabel = null;

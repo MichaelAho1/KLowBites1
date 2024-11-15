@@ -83,6 +83,8 @@ public class EditorPanel extends JPanel
     // creates the editor label border
     this.setBorder(BorderFactory.createTitledBorder(type.getLabel(true)));
 
+    this.setBackground(KILowBites.COLOR);
+
     // creates the file editor
     fileEditorPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
 

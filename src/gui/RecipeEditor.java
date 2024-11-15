@@ -29,7 +29,7 @@ public class RecipeEditor extends JFrame
 //  private static final String KILOWBITES_RECIPE_EDITOR = "KILowBites Recipe Editor";
   static final Locale         LOCALE  = Locale.getDefault();
   private static final ResourceBundle STRINGS = KILowBites.STRINGS;
-  
+
   Container outerPane;
   JPanel contentPane;
   RecipeEditorContent content;
@@ -58,6 +58,8 @@ public class RecipeEditor extends JFrame
     JToolBar toolbar = new JToolBar();
     toolbar.setFloatable(false);
     toolbar.setRollover(true);
+
+    this.setBackground(KILowBites.COLOR);
 
     // create toolbar buttons
     buttons = new JButton[5];

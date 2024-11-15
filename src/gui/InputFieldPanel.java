@@ -60,6 +60,8 @@ public class InputFieldPanel extends JPanel implements DocumentListener, Documen
 
     observers = new ArrayList<DocumentStateObserver>();
 
+    this.setBackground(KILowBites.COLOR);
+
     contentPane = new Container();
     contentPane.setLayout(new BorderLayout());
 

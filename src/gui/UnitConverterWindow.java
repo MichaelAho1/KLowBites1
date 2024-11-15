@@ -73,6 +73,8 @@ public class UnitConverterWindow extends JFrame
 
     controller = new UnitConverterController();
 
+    this.setBackground(KILowBites.COLOR);
+
     if (UnitType.getImperialSelected()) 
     {
       units = UnitType.getImperialUnitsSpace();
@@ -117,6 +119,8 @@ public class UnitConverterWindow extends JFrame
     toolbar.add(unitResetButton);
 
     getContentPane().add(toolbar, BorderLayout.NORTH);
+
+    getContentPane().setBackground(KILowBites.COLOR);
 
     setSize(720, 200);
     setResizable(false);

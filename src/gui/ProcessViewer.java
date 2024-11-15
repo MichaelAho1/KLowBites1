@@ -95,6 +95,8 @@ public class ProcessViewer extends JFrame
 
     processOuterPane.setLayout(new BorderLayout());
 
+    processOuterPane.setBackground(KILowBites.COLOR);
+
     // creates the tool bar
     JToolBar toolbar = new JToolBar();
     toolbar.setFloatable(false);

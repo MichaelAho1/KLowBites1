@@ -83,6 +83,8 @@ public class RecipeEditorContent extends JPanel
 
     units = new Units();
 
+    this.setBackground(KILowBites.COLOR);
+
     // **** INPUT FIELDS ****
 
     // adds all the elements to the input fields

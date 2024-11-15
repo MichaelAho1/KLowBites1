@@ -53,6 +53,8 @@ public class ProcessViewerContent extends JPanel
 
     currentRecipe = recipe;
 
+    this.setBackground(KILowBites.COLOR);
+
     contentPane = new Container();
     contentPane.setLayout(new BorderLayout());
 

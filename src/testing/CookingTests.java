@@ -53,7 +53,7 @@ class CookingTests
 	  assertEquals("(sliced ripe)", ing.getDetails());
 	  assertEquals("bananas", ing.getName());
 	  
-	  assertEquals("3.0 individual of (sliced ripe) bananas", ing.toString());
+	  assertEquals("3.0 individual of(sliced ripe) bananas", ing.toString());
 	  ing.add();
   }
   @Test

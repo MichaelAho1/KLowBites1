@@ -3,6 +3,7 @@ import cooking.Ingredients;
 import cooking.Recipe;
 import cooking.Utensils;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
 
@@ -12,7 +13,7 @@ public class RecipeTest {
         testUtensilSorting();
         testIngredientSorting();
     }
-
+    
     public static void testUtensilSorting() {
         // Create a new recipe
         Recipe recipe = new Recipe("Test Recipe", 4);
@@ -21,6 +22,7 @@ public class RecipeTest {
         recipe.addUtensils(new Utensils("Pan", "Frying"));
         recipe.addUtensils(new Utensils("Marmit", "Cooking"));
         recipe.addUtensils(new Utensils("Bowl", "Mixing"));
+        recipe.removeUtensils(new Utensils("Pan", "Frying")); 
 
         // Get the list of sorted utensils
         List<Utensils> utensils = recipe.getUtensils();
@@ -49,7 +51,7 @@ public class RecipeTest {
         recipe.addIngredient(new Ingredients(500, "grams", "", "Flour"));
         recipe.addIngredient(new Ingredients(200, "grams", "", "Sugar"));
         recipe.addIngredient(new Ingredients(250, "grams", "", "Butter"));
-
+        recipe.removeIngredients(new Ingredients(250, "grams", "", "Butter"));
         // Get the list of sorted ingredients
         List<Ingredients> ingredients = recipe.getIngredients();
 

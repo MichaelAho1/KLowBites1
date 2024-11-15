@@ -29,13 +29,14 @@ public class UnitTypeController implements ActionListener
       UnitTypeWindow.metricButton.setEnabled(true);
       UnitTypeWindow.titleLabel.setText("Current Unit Type: Imperial");
       UnitType.setImperialSelected();
-      //imperial
+      System.out.println("Changing to Imperial Units");
     } else 
     {
       UnitTypeWindow.imperialButton.setEnabled(true);
       UnitTypeWindow.metricButton.setEnabled(false);
       UnitTypeWindow.titleLabel.setText("Current Unit Type: Metric");
       UnitType.setMetricSelected();
+      System.out.println("Changing to Metric Units");
     }
   }
 }

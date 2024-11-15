@@ -2,11 +2,6 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-<<<<<<< HEAD
-=======
-import java.awt.print.PrinterJob;
-import java.io.File;
->>>>>>> branch 'main' of https://github.com/bernstdh/f24team3d
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -14,10 +9,6 @@ import java.util.ResourceBundle;
 import app.KILowBites;
 import cooking.Meal;
 import cooking.Recipe;
-<<<<<<< HEAD
-=======
-import gui.CalorieOutputWindow;
->>>>>>> branch 'main' of https://github.com/bernstdh/f24team3d
 import gui.DelegatingPrintable;
 import gui.ProcessViewer;
 import utilities.FileUtilities;
@@ -94,21 +85,6 @@ public class ProcessViewerController implements ActionListener
   {
     String command = e.getActionCommand();
 
-<<<<<<< HEAD
-=======
-    command = e.getActionCommand();
-
-    if (command.equals(STRINGS.getString("PRINT")))
-      {
-    	DelegatingPrintable dp = new DelegatingPrintable(viewer.getContent());
-//    	PrinterJob pj = PrinterJob.getPrinterJob();
-    	
-//    	dp.print(viewer.getGraphics(), pj.defaultPage(), 1);
-    	
-//    	PrinterController pc = new PrinterController();
-    	PrinterController.print(dp, viewer);
-      }
->>>>>>> branch 'main' of https://github.com/bernstdh/f24team3d
     // commands for Toolbar
     if (command.equals(PRINT))
     {

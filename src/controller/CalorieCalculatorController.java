@@ -18,6 +18,7 @@ import cooking.Recipe;
 import gui.CalorieCalculatorWindow;
 import gui.CalorieOutputWindow;
 import utilities.FileUtilities;
+import utilities.InputUtilities;
 
 /**
  * Controller for actions in CalorieCalculatorWindow.
@@ -28,14 +29,14 @@ import utilities.FileUtilities;
 
 public class CalorieCalculatorController implements ActionListener, DocumentListener
 {
-//  private static final String CALCULATE = "Calculate";
-//  private static final String RESET = "Reset";
-//  private static final String CHOOSE_INGREDIENT = "Choose Ingredient";
-//  private static final String CHOOSE_UNIT = "Choose Unit";
-//  private static final String OPEN = "Open";
-  static final Locale         LOCALE  = Locale.getDefault();
+  // private static final String CALCULATE = "Calculate";
+  // private static final String RESET = "Reset";
+  // private static final String CHOOSE_INGREDIENT = "Choose Ingredient";
+  // private static final String CHOOSE_UNIT = "Choose Unit";
+  // private static final String OPEN = "Open";
+  static final Locale LOCALE = Locale.getDefault();
   private static final ResourceBundle STRINGS = KILowBites.STRINGS;
-  
+
   private String omitted;
 
   @Override
@@ -93,14 +94,16 @@ public class CalorieCalculatorController implements ActionListener, DocumentList
           Recipe recipe = (Recipe) data.get(1);
 
           calories = calculateRecipe(recipe);
-          output = new CalorieOutputWindow(separateByCapital(openedFile), omitted, calories);
+          output = new CalorieOutputWindow(InputUtilities.separateByCapital(openedFile), omitted,
+              calories);
         }
         else
         {
           Meal meal = (Meal) data.get(1);
 
           calories = calculateMeal(meal);
-          output = new CalorieOutputWindow(separateByCapital(openedFile), omitted, calories);
+          output = new CalorieOutputWindow(InputUtilities.separateByCapital(openedFile), omitted,
+              calories);
         }
       }
 
@@ -283,20 +286,6 @@ public class CalorieCalculatorController implements ActionListener, DocumentList
     }
 
     return calories;
-  }
-
-  private String separateByCapital(String input)
-  {
-    // Remove the .rcp/.mel extension if present
-    if (input.endsWith(".rcp") || input.endsWith(".mel"))
-    {
-      input = input.substring(0, input.length() - 4);
-    }
-
-    // Use a regular expression to add a space before each capital letter, except the first one
-    String separated = input.replaceAll("(?<!^)([A-Z])", " $1");
-
-    return separated;
   }
 
   /**

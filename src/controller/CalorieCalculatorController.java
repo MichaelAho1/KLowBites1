@@ -40,7 +40,7 @@ public class CalorieCalculatorController implements ActionListener, DocumentList
   private String omitted;
 
   @Override
-  public void actionPerformed(ActionEvent e)
+  public void actionPerformed(final ActionEvent e)
   {
     String ac = e.getActionCommand();
 
@@ -112,21 +112,21 @@ public class CalorieCalculatorController implements ActionListener, DocumentList
   }
 
   @Override
-  public void insertUpdate(DocumentEvent e)
+  public void insertUpdate(final DocumentEvent e)
   {
     updateResetButton();
     updateCalculateButton();
   }
 
   @Override
-  public void removeUpdate(DocumentEvent e)
+  public void removeUpdate(final DocumentEvent e)
   {
     updateResetButton();
     updateCalculateButton();
   }
 
   @Override
-  public void changedUpdate(DocumentEvent e)
+  public void changedUpdate(final DocumentEvent e)
   {
     updateResetButton();
     updateCalculateButton();

@@ -54,23 +54,6 @@ public class KILowBites implements Runnable
   private String[] args;
 
   /**
-   * The entry point of the application.
-   *
-   * @param args
-   *          The command-line arguments (ignored)
-   * @throws InterruptedException
-   *           If the system is interrupted
-   * @throws InvocationTargetException
-   *           If there is a problem starting the system
-   */
-  public static void main(String[] args) throws InterruptedException, InvocationTargetException
-  {
-
-    // Perform all of the setup activities in the event dispatch thread
-    SwingUtilities.invokeAndWait(new KILowBites(args));
-  }
-
-  /**
    * Explicit Value Constructor.
    *
    * @param args
@@ -102,13 +85,29 @@ public class KILowBites implements Runnable
       Locale.setDefault(LOCALE.US);
     }
 
-
-
     // Locale.setDefault(new Locale("es", "ES")); // Uncomment for Spanish
     // Locale.setDefault(LOCALE.FRANCE); // Uncomment for French
 
     System.out.println("Current Locale: " + Locale.getDefault());
     STRINGS = ResourceBundle.getBundle("Strings");
+  }
+
+  /**
+   * The entry point of the application.
+   *
+   * @param args
+   *          The command-line arguments (ignored)
+   * @throws InterruptedException
+   *           If the system is interrupted
+   * @throws InvocationTargetException
+   *           If there is a problem starting the system
+   */
+  public static void main(final String[] args)
+      throws InterruptedException, InvocationTargetException
+  {
+
+    // Perform all of the setup activities in the event dispatch thread
+    SwingUtilities.invokeAndWait(new KILowBites(args));
   }
 
   /**
@@ -220,7 +219,7 @@ public class KILowBites implements Runnable
     frame.setVisible(true);
   }
 
-  private void setLookAndFeel(String selection)
+  private void setLookAndFeel(final String selection)
   {
     // Setup the look and feel
     boolean done = false;

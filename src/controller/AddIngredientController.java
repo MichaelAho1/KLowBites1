@@ -15,15 +15,14 @@ import utilities.InputUtilities;
 
 public class AddIngredientController implements ActionListener, DocumentListener
 {
-  static final Locale         LOCALE  = Locale.getDefault();
+  static final Locale LOCALE = Locale.getDefault();
   private static final ResourceBundle STRINGS = KILowBites.STRINGS;
 
-  
-//  private static final String ADD_INGREDIENT = "Add Ingredient";
-//  private static final String RESET = "Reset";
+  // private static final String ADD_INGREDIENT = "Add Ingredient";
+  // private static final String RESET = "Reset";
 
   @Override
-  public void actionPerformed(ActionEvent e)
+  public void actionPerformed(final ActionEvent e)
   {
     String ac = e.getActionCommand();
 
@@ -41,7 +40,7 @@ public class AddIngredientController implements ActionListener, DocumentListener
   }
 
   @Override
-  public void insertUpdate(DocumentEvent e)
+  public void insertUpdate(final DocumentEvent e)
   {
     updateResetButton();
     updateAddButton();
@@ -49,7 +48,7 @@ public class AddIngredientController implements ActionListener, DocumentListener
   }
 
   @Override
-  public void removeUpdate(DocumentEvent e)
+  public void removeUpdate(final DocumentEvent e)
   {
     updateResetButton();
     updateAddButton();
@@ -57,7 +56,7 @@ public class AddIngredientController implements ActionListener, DocumentListener
   }
 
   @Override
-  public void changedUpdate(DocumentEvent e)
+  public void changedUpdate(final DocumentEvent e)
   {
     updateResetButton();
     updateAddButton();
@@ -106,11 +105,13 @@ public class AddIngredientController implements ActionListener, DocumentListener
 
     if (success)
     {
-      AddIngredientWindow.successfulAdd.setText(String.format(LOCALE, STRINGS.getString("SUCCESSFULLY_ADDED") + " %s!", ingreName));
+      AddIngredientWindow.successfulAdd.setText(
+          String.format(LOCALE, STRINGS.getString("SUCCESSFULLY_ADDED") + " %s!", ingreName));
     }
     else
     {
-      AddIngredientWindow.successfulAdd.setText(String.format(LOCALE, STRINGS.getString("ALREADY_IN_SYSTEM"), ingreName));
+      AddIngredientWindow.successfulAdd
+          .setText(String.format(LOCALE, STRINGS.getString("ALREADY_IN_SYSTEM"), ingreName));
     }
     System.out.println(Arrays.toString(KILowBites.FOODS.getFoodNames()));
   }

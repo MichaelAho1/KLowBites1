@@ -25,7 +25,7 @@ public class ProcessViewerPanel extends JPanel
 {
   // strings needed to determine the type of the input, needed since no interface
   final String UTENSILS = "Utensils";
-  final String INGREDIENTS = "Ingredients";
+//  final String INGREDIENTS = "Ingredients";
   final String STEPS = "Steps";
 //  private static final String DELETE = "Delete";
 //  private static final String RECIPE_DELETE = "Recipe Delete";
@@ -83,14 +83,14 @@ public class ProcessViewerPanel extends JPanel
           recipeFileArea.addElement(utensil);
         }
       }
-      else if (type == RecipeElementType.INGREDIENT)
-      {
-        recipeFileArea.clear();
-        for (Ingredients ingredient : recipe.getIngredients())
-        {
-          recipeFileArea.addElement(ingredient);
-        }
-      }
+//      else if (type == RecipeElementType.INGREDIENT)
+//      {
+//        recipeFileArea.clear();
+//        for (Ingredients ingredient : recipe.getIngredients())
+//        {
+//          recipeFileArea.addElement(ingredient);
+//        }
+//      }
       else if (type == RecipeElementType.STEP)
       {
         recipeFileArea.clear();
@@ -216,24 +216,24 @@ public class ProcessViewerPanel extends JPanel
     return mealList;
   }
 
-  public Ingredients getSelectedIngredient(String name)
-  {
-    Ingredients[] ingredient = new Ingredients[recipeList.getModel().getSize()];
-
-    for (int i = 0; i < ingredient.length; i++)
-    {
-      ingredient[i] = (Ingredients) recipeList.getModel().getElementAt(i);
-    }
-
-    for (int i = 0; i < ingredient.length; i++)
-    {
-      if (ingredient[i].getName().equals(name))
-      {
-        return ingredient[i];
-      }
-    }
-    return null;
-  }
+//  public Ingredients getSelectedIngredient(String name)
+//  {
+//    Ingredients[] ingredient = new Ingredients[recipeList.getModel().getSize()];
+//
+//    for (int i = 0; i < ingredient.length; i++)
+//    {
+//      ingredient[i] = (Ingredients) recipeList.getModel().getElementAt(i);
+//    }
+//
+//    for (int i = 0; i < ingredient.length; i++)
+//    {
+//      if (ingredient[i].getName().equals(name))
+//      {
+//        return ingredient[i];
+//      }
+//    }
+//    return null;
+//  }
 
   public Utensils getSelectedUtensil(String name)
   {

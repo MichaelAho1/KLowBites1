@@ -137,7 +137,7 @@ public class Ingredients implements RecipeElement, StepSource, Serializable
   @Override
   public String toString()
   {
-    return amount + " " + units + " of " + details + " " + name;
+    return amount + " " + units + " of" + details + " " + name;
   }
 
   /**

@@ -48,7 +48,7 @@ public class KILowBites implements Runnable
   // private static final String UNITS_CONVERTER = "Units Converter";
 
   // CHANGE THIS LINE TO CHANGE TO COLOR SCHEME
-  public static final Color COLOR = Color.RED;
+  public static final Color COLOR = null;
 
 
   public static ResourceBundle STRINGS;

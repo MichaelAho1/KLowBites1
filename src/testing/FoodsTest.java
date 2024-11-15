@@ -19,6 +19,7 @@ class FoodsTest
   void testFoods()
   {
     Foods foods = new Foods();
+    foods.getDefualtFoods();
     assertEquals(83, foods.getSize());
 
     String[] foodNames = foods.getFoodNames();

@@ -148,7 +148,15 @@ public class Foods
       return true;
     }
   }
-
+  
+  /**
+   * Gets default list of foods provided.
+   * 
+   * @return Default list of foods.
+   */
+  public Map<String, double[]> getDefualtFoods() {
+    return defaultFoods();
+  }
   /**
    * Returns default list of foods provided.
    * 

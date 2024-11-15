@@ -11,6 +11,7 @@ class UnitTypeTest
   @Test
   void test()
   {
+    UnitType u1 = new UnitType();
     String[] imperialUnits = UnitType.getImperialUnits();
     String[] imperialUnitsSpace = UnitType.getImperialUnitsSpace();
     String[] imperialUnitsIndividual = UnitType.getImperialUnitsIndividual();

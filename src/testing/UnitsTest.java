@@ -24,8 +24,8 @@ class UnitsTest
     assertEquals(13, units.getUnits().size());
 
     String[] allUnits = units.getAllUnits();
-    String[] massUnits = units.getMassUnits();
-    String[] volumeUnits = units.getVolumeUnits();
+    String[] massUnits = Units.getMassUnits();
+    String[] volumeUnits = Units.getVolumeUnits();
 
     assertEquals(14, allUnits.length);
     assertEquals("Dram", allUnits[2]);
@@ -38,6 +38,15 @@ class UnitsTest
 
     assertEquals("Volume", units.unitMeasure("Milliliter"));
     assertEquals("Mass", units.unitMeasure("Pound"));
+    
+    String[] allUnitsPlusIndividual = units.getAllUnitsPlusIndividual();
+    String[] AllUnitsNoPadding = units.getAllUnitsNoPadding();
+    
+    assertEquals(15, allUnitsPlusIndividual.length);
+    assertEquals("Individual", allUnitsPlusIndividual[1]);
+    
+    assertEquals(14, AllUnitsNoPadding.length);
+    assertEquals("Dram", AllUnitsNoPadding[1]);
   }
 
 }

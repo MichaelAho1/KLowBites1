@@ -2,6 +2,7 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.print.PrinterJob;
 import java.io.File;
 import java.util.List;
 import java.util.Locale;
@@ -13,6 +14,7 @@ import app.KILowBites;
 import cooking.Meal;
 import cooking.Recipe;
 import gui.CalorieOutputWindow;
+import gui.DelegatingPrintable;
 import gui.ProcessViewer;
 import utilities.DocumentState;
 import utilities.DocumentStateObserver;
@@ -171,7 +173,15 @@ public class ProcessViewerController implements ActionListener, DocumentStateObs
     command = e.getActionCommand();
 
     if (command.equals(STRINGS.getString("PRINT")))
-      {}
+      {
+    	DelegatingPrintable dp = new DelegatingPrintable(viewer.getContent());
+//    	PrinterJob pj = PrinterJob.getPrinterJob();
+    	
+//    	dp.print(viewer.getGraphics(), pj.defaultPage(), 1);
+    	
+//    	PrinterController pc = new PrinterController();
+    	PrinterController.print(dp, viewer);
+      }
     // commands for Toolbar
 //    if (command.equals(NEW))
 //    {

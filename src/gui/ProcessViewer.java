@@ -152,6 +152,17 @@ public class ProcessViewer extends JFrame
   {
     return content;
   }
+  
+  /**
+   * Prints the Content Pane
+   *
+   * @return the content pane
+   */
+  public ProcessViewerContent printContent()
+  {
+    return content;
+  }
+
 
   /**
    * Resets the Recipe Viewer

@@ -62,13 +62,13 @@ public class RecipeEditor extends JFrame
     // create toolbar buttons
     buttons = new JButton[5];
     String[] buttonNames = {STRINGS.getString("NEW"), STRINGS.getString("OPEN"), STRINGS.getString("SAVE"), STRINGS.getString("SAVE_AS"), STRINGS.getString("CLOSE")};
-    String[] buttonPaths = {"img/new.png", "img/open.png", "img/save.png", "img/save_as.png",
-        "img/close.png"};
+    String[] buttonPaths = {"new.png", "open.png", "save.png", "save_as.png",
+        "close.png"};
 
     for (int i = 0; i < buttons.length; i++)
     {
       buttons[i] = new JButton(
-          ImageUtilities.getColoredIconAndScale(buttonPaths[i], Color.GRAY, 25, 25));
+          ImageUtilities.getFormattedImage(buttonPaths[i], Color.GRAY, 25, 25));
       buttons[i].setActionCommand(buttonNames[i]);
       buttons[i].setToolTipText(buttonNames[i]);
       buttons[i].setEnabled(true);

@@ -104,21 +104,21 @@ public class CalorieCalculatorWindow extends JFrame
     toolbar.setFloatable(false);
 
     calorieCalcButton = new JButton(
-        ImageUtilities.getColoredIconAndScale("img/calculate.png", Color.GRAY, 25, 25));
+        ImageUtilities.getFormattedImage("calculate.png", Color.GRAY, 25, 25));
     calorieCalcButton.setEnabled(false);
     calorieCalcButton.setToolTipText((STRINGS.getString("CALCULATE")));
     calorieCalcButton.setActionCommand((STRINGS.getString("CALCULATE")));
     calorieCalcButton.addActionListener(controller);
 
     calorieResetButton = new JButton(
-        ImageUtilities.getColoredIconAndScale("img/reset.png", Color.GRAY, 25, 25));
+        ImageUtilities.getFormattedImage("reset.png", Color.GRAY, 25, 25));
     calorieResetButton.setEnabled(false);
     calorieResetButton.setToolTipText((STRINGS.getString("RESET")));
     calorieResetButton.setActionCommand((STRINGS.getString("RESET")));
     calorieResetButton.addActionListener(controller);
 
     calorieOpenButton = new JButton(
-        ImageUtilities.getColoredIconAndScale("img/open.png", Color.GRAY, 25, 25));
+        ImageUtilities.getFormattedImage("open.png", Color.GRAY, 25, 25));
     calorieOpenButton.setToolTipText((STRINGS.getString("OPEN_RECIPE_MEAL")));
     calorieOpenButton.setActionCommand((STRINGS.getString("OPEN")));
     calorieOpenButton.addActionListener(controller);

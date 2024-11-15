@@ -205,7 +205,7 @@ public class KILowBites implements Runnable
 
     // Creates the logo in the main panel
     JPanel logoPanel = new JPanel();
-    JLabel logo = new JLabel(ImageUtilities.getImage("img/KILowBites_Logo.png", 200, 80));
+    JLabel logo = new JLabel(ImageUtilities.getScaledImage("KILowBites_Logo.png", 200, 80));
     logoPanel.add(logo);
 
     // Set the background color of the logo panel to white to match the content pane

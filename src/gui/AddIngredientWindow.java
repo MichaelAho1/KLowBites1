@@ -73,7 +73,7 @@ public class AddIngredientWindow extends JFrame
     ingredientAddButton.addActionListener(controller);
 
     ingredientResetButton = new JButton(
-        ImageUtilities.getColoredIconAndScale("img/reset.png", Color.GRAY, 25, 25));
+        ImageUtilities.getFormattedImage("reset.png", Color.GRAY, 25, 25));
     ingredientResetButton.setEnabled(false);
     ingredientResetButton.setToolTipText(STRINGS.getString("RESET"));
     ingredientResetButton.setActionCommand(STRINGS.getString("RESET"));

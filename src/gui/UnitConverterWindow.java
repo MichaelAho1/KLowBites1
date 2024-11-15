@@ -100,14 +100,14 @@ public class UnitConverterWindow extends JFrame
     toolbar.setFloatable(false);
 
     unitCalcButton = new JButton(
-        ImageUtilities.getColoredIconAndScale("img/calculate.png", Color.GRAY, 25, 25));
+        ImageUtilities.getFormattedImage("calculate.png", Color.GRAY, 25, 25));
     unitCalcButton.setEnabled(false);
     unitCalcButton.setToolTipText(STRINGS.getString("CALCULATE"));
     unitCalcButton.setActionCommand(STRINGS.getString("CALCULATE"));
     unitCalcButton.addActionListener(controller);
 
     unitResetButton = new JButton(
-        ImageUtilities.getColoredIconAndScale("img/reset.png", Color.GRAY, 25, 25));
+        ImageUtilities.getFormattedImage("reset.png", Color.GRAY, 25, 25));
     unitResetButton.setEnabled(false);
     unitResetButton.setToolTipText(STRINGS.getString("RESET"));
     unitResetButton.setActionCommand(STRINGS.getString("RESET"));

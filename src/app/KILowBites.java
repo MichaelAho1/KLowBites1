@@ -38,7 +38,6 @@ public class KILowBites implements Runnable
   // CHANGE THIS LINE TO CHANGE TO COLOR SCHEME
   public static final Color COLOR = null;
 
-
   public static ResourceBundle STRINGS;
   static Locale LOCALE;
 
@@ -56,32 +55,33 @@ public class KILowBites implements Runnable
     this.args = args;
 
     // set the language if its specified
-//    try
-//    {
-//      if (args[0].equals("es"))
-//      {
-//        Locale.setDefault(new Locale("es", "ES"));
-//      }
-//      else if (args[0].equals("fr"))
-//      {
-//        Locale.setDefault(LOCALE.FRANCE);
-//      }
-//      else
-//      {
-//        Locale.setDefault(LOCALE.US);
-//      }
-//    }
-//    catch (Exception e) // set language to english by default
-//    {
-//      Locale.setDefault(LOCALE.US);
-//    }
-    
-    LOCALE = Locale.getDefault();
+    // try
+    // {
+    // if (args[0].equals("es"))
+    // {
+    // Locale.setDefault(new Locale("es", "ES"));
+    // }
+    // else if (args[0].equals("fr"))
+    // {
+    // Locale.setDefault(LOCALE.FRANCE);
+    // }
+    // else
+    // {
+    // Locale.setDefault(LOCALE.US);
+    // }
+    // }
+    // catch (Exception e) // set language to english by default
+    // {
+    // Locale.setDefault(LOCALE.US);
+    // }
 
+    LOCALE = Locale.getDefault();
 
     // Locale.setDefault(new Locale("es", "ES")); // Uncomment for Spanish
     // Locale.setDefault(LOCALE.FRANCE); // Uncomment for French
 
+    // TODO Make it so that we can use java "-Duser.language=fr" -jar KILowBites.jar for french and
+    // the one for spanish
     STRINGS = ResourceBundle.getBundle("Strings", LOCALE);
     System.out.println("Current Locale: " + LOCALE);
 

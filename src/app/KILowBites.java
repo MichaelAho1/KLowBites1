@@ -35,24 +35,12 @@ public class KILowBites implements Runnable
   public static final Foods FOODS = new Foods();
   public static final Units UNITS = new Units();
 
-  // private static final String FILE = "File";
-  // private static final String MAIN_WINDOW = "KILowBites Main Window";
-  // private static final String EXIT = "Exit";
-  // private static final String EDIT = "Edit";
-  // private static final String RECIPE = "Recipe";
-  // private static final String MEAL = "Meal";
-  // private static final String VIEW = "View";
-  // private static final String PROCESS = "Process";
-  // private static final String TOOLS = "Tools";
-  // private static final String CALORIE_CALCULATOR = "Calorie Calculator";
-  // private static final String UNITS_CONVERTER = "Units Converter";
-
   // CHANGE THIS LINE TO CHANGE TO COLOR SCHEME
   public static final Color COLOR = null;
 
 
   public static ResourceBundle STRINGS;
-  static final Locale LOCALE = Locale.getDefault();
+  static Locale LOCALE;
 
   private String[] args;
 
@@ -68,31 +56,35 @@ public class KILowBites implements Runnable
     this.args = args;
 
     // set the language if its specified
-    try
-    {
-      if (args[0].equals("es"))
-      {
-        Locale.setDefault(new Locale("es", "ES"));
-      }
-      else if (args[0].equals("fr"))
-      {
-        Locale.setDefault(LOCALE.FRANCE);
-      }
-      else
-      {
-        Locale.setDefault(LOCALE.US);
-      }
-    }
-    catch (Exception e) // set language to english by default
-    {
-      Locale.setDefault(LOCALE.US);
-    }
+//    try
+//    {
+//      if (args[0].equals("es"))
+//      {
+//        Locale.setDefault(new Locale("es", "ES"));
+//      }
+//      else if (args[0].equals("fr"))
+//      {
+//        Locale.setDefault(LOCALE.FRANCE);
+//      }
+//      else
+//      {
+//        Locale.setDefault(LOCALE.US);
+//      }
+//    }
+//    catch (Exception e) // set language to english by default
+//    {
+//      Locale.setDefault(LOCALE.US);
+//    }
+    
+    LOCALE = Locale.getDefault();
+
 
     // Locale.setDefault(new Locale("es", "ES")); // Uncomment for Spanish
     // Locale.setDefault(LOCALE.FRANCE); // Uncomment for French
 
-    System.out.println("Current Locale: " + Locale.getDefault());
-    STRINGS = ResourceBundle.getBundle("Strings");
+    STRINGS = ResourceBundle.getBundle("Strings", LOCALE);
+    System.out.println("Current Locale: " + LOCALE);
+
   }
 
   /**

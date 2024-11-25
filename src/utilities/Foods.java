@@ -148,15 +148,29 @@ public class Foods
       return true;
     }
   }
-  
+
+  /**
+   * Check if food list already contains ingredient.
+   * 
+   * @param name
+   *          Name of ingredient
+   * @return whether list contains name
+   */
+  public boolean containsFood(String name)
+  {
+    return foods.containsKey(name);
+  }
+
   /**
    * Gets default list of foods provided.
    * 
    * @return Default list of foods.
    */
-  public Map<String, double[]> getDefualtFoods() {
+  public Map<String, double[]> getDefaultFoods()
+  {
     return defaultFoods();
   }
+
   /**
    * Returns default list of foods provided.
    * 

@@ -52,18 +52,18 @@ public class UnitConverterWindow extends JFrame
   public static JTextField fromAmountField;
   public static JLabel unitOutputField;
 
-//  private static final String CALCULATE = "Calculate";
-//  private static final String RESET = "Reset";
-//  private static final String FROM_UNITS = "From Units:";
-//  private static final String TO_UNITS = "To Units:";
-//  private static final String INGREDIENT = "Ingredient:";
-//  private static final String AMOUNT = "Amount:";
-//  private static final String TO_AMOUNT = "To Amount:";
-//  private static final String CHOOSE_INGREDIENT =  "Choose Ingredient";
-  
-  static final Locale         LOCALE  = Locale.getDefault();
+  // private static final String CALCULATE = "Calculate";
+  // private static final String RESET = "Reset";
+  // private static final String FROM_UNITS = "From Units:";
+  // private static final String TO_UNITS = "To Units:";
+  // private static final String INGREDIENT = "Ingredient:";
+  // private static final String AMOUNT = "Amount:";
+  // private static final String TO_AMOUNT = "To Amount:";
+  // private static final String CHOOSE_INGREDIENT = "Choose Ingredient";
+
+  static final Locale LOCALE = Locale.getDefault();
   private static final ResourceBundle STRINGS = KILowBites.STRINGS;
-  
+
   /**
    * Default constructor.
    */
@@ -75,11 +75,11 @@ public class UnitConverterWindow extends JFrame
 
     this.setBackground(KILowBites.COLOR);
 
-    if (UnitType.getImperialSelected()) 
+    if (UnitType.getImperialSelected())
     {
       units = UnitType.getImperialUnitsSpace();
-    } 
-    else 
+    }
+    else
     {
       units = UnitType.getMetricUnitsSpace();
     }
@@ -122,7 +122,7 @@ public class UnitConverterWindow extends JFrame
 
     getContentPane().setBackground(KILowBites.COLOR);
 
-    setSize(720, 200);
+    setSize(750, 200);
     setResizable(false);
     setLocationRelativeTo(null);
     setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -269,7 +269,6 @@ public class UnitConverterWindow extends JFrame
     return (String) fromUnitsMenu.getSelectedItem();
   }
 
-  
   /**
    * Gets the selected to Item.
    * 
@@ -279,7 +278,7 @@ public class UnitConverterWindow extends JFrame
   {
     return (String) toUnitsMenu.getSelectedItem();
   }
-  
+
   /**
    * Gets the selected Ingredient.
    * 

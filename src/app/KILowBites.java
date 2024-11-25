@@ -83,6 +83,9 @@ public class KILowBites implements Runnable
     // TODO Make it so that we can use java "-Duser.language=fr" -jar KILowBites.jar for french and
     // the one for spanish
     STRINGS = ResourceBundle.getBundle("Strings", LOCALE);
+    // STRINGS = ResourceBundle.getBundle("Strings", new Locale("es", "ES"));
+    // STRINGS = ResourceBundle.getBundle("Strings", new Locale("fr", "FR"));
+
     System.out.println("Current Locale: " + LOCALE);
 
   }
@@ -184,9 +187,6 @@ public class KILowBites implements Runnable
     // menuItem = new JMenuItem("Shortcuts");
     // menu.add(menuItem);
     // menuItem.addActionListener(controller);
-    menuItem = new JMenuItem(STRINGS.getString("ADD_INGREDIENT"));
-    menu.add(menuItem);
-    menuItem.addActionListener(controller);
 
     // menu = new JMenu("Help");
     // menuBar.add(menu);

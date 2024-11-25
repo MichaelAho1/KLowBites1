@@ -10,6 +10,7 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -20,7 +21,7 @@ import app.KILowBites;
 import controller.AddIngredientController;
 import utilities.ImageUtilities;
 
-public class AddIngredientWindow extends JFrame
+public class AddIngredientWindow extends JDialog
 {
   private static final long serialVersionUID = 1L;
 
@@ -30,6 +31,9 @@ public class AddIngredientWindow extends JFrame
   private JPanel caloriePanel;
   private JPanel densityPanel;
   private JPanel successPanel;
+
+  private String name;
+  public static boolean added;
 
   public static JButton ingredientAddButton;
   public static JButton ingredientResetButton;
@@ -46,11 +50,14 @@ public class AddIngredientWindow extends JFrame
   static final Locale LOCALE = Locale.getDefault();
   private static final ResourceBundle STRINGS = KILowBites.STRINGS;
 
-  public AddIngredientWindow()
+  public AddIngredientWindow(JFrame parent, String name)
   {
-    super("Add Ingredient to System");
+    super(parent, "Add Ingredient to System", true);
 
-    controller = new AddIngredientController();
+    this.name = name;
+    added = false;
+
+    controller = new AddIngredientController(this);
 
     this.setBackground(KILowBites.COLOR);
 
@@ -86,10 +93,11 @@ public class AddIngredientWindow extends JFrame
 
     getContentPane().add(toolbar, BorderLayout.NORTH);
 
-    setSize(800, 200);
+    setSize(700, 200);
     setResizable(false);
-    setLocationRelativeTo(null);
-    setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    setLocationRelativeTo(parent);
+    setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+    // setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 
     this.setBackground(KILowBites.COLOR);
   }
@@ -105,8 +113,8 @@ public class AddIngredientWindow extends JFrame
 
     namePanel.setBackground(KILowBites.COLOR);
 
-    ingredientNameField = new JTextField(15);
-    ingredientNameField.getDocument().addDocumentListener(controller);
+    ingredientNameField = new JTextField(name, 15);
+    ingredientNameField.setEditable(false);
 
     JPanel boxPanel = new JPanel(new GridBagLayout());
     GridBagConstraints gbc = new GridBagConstraints();

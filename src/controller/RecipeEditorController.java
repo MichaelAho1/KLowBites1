@@ -13,6 +13,7 @@ import cooking.Ingredients;
 import cooking.Recipe;
 import cooking.Steps;
 import cooking.Utensils;
+import gui.AddIngredientWindow;
 import gui.RecipeEditor;
 import utilities.DocumentState;
 import utilities.DocumentStateObserver;
@@ -27,24 +28,24 @@ import utilities.InputUtilities;
  */
 public class RecipeEditorController implements ActionListener, DocumentStateObserver
 {
-//  private static String NEW = "New";
-//  private static String OPEN = "Open";
-//  private static String SAVE = "Save";
-//  private static String SAVE_AS = "Save As";
-//  private static String CLOSE = "Close";
-//
-//  private static String UTENSIL_ADD = "Utensil Add";
-//  private static String UTENSIL_DELETE = "Utensil Delete";
-//
-//  private static String INGREDIENT_ADD = "Ingredient Add";
-//  private static String INGREDIENT_DELETE = "Ingredient Delete";
-//
-//  private static String STEP_ADD = "Step Add";
-//  private static String STEP_DELETE = "Step Delete";
+  // private static String NEW = "New";
+  // private static String OPEN = "Open";
+  // private static String SAVE = "Save";
+  // private static String SAVE_AS = "Save As";
+  // private static String CLOSE = "Close";
+  //
+  // private static String UTENSIL_ADD = "Utensil Add";
+  // private static String UTENSIL_DELETE = "Utensil Delete";
+  //
+  // private static String INGREDIENT_ADD = "Ingredient Add";
+  // private static String INGREDIENT_DELETE = "Ingredient Delete";
+  //
+  // private static String STEP_ADD = "Step Add";
+  // private static String STEP_DELETE = "Step Delete";
 
-  static final Locale         LOCALE  = Locale.getDefault();
+  static final Locale LOCALE = Locale.getDefault();
   private static final ResourceBundle STRINGS = KILowBites.STRINGS;
-  
+
   private boolean savedAs = false;
   public static String recipeSavePath = "";
 
@@ -165,7 +166,7 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
         editor.resetRecipeEditor(); // Reset editor
         state = DocumentState.UNCHANGED; // Set document state
         savedAs = false; // Indicate not yet saved
-        editor.updateToolBar(state); // Update toolbar state 
+        editor.updateToolBar(state); // Update toolbar state
 
         System.out.println("New directory selected: " + recipeSavePath);
       }
@@ -183,7 +184,7 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
         state = DocumentState.UNCHANGED;
 
         // tests the constructor so that it only resets if the user selects a file
-        RecipeEditor testEditor = new RecipeEditor(recipe, this, false);
+        // RecipeEditor testEditor = new RecipeEditor(recipe, this, false);
 
         editor.resetRecipeEditor();
 
@@ -343,20 +344,30 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
 
       if (InputUtilities.isAlphaNumeric(name) && InputUtilities.isPositiveDouble(amount))
       {
-        ingredient.setName(name);
-        ingredient.setAmount(Double.parseDouble(amount));
-        if (InputUtilities.isAlphaNumeric(details))
+        boolean addedIngredient = false;
+        if (!KILowBites.FOODS.containsFood(name.trim().toLowerCase()))
         {
-          ingredient.setDetails(details);
+          AddIngredientWindow window = new AddIngredientWindow(editor, name);
+          window.setVisible(true);
+          addedIngredient = AddIngredientWindow.added;
         }
 
-        ingredient.setUnit(unit);
+        if (addedIngredient)
+        {
+          ingredient.setName(name);
+          ingredient.setAmount(Double.parseDouble(amount));
+          if (InputUtilities.isAlphaNumeric(details))
+          {
+            ingredient.setDetails(details);
+          }
 
-        editor.getContent().getIngredientPanel().addRecipeElement(ingredient);
+          ingredient.setUnit(unit);
 
-        recipe.addIngredient(ingredient);
-        editor.getContent().getIngredientIFP().resetFields();
+          editor.getContent().getIngredientPanel().addRecipeElement(ingredient);
 
+          recipe.addIngredient(ingredient);
+          editor.getContent().getIngredientIFP().resetFields();
+        }
       }
       else
       {

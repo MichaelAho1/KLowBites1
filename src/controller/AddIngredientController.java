@@ -21,6 +21,13 @@ public class AddIngredientController implements ActionListener, DocumentListener
   // private static final String ADD_INGREDIENT = "Add Ingredient";
   // private static final String RESET = "Reset";
 
+  private AddIngredientWindow window;
+
+  public AddIngredientController(AddIngredientWindow window)
+  {
+    this.window = window;
+  }
+
   @Override
   public void actionPerformed(final ActionEvent e)
   {
@@ -107,6 +114,12 @@ public class AddIngredientController implements ActionListener, DocumentListener
     {
       AddIngredientWindow.successfulAdd.setText(
           String.format(LOCALE, STRINGS.getString("SUCCESSFULLY_ADDED") + " %s!", ingreName));
+
+      AddIngredientWindow.added = true;
+
+      new javax.swing.Timer(2000, e -> {
+        window.dispose(); // Adjust this to match your window closing logic
+      }).start();
     }
     else
     {
@@ -121,7 +134,6 @@ public class AddIngredientController implements ActionListener, DocumentListener
    */
   private void reset()
   {
-    AddIngredientWindow.ingredientNameField.setText("");
     AddIngredientWindow.ingredientCalorieField.setText("");
     AddIngredientWindow.ingredientDensityField.setText("");
     AddIngredientWindow.successfulAdd.setText("");
@@ -129,8 +141,7 @@ public class AddIngredientController implements ActionListener, DocumentListener
 
   private void updateAddButton()
   {
-    boolean empty = !AddIngredientWindow.ingredientNameField.getText().trim().isEmpty()
-        && !AddIngredientWindow.ingredientCalorieField.getText().trim().isEmpty()
+    boolean empty = !AddIngredientWindow.ingredientCalorieField.getText().trim().isEmpty()
         && !AddIngredientWindow.ingredientDensityField.getText().trim().isEmpty();
     AddIngredientWindow.ingredientAddButton.setEnabled(empty);
   }
@@ -140,8 +151,7 @@ public class AddIngredientController implements ActionListener, DocumentListener
    */
   private void updateResetButton()
   {
-    boolean empty = !AddIngredientWindow.ingredientNameField.getText().trim().isEmpty()
-        || !AddIngredientWindow.ingredientCalorieField.getText().trim().isEmpty()
+    boolean empty = !AddIngredientWindow.ingredientCalorieField.getText().trim().isEmpty()
         || !AddIngredientWindow.ingredientDensityField.getText().trim().isEmpty();
     AddIngredientWindow.ingredientResetButton.setEnabled(empty);
   }

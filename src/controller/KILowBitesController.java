@@ -6,7 +6,6 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 import app.KILowBites;
-import gui.AddIngredientWindow;
 import gui.CalorieCalculatorWindow;
 import gui.UnitConverterWindow;
 import gui.UnitTypeWindow;
@@ -19,42 +18,43 @@ import gui.UnitTypeWindow;
  */
 public class KILowBitesController implements ActionListener
 {
-//  // File
-//  private static final String EXIT = "Exit";
-//
-//  // Edit
-//  private static final String RECIPE = "Recipe";
-//  private static final String MEAL = "Meal";
-//
-//  // Search
-//  private static final String RECIPES = "Recipes";
-//  private static final String MEALS = "Meals";
-//
-//  // View
-//  private static final String SHOPPING_LIST = "Shopping List";
-//  private static final String PROCESS = "Process";
-//
-//  // Tools
-//  private static final String CALORIE_CALCULATOR = "Calorie Calculator";
-//  private static final String UNITS_CONVERTER = "Units Converter";
-//
-//  // Configure
-//
-//  private static String PREFERENCES = "Preferences";
-//  private static String SHORTCUTS = "Shortcuts";
-//  private static String ADD_INGREDIENT = "Add Ingredient";
-//
-//  // Help
-//  private static final String ABOUT = "About";
-//  private static final String USER_GUIDE = "User Guide";
+  // // File
+  // private static final String EXIT = "Exit";
+  //
+  // // Edit
+  // private static final String RECIPE = "Recipe";
+  // private static final String MEAL = "Meal";
+  //
+  // // Search
+  // private static final String RECIPES = "Recipes";
+  // private static final String MEALS = "Meals";
+  //
+  // // View
+  // private static final String SHOPPING_LIST = "Shopping List";
+  // private static final String PROCESS = "Process";
+  //
+  // // Tools
+  // private static final String CALORIE_CALCULATOR = "Calorie Calculator";
+  // private static final String UNITS_CONVERTER = "Units Converter";
+  //
+  // // Configure
+  //
+  // private static String PREFERENCES = "Preferences";
+  // private static String SHORTCUTS = "Shortcuts";
+  // private static String ADD_INGREDIENT = "Add Ingredient";
+  //
+  // // Help
+  // private static final String ABOUT = "About";
+  // private static final String USER_GUIDE = "User Guide";
 
   private RecipeEditorController recipeController;
   private ProcessViewerController recipeViewerController;
 
   private MealEditorController mealController;
 
-  static final Locale         LOCALE  = Locale.getDefault();
+  static final Locale LOCALE = Locale.getDefault();
   private static final ResourceBundle STRINGS = KILowBites.STRINGS;
+
   /**
    * Constructor for controller.
    */
@@ -135,11 +135,6 @@ public class KILowBitesController implements ActionListener
     if (command.equals(STRINGS.getString("SHORTCUTS")))
     {
       System.out.println("open shortcuts");
-    }
-    if (command.equals(STRINGS.getString("ADD_INGREDIENT")))
-    {
-      AddIngredientWindow addIngreWindow = new AddIngredientWindow();
-      addIngreWindow.setVisible(true);
     }
 
     // commands for Help

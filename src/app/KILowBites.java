@@ -163,9 +163,9 @@ public class KILowBites implements Runnable
 
     menu = new JMenu(STRINGS.getString("VIEW"));
     menuBar.add(menu);
-    // menuItem = new JMenuItem("Shopping List");
-    // menu.add(menuItem);
-    // menuItem.addActionListener(controller);
+    menuItem = new JMenuItem("Shopping List");
+    menu.add(menuItem);
+    menuItem.addActionListener(controller);
     menuItem = new JMenuItem(STRINGS.getString("PROCESS"));
     menu.add(menuItem);
     menuItem.addActionListener(controller);

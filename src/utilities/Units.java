@@ -110,7 +110,7 @@ public class Units
   public String[] getAllUnitsNoPadding()
   {
     Set<String> keys = units.keySet();
-    String[] allUnits = new String[keys.size() + 1];
+    String[] allUnits = new String[keys.size()];
 
     int index = 0;
     for (String key : keys)

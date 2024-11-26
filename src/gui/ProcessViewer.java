@@ -109,8 +109,6 @@ public class ProcessViewer extends JFrame
     printButton.setEnabled(true);
     printButton.addActionListener(processViewerController);
 
-    System.out.println("X");
-
     toolbar.add(printButton);
     processOuterPane.add(toolbar, BorderLayout.NORTH); // adds the toolbar to outerPane north
 
@@ -119,8 +117,6 @@ public class ProcessViewer extends JFrame
     this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     this.setVisible(true);
     this.setLocationRelativeTo(null);
-    System.out.println("X");
-
   }
 
 }

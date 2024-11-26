@@ -51,7 +51,6 @@ public class AddIngredientController implements ActionListener, DocumentListener
   {
     updateResetButton();
     updateAddButton();
-
   }
 
   @Override
@@ -59,7 +58,6 @@ public class AddIngredientController implements ActionListener, DocumentListener
   {
     updateResetButton();
     updateAddButton();
-
   }
 
   @Override
@@ -67,7 +65,6 @@ public class AddIngredientController implements ActionListener, DocumentListener
   {
     updateResetButton();
     updateAddButton();
-
   }
 
   /**

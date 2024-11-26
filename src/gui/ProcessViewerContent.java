@@ -32,7 +32,7 @@ public class ProcessViewerContent extends JPanel
   Recipe currentRecipe; // recipe being used
   Meal currentMeal;
 
-  JPanel ProcessViewerPanel;
+  JPanel processViewerPanel;
 
   InputFieldPanel mainIFP;
   InputFieldPanel utensilIFP;
@@ -138,6 +138,6 @@ public class ProcessViewerContent extends JPanel
 
   public JPanel getProcessViewerPanel()
   {
-    return ProcessViewerPanel;
+    return processViewerPanel;
   }
 }

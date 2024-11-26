@@ -6,9 +6,12 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 import app.KILowBites;
+import cooking.Meal;
 import gui.CalorieCalculatorWindow;
+import gui.ShoppingListWindow;
 import gui.UnitConverterWindow;
 import gui.UnitTypeWindow;
+import utilities.FileUtilities;
 
 /**
  * KILowBites controller class. Handles the actions of the main menu items.
@@ -101,25 +104,26 @@ public class KILowBitesController implements ActionListener
     // commands for View
     if (command.equals(STRINGS.getString("SHOPPING_LIST")))
     {
-      System.out.println("view shopping list");
+      Meal meal = FileUtilities.openMeal();
+      ShoppingListWindow shoppingList = new ShoppingListWindow(meal);
+      shoppingList.setVisible(true);
     }
     if (command.equals(STRINGS.getString("PROCESS")))
     {
       recipeViewerController = new ProcessViewerController();
-      System.out.println("view process");
     }
 
     // commands for Tools
     if (command.equals(STRINGS.getString("CALORIE_CALCULATOR")))
     {
-      System.out.println("Opening calorie calculator...");
+      // System.out.println("Opening calorie calculator...");
       CalorieCalculatorWindow calorieCalc = new CalorieCalculatorWindow();
       calorieCalc.setVisible(true);
       KILowBites.openCalc.setEnabled(false);
     }
     if (command.equals(STRINGS.getString("UNITS_CONVERTER")))
     {
-      System.out.println("Opening unit converter...");
+      // System.out.println("Opening unit converter...");
       UnitConverterWindow unitConverter = new UnitConverterWindow();
       unitConverter.setVisible(true);
       KILowBites.openConvert.setEnabled(false);
@@ -128,23 +132,23 @@ public class KILowBitesController implements ActionListener
     // commands for Configure
     if (command.equals(STRINGS.getString("PREFERENCES")))
     {
-      System.out.println("open preferences");
+      // System.out.println("open preferences");
       UnitTypeWindow unitTypeWindow = new UnitTypeWindow();
       unitTypeWindow.setVisible(true);
     }
     if (command.equals(STRINGS.getString("SHORTCUTS")))
     {
-      System.out.println("open shortcuts");
+      // System.out.println("open shortcuts");
     }
 
     // commands for Help
     if (command.equals(STRINGS.getString("ABOUT")))
     {
-      System.out.println("open about");
+      // System.out.println("open about");
     }
     if (command.equals(STRINGS.getString("USER_GUIDE")))
     {
-      System.out.println("open user guide");
+      // System.out.println("open user guide");
     }
   }
 }

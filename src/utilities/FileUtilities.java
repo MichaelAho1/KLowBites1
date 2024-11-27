@@ -1,15 +1,19 @@
 package utilities;
 
+import java.io.BufferedReader;
 import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -455,5 +459,123 @@ public class FileUtilities
       System.err.println("Error saving Foods.ntr: " + e.getMessage());
       e.printStackTrace();
     }
+  }
+
+  /**
+   * Load file containing aisle numbers and parse data into map.
+   * 
+   * @return map of ingredient to aisle number
+   */
+  public static Map<String, Integer> loadAisles()
+  {
+    // load in Aisles.dat from directory
+    File file = new File(Paths.get("").toAbsolutePath().toString(), "Aisles.dat");
+
+    Map<String, Integer> aisles = new TreeMap<>();
+
+    // if file exists, parse data and return aisles map
+    if (file.exists())
+    {
+      try (BufferedReader reader = new BufferedReader(new FileReader(file)))
+      {
+        String line;
+        while ((line = reader.readLine()) != null)
+        {
+          line = line.trim();
+          if (!line.isEmpty())
+          {
+            // Find the last space in the line to separate the name and the aisle number
+            int lastSpaceIndex = line.lastIndexOf(' ');
+            if (lastSpaceIndex > 0)
+            {
+              String ingredient = line.substring(0, lastSpaceIndex).trim();
+              String aisleString = line.substring(lastSpaceIndex + 1).trim();
+              try
+              {
+                int aisleNumber = Integer.parseInt(aisleString);
+                aisles.put(ingredient, aisleNumber);
+              }
+              catch (NumberFormatException e)
+              {
+                System.err.println("Invalid aisle number format: " + aisleString);
+              }
+            }
+            else
+            {
+              System.err.println("Invalid line format: " + line);
+            }
+          }
+        }
+      }
+      catch (IOException e)
+      {
+        System.err.println("Error reading the file: " + e.getMessage());
+      }
+    }
+    else
+    {
+      System.err.println("File does not exist: " + file.getAbsolutePath());
+    }
+
+    return aisles;
+  }
+
+  /**
+   * Load file containing prices and parse data into map.
+   * 
+   * @return map of ingredient to price
+   */
+  public static Map<String, Double> loadPrices()
+  {
+    // load in Prices.dat from directory
+    File file = new File(Paths.get("").toAbsolutePath().toString(), "Prices.dat");
+
+    Map<String, Double> prices = new TreeMap<>();
+
+    // if file exists, parse data and return prices map
+    if (file.exists())
+    {
+      try (BufferedReader reader = new BufferedReader(new FileReader(file)))
+      {
+        String line;
+        while ((line = reader.readLine()) != null)
+        {
+          line = line.trim();
+          if (!line.isEmpty())
+          {
+            // Find the last space in the line to separate the name and price
+            int lastSpaceIndex = line.lastIndexOf(' ');
+            if (lastSpaceIndex > 0)
+            {
+              String ingredient = line.substring(0, lastSpaceIndex).trim();
+              String aisleString = line.substring(lastSpaceIndex + 1).trim();
+              try
+              {
+                double price = Double.parseDouble(aisleString);
+                prices.put(ingredient, price);
+              }
+              catch (NumberFormatException e)
+              {
+                System.err.println("Invalid price format: " + aisleString);
+              }
+            }
+            else
+            {
+              System.err.println("Invalid line format: " + line);
+            }
+          }
+        }
+      }
+      catch (IOException e)
+      {
+        System.err.println("Error reading the file: " + e.getMessage());
+      }
+    }
+    else
+    {
+      System.err.println("File does not exist: " + file.getAbsolutePath());
+    }
+
+    return prices;
   }
 }

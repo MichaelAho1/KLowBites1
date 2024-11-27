@@ -9,6 +9,7 @@ import java.awt.Insets;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -34,6 +35,7 @@ import converter.VolumeConverter;
 import cooking.Ingredients;
 import cooking.Meal;
 import cooking.Recipe;
+import utilities.FileUtilities;
 import utilities.ImageUtilities;
 import utilities.InputUtilities;
 
@@ -45,12 +47,14 @@ public class ShoppingListWindow extends JFrame
   private JButton printButton;
 
   private static Meal meal;
-  public static final String[] COLUMNNAMES = {"Ingredient", "Quantity", "Unit", "Recipe", "Serves",
-      "Aisle", "Price", "Index"};
-  // private String[] columnNames = {"Ingredient", "Quantity", "Unit"};
+  private String[] columnNames = {"Ingredient", "Quantity", "Unit", "Recipe", "Serves", "Aisle",
+      "Price", "Index"};
+
   private List<Object[]> data;
   private Object[][] ingredients;
   private Object[][] originalIngredients;
+  private Map<String, Integer> aisles;
+  private Map<String, Double> prices;
 
   private JPanel peoplePanel;
   private JPanel shoppingListPanel;
@@ -65,6 +69,9 @@ public class ShoppingListWindow extends JFrame
     super("KILowBites Shopping List Viewer: " + InputUtilities.separateByCapital(meal.getName()));
 
     ShoppingListWindow.meal = meal;
+
+    aisles = FileUtilities.loadAisles();
+    prices = FileUtilities.loadPrices();
 
     data = getIngredients();
     ingredients = new Object[data.size()][7]; // [5] for testing
@@ -150,7 +157,7 @@ public class ShoppingListWindow extends JFrame
 
     shoppingListPanel.setBackground(KILowBites.COLOR);
 
-    shoppingList = new JTable(new DefaultTableModel(originalIngredients, COLUMNNAMES))
+    shoppingList = new JTable(new DefaultTableModel(originalIngredients, columnNames))
     {
       @Override
       public boolean isCellEditable(int row, int column)
@@ -195,7 +202,7 @@ public class ShoppingListWindow extends JFrame
 
     shoppingListPanel.setBackground(KILowBites.COLOR);
 
-    shoppingList = new JTable(new DefaultTableModel(update, COLUMNNAMES))
+    shoppingList = new JTable(new DefaultTableModel(update, columnNames))
     {
       @Override
       public boolean isCellEditable(int row, int column)
@@ -238,8 +245,23 @@ public class ShoppingListWindow extends JFrame
     {
       for (Ingredients i : r.getIngredients())
       {
+        Object aisle = "N/A";
+        Object price = "N/A";
+
+        String name = i.getName().toLowerCase();
+
+        if (aisles.containsKey(name))
+        {
+          aisle = aisles.get(name);
+        }
+
+        if (aisles.containsKey(name))
+        {
+          price = prices.get(name);
+        }
+
         Object[] info = new Object[] {i.getName(), i.getAmount(), i.getUnit(), r.getName(),
-            r.getServes(), "???", "N/A", index};
+            r.getServes(), aisle, price, index};
         ingredients.add(info);
         index++;
       }

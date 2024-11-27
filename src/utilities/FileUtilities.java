@@ -441,18 +441,18 @@ public class FileUtilities
   public static void saveFoods()
   {
     // Retrieve directory path from file path
-    File file = new File(Paths.get("").toAbsolutePath().toString(), "Foods.mel");
+    File file = new File(Paths.get("").toAbsolutePath().toString(), "Foods.ntr");
 
     // Serialize and save foods to file
     try (FileOutputStream fileOut = new FileOutputStream(file);
         ObjectOutputStream out = new ObjectOutputStream(fileOut))
     {
       out.writeObject(KILowBites.FOODS.getFoods());
-      System.out.println("Foods.mel saved successfully to " + file.getAbsolutePath());
+      System.out.println("Foods.ntr saved successfully to " + file.getAbsolutePath());
     }
     catch (IOException e)
     {
-      System.err.println("Error saving Foods.mel: " + e.getMessage());
+      System.err.println("Error saving Foods.ntr: " + e.getMessage());
       e.printStackTrace();
     }
   }

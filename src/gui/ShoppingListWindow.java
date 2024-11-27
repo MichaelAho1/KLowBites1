@@ -6,6 +6,7 @@ import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,12 +22,15 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
 import app.KILowBites;
 import controller.ShoppingListController;
+import converter.MassConverter;
+import converter.VolumeConverter;
 import cooking.Ingredients;
 import cooking.Meal;
 import cooking.Recipe;
@@ -42,36 +46,39 @@ public class ShoppingListWindow extends JFrame
 
   private static Meal meal;
   public static final String[] COLUMNNAMES = {"Ingredient", "Quantity", "Unit", "Recipe", "Serves",
-      "Aisle", "Price"};
+      "Aisle", "Price", "Index"};
   // private String[] columnNames = {"Ingredient", "Quantity", "Unit"};
   private List<Object[]> data;
-  public static Object[][] ingredients;
+  private Object[][] ingredients;
+  private Object[][] originalIngredients;
 
   private JPanel peoplePanel;
   private JPanel shoppingListPanel;
+  private JPanel inputs;
+  private JComboBox<String> unitComboBox;
 
-  public static JTextField peopleField;
-  public static JTable shoppingList;
+  private JTextField peopleField;
+  private JTable shoppingList;
 
   public ShoppingListWindow(Meal meal)
   {
     super("KILowBites Shopping List Viewer: " + InputUtilities.separateByCapital(meal.getName()));
 
-    this.meal = meal;
-
-    Object[][] originalIngredients = getIngredients().toArray(new Object[0][]);
-
-    controller = new ShoppingListController(originalIngredients);
+    ShoppingListWindow.meal = meal;
 
     data = getIngredients();
     ingredients = new Object[data.size()][7]; // [5] for testing
+    originalIngredients = new Object[data.size()][7];
 
     for (int i = 0; i < data.size(); i++)
     {
-      ingredients[i] = data.get(i);
+      ingredients[i] = data.get(i).clone();
+      originalIngredients[i] = data.get(i).clone();
     }
 
-    JPanel inputs = new JPanel();
+    controller = new ShoppingListController(this);
+
+    inputs = new JPanel();
     inputs.setLayout(new BoxLayout(inputs, BoxLayout.Y_AXIS));
 
     setupInputs();
@@ -143,7 +150,7 @@ public class ShoppingListWindow extends JFrame
 
     shoppingListPanel.setBackground(KILowBites.COLOR);
 
-    shoppingList = new JTable(new DefaultTableModel(ingredients, COLUMNNAMES))
+    shoppingList = new JTable(new DefaultTableModel(originalIngredients, COLUMNNAMES))
     {
       @Override
       public boolean isCellEditable(int row, int column)
@@ -158,7 +165,12 @@ public class ShoppingListWindow extends JFrame
       }
     };
 
-    JComboBox<String> unitComboBox = new JComboBox<>(KILowBites.UNITS.getAllUnitsNoPadding());
+    shoppingList.getColumnModel().getColumn(1).setCellRenderer(new DecimalTableCellRenderer());
+    shoppingList.getColumnModel().getColumn(6).setCellRenderer(new DecimalTableCellRenderer());
+
+    unitComboBox = new JComboBox<>(KILowBites.UNITS.getAllUnitsNoPadding());
+    unitComboBox.setActionCommand("Change Unit");
+    unitComboBox.addActionListener(controller);
     shoppingList.getColumnModel().getColumn(2).setCellEditor(new DefaultCellEditor(unitComboBox));
 
     TableRowSorter<TableModel> sorter = new TableRowSorter<>(shoppingList.getModel());
@@ -169,47 +181,185 @@ public class ShoppingListWindow extends JFrame
 
   }
 
+  @SuppressWarnings("serial")
+  private void setupUpdatedInputs(Object[][] update)
+  {
+    inputs.remove(shoppingListPanel);
+    inputs.revalidate();
+    inputs.repaint();
+
+    shoppingListPanel = new JPanel();
+    shoppingListPanel.setSize(650, 215);
+    shoppingListPanel.setLayout(new BorderLayout());
+    shoppingListPanel.setBorder(BorderFactory.createTitledBorder("Shopping List"));
+
+    shoppingListPanel.setBackground(KILowBites.COLOR);
+
+    shoppingList = new JTable(new DefaultTableModel(update, COLUMNNAMES))
+    {
+      @Override
+      public boolean isCellEditable(int row, int column)
+      {
+        // Make the unit column editable only if the unit is not "Individual"
+        if (column == 2)
+        {
+          String unit = (String) getValueAt(row, column);
+          return !unit.equals("Individual");
+        }
+        return super.isCellEditable(row, column); // Default behavior for other columns
+      }
+    };
+
+    shoppingList.getColumnModel().getColumn(1).setCellRenderer(new DecimalTableCellRenderer());
+    // shoppingList.getColumnModel().getColumn(6).setCellRenderer(new DecimalTableCellRenderer());
+
+    unitComboBox = new JComboBox<>(KILowBites.UNITS.getAllUnitsNoPadding());
+    unitComboBox.setActionCommand("Change Unit");
+    unitComboBox.addActionListener(controller);
+    shoppingList.getColumnModel().getColumn(2).setCellEditor(new DefaultCellEditor(unitComboBox));
+
+    TableRowSorter<TableModel> sorter = new TableRowSorter<>(shoppingList.getModel());
+    shoppingList.setRowSorter(sorter);
+
+    JScrollPane scrollPane = new JScrollPane(shoppingList); // Add scrolling if needed
+    shoppingListPanel.add(scrollPane, BorderLayout.CENTER);
+
+    inputs.add(shoppingListPanel);
+    inputs.revalidate();
+    inputs.repaint();
+  }
+
   private List<Object[]> getIngredients()
   {
     List<Object[]> ingredients = new ArrayList<>();
+    int index = 0;
 
     for (Recipe r : meal.getRecipes())
     {
       for (Ingredients i : r.getIngredients())
       {
         Object[] info = new Object[] {i.getName(), i.getAmount(), i.getUnit(), r.getName(),
-            r.getServes(), "???", "N/A"};
+            r.getServes(), "???", "N/A", index};
         ingredients.add(info);
+        index++;
       }
     }
 
     // sort ingredients alphabetically in shopping list
     // easier for user to see duplicate ingredients
-    ingredients.sort((o1, o2) -> ((String) o1[0]).compareTo((String) o2[0]));
+    // ingredients.sort((o1, o2) -> ((String o1[0]).compareTo((String) o2[0]));
 
     return ingredients;
   }
 
-  // // Method to update the table based on the number of people
-  // public static void updateTableQuantities(int people)
-  // {
-  // List<Object[]> updatedIngredients = new ArrayList<>();
-  //
-  // // Calculate quantities based on the number of people
-  // for (Recipe r : meal.getRecipes())
-  // {
-  // for (Ingredients i : r.getIngredients())
-  // {
-  // double updatedAmount = i.getAmount() * people / r.getServes();
-  // Object[] info = new Object[] {i.getName(), updatedAmount, i.getUnit(), r.getName(),
-  // r.getServes(), "???", "N/A"};
-  // updatedIngredients.add(info);
-  // }
-  // }
-  //
-  // updatedIngredients.sort((o1, o2) -> ((String) o1[0]).compareTo((String) o2[0]));
-  //
-  // shoppingList
-  // .setModel(new DefaultTableModel(updatedIngredients.toArray(new Object[0][0]), COLUMNNAMES));
-  // }
+  public void defaultTable()
+  {
+    setupUpdatedInputs(originalIngredients);
+  }
+
+  public void refreshTable(int people)
+  {
+    int i = 0;
+    for (Object[] ingredient : ingredients)
+    {
+      int basePeople = (int) originalIngredients[i][4];
+
+      double baseQuantity = (double) originalIngredients[i][1];
+
+      double newQuantity = (baseQuantity / basePeople) * people;
+      ingredient[1] = newQuantity;
+      i++;
+    }
+
+    setupUpdatedInputs(ingredients);
+  }
+
+  public JTextField getPeopleField()
+  {
+    return peopleField;
+  }
+
+  public void updateQuantity()
+  {
+    int row = shoppingList.getSelectedRow();
+
+    double newQuantity;
+    double quantity = (double) shoppingList.getValueAt(row, 1);
+
+    if (row != -1)
+    {
+      int index = (int) shoppingList.getValueAt(row, 7);
+
+      String oldUnit = (String) ingredients[index][2];
+      String oldUnitMeasure = KILowBites.UNITS.unitMeasure(oldUnit);
+
+      String newUnit = (String) unitComboBox.getSelectedItem();
+      String newUnitMeasure = KILowBites.UNITS.unitMeasure(newUnit);
+
+      if (newUnit.equals(oldUnit))
+      {
+        System.out.println("same unit");
+      }
+      else
+      {
+        if (newUnitMeasure.equals("Mass") && oldUnitMeasure.equals("Mass"))
+        {
+          System.out.println("converting from " + oldUnit + " to " + newUnit);
+          newQuantity = MassConverter.callerHelp(oldUnit, newUnit, quantity);
+
+          shoppingList.setValueAt(newQuantity, row, 1);
+        }
+        else if (newUnitMeasure.equals("Volume") && oldUnitMeasure.equals("Volume"))
+        {
+          System.out.println("converting from " + oldUnit + " to " + newUnit);
+          newQuantity = VolumeConverter.callerHelp(oldUnit, newUnit, quantity);
+
+          shoppingList.setValueAt(newQuantity, row, 1);
+        }
+        else
+        {
+          System.out.println("DO NOT CHANGE MEASURES");
+          return;
+        }
+        ingredients[index][2] = newUnit;
+      }
+    }
+  }
+
+  private int findIndex(String recipe, String ingredient)
+  {
+    int index = 0;
+    for (Recipe r : meal.getRecipes())
+    {
+      if (r.getName().equals(recipe))
+      {
+        for (Ingredients i : r.getIngredients())
+        {
+          if (i.getName().equals(ingredient))
+          {
+            return index;
+          }
+        }
+      }
+      index++;
+    }
+
+    return index;
+  }
+
+  // Custom renderer to format numeric values
+  class DecimalTableCellRenderer extends DefaultTableCellRenderer
+  {
+    private static final DecimalFormat format = new DecimalFormat("#.##");
+
+    @Override
+    public void setValue(Object value)
+    {
+      if (value instanceof Number)
+      {
+        value = format.format(value); // Format the number to 2 decimals
+      }
+      super.setValue(value);
+    }
+  }
 }

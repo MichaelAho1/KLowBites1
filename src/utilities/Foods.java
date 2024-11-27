@@ -348,7 +348,7 @@ public class Foods
   private Map<String, double[]> loadFoods()
   {
     // Step 1: Define the file in the current working directory
-    File file = new File(Paths.get("").toAbsolutePath().toString(), "Foods.mel");
+    File file = new File(Paths.get("").toAbsolutePath().toString(), "Foods.ntr");
 
     // Step 2: Check if the file exists, and try to load it if it does
     if (file.exists())
@@ -360,7 +360,7 @@ public class Foods
       }
       catch (IOException | ClassNotFoundException e)
       {
-        System.err.println("Error loading Foods.mel, using default foods: " + e.getMessage());
+        System.err.println("Error loading Foods.ntr, using default foods: " + e.getMessage());
         e.printStackTrace();
       }
     }

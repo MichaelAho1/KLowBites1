@@ -5,18 +5,18 @@ import java.awt.event.ActionListener;
 
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import javax.swing.table.DefaultTableModel;
 
 import gui.ShoppingListWindow;
 
 public class ShoppingListController implements ActionListener, DocumentListener
 {
   private static String PRINT = "Print";
-  private Object[][] originalIngredients;
+  private static String CHANGE_UNIT = "Change Unit";
+  private ShoppingListWindow parent;
 
-  public ShoppingListController(Object[][] originalIngredients)
+  public ShoppingListController(ShoppingListWindow parent)
   {
-    this.originalIngredients = originalIngredients;
+    this.parent = parent;
   }
 
   @Override
@@ -27,6 +27,11 @@ public class ShoppingListController implements ActionListener, DocumentListener
     if (command.equals(PRINT))
     {
       System.out.println("Printing...");
+    }
+
+    if (command.equals(CHANGE_UNIT))
+    {
+      parent.updateQuantity();
     }
 
   }
@@ -59,42 +64,14 @@ public class ShoppingListController implements ActionListener, DocumentListener
     try
     {
       // Retrieve and parse the input amount
-      people = Integer.parseInt(ShoppingListWindow.peopleField.getText().trim());
-      updateIngredientQuantities(people);
+      people = Integer.parseInt(parent.getPeopleField().getText().trim());
+      parent.refreshTable(people);
     }
     catch (NumberFormatException ex)
     {
       // should get here if letters / non-numbers are entered
-      resetTable();
+      parent.defaultTable();
     }
-  }
-
-  /**
-   * Update the ingredient quantities based on the number of people
-   */
-  private void updateIngredientQuantities(int people)
-  {
-    for (int row = 0; row < ShoppingListWindow.ingredients.length; row++)
-    {
-      double originalQuantity = (Double) ShoppingListWindow.ingredients[row][1];
-      ShoppingListWindow.ingredients[row][1] = originalQuantity * people; // Update quantity
-    }
-    refreshTable();
-  }
-
-  private void resetTable()
-  {
-    ShoppingListWindow.ingredients = originalIngredients; // Reset to original data
-    refreshTable();
-  }
-
-  /**
-   * Refresh the table by resetting the model
-   */
-  private void refreshTable()
-  {
-    ShoppingListWindow.shoppingList.setModel(
-        new DefaultTableModel(ShoppingListWindow.ingredients, ShoppingListWindow.COLUMNNAMES));
   }
 
 }

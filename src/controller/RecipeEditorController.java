@@ -344,7 +344,7 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
 
       if (InputUtilities.isAlphaNumeric(name) && InputUtilities.isPositiveDouble(amount))
       {
-        boolean addedIngredient = false;
+        boolean addedIngredient = true;
         if (!KILowBites.FOODS.containsFood(name.trim().toLowerCase()))
         {
           AddIngredientWindow window = new AddIngredientWindow(editor, name);

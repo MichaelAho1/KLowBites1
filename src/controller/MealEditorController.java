@@ -24,19 +24,19 @@ import utilities.FileUtilities;
  */
 public class MealEditorController implements ActionListener, DocumentStateObserver
 {
-  
-//  private static String NEW = "New";
-//  private static String OPEN = "Open";
-//  private static String SAVE = "Save";
-//  private static String SAVE_AS = "Save As";
-//  private static String CLOSE = "Close";
-//
-//  private static String RECIPE_ADD = "Recipe Add";
-//  private static String RECIPE_DELETE = "Recipe Delete";
 
-  static final Locale         LOCALE  = Locale.getDefault();
+  // private static String NEW = "New";
+  // private static String OPEN = "Open";
+  // private static String SAVE = "Save";
+  // private static String SAVE_AS = "Save As";
+  // private static String CLOSE = "Close";
+  //
+  // private static String RECIPE_ADD = "Recipe Add";
+  // private static String RECIPE_DELETE = "Recipe Delete";
+
+  static final Locale LOCALE = Locale.getDefault();
   private static final ResourceBundle STRINGS = KILowBites.STRINGS;
-  
+
   private MealEditor editor;
   private Meal meal;
   private DocumentState state;
@@ -122,7 +122,7 @@ public class MealEditorController implements ActionListener, DocumentStateObserv
         editor.updateToolBar(state);
 
         // all this line does it test the constructor so it only resets if the user selects a file
-        MealEditor testEditor = new MealEditor(meal, this, false);
+        // MealEditor testEditor = new MealEditor(meal, this, false);
 
         // creates a new clean meal editor with the details from the file
         editor.resetMealEditor();

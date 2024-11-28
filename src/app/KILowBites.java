@@ -21,13 +21,15 @@ import utilities.Foods;
 import utilities.ImageUtilities;
 import utilities.Units;
 
+
+
 /**
  * KILowBites main class. Runs the program and the main window.
  *
  * @author f24team3d
  * @version 10/23/24
  */
-public class KILowBites implements Runnable
+public class KILowBites extends JFrame implements Runnable
 {
   public static JMenuItem openCalc;
   public static JMenuItem openConvert;
@@ -39,7 +41,6 @@ public class KILowBites implements Runnable
   public static final Color COLOR = null;
 
   public static ResourceBundle STRINGS;
-  static Locale LOCALE;
 
   private String[] args;
 
@@ -53,41 +54,19 @@ public class KILowBites implements Runnable
   {
     // Store the command-line arguments if needed
     this.args = args;
-
-    // set the language if its specified
-    // try
-    // {
-    // if (args[0].equals("es"))
-    // {
-    // Locale.setDefault(new Locale("es", "ES"));
-    // }
-    // else if (args[0].equals("fr"))
-    // {
-    // Locale.setDefault(LOCALE.FRANCE);
-    // }
-    // else
-    // {
-    // Locale.setDefault(LOCALE.US);
-    // }
-    // }
-    // catch (Exception e) // set language to english by default
-    // {
-    // Locale.setDefault(LOCALE.US);
-    // }
-
-    LOCALE = Locale.getDefault();
-
-    // Locale.setDefault(new Locale("es", "ES")); // Uncomment for Spanish
-    // Locale.setDefault(LOCALE.FRANCE); // Uncomment for French
-
-    // TODO Make it so that we can use java "-Duser.language=fr" -jar KILowBites.jar for french and
-    // the one for spanish
-    STRINGS = ResourceBundle.getBundle("Strings", LOCALE);
-    // STRINGS = ResourceBundle.getBundle("Strings", new Locale("es", "ES"));
-    // STRINGS = ResourceBundle.getBundle("Strings", new Locale("fr", "FR"));
-
-    System.out.println("Current Locale: " + LOCALE);
-
+    
+    Locale.setDefault(getLocale());
+    System.out.println("Current Locale: " + Locale.getDefault());
+    STRINGS = ResourceBundle.getBundle("Strings", Locale.getDefault());
+    
+    // Here is the command to run it in english: 
+    // java "-Duser.language=en" "-Duser.country=US" -jar KILowBites.jar
+    
+    // Cmd for French
+    // java "-Duser.language=fr" "-Duser.country=FR" -jar KILowBites.jar
+    
+    // Cmd for Spanish
+    // java "-Duser.language=es" "-Duser.country=ES" -jar KILowBites.jar
   }
 
   /**

@@ -10,8 +10,8 @@ import gui.ShoppingListWindow;
 
 public class ShoppingListController implements ActionListener, DocumentListener
 {
-  private static String PRINT = "Print";
-  private static String CHANGE_UNIT = "Change Unit";
+//  private static String PRINT = "Print";
+//  private static String CHANGE_UNIT = "Change Unit";
   private ShoppingListWindow parent;
 
   public ShoppingListController(ShoppingListWindow parent)
@@ -24,12 +24,12 @@ public class ShoppingListController implements ActionListener, DocumentListener
   {
     String command = e.getActionCommand();
 
-    if (command.equals(PRINT))
+    if (command.equals("PRINT"))
     {
       System.out.println("Printing...");
     }
 
-    if (command.equals(CHANGE_UNIT))
+    if (command.equals("CHANGE_UNIT"))
     {
       parent.updateQuantity();
     }

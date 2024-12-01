@@ -88,7 +88,7 @@ public class KILowBites extends JFrame implements Runnable
   }
 
   /**
-   * Run method.
+   * The main thread of the application.
    */
   public void run()
   {

@@ -9,7 +9,9 @@ import java.awt.Insets;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.ResourceBundle;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -75,10 +77,12 @@ public class ShoppingListWindow extends JFrame
 //  private final static String CONVERTING_FROM = "converting from ";
 //  private final static String TO = " to ";
   
+  static final Locale         LOCALE  = Locale.getDefault();
+  private static final ResourceBundle STRINGS = KILowBites.STRINGS;
   
   public ShoppingListWindow(Meal meal)
   {
-    super("KILowBites Shopping List Viewer: " + InputUtilities.separateByCapital(meal.getName()));
+    super(STRINGS.getString("KILOWBITES_SHOPPING_LIST_VIEWER") + InputUtilities.separateByCapital(meal.getName()));
 
     ShoppingListWindow.meal = meal;
 
@@ -112,8 +116,8 @@ public class ShoppingListWindow extends JFrame
     toolbar.setFloatable(false);
 
     printButton = new JButton(ImageUtilities.getFormattedImage("print.png", Color.GRAY, 25, 25));
-    printButton.setToolTipText("PRINT");
-    printButton.setActionCommand("PRINT");
+    printButton.setToolTipText(STRINGS.getString("PRINT"));
+    printButton.setActionCommand(STRINGS.getString("PRINT"));
     printButton.addActionListener(controller);
 
     toolbar.add(printButton);
@@ -152,7 +156,7 @@ public class ShoppingListWindow extends JFrame
     gbc.gridy = 0;
     gbc.anchor = GridBagConstraints.WEST;
     gbc.insets = new Insets(0, 5, 0, 0);
-    boxPanel.add(new JLabel("NUMBER_OF_PEOPLE"), gbc);
+    boxPanel.add(new JLabel(STRINGS.getString("NUMBER_OF_PEOPLE")), gbc);
 
     gbc.gridx = 1;
     gbc.gridy = 0;
@@ -165,7 +169,7 @@ public class ShoppingListWindow extends JFrame
     shoppingListPanel = new JPanel();
     shoppingListPanel.setSize(650, 215);
     shoppingListPanel.setLayout(new BorderLayout());
-    shoppingListPanel.setBorder(BorderFactory.createTitledBorder("SHOPPING_LIST"));
+    shoppingListPanel.setBorder(BorderFactory.createTitledBorder(STRINGS.getString("SHOPPING_LIST")));
 
     shoppingListPanel.setBackground(KILowBites.COLOR);
 
@@ -178,7 +182,7 @@ public class ShoppingListWindow extends JFrame
         if (column == 2)
         {
           String unit = (String) getValueAt(row, column);
-          return !unit.equals("INDIVIDUAL");
+          return !unit.equals(STRINGS.getString("INDIVIDUAL"));
         }
         return super.isCellEditable(row, column); // Default behavior for other columns
       }
@@ -188,7 +192,7 @@ public class ShoppingListWindow extends JFrame
     shoppingList.getColumnModel().getColumn(6).setCellRenderer(new DecimalTableCellRenderer());
 
     unitComboBox = new JComboBox<>(KILowBites.UNITS.getAllUnitsNoPadding());
-    unitComboBox.setActionCommand("CHANGE_UNIT");
+    unitComboBox.setActionCommand(STRINGS.getString("CHANGE_UNIT"));
     unitComboBox.addActionListener(controller);
     shoppingList.getColumnModel().getColumn(2).setCellEditor(new DefaultCellEditor(unitComboBox));
 
@@ -210,7 +214,7 @@ public class ShoppingListWindow extends JFrame
     shoppingListPanel = new JPanel();
     shoppingListPanel.setSize(650, 215);
     shoppingListPanel.setLayout(new BorderLayout());
-    shoppingListPanel.setBorder(BorderFactory.createTitledBorder("SHOPPING_LIST"));
+    shoppingListPanel.setBorder(BorderFactory.createTitledBorder(STRINGS.getString("SHOPPING_LIST")));
 
     shoppingListPanel.setBackground(KILowBites.COLOR);
 
@@ -223,7 +227,7 @@ public class ShoppingListWindow extends JFrame
         if (column == 2)
         {
           String unit = (String) getValueAt(row, column);
-          return !unit.equals("INDIVIDUAL");
+          return !unit.equals(STRINGS.getString("INDIVIDUAL"));
         }
         return super.isCellEditable(row, column); // Default behavior for other columns
       }
@@ -233,7 +237,7 @@ public class ShoppingListWindow extends JFrame
     // shoppingList.getColumnModel().getColumn(6).setCellRenderer(new DecimalTableCellRenderer());
 
     unitComboBox = new JComboBox<>(KILowBites.UNITS.getAllUnitsNoPadding());
-    unitComboBox.setActionCommand("CHANGE_UNIT");
+    unitComboBox.setActionCommand(STRINGS.getString("CHANGE_UNIT"));
     unitComboBox.addActionListener(controller);
     shoppingList.getColumnModel().getColumn(2).setCellEditor(new DefaultCellEditor(unitComboBox));
 
@@ -332,27 +336,27 @@ public class ShoppingListWindow extends JFrame
 
       if (newUnit.equals(oldUnit))
       {
-        System.out.println("SAME_UNIT");
+        System.out.println(STRINGS.getString("SAME_UNIT"));
       }
       else
       {
-        if (newUnitMeasure.equals("MASS") && oldUnitMeasure.equals("MASS"))
+        if (newUnitMeasure.equals(STRINGS.getString("MASS")) && oldUnitMeasure.equals(STRINGS.getString("MASS")))
         {
-          System.out.println("CONVERTING_FROM" + oldUnit + "TO" + newUnit);
+          System.out.println(STRINGS.getString("CONVERTING_FROM") + oldUnit + STRINGS.getString("TO") + newUnit);
           newQuantity = MassConverter.callerHelp(oldUnit, newUnit, quantity);
 
           shoppingList.setValueAt(newQuantity, row, 1);
         }
-        else if (newUnitMeasure.equals("VOLUME") && oldUnitMeasure.equals("VOLUME"))
+        else if (newUnitMeasure.equals(STRINGS.getString("VOLUME")) && oldUnitMeasure.equals(STRINGS.getString("VOLUME")))
         {
-          System.out.println("CONVERTING_FROM" + oldUnit + "TO" + newUnit);
+          System.out.println(STRINGS.getString("CONVERTING_FROM") + oldUnit + STRINGS.getString("TO") + newUnit);
           newQuantity = VolumeConverter.callerHelp(oldUnit, newUnit, quantity);
 
           shoppingList.setValueAt(newQuantity, row, 1);
         }
         else
         {
-          System.out.println("DO NOT CHANGE MEASURES");
+          System.out.println(STRINGS.getString("DO NOT CHANGE MEASURES"));
           return;
         }
         ingredients[index][2] = newUnit;

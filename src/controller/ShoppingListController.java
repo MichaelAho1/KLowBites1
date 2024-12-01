@@ -2,10 +2,13 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
+import app.KILowBites;
 import gui.ShoppingListWindow;
 
 public class ShoppingListController implements ActionListener, DocumentListener
@@ -13,6 +16,8 @@ public class ShoppingListController implements ActionListener, DocumentListener
 //  private static String PRINT = "Print";
 //  private static String CHANGE_UNIT = "Change Unit";
   private ShoppingListWindow parent;
+  static final Locale         LOCALE  = Locale.getDefault();
+  private static final ResourceBundle STRINGS = KILowBites.STRINGS;
 
   public ShoppingListController(ShoppingListWindow parent)
   {
@@ -24,12 +29,12 @@ public class ShoppingListController implements ActionListener, DocumentListener
   {
     String command = e.getActionCommand();
 
-    if (command.equals("PRINT"))
+    if (command.equals(STRINGS.getString("PRINT")))
     {
       System.out.println("Printing...");
     }
 
-    if (command.equals("CHANGE_UNIT"))
+    if (command.equals(STRINGS.getString("CHANGE_UNIT")))
     {
       parent.updateQuantity();
     }

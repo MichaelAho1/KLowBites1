@@ -29,15 +29,17 @@ public class CalorieOutputWindow extends JFrame
    *          Name of recipe/meal
    * @param calories
    *          Number of calories in recipe/meal
+   * @param omitted
    */
-  public CalorieOutputWindow(String name, String omitted, double calories)
+  public CalorieOutputWindow(final String name, final String omitted, final double calories)
   {
     super(name);
 
     this.setBackground(KILowBites.COLOR);
 
     JLabel rmName = new JLabel(name);
-    JLabel rmCalories = new JLabel(String.format(LOCALE, "%.2f" + STRINGS.getString("CALORIES_LOWER_CASE"), calories));
+    JLabel rmCalories = new JLabel(String.format(LOCALE, "%.2f" + STRINGS.getString(
+        "CALORIES_LOWER_CASE"), calories));
     JLabel omittedLabel = null;
 
     if (omitted != null && !omitted.isEmpty())

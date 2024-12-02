@@ -1,6 +1,9 @@
 package cooking;
 
 import java.io.Serializable;
+import java.util.ResourceBundle;
+
+import app.KILowBites;
 
 /**
  * Ingredients Class, a RecipeElement.
@@ -18,9 +21,11 @@ public class Steps implements RecipeElement, Serializable
   private String details;
   private RecipeElementType type = RecipeElementType.STEP;
 
-  private static final String THE_CONTENTS_OF_THE = " the contents of the ";
-  private static final String IN_THE = " in the ";
-  private static final String THE = " the ";
+  private static final ResourceBundle STRINGS = KILowBites.STRINGS;
+
+  // private static final String THE_CONTENTS_OF_THE = " the contents of the ";
+  // private static final String IN_THE = " in the ";
+  // private static final String THE = " the ";
   /**
    * Default constructor.
    */
@@ -140,19 +145,20 @@ public class Steps implements RecipeElement, Serializable
         && destination.getType() == RecipeElementType.UTENSIL
         && source.getName().equals(destination.getName()))
     {
-      return action + THE_CONTENTS_OF_THE + source.getName() + " " + details;
+      return action + STRINGS.getString("THE_CONTENTS_OF_THE") + source.getName() + " " + details;
     }
     else if (source.getType() == RecipeElementType.UTENSIL)
     {
-      return action + THE_CONTENTS_OF_THE + source.getName() + IN_THE
-          + destination.getName() + " " + details;
+      return action + STRINGS.getString("THE_CONTENTS_OF_THE") + " " + source.getName() + " "
+          + STRINGS.getString("IN_THE") + " " + destination.getName() + " " + details;
     }
     else if (StepSource.class.isInstance(Utensils.class))
     {
-      return action + THE_CONTENTS_OF_THE + source.getName() + IN_THE
-          + destination.getName() + " " + details;
+      return action + STRINGS.getString("THE_CONTENTS_OF_THE") + " " + source.getName()
+          + STRINGS.getString("IN_THE") + " " + destination.getName() + " " + details;
     }
-    return action + THE + source.getName() + IN_THE + destination.getName() + " " + details;
+    return action + STRINGS.getString("THE") + " " + source.getName() + " "
+        + STRINGS.getString("IN_THE") + " " + destination.getName() + " " + details;
   }
 
   public RecipeElementType getType()

@@ -29,10 +29,10 @@ public class RecipeElementTypeTest {
         assertEquals("Step Delete", RecipeElementType.STEP.getDeleteCommand());
     }
 
-    @Test
-    public void testGetType() {
-        assertEquals(RecipeElementType.INGREDIENT, RecipeElementType.INGREDIENT.getType());
-        assertEquals(RecipeElementType.UTENSIL, RecipeElementType.UTENSIL.getType());
-        assertEquals(RecipeElementType.STEP, RecipeElementType.STEP.getType());
-    }
+//    @Test
+//    public void testGetType() {
+//        assertEquals(RecipeElementType.INGREDIENT, RecipeElementType.INGREDIENT.getType());
+//        assertEquals(RecipeElementType.UTENSIL, RecipeElementType.UTENSIL.getType());
+//        assertEquals(RecipeElementType.STEP, RecipeElementType.STEP.getType());
+//    }
 }

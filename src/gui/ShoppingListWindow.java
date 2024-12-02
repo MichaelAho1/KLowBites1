@@ -48,9 +48,12 @@ public class ShoppingListWindow extends JFrame
   private ShoppingListController controller;
   private JButton printButton;
 
+  static final Locale LOCALE = Locale.getDefault();
+  private static final ResourceBundle STRINGS = KILowBites.STRINGS;
   private static Meal meal;
-  private String[] columnNames = {"Ingredient", "Quantity", "Unit", "Recipe", "Serves", "Aisle",
-      "Price", "Index"};
+  private String[] columnNames = {STRINGS.getString("INGREDIENT"), STRINGS.getString("QUANTITY"),
+      STRINGS.getString("UNITS"), STRINGS.getString("RECIPES"), STRINGS.getString("SERVES"),
+      STRINGS.getString("AISLE"), STRINGS.getString("PRICE"), STRINGS.getString("INDEX")};
 
   private List<Object[]> data;
   private Object[][] ingredients;
@@ -65,24 +68,11 @@ public class ShoppingListWindow extends JFrame
 
   private JTextField peopleField;
   private JTable shoppingList;
-  
-//  private final static String PRINT = "Print";
-//  private final static String NUMBER_OF_PEOPLE = "Number of People: ";
-//  private final static String SHOPPING_LIST = "Shopping List";
-//  private final static String CHANGE_UNIT = "Change Unit";
-//  private final static String INDIVIDUAL = "Individual";
-//  private final static String MASS = "Mass";
-//  private final static String VOLUME = "Volume";
-//  private final static String SAME_UNIT = "Same unit";
-//  private final static String CONVERTING_FROM = "converting from ";
-//  private final static String TO = " to ";
-  
-  static final Locale         LOCALE  = Locale.getDefault();
-  private static final ResourceBundle STRINGS = KILowBites.STRINGS;
-  
+
   public ShoppingListWindow(Meal meal)
   {
-    super(STRINGS.getString("KILOWBITES_SHOPPING_LIST_VIEWER") + InputUtilities.separateByCapital(meal.getName()));
+    super(STRINGS.getString("KILOWBITES_SHOPPING_LIST_VIEWER")
+        + InputUtilities.separateByCapital(meal.getName()));
 
     ShoppingListWindow.meal = meal;
 
@@ -169,7 +159,8 @@ public class ShoppingListWindow extends JFrame
     shoppingListPanel = new JPanel();
     shoppingListPanel.setSize(650, 215);
     shoppingListPanel.setLayout(new BorderLayout());
-    shoppingListPanel.setBorder(BorderFactory.createTitledBorder(STRINGS.getString("SHOPPING_LIST")));
+    shoppingListPanel
+        .setBorder(BorderFactory.createTitledBorder(STRINGS.getString("SHOPPING_LIST")));
 
     shoppingListPanel.setBackground(KILowBites.COLOR);
 
@@ -214,7 +205,8 @@ public class ShoppingListWindow extends JFrame
     shoppingListPanel = new JPanel();
     shoppingListPanel.setSize(650, 215);
     shoppingListPanel.setLayout(new BorderLayout());
-    shoppingListPanel.setBorder(BorderFactory.createTitledBorder(STRINGS.getString("SHOPPING_LIST")));
+    shoppingListPanel
+        .setBorder(BorderFactory.createTitledBorder(STRINGS.getString("SHOPPING_LIST")));
 
     shoppingListPanel.setBackground(KILowBites.COLOR);
 
@@ -340,16 +332,20 @@ public class ShoppingListWindow extends JFrame
       }
       else
       {
-        if (newUnitMeasure.equals(STRINGS.getString("MASS")) && oldUnitMeasure.equals(STRINGS.getString("MASS")))
+        if (newUnitMeasure.equals(STRINGS.getString("MASS"))
+            && oldUnitMeasure.equals(STRINGS.getString("MASS")))
         {
-          System.out.println(STRINGS.getString("CONVERTING_FROM") + oldUnit + STRINGS.getString("TO") + newUnit);
+          System.out.println(
+              STRINGS.getString("CONVERTING_FROM") + oldUnit + STRINGS.getString("TO") + newUnit);
           newQuantity = MassConverter.callerHelp(oldUnit, newUnit, quantity);
 
           shoppingList.setValueAt(newQuantity, row, 1);
         }
-        else if (newUnitMeasure.equals(STRINGS.getString("VOLUME")) && oldUnitMeasure.equals(STRINGS.getString("VOLUME")))
+        else if (newUnitMeasure.equals(STRINGS.getString("VOLUME"))
+            && oldUnitMeasure.equals(STRINGS.getString("VOLUME")))
         {
-          System.out.println(STRINGS.getString("CONVERTING_FROM") + oldUnit + STRINGS.getString("TO") + newUnit);
+          System.out.println(
+              STRINGS.getString("CONVERTING_FROM") + oldUnit + STRINGS.getString("TO") + newUnit);
           newQuantity = VolumeConverter.callerHelp(oldUnit, newUnit, quantity);
 
           shoppingList.setValueAt(newQuantity, row, 1);

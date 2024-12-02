@@ -1,8 +1,11 @@
 package cooking;
 
 import java.io.Serializable;
+import java.util.ResourceBundle;
 
 import javax.swing.JLabel;
+
+import app.KILowBites;
 
 /**
  * Ingredients Class, a RecipeElement.
@@ -20,6 +23,8 @@ public class Ingredients implements RecipeElement, StepSource, Serializable
   private String name = "";
   private RecipeElementType type = RecipeElementType.INGREDIENT;
   private final String space = " ";
+  private static final ResourceBundle STRINGS = KILowBites.STRINGS;
+
 
   /**
    * Default constructor.
@@ -137,7 +142,7 @@ public class Ingredients implements RecipeElement, StepSource, Serializable
   @Override
   public String toString()
   {
-    return amount + " " + units + " of" + details + " " + name;
+    return amount + " " + units + STRINGS.getString("OF") + details + " " + name;
   }
 
   /**

@@ -44,14 +44,10 @@ class UnitsTest
 
     assertEquals(15, allUnitsPlusIndividual.length);
     assertEquals("Individual", allUnitsPlusIndividual[1]);
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> branch 'main' of https://github.com/bernstdh/f24team3d
     assertEquals(13, AllUnitsNoPadding.length);
     assertEquals("Dram", AllUnitsNoPadding[1]);
-    
+
   }
 
 }

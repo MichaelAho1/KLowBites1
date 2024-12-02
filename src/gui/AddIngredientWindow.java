@@ -21,16 +21,9 @@ import app.KILowBites;
 import controller.AddIngredientController;
 import utilities.ImageUtilities;
 
-<<<<<<< HEAD
 /**
  * Main window for AddIngredientWindow.
  * 
-=======
-
-/**
- * Creates the Ingredient Window.
- *
->>>>>>> branch 'main' of https://github.com/bernstdh/f24team3d
  * @author f24team3d
  * @version 12/2/24
  */
@@ -45,32 +38,12 @@ public class AddIngredientWindow extends JDialog
   public static JTextField ingredientCalorieField;
   public static JTextField ingredientDensityField;
   public static JLabel successfulAdd;
-<<<<<<< HEAD
-=======
-  static final Locale LOCALE = Locale.getDefault();
-  
-  private static final ResourceBundle STRINGS = KILowBites.STRINGS;
-  
-  private static final long serialVersionUID = 1L;
-
-  private AddIngredientController controller;
-
-  private JPanel namePanel;
-  private JPanel caloriePanel;
-  private JPanel densityPanel;
-  private JPanel successPanel;
-
-  private String name;
->>>>>>> branch 'main' of https://github.com/bernstdh/f24team3d
 
   static final Locale LOCALE = Locale.getDefault();
-  private static final long serialVersionUID = 1L;
+
   private static final ResourceBundle STRINGS = KILowBites.STRINGS;
 
-  // private static final String ADD_INGREDIENT = "Add Ingredient";
-  // private static final String RESET = "Reset";
-  // private static final String INGREDIENT_NAME = "Ingredient name:";
-<<<<<<< HEAD
+  private static final long serialVersionUID = 1L;
 
   private AddIngredientController controller;
 
@@ -88,15 +61,7 @@ public class AddIngredientWindow extends JDialog
    *          Parent JFrame
    * @param name
    *          Name of window
-=======
-  
-  /**
-   * Creates the Ingredients Frame.
-   * 
-   * @param parent
-   * @param name
->>>>>>> branch 'main' of https://github.com/bernstdh/f24team3d
-   */
+   **/
   public AddIngredientWindow(final JFrame parent, final String name)
   {
     super(parent, "Add Ingredient to System", true);

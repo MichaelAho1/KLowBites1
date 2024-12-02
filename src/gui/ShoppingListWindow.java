@@ -69,7 +69,6 @@ public class ShoppingListWindow extends JFrame
   private JTextField peopleField;
   private JTable shoppingList;
 
-<<<<<<< HEAD
   // private final static String PRINT = "Print";
   // private final static String NUMBER_OF_PEOPLE = "Number of People: ";
   // private final static String SHOPPING_LIST = "Shopping List";
@@ -81,18 +80,9 @@ public class ShoppingListWindow extends JFrame
   // private final static String CONVERTING_FROM = "converting from ";
   // private final static String TO = " to ";
 
-  static final Locale LOCALE = Locale.getDefault();
-  private static final ResourceBundle STRINGS = KILowBites.STRINGS;
-
-=======
->>>>>>> branch 'main' of https://github.com/bernstdh/f24team3d
   public ShoppingListWindow(Meal meal)
   {
-<<<<<<< HEAD
     super(STRINGS.getString("KILOWBITES_SHOPPING_LIST_VIEWER") + " "
-=======
-    super(STRINGS.getString("KILOWBITES_SHOPPING_LIST_VIEWER")
->>>>>>> branch 'main' of https://github.com/bernstdh/f24team3d
         + InputUtilities.separateByCapital(meal.getName()));
 
     ShoppingListWindow.meal = meal;

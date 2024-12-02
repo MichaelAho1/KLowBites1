@@ -5,15 +5,11 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-
-import app.KILowBites;
-
-import java.net.URL;
 
 /**
  * ImageUtilities class.
@@ -36,8 +32,8 @@ public class ImageUtilities
    *          Height of icon
    * @return colored and scaled icon
    */
-  public static ImageIcon getFormattedImage(final String name, final Color color,
-      final int width, final int height)
+  public static ImageIcon getFormattedImage(final String name, final Color color, final int width,
+      final int height)
   {
     try
     {
@@ -97,7 +93,6 @@ public class ImageUtilities
     }
     catch (IOException e)
     {
-      e.printStackTrace();
       return null;
     }
   }

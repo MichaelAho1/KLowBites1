@@ -350,6 +350,9 @@ public class Foods
     // Step 1: Define the file in the current working directory
     File file = new File(Paths.get("").toAbsolutePath().toString(), "Foods.ntr");
 
+    // ONLY FOR JUNIT
+    // File file = new File(Paths.get("").toAbsolutePath().toString(), "FoodsCopy.ntr");
+
     // Step 2: Check if the file exists, and try to load it if it does
     if (file.exists())
     {
@@ -360,8 +363,6 @@ public class Foods
       }
       catch (IOException | ClassNotFoundException e)
       {
-        System.err.println("Error loading Foods.ntr, using default foods: " + e.getMessage());
-        e.printStackTrace();
       }
     }
 

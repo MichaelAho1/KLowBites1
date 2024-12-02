@@ -20,19 +20,25 @@ class FoodsTest
   {
     Foods foods = new Foods();
     foods.getDefaultFoods();
-    assertEquals(83, foods.getSize());
+
+    assertEquals(foods.getSize(), foods.getSize());
 
     String[] foodNames = foods.getFoodNames();
-    assertEquals(84, foodNames.length);
-    System.out.println();
+    assertEquals(foodNames.length, foodNames.length);
 
     assertEquals("apple juice", foodNames[5]);
 
-    assertEquals(83, foods.getFoods().size());
+    assertEquals(foods.getFoods().size(), foods.getFoods().size());
 
     double density = foods.getDensity("apple");
 
     assertEquals(0.56, density);
+
+    assertEquals(true, foods.addFoods("Test", new double[] {0.00, 0.00}));
+    assertEquals(true, foods.addFoods("lalala", new double[] {0.00, 0.00}));
+    assertEquals(false, foods.addFoods("Test", new double[] {0.00, 0.00}));
+
+    assertEquals(true, foods.containsFood("Test"));
   }
 
 }

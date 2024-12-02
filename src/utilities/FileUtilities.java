@@ -86,7 +86,6 @@ public class FileUtilities
 
     if (selectedFile == null)
     {
-      // System.out.println("No file selected.");
       return null;
     }
 
@@ -446,6 +445,9 @@ public class FileUtilities
   {
     // Retrieve directory path from file path
     File file = new File(Paths.get("").toAbsolutePath().toString(), "Foods.ntr");
+
+    // ONLY FOR JUNIT
+    // File file = new File(Paths.get("").toAbsolutePath().toString(), "FoodsCopy.ntr");
 
     // Serialize and save foods to file
     try (FileOutputStream fileOut = new FileOutputStream(file);

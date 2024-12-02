@@ -21,8 +21,6 @@ import utilities.Foods;
 import utilities.ImageUtilities;
 import utilities.Units;
 
-
-
 /**
  * KILowBites main class. Runs the program and the main window.
  *
@@ -42,6 +40,10 @@ public class KILowBites extends JFrame implements Runnable
 
   public static ResourceBundle STRINGS;
 
+  // BEFORE RUNNING - CHECK FOR COMMENTS IN :
+  // Foods.java - loadFoods()
+  // FileUtilities.java - saveFoods()
+
   private String[] args;
 
   /**
@@ -54,17 +56,19 @@ public class KILowBites extends JFrame implements Runnable
   {
     // Store the command-line arguments if needed
     this.args = args;
-    
+
     Locale.setDefault(getLocale());
     System.out.println("Current Locale: " + Locale.getDefault());
     STRINGS = ResourceBundle.getBundle("Strings", Locale.getDefault());
-    
-    // Here is the command to run it in english: 
+
+    // STRINGS = ResourceBundle.getBundle("Strings", new Locale("es", "ES"));
+
+    // Here is the command to run it in english:
     // java "-Duser.language=en" "-Duser.country=US" -jar KILowBites.jar
-    
+
     // Cmd for French
     // java "-Duser.language=fr" "-Duser.country=FR" -jar KILowBites.jar
-    
+
     // Cmd for Spanish
     // java "-Duser.language=es" "-Duser.country=ES" -jar KILowBites.jar
   }

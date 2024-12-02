@@ -13,6 +13,12 @@ import app.KILowBites;
 import gui.AddIngredientWindow;
 import utilities.InputUtilities;
 
+/**
+ * Controller for AddIngredientWindow.
+ * 
+ * @author f24team3d
+ * @version 12/2/24
+ */
 public class AddIngredientController implements ActionListener, DocumentListener
 {
   static final Locale LOCALE = Locale.getDefault();
@@ -23,6 +29,12 @@ public class AddIngredientController implements ActionListener, DocumentListener
 
   private AddIngredientWindow window;
 
+  /**
+   * Constructor.
+   * 
+   * @param window
+   *          Add Ingredient Window
+   */
   public AddIngredientController(AddIngredientWindow window)
   {
     this.window = window;
@@ -68,7 +80,7 @@ public class AddIngredientController implements ActionListener, DocumentListener
   }
 
   /**
-   * 
+   * Adds ingredient to food list.
    */
   private void addIngredient()
   {

@@ -36,6 +36,7 @@ import cooking.Utensils;
  */
 public class EditorPanel extends JPanel
 {
+  static final Locale         LOCALE  = Locale.getDefault();
   // strings needed to determine the type of the input, needed since no interface
   final String UTENSILS = "Utensils";
   final String INGREDIENTS = "Ingredients";
@@ -43,10 +44,9 @@ public class EditorPanel extends JPanel
 //  private static final String DELETE = "Delete";
 //  private static final String RECIPE_DELETE = "Recipe Delete";
   
-  static final Locale         LOCALE  = Locale.getDefault();
-  private static final ResourceBundle STRINGS = KILowBites.STRINGS;
   
   Container contentPane;
+  
 
   // shared variables
   JPanel fileEditorPanel;
@@ -60,6 +60,8 @@ public class EditorPanel extends JPanel
   // MealEditor variables
   DefaultListModel<String> mealFileArea;
   JList<String> mealList;
+  
+  private static final ResourceBundle STRINGS = KILowBites.STRINGS;
 
   /**
    * Constructor for EditorPanel (for RecipeEditor).
@@ -68,9 +70,13 @@ public class EditorPanel extends JPanel
    *          the input field panel
    * @param controller
    *          the controller for the RecipeEditor
+   * @param type
+   * @param recipe 
+   * @param isNew
    */
-  public EditorPanel(RecipeElementType type, Recipe recipe, InputFieldPanel inputFieldPanel,
-      RecipeEditorController controller, boolean isNew)
+  public EditorPanel(final RecipeElementType type, final Recipe recipe,
+      final InputFieldPanel inputFieldPanel, final RecipeEditorController controller, 
+      final boolean isNew)
   {
     super();
 
@@ -160,11 +166,11 @@ public class EditorPanel extends JPanel
    *          the input field panel
    * @param controller
    *          the controller for the MealEditor
-   * @param type
-   *          the type of the input
+   * @param meal
+   * @param isNew
    */
-  public EditorPanel(String name, Meal meal, InputFieldPanel inputFieldPanel,
-      MealEditorController controller, boolean isNew)
+  public EditorPanel(final String name, final Meal meal, final InputFieldPanel inputFieldPanel,
+      final MealEditorController controller, final boolean isNew)
   {
     super();
 
@@ -218,7 +224,10 @@ public class EditorPanel extends JPanel
     this.add(fileEditorPanel, BorderLayout.CENTER);
     this.add(contentPane, BorderLayout.SOUTH);
   }
-
+  
+  /**
+   * Resets the editor pane.
+   */
   public void reset()
   {
     try
@@ -231,6 +240,9 @@ public class EditorPanel extends JPanel
     }
   }
 
+  /**
+   * Resets the meal area.
+   */
   public void resetMeal()
   {
     try
@@ -242,28 +254,49 @@ public class EditorPanel extends JPanel
       System.out.println("nothing to clear");
     }
   }
-
-  public void addRecipeElement(RecipeElement element)
+  
+  /**
+   * Adds the recipe element.
+   * @param element
+   */
+  public void addRecipeElement(final RecipeElement element)
   {
     recipeFileArea.addElement(element);
   }
-
-  public void addMealElement(String e)
+  
+  /**
+   * Adds the meal element.
+   * @param e
+   */
+  public void addMealElement(final String e)
   {
     mealFileArea.addElement(e);
   }
-
+  
+  /**
+   * Gets the list of recipes.
+   * @return The recipe list of recipes.
+   */
   public JList<RecipeElement> getRecipeList()
   {
     return recipeList;
   }
-
+  
+  /**
+   * Gets the list of meals.
+   * @return The recipe list of meals.
+   */
   public JList<String> getMealList()
   {
     return mealList;
   }
-
-  public Ingredients getSelectedIngredient(String name)
+  
+  /**
+   * Gets a certain ingredient.
+   * @param name The name of the ingredient
+   * @return The ingredient
+   */
+  public Ingredients getSelectedIngredient(final String name)
   {
     Ingredients[] ingredient = new Ingredients[recipeList.getModel().getSize()];
 
@@ -281,8 +314,13 @@ public class EditorPanel extends JPanel
     }
     return null;
   }
-
-  public Utensils getSelectedUtensil(String name)
+  
+  /**
+   * Gets a certain Utensil.
+   * @param name The name of the Utensil
+   * @return The Utensil
+   */
+  public Utensils getSelectedUtensil(final String name)
   {
     Utensils[] utensil = new Utensils[recipeList.getModel().getSize()];
 
@@ -300,8 +338,14 @@ public class EditorPanel extends JPanel
     }
     return null;
   }
-
-  public Steps getSelectedStep(String action, String details)
+  
+  /**
+   * Gets a certain Utensil.
+   * @param action The action that is happening during a certain step
+   * @param details The description of a step.
+   * @return The step
+   */
+  public Steps getSelectedStep(final String action, final String details)
   {
     Steps[] step = new Steps[recipeList.getModel().getSize()];
 
@@ -319,7 +363,10 @@ public class EditorPanel extends JPanel
     }
     return null;
   }
-
+  
+  /**
+   * Gets rid of the recipe element.
+   */
   public void deleteRecipeElement()
   {
     try
@@ -327,7 +374,7 @@ public class EditorPanel extends JPanel
       int index = recipeList.getSelectedIndex();
 
       if (index >= 0 && index < recipeList.getModel().getSize())
-        ;
+        
       {
         recipeFileArea.remove(index);
       }
@@ -337,7 +384,10 @@ public class EditorPanel extends JPanel
       System.out.println("No element selected");
     }
   }
-
+  
+  /**
+   * Gets rid of the meal element.
+   */
   public void deleteMealElement()
   {
     try
@@ -345,7 +395,7 @@ public class EditorPanel extends JPanel
       int index = mealList.getSelectedIndex();
 
       if (index >= 0 && index < mealList.getModel().getSize())
-        ;
+        
       {
         mealFileArea.remove(index);
       }

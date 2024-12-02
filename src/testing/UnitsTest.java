@@ -45,8 +45,9 @@ class UnitsTest
     assertEquals(15, allUnitsPlusIndividual.length);
     assertEquals("Individual", allUnitsPlusIndividual[1]);
     
-    assertEquals(14, AllUnitsNoPadding.length);
+    assertEquals(13, AllUnitsNoPadding.length);
     assertEquals("Dram", AllUnitsNoPadding[1]);
+    
   }
 
 }

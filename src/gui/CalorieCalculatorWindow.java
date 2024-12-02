@@ -33,6 +33,17 @@ import utilities.UnitType;
 @SuppressWarnings({"rawtypes", "unchecked"})
 public class CalorieCalculatorWindow extends JFrame
 {
+  public static JButton calorieCalcButton;
+  public static JButton calorieResetButton;
+  public static JButton calorieOpenButton;
+
+  public static JComboBox calorieIngredientsMenu;
+  public static JComboBox calorieUnitsMenu;
+  public static JTextField calorieAmountField;
+  public static JLabel calorieOutputField;
+  static final Locale         LOCALE  = Locale.getDefault();
+  
+  private static final ResourceBundle STRINGS = KILowBites.STRINGS;
   private static final long serialVersionUID = 1L;
 
   private String[] ingredients;
@@ -44,14 +55,6 @@ public class CalorieCalculatorWindow extends JFrame
   private JPanel unitsPanel;
   private JPanel outputPanel;
 
-  public static JButton calorieCalcButton;
-  public static JButton calorieResetButton;
-  public static JButton calorieOpenButton;
-
-  public static JComboBox calorieIngredientsMenu;
-  public static JComboBox calorieUnitsMenu;
-  public static JTextField calorieAmountField;
-  public static JLabel calorieOutputField;
 
 //  private static final String KILOWBITES_CALORIES_CALCULATOR = "KILowBites Calorie Calculator";
 //  private static final String CALCULATE = "Calculate";
@@ -65,8 +68,6 @@ public class CalorieCalculatorWindow extends JFrame
 //  private static final String INGREDIENTS = "Ingredients";
 //  private static final String CALORIES = "Calories:";
   
-  static final Locale         LOCALE  = Locale.getDefault();
-  private static final ResourceBundle STRINGS = KILowBites.STRINGS;
   /**
    * Default constructor.
    */
@@ -139,7 +140,7 @@ public class CalorieCalculatorWindow extends JFrame
   }
 
   @Override
-  protected void processWindowEvent(java.awt.event.WindowEvent e)
+  protected void processWindowEvent(final java.awt.event.WindowEvent e)
   {
     super.processWindowEvent(e);
     if (e.getID() == java.awt.event.WindowEvent.WINDOW_CLOSING)

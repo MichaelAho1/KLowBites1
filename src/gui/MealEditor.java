@@ -59,7 +59,7 @@ public class MealEditor extends JFrame
 
     // create toolbar buttons
     buttons = new JButton[5];
-    String[] buttonNames = {"New", "Open", "Save", "Save As", "Close"};
+    String[] buttonNames = {STRINGS.getString("NEW"), STRINGS.getString("OPEN"), STRINGS.getString("SAVE"), STRINGS.getString("SAVE_AS"), STRINGS.getString("CLOSE")};
     String[] buttonPaths = {"new.png", "open.png", "save.png", "save_as.png",
         "close.png"};
 

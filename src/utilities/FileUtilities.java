@@ -35,7 +35,6 @@ public class FileUtilities
 {
   private static JFileChooser fileChooser = new JFileChooser();
   private static String noDirectory = "No directory selected";
-  private static String selectedDirectory = "Selected directory: ";
   private static String mel = ".mel";
   private static String rcp = ".rcp";
   private static String mealFiles = "Meal Files";
@@ -262,10 +261,6 @@ public class FileUtilities
 
       Meal loadedMeal = (Meal) in.readObject();
       // System.out.println("Meal loaded successfully from " + file.getAbsolutePath());
-      for (Recipe i : loadedMeal.getRecipes())
-      {
-        // System.out.println(i.getName());
-      }
       return loadedMeal;
     }
     catch (IOException | ClassNotFoundException e)
@@ -293,15 +288,7 @@ public class FileUtilities
     File parentDirectory = file.getParentFile();
     if (parentDirectory != null && !parentDirectory.exists())
     {
-      if (parentDirectory.mkdirs())
-      {
-        // System.out.println("Success");
-      }
-      else
-      {
-        // System.err.println("Failed to create directory at " + parentDirectory.getAbsolutePath());
-        return;
-      }
+      parentDirectory.mkdirs();
     }
 
     // Step 3: Serialize and save the recipe to the file
@@ -373,15 +360,7 @@ public class FileUtilities
     File parentDirectory = file.getParentFile();
     if (parentDirectory != null && !parentDirectory.exists())
     {
-      if (parentDirectory.mkdirs())
-      {
-        // System.out.println("Directory created at " + parentDirectory.getAbsolutePath());
-      }
-      else
-      {
-        // System.err.println("Failed to create directory at " + parentDirectory.getAbsolutePath());
-        return;
-      }
+      parentDirectory.mkdirs();
     }
 
     // Step 3: Serialize and save the recipe to the file
@@ -504,6 +483,7 @@ public class FileUtilities
             }
             else
             {
+              return null;
               // System.err.println("Invalid line format: " + line);
             }
           }
@@ -517,6 +497,7 @@ public class FileUtilities
     else
     {
       // System.err.println("File does not exist: " + file.getAbsolutePath());
+      return null;
     }
 
     return aisles;
@@ -563,6 +544,7 @@ public class FileUtilities
             }
             else
             {
+              return null;
               // System.err.println("Invalid line format: " + line);
             }
           }
@@ -575,6 +557,7 @@ public class FileUtilities
     }
     else
     {
+      return null;
       // System.err.println("File does not exist: " + file.getAbsolutePath());
     }
 

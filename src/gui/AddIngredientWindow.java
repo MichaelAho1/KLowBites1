@@ -29,21 +29,14 @@ import utilities.ImageUtilities;
  */
 public class AddIngredientWindow extends JDialog
 {
-  public static boolean added;
-
-  public static JButton ingredientAddButton;
-  public static JButton ingredientResetButton;
-
-  public static JTextField ingredientNameField;
-  public static JTextField ingredientCalorieField;
-  public static JTextField ingredientDensityField;
-  public static JLabel successfulAdd;
-
   static final Locale LOCALE = Locale.getDefault();
 
   private static final ResourceBundle STRINGS = KILowBites.STRINGS;
 
   private static final long serialVersionUID = 1L;
+
+  private String add = "ADD_INGREDIENT";
+  private String reset = "RESET";
 
   private AddIngredientController controller;
 
@@ -53,6 +46,16 @@ public class AddIngredientWindow extends JDialog
   private JPanel successPanel;
 
   private String name;
+
+  private boolean added;
+
+  private JButton ingredientAddButton;
+  private JButton ingredientResetButton;
+
+  private JTextField ingredientNameField;
+  private JTextField ingredientCalorieField;
+  private JTextField ingredientDensityField;
+  private JLabel successfulAdd;
 
   /**
    * Constructor.
@@ -87,17 +90,17 @@ public class AddIngredientWindow extends JDialog
     JToolBar toolbar = new JToolBar();
     toolbar.setFloatable(false);
 
-    ingredientAddButton = new JButton(STRINGS.getString("ADD_INGREDIENT"));
+    ingredientAddButton = new JButton(STRINGS.getString(add));
     ingredientAddButton.setEnabled(false);
-    ingredientAddButton.setToolTipText(STRINGS.getString("ADD_INGREDIENT"));
-    ingredientAddButton.setActionCommand(STRINGS.getString("ADD_INGREDIENT"));
+    ingredientAddButton.setToolTipText(STRINGS.getString(add));
+    ingredientAddButton.setActionCommand(STRINGS.getString(add));
     ingredientAddButton.addActionListener(controller);
 
     ingredientResetButton = new JButton(
         ImageUtilities.getFormattedImage("reset.png", Color.GRAY, 25, 25));
     ingredientResetButton.setEnabled(false);
-    ingredientResetButton.setToolTipText(STRINGS.getString("RESET"));
-    ingredientResetButton.setActionCommand(STRINGS.getString("RESET"));
+    ingredientResetButton.setToolTipText(STRINGS.getString(reset));
+    ingredientResetButton.setActionCommand(STRINGS.getString(reset));
     ingredientResetButton.addActionListener(controller);
 
     toolbar.add(ingredientAddButton);
@@ -214,5 +217,86 @@ public class AddIngredientWindow extends JDialog
     boxPanel.add(successfulAdd, gbc);
 
     successPanel.add(boxPanel, BorderLayout.CENTER);
+  }
+
+  /**
+   * Return added.
+   * 
+   * @return boolean
+   */
+  public boolean getAdded()
+  {
+    return added;
+  }
+
+  /**
+   * Sets added.
+   * 
+   * @param success
+   *          successful add
+   */
+  public void setAdded(final boolean success)
+  {
+    added = success;
+  }
+
+  /**
+   * Return ingredient add button.
+   * 
+   * @return button
+   */
+  public JButton getAddButton()
+  {
+    return ingredientAddButton;
+  }
+
+  /**
+   * Return ingredient add button.
+   * 
+   * @return button
+   */
+  public JButton getResetButton()
+  {
+    return ingredientResetButton;
+  }
+
+  /**
+   * Return name field.
+   * 
+   * @return name field
+   */
+  public JTextField getNameField()
+  {
+    return ingredientNameField;
+  }
+
+  /**
+   * Return calorie field.
+   * 
+   * @return calorie field
+   */
+  public JTextField getCalorieField()
+  {
+    return ingredientCalorieField;
+  }
+
+  /**
+   * Return density field.
+   * 
+   * @return density field
+   */
+  public JTextField getDensityField()
+  {
+    return ingredientDensityField;
+  }
+
+  /**
+   * Return successful add field.
+   * 
+   * @return return successful add field
+   */
+  public JLabel getSuccessfulAdd()
+  {
+    return successfulAdd;
   }
 }

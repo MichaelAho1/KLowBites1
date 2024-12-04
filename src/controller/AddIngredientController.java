@@ -28,6 +28,7 @@ public class AddIngredientController implements ActionListener, DocumentListener
   // private static final String RESET = "Reset";
 
   private AddIngredientWindow window;
+  private String invalid = "INVALID_INPUT";
 
   /**
    * Constructor.
@@ -86,13 +87,13 @@ public class AddIngredientController implements ActionListener, DocumentListener
   {
     String ingreName;
 
-    if (InputUtilities.isAlphabetical(AddIngredientWindow.ingredientNameField.getText().trim()))
+    if (InputUtilities.isAlphabetical(window.getNameField().getText().trim()))
     {
-      ingreName = AddIngredientWindow.ingredientNameField.getText().trim().toLowerCase();
+      ingreName = window.getNameField().getText().trim().toLowerCase();
     }
     else
     {
-      AddIngredientWindow.successfulAdd.setText(STRINGS.getString("INVALID_INPUT"));
+      window.getSuccessfulAdd().setText(STRINGS.getString(invalid));
       return;
     }
 
@@ -100,19 +101,19 @@ public class AddIngredientController implements ActionListener, DocumentListener
     try
     {
       // Retrieve and parse the input amount
-      cals100G = Double.parseDouble(AddIngredientWindow.ingredientCalorieField.getText().trim());
-      gML = Double.parseDouble(AddIngredientWindow.ingredientDensityField.getText().trim());
+      cals100G = Double.parseDouble(window.getCalorieField().getText().trim());
+      gML = Double.parseDouble(window.getDensityField().getText().trim());
     }
     catch (NumberFormatException ex)
     {
       // should get here if letters / non-numbers are entered
-      AddIngredientWindow.successfulAdd.setText(STRINGS.getString("INVALID_INPUT"));
+      window.getSuccessfulAdd().setText(STRINGS.getString(invalid));
       return;
     }
 
     if (cals100G < 0 || gML < 0)
     {
-      AddIngredientWindow.successfulAdd.setText(STRINGS.getString("INVALID_INPUT"));
+      window.getSuccessfulAdd().setText(STRINGS.getString(invalid));
       return;
     }
 
@@ -121,19 +122,20 @@ public class AddIngredientController implements ActionListener, DocumentListener
 
     if (success)
     {
-      AddIngredientWindow.successfulAdd.setText(
+      window.getSuccessfulAdd().setText(
           String.format(LOCALE, STRINGS.getString("SUCCESSFULLY_ADDED") + " %s!", ingreName));
 
-      AddIngredientWindow.added = true;
+      window.setAdded(true);
 
       new javax.swing.Timer(2000, e ->
+
       {
         window.dispose(); // Adjust this to match your window closing logic
       }).start();
     }
     else
     {
-      AddIngredientWindow.successfulAdd
+      window.getSuccessfulAdd()
           .setText(String.format(LOCALE, STRINGS.getString("ALREADY_IN_SYSTEM"), ingreName));
     }
     System.out.println(Arrays.toString(KILowBites.FOODS.getFoodNames()));
@@ -144,16 +146,16 @@ public class AddIngredientController implements ActionListener, DocumentListener
    */
   private void reset()
   {
-    AddIngredientWindow.ingredientCalorieField.setText("");
-    AddIngredientWindow.ingredientDensityField.setText("");
-    AddIngredientWindow.successfulAdd.setText("");
+    window.getCalorieField().setText("");
+    window.getDensityField().setText("");
+    window.getSuccessfulAdd().setText("");
   }
 
   private void updateAddButton()
   {
-    boolean empty = !AddIngredientWindow.ingredientCalorieField.getText().trim().isEmpty()
-        && !AddIngredientWindow.ingredientDensityField.getText().trim().isEmpty();
-    AddIngredientWindow.ingredientAddButton.setEnabled(empty);
+    boolean empty = !window.getCalorieField().getText().trim().isEmpty()
+        && !window.getDensityField().getText().trim().isEmpty();
+    window.getAddButton().setEnabled(empty);
   }
 
   /**
@@ -161,8 +163,8 @@ public class AddIngredientController implements ActionListener, DocumentListener
    */
   private void updateResetButton()
   {
-    boolean empty = !AddIngredientWindow.ingredientCalorieField.getText().trim().isEmpty()
-        || !AddIngredientWindow.ingredientDensityField.getText().trim().isEmpty();
-    AddIngredientWindow.ingredientResetButton.setEnabled(empty);
+    boolean empty = !window.getCalorieField().getText().trim().isEmpty()
+        || !window.getDensityField().getText().trim().isEmpty();
+    window.getResetButton().setEnabled(empty);
   }
 }

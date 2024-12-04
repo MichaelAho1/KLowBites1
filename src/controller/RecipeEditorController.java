@@ -78,6 +78,7 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
 
   /**
    * Gets the name of the recipe from the editor Includes input checking.
+   * 
    * @return Returns the name of the recipe in the name field.
    */
   private String getName()
@@ -93,6 +94,7 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
 
   /**
    * Gets the number of serves from the editor Includes input checking.
+   * 
    * @return Returns the amount of people a recipe serves
    */
   private int getServes()
@@ -141,6 +143,7 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
 
   /**
    * Method for when action is performed.
+   * 
    * @param e
    */
   public void actionPerformed(final ActionEvent e)
@@ -351,7 +354,7 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
         {
           AddIngredientWindow window = new AddIngredientWindow(editor, name);
           window.setVisible(true);
-          addedIngredient = AddIngredientWindow.added;
+          addedIngredient = window.getAdded();
         }
 
         if (addedIngredient)

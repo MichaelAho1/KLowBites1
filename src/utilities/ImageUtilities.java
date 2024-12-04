@@ -22,8 +22,8 @@ public class ImageUtilities
   /**
    * Scale and color correction for icons.
    * 
-   * @param path
-   *          Path of icon
+   * @param name
+   *          Name of icon
    * @param color
    *          Color of icon
    * @param width
@@ -68,8 +68,8 @@ public class ImageUtilities
   /**
    * Get Scaled image.
    *
-   * @param path
-   *          Path of image
+   * @param name
+   *          Name of image
    * @param width
    *          Width of image
    * @param height

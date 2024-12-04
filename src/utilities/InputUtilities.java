@@ -94,16 +94,25 @@ public class InputUtilities
     return str.matches("[a-zA-Z ]+");
   }
 
-  public static String separateByCapital(String input)
+  /**
+   * Separate string by capital letters.
+   * 
+   * @param input
+   *          String
+   * @return string separated by capital letters
+   */
+  public static String separateByCapital(final String input)
   {
+    String s = "";
+
     // Remove the .rcp/.mel extension if present
     if (input.endsWith(".rcp") || input.endsWith(".mel"))
     {
-      input = input.substring(0, input.length() - 4);
+      s = input.substring(0, input.length() - 4);
     }
 
     // Use a regular expression to add a space before each capital letter, except the first one
-    String separated = input.replaceAll("(?<!^)([A-Z])", " $1");
+    String separated = s.replaceAll("(?<!^)([A-Z])", " $1");
 
     return separated;
   }

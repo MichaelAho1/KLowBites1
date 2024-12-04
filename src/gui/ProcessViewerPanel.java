@@ -180,6 +180,10 @@ public class ProcessViewerPanel extends JPanel
   {
     processArea.addElement(element);
   }
+  
+  public DefaultListModel<Object> getProcessArea() {
+	return processArea;
+}
 
   public JList<Object> getRecipeList()
   {

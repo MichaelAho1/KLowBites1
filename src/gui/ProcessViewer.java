@@ -7,6 +7,7 @@ import java.awt.Dimension;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -84,7 +85,7 @@ public class ProcessViewer extends JFrame
   {
     return processContent;
   }
-
+  
   /**
    * Set up visual components of window.
    */

@@ -40,6 +40,7 @@ public class ProcessViewerContent extends JPanel
 
   ProcessViewerPanel utensilProcessViewerPanel;
   ProcessViewerPanel stepProcessViewerPanel;
+  ProcessViewerPanel printProcessViewerPanel;
 
   /**
    * Constructor for RecipeEditorContent.
@@ -98,6 +99,8 @@ public class ProcessViewerContent extends JPanel
         controller);
     stepProcessViewerPanel = new ProcessViewerPanel(RecipeElementType.STEP, meal, stepIFP,
         controller);
+//    printProcessViewerPanel = new ProcessViewerPanel(RecipeElementType.UTENSIL, meal, utensilIFP,
+//            controller);
 
     ProcessViewerPanel.add(utensilProcessViewerPanel);
     ProcessViewerPanel.add(stepProcessViewerPanel);
@@ -120,6 +123,10 @@ public class ProcessViewerContent extends JPanel
   {
     return stepProcessViewerPanel;
   }
+  
+//  public ProcessViewerPanel getPrintProcessViewerPanel() {
+//	return printProcessViewerPanel;
+//}
 
   public InputFieldPanel getMainIFP()
   {

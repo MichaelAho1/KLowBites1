@@ -15,11 +15,20 @@ import controller.UnitConverterController;
 import controller.UnitTypeController;
 import utilities.UnitType;
 
+/**
+ * Main window for KiLowBites unit Type.
+ * 
+ * @author f24team3d
+ * @version 10/29/24
+ */
 public class UnitTypeWindow extends JFrame
 {
   public static JButton metricButton;
   public static JButton imperialButton;
   public static JLabel titleLabel;
+  static final Locale         LOCALE  = Locale.getDefault();
+  private static final long serialVersionUID = 1L;
+  private static final ResourceBundle STRINGS = KILowBites.STRINGS;
   private UnitTypeController controller;
   
 //  private static final String UNIT_TYPE_SELECTOR = "Unit Type Selector";
@@ -30,8 +39,6 @@ public class UnitTypeWindow extends JFrame
 //  private static final String CURRENT_UNIT_TYPE_IMPERIAL = "Current Unit Type: Imperial";
 //  private static final String CURRENT_UNIT_TYPE_METRIC = "Current Unit Type: Metric";
   
-  static final Locale         LOCALE  = Locale.getDefault();
-  private static final ResourceBundle STRINGS = KILowBites.STRINGS;
   
   /**
    * Creates the Unit Type Window.
@@ -52,7 +59,15 @@ public class UnitTypeWindow extends JFrame
     imperialButton.setToolTipText(STRINGS.getString("CHANGE_UNIT_TYPE_TO_IMPERIAL"));
     imperialButton.setActionCommand(STRINGS.getString("IMPERIAL"));
     imperialButton.addActionListener(controller);
-    imperialButton.setEnabled(false);
+    if (UnitType.getImperialSelected()) 
+    {
+      imperialButton.setEnabled(false);
+      metricButton.setEnabled(true);
+    } else 
+    {
+      imperialButton.setEnabled(true);
+      metricButton.setEnabled(false);
+    }
     
     JPanel inputs = new JPanel(new GridLayout(1, 2, 0, 0)); 
     inputs.add(metricButton);

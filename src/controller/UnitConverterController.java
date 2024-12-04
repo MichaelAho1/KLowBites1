@@ -16,6 +16,12 @@ import converter.VolumeConverter;
 import gui.UnitConverterWindow;
 import utilities.Units;
 
+/**
+ * Unit Converter controller class. Handles the actions of the Unit Converter GUI elements.
+ *
+ * @author f24team3d
+ * @version 12/4/24
+ */
 public class UnitConverterController implements ActionListener, DocumentListener
 {
 //  private static final String CALCULATE = "Calculate";
@@ -30,7 +36,7 @@ public class UnitConverterController implements ActionListener, DocumentListener
   private boolean sameMeasureType;
 
   @Override
-  public void actionPerformed(ActionEvent e)
+  public void actionPerformed(final ActionEvent e)
   {
     String ac = e.getActionCommand();
 
@@ -64,21 +70,21 @@ public class UnitConverterController implements ActionListener, DocumentListener
   }
 
   @Override
-  public void insertUpdate(DocumentEvent e)
+  public void insertUpdate(final DocumentEvent e)
   {
     updateResetButton();
     updateCalculateButton();
   }
 
   @Override
-  public void removeUpdate(DocumentEvent e)
+  public void removeUpdate(final DocumentEvent e)
   {
     updateResetButton();
     updateCalculateButton();
   }
 
   @Override
-  public void changedUpdate(DocumentEvent e)
+  public void changedUpdate(final DocumentEvent e)
   {
     updateResetButton();
     updateCalculateButton();
@@ -111,9 +117,11 @@ public class UnitConverterController implements ActionListener, DocumentListener
     Double fromAmount = UnitConverterWindow.getFromAmountField();
     String ingredient = UnitConverterWindow.getIngredientsUnitsMenu();
     Double density = 0.0;
-    if (fromAmount < 0) {
+    if (fromAmount < 0) 
+    {
       UnitConverterWindow.unitOutputField.setText("Cannot be a negative input.");
-    } else {
+    } else 
+    {
       if (!sameMeasureType)
         density = KILowBites.FOODS.getDensity(ingredient);
       if (Arrays.asList(volumeUnits).contains(fromUnits)) // Volume

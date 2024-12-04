@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+import javax.swing.JPanel;
+
 import app.KILowBites;
 import cooking.Meal;
 import cooking.Recipe;
@@ -22,9 +24,9 @@ import utilities.FileUtilities;
 public class ProcessViewerController implements ActionListener
 {
   // ALEX START METHOD, RECIPE EDITOR CONTENT
+  static final Locale LOCALE = Locale.getDefault();
   private static String PRINT = "Print";
 
-  static final Locale LOCALE = Locale.getDefault();
   private static final ResourceBundle STRINGS = KILowBites.STRINGS;
 
   private ProcessViewer viewer;
@@ -40,7 +42,7 @@ public class ProcessViewerController implements ActionListener
   }
 
   /**
-   * Creates a new RecipeViewer window
+   * Creates a new RecipeViewer window.
    */
   private void createRecipeViewer()
   {
@@ -79,7 +81,8 @@ public class ProcessViewerController implements ActionListener
   }
 
   /**
-   * Method for when action is performed
+   * Method for when action is performed.
+   * @param e
    */
   public void actionPerformed(final ActionEvent e)
   {
@@ -88,13 +91,21 @@ public class ProcessViewerController implements ActionListener
     // commands for Toolbar
     if (command.equals(PRINT))
     {
-      DelegatingPrintable dp = new DelegatingPrintable(viewer.getContent());
+//    	JPanel jp = new JPanel();
+//    	jp.add(viewer.getContent().getUtensilPanel().getRecipeList());
+//    	jp.add(viewer.getContent().getStepPanel().getRecipeList());
+//      DelegatingPrintable dp = new DelegatingPrintable(jp);
+//      PrinterController.print(dp, viewer);
+    	//ALEX TODO: TRY HAVING TWO DELEGATES
+      DelegatingPrintable dp = new DelegatingPrintable(viewer.getContent().getUtensilPanel().getRecipeList(),
+    		  viewer.getContent().getStepPanel().getRecipeList());
+      PrinterController.print(dp, viewer);
       // PrinterJob pj = PrinterJob.getPrinterJob();
 
       // dp.print(viewer.getGraphics(), pj.defaultPage(), 1);
 
       // PrinterController pc = new PrinterController();
-      PrinterController.print(dp, viewer);
+//      PrinterController.print(dp, viewer);
     }
   }
 }

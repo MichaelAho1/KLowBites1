@@ -11,21 +11,31 @@ import javax.swing.event.DocumentListener;
 import app.KILowBites;
 import gui.ShoppingListWindow;
 
+/**
+ * Shopping list controller class. Handles the actions of the shopping list GUI elements.
+ *
+ * @author f24team3d
+ * @version 12/4/24
+ */
 public class ShoppingListController implements ActionListener, DocumentListener
 {
 //  private static String PRINT = "Print";
 //  private static String CHANGE_UNIT = "Change Unit";
-  private ShoppingListWindow parent;
   static final Locale         LOCALE  = Locale.getDefault();
   private static final ResourceBundle STRINGS = KILowBites.STRINGS;
+  private ShoppingListWindow parent;
 
-  public ShoppingListController(ShoppingListWindow parent)
+  /**
+   * constructor.
+   * @param parent
+   */
+  public ShoppingListController(final ShoppingListWindow parent)
   {
     this.parent = parent;
   }
 
   @Override
-  public void actionPerformed(ActionEvent e)
+  public void actionPerformed(final ActionEvent e)
   {
     String command = e.getActionCommand();
 
@@ -42,19 +52,19 @@ public class ShoppingListController implements ActionListener, DocumentListener
   }
 
   @Override
-  public void insertUpdate(DocumentEvent e)
+  public void insertUpdate(final DocumentEvent e)
   {
     updateTable();
   }
 
   @Override
-  public void removeUpdate(DocumentEvent e)
+  public void removeUpdate(final DocumentEvent e)
   {
     updateTable();
   }
 
   @Override
-  public void changedUpdate(DocumentEvent e)
+  public void changedUpdate(final DocumentEvent e)
   {
     updateTable();
   }

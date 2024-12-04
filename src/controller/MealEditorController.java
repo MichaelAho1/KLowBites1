@@ -33,7 +33,7 @@ public class MealEditorController implements ActionListener, DocumentStateObserv
   //
   // private static String RECIPE_ADD = "Recipe Add";
   // private static String RECIPE_DELETE = "Recipe Delete";
-
+  public static String mealSavePath = "";
   static final Locale LOCALE = Locale.getDefault();
   private static final ResourceBundle STRINGS = KILowBites.STRINGS;
 
@@ -42,7 +42,6 @@ public class MealEditorController implements ActionListener, DocumentStateObserv
   private DocumentState state;
 
   private boolean savedAs = false;
-  public static String mealSavePath = "";
 
   /**
    * Constructor for controller.
@@ -65,18 +64,19 @@ public class MealEditorController implements ActionListener, DocumentStateObserv
   }
 
   /**
-   * Called when the document state changes
+   * Called when the document state changes.
    *
    * @param state
    */
-  public void handleNotification(DocumentState state)
+  public void handleNotification(final DocumentState state)
   {
     this.state = state;
     editor.updateToolBar(state);
   }
 
   /**
-   * Method for when action is performed
+   * Method for when action is performed.
+   * @param e
    */
   public void actionPerformed(final ActionEvent e)
   {

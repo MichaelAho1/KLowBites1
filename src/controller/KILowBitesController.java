@@ -49,14 +49,13 @@ public class KILowBitesController implements ActionListener
   // // Help
   // private static final String ABOUT = "About";
   // private static final String USER_GUIDE = "User Guide";
-
+  static final Locale LOCALE = Locale.getDefault();
+  private static final ResourceBundle STRINGS = KILowBites.STRINGS;
   private RecipeEditorController recipeController;
   private ProcessViewerController recipeViewerController;
 
   private MealEditorController mealController;
 
-  static final Locale LOCALE = Locale.getDefault();
-  private static final ResourceBundle STRINGS = KILowBites.STRINGS;
 
   /**
    * Constructor for controller.
@@ -67,7 +66,8 @@ public class KILowBitesController implements ActionListener
   }
 
   /**
-   * Method for when action is performed
+   * Method for when action is performed.
+   * @param e
    */
   public void actionPerformed(final ActionEvent e)
   {

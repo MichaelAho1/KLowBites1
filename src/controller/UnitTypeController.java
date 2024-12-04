@@ -13,13 +13,23 @@ import app.KILowBites;
 import gui.UnitTypeWindow;
 import utilities.UnitType;
 
+/**
+ * Unit Type controller class. Handles the actions of the Unit Type GUI elements.
+ *
+ * @author f24team3d
+ * @version 12/4/24
+ */
 public class UnitTypeController implements ActionListener
 {
 //  private static final String IMPERIAL = "Imperial";
   static final Locale         LOCALE  = Locale.getDefault();
   private static final ResourceBundle STRINGS = KILowBites.STRINGS;
   
-  public void actionPerformed(ActionEvent e)
+  /**
+   * Changes the button that was selected to disabled and the other enabled.
+   * @param e
+   */
+  public void actionPerformed(final ActionEvent e)
   {
     String ac = e.getActionCommand();
 

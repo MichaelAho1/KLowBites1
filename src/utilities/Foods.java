@@ -156,7 +156,7 @@ public class Foods
    *          Name of ingredient
    * @return whether list contains name
    */
-  public boolean containsFood(String name)
+  public boolean containsFood(final String name)
   {
     return foods.containsKey(name);
   }

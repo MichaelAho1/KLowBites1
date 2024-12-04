@@ -22,9 +22,9 @@ import utilities.FileUtilities;
 public class ProcessViewerController implements ActionListener
 {
   // ALEX START METHOD, RECIPE EDITOR CONTENT
+  static final Locale LOCALE = Locale.getDefault();
   private static String PRINT = "Print";
 
-  static final Locale LOCALE = Locale.getDefault();
   private static final ResourceBundle STRINGS = KILowBites.STRINGS;
 
   private ProcessViewer viewer;
@@ -40,7 +40,7 @@ public class ProcessViewerController implements ActionListener
   }
 
   /**
-   * Creates a new RecipeViewer window
+   * Creates a new RecipeViewer window.
    */
   private void createRecipeViewer()
   {
@@ -79,7 +79,8 @@ public class ProcessViewerController implements ActionListener
   }
 
   /**
-   * Method for when action is performed
+   * Method for when action is performed.
+   * @param e
    */
   public void actionPerformed(final ActionEvent e)
   {

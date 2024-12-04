@@ -35,7 +35,7 @@ public class AddIngredientController implements ActionListener, DocumentListener
    * @param window
    *          Add Ingredient Window
    */
-  public AddIngredientController(AddIngredientWindow window)
+  public AddIngredientController(final AddIngredientWindow window)
   {
     this.window = window;
   }
@@ -126,7 +126,8 @@ public class AddIngredientController implements ActionListener, DocumentListener
 
       AddIngredientWindow.added = true;
 
-      new javax.swing.Timer(2000, e -> {
+      new javax.swing.Timer(2000, e ->
+      {
         window.dispose(); // Adjust this to match your window closing logic
       }).start();
     }

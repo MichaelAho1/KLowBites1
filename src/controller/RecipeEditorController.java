@@ -42,12 +42,11 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
   //
   // private static String STEP_ADD = "Step Add";
   // private static String STEP_DELETE = "Step Delete";
-
+  public static String recipeSavePath = "";
   static final Locale LOCALE = Locale.getDefault();
   private static final ResourceBundle STRINGS = KILowBites.STRINGS;
 
   private boolean savedAs = false;
-  public static String recipeSavePath = "";
 
   private RecipeEditor editor;
   private Recipe recipe;
@@ -62,7 +61,7 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
   }
 
   /**
-   * Creates a new RecipeEditor window
+   * Creates a new RecipeEditor window.
    */
   private void createRecipeEditor()
   {
@@ -79,6 +78,7 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
 
   /**
    * Gets the name of the recipe from the editor Includes input checking.
+   * @return Returns the name of the recipe in the name field.
    */
   private String getName()
   {
@@ -93,6 +93,7 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
 
   /**
    * Gets the number of serves from the editor Includes input checking.
+   * @return Returns the amount of people a recipe serves
    */
   private int getServes()
   {
@@ -112,7 +113,7 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
     }
   }
 
-  private void updateAllElements(Recipe recipe)
+  private void updateAllElements(final Recipe recipe)
   {
     // creates everything with preset values
     editor.dispose();
@@ -128,18 +129,19 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
   }
 
   /**
-   * Called when the document state changes
+   * Called when the document state changes.
    *
    * @param state
    */
-  public void handleNotification(DocumentState state)
+  public void handleNotification(final DocumentState state)
   {
     this.state = state;
     editor.updateToolBar(state);
   }
 
   /**
-   * Method for when action is performed
+   * Method for when action is performed.
+   * @param e
    */
   public void actionPerformed(final ActionEvent e)
   {

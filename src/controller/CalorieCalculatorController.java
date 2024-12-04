@@ -194,7 +194,7 @@ public class CalorieCalculatorController implements ActionListener, DocumentList
     CalorieCalculatorWindow.calorieOutputField.setText(String.format(LOCALE, "%.2f", calories));
   }
 
-  private double calculate(String ingredient, String unit, double amount)
+  private double calculate(final String ingredient, final String unit, double amount)
   {
     System.out.println(ingredient);
 
@@ -235,9 +235,9 @@ public class CalorieCalculatorController implements ActionListener, DocumentList
   /**
    * 
    * @param meal
-   * @return
+   * @return returns the total calories.
    */
-  private double calculateMeal(Meal meal)
+  private double calculateMeal(final Meal meal)
   {
     double calories = 0.0;
 
@@ -254,9 +254,9 @@ public class CalorieCalculatorController implements ActionListener, DocumentList
   /**
    * 
    * @param recipe
-   * @return
+   * @return the total calories
    */
-  private double calculateRecipe(Recipe recipe)
+  private double calculateRecipe(final Recipe recipe)
   {
     double calories = 0.0;
 

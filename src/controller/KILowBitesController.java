@@ -56,7 +56,6 @@ public class KILowBitesController implements ActionListener
 
   private MealEditorController mealController;
 
-
   /**
    * Constructor for controller.
    */
@@ -67,6 +66,7 @@ public class KILowBitesController implements ActionListener
 
   /**
    * Method for when action is performed.
+   * 
    * @param e
    */
   public void actionPerformed(final ActionEvent e)
@@ -105,8 +105,12 @@ public class KILowBitesController implements ActionListener
     if (command.equals(STRINGS.getString("SHOPPING_LIST")))
     {
       Meal meal = FileUtilities.openMeal();
-      ShoppingListWindow shoppingList = new ShoppingListWindow(meal);
-      shoppingList.setVisible(true);
+
+      if (meal != null)
+      {
+        ShoppingListWindow shoppingList = new ShoppingListWindow(meal);
+        shoppingList.setVisible(true);
+      }
     }
     if (command.equals(STRINGS.getString("PROCESS")))
     {

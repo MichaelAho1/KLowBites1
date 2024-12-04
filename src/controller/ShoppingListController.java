@@ -9,6 +9,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 import app.KILowBites;
+import gui.DelegatingPrintable;
 import gui.ShoppingListWindow;
 
 /**
@@ -19,15 +20,17 @@ import gui.ShoppingListWindow;
  */
 public class ShoppingListController implements ActionListener, DocumentListener
 {
-//  private static String PRINT = "Print";
-//  private static String CHANGE_UNIT = "Change Unit";
-  static final Locale         LOCALE  = Locale.getDefault();
+  // private static String PRINT = "Print";
+  // private static String CHANGE_UNIT = "Change Unit";
+  static final Locale LOCALE = Locale.getDefault();
   private static final ResourceBundle STRINGS = KILowBites.STRINGS;
   private ShoppingListWindow parent;
 
   /**
-   * constructor.
+   * Constructor.
+   * 
    * @param parent
+   *          Parent ShoppingListWindow
    */
   public ShoppingListController(final ShoppingListWindow parent)
   {
@@ -41,7 +44,8 @@ public class ShoppingListController implements ActionListener, DocumentListener
 
     if (command.equals(STRINGS.getString("PRINT")))
     {
-      System.out.println("Printing...");
+      DelegatingPrintable dp = new DelegatingPrintable(parent.getShoppingList());
+      PrinterController.print(dp, parent);
     }
 
     if (command.equals(STRINGS.getString("CHANGE_UNIT")))
@@ -70,7 +74,7 @@ public class ShoppingListController implements ActionListener, DocumentListener
   }
 
   /**
-   * 
+   * Update table with new serving size.
    */
   private void updateTable()
   {
@@ -80,6 +84,12 @@ public class ShoppingListController implements ActionListener, DocumentListener
     {
       // Retrieve and parse the input amount
       people = Integer.parseInt(parent.getPeopleField().getText().trim());
+
+      if (people < 0)
+      {
+        return;
+      }
+
       parent.refreshTable(people);
     }
     catch (NumberFormatException ex)

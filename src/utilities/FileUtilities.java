@@ -64,13 +64,13 @@ public class FileUtilities
 
     // Get the selected directory
     File directory = fileChooser.getSelectedFile();
-    System.out.println(selectedDirectory + directory.getAbsolutePath());
+    // System.out.println(selectedDirectory + directory.getAbsolutePath());
 
     // List files in the directory that have .rcp or .mel extensions
     File[] files = directory.listFiles((dir, name) -> name.endsWith(rcp) || name.endsWith(mel));
     if (files == null || files.length == 0)
     {
-      System.out.println("No recipe or meal files found in the selected directory.");
+      // System.out.println("No recipe or meal files found in the selected directory.");
       return null;
     }
 
@@ -110,7 +110,7 @@ public class FileUtilities
           }
           else
           {
-            System.out.println("Unknown object type: " + obj.getClass().getName());
+            // System.out.println("Unknown object type: " + obj.getClass().getName());
           }
         }
         catch (EOFException eof)
@@ -119,11 +119,11 @@ public class FileUtilities
         }
       }
 
-      System.out.println("File loaded successfully from " + file.getAbsolutePath());
+      // System.out.println("File loaded successfully from " + file.getAbsolutePath());
     }
     catch (IOException | ClassNotFoundException e)
     {
-      System.err.println("Error loading file: " + e.getMessage());
+      // System.err.println("Error loading file: " + e.getMessage());
       e.printStackTrace();
       return null;
     }
@@ -145,20 +145,20 @@ public class FileUtilities
     int result = fileChooser.showOpenDialog(null);
     if (result != JFileChooser.APPROVE_OPTION)
     {
-      System.out.println(noDirectory);
+      // System.out.println(noDirectory);
       return null;
     }
 
     // Get the selected directory
     File directory = fileChooser.getSelectedFile();
-    System.out.println(selectedDirectory + directory.getAbsolutePath());
+    // System.out.println(selectedDirectory + directory.getAbsolutePath());
     RecipeEditorController.recipeSavePath = directory.getAbsolutePath();
 
     // Let user select a recipe file within the chosen directory
     File[] files = directory.listFiles((dir, name) -> name.endsWith(rcp));
     if (files == null || files.length == 0)
     {
-      System.out.println("No recipe files found in the selected directory.");
+      // System.out.println("No recipe files found in the selected directory.");
       return null;
     }
 
@@ -219,13 +219,13 @@ public class FileUtilities
     int result = fileChooser.showOpenDialog(null);
     if (result != JFileChooser.APPROVE_OPTION)
     {
-      System.out.println("No directory selected.");
+      // System.out.println("No directory selected.");
       return null;
     }
 
     // Get the selected directory
     File directory = fileChooser.getSelectedFile();
-    System.out.println(selectedDirectory + directory.getAbsolutePath());
+    // System.out.println(selectedDirectory + directory.getAbsolutePath());
     MealEditorController.mealSavePath = directory.getAbsolutePath();
 
     // Let user select a meal file within the chosen directory
@@ -250,7 +250,7 @@ public class FileUtilities
     // If no file was selected, return null
     if (selectedFile == null)
     {
-      System.out.println("No file selected.");
+      // System.out.println("No file selected.");
       return null;
     }
 
@@ -261,16 +261,16 @@ public class FileUtilities
     {
 
       Meal loadedMeal = (Meal) in.readObject();
-      System.out.println("Meal loaded successfully from " + file.getAbsolutePath());
+      // System.out.println("Meal loaded successfully from " + file.getAbsolutePath());
       for (Recipe i : loadedMeal.getRecipes())
       {
-        System.out.println(i.getName());
+        // System.out.println(i.getName());
       }
       return loadedMeal;
     }
     catch (IOException | ClassNotFoundException e)
     {
-      System.err.println("Error loading meal: " + e.getMessage());
+      // System.err.println("Error loading meal: " + e.getMessage());
       e.printStackTrace();
       return null;
     }
@@ -295,7 +295,7 @@ public class FileUtilities
     {
       if (parentDirectory.mkdirs())
       {
-        System.out.println("Success");
+        // System.out.println("Success");
       }
       else
       {
@@ -309,11 +309,11 @@ public class FileUtilities
         ObjectOutputStream out = new ObjectOutputStream(fileOut))
     {
       out.writeObject(recipe);
-      System.out.println("Recipe saved successfully to " + filePath);
+      // System.out.println("Recipe saved successfully to " + filePath);
     }
     catch (IOException e)
     {
-      System.err.println("Error saving recipe: " + e.getMessage());
+      // System.err.println("Error saving recipe: " + e.getMessage());
       e.printStackTrace();
     }
   }
@@ -375,11 +375,11 @@ public class FileUtilities
     {
       if (parentDirectory.mkdirs())
       {
-        System.out.println("Directory created at " + parentDirectory.getAbsolutePath());
+        // System.out.println("Directory created at " + parentDirectory.getAbsolutePath());
       }
       else
       {
-        System.err.println("Failed to create directory at " + parentDirectory.getAbsolutePath());
+        // System.err.println("Failed to create directory at " + parentDirectory.getAbsolutePath());
         return;
       }
     }
@@ -389,11 +389,11 @@ public class FileUtilities
         ObjectOutputStream out = new ObjectOutputStream(fileOut))
     {
       out.writeObject(meal);
-      System.out.println("Meal saved successfully to " + filePath);
+      // System.out.println("Meal saved successfully to " + filePath);
     }
     catch (IOException e)
     {
-      System.err.println("Error saving meal: " + e.getMessage());
+      // System.err.println("Error saving meal: " + e.getMessage());
       e.printStackTrace();
     }
   }
@@ -433,7 +433,7 @@ public class FileUtilities
     }
     else
     {
-      System.out.println("Save As operation was canceled.");
+      // System.out.println("Save As operation was canceled.");
       return "";
     }
   }
@@ -454,11 +454,11 @@ public class FileUtilities
         ObjectOutputStream out = new ObjectOutputStream(fileOut))
     {
       out.writeObject(KILowBites.FOODS.getFoods());
-      System.out.println("Foods.ntr saved successfully to " + file.getAbsolutePath());
+      // System.out.println("Foods.ntr saved successfully to " + file.getAbsolutePath());
     }
     catch (IOException e)
     {
-      System.err.println("Error saving Foods.ntr: " + e.getMessage());
+      // System.err.println("Error saving Foods.ntr: " + e.getMessage());
       e.printStackTrace();
     }
   }
@@ -499,24 +499,24 @@ public class FileUtilities
               }
               catch (NumberFormatException e)
               {
-                System.err.println("Invalid aisle number format: " + aisleString);
+                // System.err.println("Invalid aisle number format: " + aisleString);
               }
             }
             else
             {
-              System.err.println("Invalid line format: " + line);
+              // System.err.println("Invalid line format: " + line);
             }
           }
         }
       }
       catch (IOException e)
       {
-        System.err.println("Error reading the file: " + e.getMessage());
+        // System.err.println("Error reading the file: " + e.getMessage());
       }
     }
     else
     {
-      System.err.println("File does not exist: " + file.getAbsolutePath());
+      // System.err.println("File does not exist: " + file.getAbsolutePath());
     }
 
     return aisles;
@@ -558,24 +558,24 @@ public class FileUtilities
               }
               catch (NumberFormatException e)
               {
-                System.err.println("Invalid price format: " + aisleString);
+                // System.err.println("Invalid price format: " + aisleString);
               }
             }
             else
             {
-              System.err.println("Invalid line format: " + line);
+              // System.err.println("Invalid line format: " + line);
             }
           }
         }
       }
       catch (IOException e)
       {
-        System.err.println("Error reading the file: " + e.getMessage());
+        // System.err.println("Error reading the file: " + e.getMessage());
       }
     }
     else
     {
-      System.err.println("File does not exist: " + file.getAbsolutePath());
+      // System.err.println("File does not exist: " + file.getAbsolutePath());
     }
 
     return prices;

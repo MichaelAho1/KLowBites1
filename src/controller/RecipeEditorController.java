@@ -1,3 +1,4 @@
+
 package controller;
 
 import java.awt.event.ActionEvent;
@@ -23,25 +24,10 @@ import utilities.InputUtilities;
 /**
  * RecipeEditor controller class. Handles the actions of the RecipeEditor GUI elements
  *
- * @author f24team3d
  * @version 10/31/24
  */
 public class RecipeEditorController implements ActionListener, DocumentStateObserver
 {
-  // private static String NEW = "New";
-  // private static String OPEN = "Open";
-  // private static String SAVE = "Save";
-  // private static String SAVE_AS = "Save As";
-  // private static String CLOSE = "Close";
-  //
-  // private static String UTENSIL_ADD = "Utensil Add";
-  // private static String UTENSIL_DELETE = "Utensil Delete";
-  //
-  // private static String INGREDIENT_ADD = "Ingredient Add";
-  // private static String INGREDIENT_DELETE = "Ingredient Delete";
-  //
-  // private static String STEP_ADD = "Step Add";
-  // private static String STEP_DELETE = "Step Delete";
   public static String recipeSavePath = "";
   static final Locale LOCALE = Locale.getDefault();
   private static final ResourceBundle STRINGS = KILowBites.STRINGS;
@@ -74,6 +60,7 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
     editor.getContent().getUtensilIFP().addObserver(this);
     editor.getContent().getIngredientIFP().addObserver(this);
     editor.getContent().getStepIFP().addObserver(this);
+    setFieldsEditable(false);
   }
 
   /**
@@ -139,6 +126,7 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
   {
     this.state = state;
     editor.updateToolBar(state);
+    setFieldsEditable(state != DocumentState.NULL);
   }
 
   /**
@@ -155,49 +143,28 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
     // commands for Toolbar
     if (command.equals(STRINGS.getString("NEW")))
     {
-      // ALLOW USERS TO CHOOSE DIRECTORY TO SAVE RECIPE
-
-      JFileChooser directoryChooser = new JFileChooser();
-      directoryChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-      int result = directoryChooser.showOpenDialog(null);
-
-      if (result == JFileChooser.APPROVE_OPTION)
-      {
-        File selectedDirectory = directoryChooser.getSelectedFile();
-        recipeSavePath = selectedDirectory.getAbsolutePath(); // Set the selected directory as
-                                                              // savePath
-
         recipe = new Recipe(); // Create a new recipe
         editor.resetRecipeEditor(); // Reset editor
         state = DocumentState.UNCHANGED; // Set document state
         savedAs = false; // Indicate not yet saved
         editor.updateToolBar(state); // Update toolbar state
+        setFieldsEditable(true);
 
         System.out.println("New directory selected: " + recipeSavePath);
-      }
-      else
-      {
-        System.out.println("Directory selection was cancelled.");
-      }
     }
     else if (command.equals(STRINGS.getString("OPEN")))
     {
       try
       {
-
         recipe = FileUtilities.openRecipe();
         state = DocumentState.UNCHANGED;
 
-        // tests the constructor so that it only resets if the user selects a file
-        // RecipeEditor testEditor = new RecipeEditor(recipe, this, false);
-
         editor.resetRecipeEditor();
-
         editor.updateToolBar(state);
         editor.dispose();
 
-        // propagate changes to window
         editor = new RecipeEditor(recipe, this, false);
+        setFieldsEditable(true);
       }
       catch (Exception anotherException)
       {
@@ -238,7 +205,6 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
     }
     else if (command.equals(STRINGS.getString("SAVE_AS")))
     {
-      // save as
       String name = editor.getContent().getNameField();
       String serves = editor.getContent().getServesField();
 
@@ -272,6 +238,7 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
       editor.resetRecipeEditor();
       state = DocumentState.NULL;
       editor.updateToolBar(state);
+      setFieldsEditable(false);
     }
 
     // commands for Editors
@@ -441,7 +408,6 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
       {
         System.out.println("Invalid input");
       }
-
     }
     else if (command.equals(STRINGS.getString("STEP_DELETE")))
     {
@@ -471,5 +437,13 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
 
       editor.getContent().getStepPanel().deleteRecipeElement();
     }
+  }
+
+  private void setFieldsEditable(boolean editable)
+  {
+    editor.getContent().getMainIFP().setFieldsEditable(editable);
+    editor.getContent().getUtensilIFP().setFieldsEditable(editable);
+    editor.getContent().getIngredientIFP().setFieldsEditable(editable);
+    editor.getContent().getStepIFP().setFieldsEditable(editable);
   }
 }

@@ -24,8 +24,8 @@ public class ProcessViewerContent extends JPanel
 {
   private static final long serialVersionUID = 1L;
 
-  static final Locale LOCALE = Locale.getDefault();
   private static final ResourceBundle STRINGS = KILowBites.STRINGS;
+  static final Locale LOCALE = Locale.getDefault();
 
   Container contentPane;
 
@@ -45,10 +45,11 @@ public class ProcessViewerContent extends JPanel
   /**
    * Constructor for RecipeEditorContent.
    *
+   * @param recipe
    * @param controller
    *          the controller for the RecipeEditor
    */
-  public ProcessViewerContent(Recipe recipe, ProcessViewerController controller)
+  public ProcessViewerContent(final Recipe recipe, final ProcessViewerController controller)
   {
     super();
 
@@ -60,18 +61,18 @@ public class ProcessViewerContent extends JPanel
     contentPane.setLayout(new BorderLayout());
 
     // creates the panel for the Utensils, Ingredients, and Steps
-    JPanel ProcessViewerPanel = new JPanel();
-    ProcessViewerPanel.setLayout(new BoxLayout(ProcessViewerPanel, BoxLayout.Y_AXIS));
+    JPanel processViewerPanel = new JPanel();
+    processViewerPanel.setLayout(new BoxLayout(processViewerPanel, BoxLayout.Y_AXIS));
 
     utensilProcessViewerPanel = new ProcessViewerPanel(RecipeElementType.UTENSIL, recipe,
         utensilIFP, controller);
     stepProcessViewerPanel = new ProcessViewerPanel(RecipeElementType.STEP, recipe, stepIFP,
         controller);
 
-    ProcessViewerPanel.add(utensilProcessViewerPanel);
-    ProcessViewerPanel.add(stepProcessViewerPanel);
+    processViewerPanel.add(utensilProcessViewerPanel);
+    processViewerPanel.add(stepProcessViewerPanel);
 
-    contentPane.add(ProcessViewerPanel, BorderLayout.CENTER);
+    contentPane.add(processViewerPanel, BorderLayout.CENTER);
 
     this.add(contentPane);
   }
@@ -80,9 +81,10 @@ public class ProcessViewerContent extends JPanel
    * Constructor for RecipeEditorContent.
    *
    * @param controller
+   * @param meal
    *          the controller for the RecipeEditor
    */
-  public ProcessViewerContent(Meal meal, ProcessViewerController controller)
+  public ProcessViewerContent(final Meal meal, final ProcessViewerController controller)
   {
     super();
 
@@ -92,8 +94,8 @@ public class ProcessViewerContent extends JPanel
     contentPane.setLayout(new BorderLayout());
 
     // creates the panel for the Utensils, Ingredients, and Steps
-    JPanel ProcessViewerPanel = new JPanel();
-    ProcessViewerPanel.setLayout(new BoxLayout(ProcessViewerPanel, BoxLayout.Y_AXIS));
+    JPanel processViewerPanel = new JPanel();
+    processViewerPanel.setLayout(new BoxLayout(processViewerPanel, BoxLayout.Y_AXIS));
 
     utensilProcessViewerPanel = new ProcessViewerPanel(RecipeElementType.UTENSIL, meal, utensilIFP,
         controller);
@@ -102,47 +104,69 @@ public class ProcessViewerContent extends JPanel
 //    printProcessViewerPanel = new ProcessViewerPanel(RecipeElementType.UTENSIL, meal, utensilIFP,
 //            controller);
 
-    ProcessViewerPanel.add(utensilProcessViewerPanel);
-    ProcessViewerPanel.add(stepProcessViewerPanel);
+    processViewerPanel.add(utensilProcessViewerPanel);
+    processViewerPanel.add(stepProcessViewerPanel);
 
     // adds the input fields into the content pane
     // contentPane.add(mainIFP, BorderLayout.NORTH);
 
     // adds the editorPane into the content pane
-    contentPane.add(ProcessViewerPanel, BorderLayout.CENTER);
+    contentPane.add(processViewerPanel, BorderLayout.CENTER);
 
     this.add(contentPane);
   }
 
+/**
+ * Gets Utensil Panel.
+ * 
+ * @return ProcessViewerPanel
+ */
   public ProcessViewerPanel getUtensilPanel()
   {
     return utensilProcessViewerPanel;
   }
-
+  /**
+   * Gets Step Panel.
+   * 
+   * @return ProcessViewerPanel
+   */
   public ProcessViewerPanel getStepPanel()
   {
     return stepProcessViewerPanel;
   }
   
-//  public ProcessViewerPanel getPrintProcessViewerPanel() {
-//	return printProcessViewerPanel;
-//}
-
+  /**
+   * Gets Main IFP.
+   * 
+   * @return ProcessViewerPanel
+   */
   public InputFieldPanel getMainIFP()
   {
     return mainIFP;
   }
-
+  /**
+   * Gets Utensil IFP.
+   * 
+   * @return ProcessViewerPanel
+   */
   public InputFieldPanel getUtensilIFP()
   {
     return utensilIFP;
   }
-
+  /**
+   * Gets Step IFP.
+   * 
+   * @return ProcessViewerPanel
+   */
   public InputFieldPanel getStepIFP()
   {
     return stepIFP;
   }
-
+  /**
+   * Gets ProcessViewerPanel.
+   * 
+   * @return ProcessViewerPanel
+   */
   public JPanel getProcessViewerPanel()
   {
     return processViewerPanel;

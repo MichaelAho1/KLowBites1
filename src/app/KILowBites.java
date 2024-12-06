@@ -29,9 +29,6 @@ import utilities.Units;
  */
 public class KILowBites extends JFrame implements Runnable
 {
-  public static JMenuItem openCalc;
-  public static JMenuItem openConvert;
-
   public static final Foods FOODS = new Foods();
   public static final Units UNITS = new Units();
 
@@ -45,6 +42,8 @@ public class KILowBites extends JFrame implements Runnable
   // FileUtilities.java - saveFoods()
 
   private String[] args;
+  private JMenuItem openCalc;
+  private JMenuItem openConvert;
 
   /**
    * Explicit Value Constructor.
@@ -110,7 +109,7 @@ public class KILowBites extends JFrame implements Runnable
     contentPane.setBackground(COLOR);
 
     // Construct the controller
-    KILowBitesController controller = new KILowBitesController();
+    KILowBitesController controller = new KILowBitesController(this);
 
     // creates the ribbon
     JMenuBar menuBar = new JMenuBar();
@@ -135,8 +134,8 @@ public class KILowBites extends JFrame implements Runnable
     menu.add(menuItem);
     menuItem.addActionListener(controller);
 
-
-    // TODO: ADD LANGUAGE SUPPORT FOR THESE STRINGS ****************************************************
+    // TODO: ADD LANGUAGE SUPPORT FOR THESE STRINGS
+    // ****************************************************
     menu = new JMenu("Search");
     menuBar.add(menu);
     menuItem = new JMenuItem("Recipes");
@@ -169,6 +168,7 @@ public class KILowBites extends JFrame implements Runnable
     menuItem = new JMenuItem(STRINGS.getString("PREFERENCES"));
     menu.add(menuItem);
     menuItem.addActionListener(controller);
+
     // menuItem = new JMenuItem("Shortcuts");
     // menu.add(menuItem);
     // menuItem.addActionListener(controller);
@@ -197,6 +197,16 @@ public class KILowBites extends JFrame implements Runnable
     frame.setResizable(false);
     frame.setLocationRelativeTo(null);
     frame.setVisible(true);
+  }
+
+  public JMenuItem getOpenCalc()
+  {
+    return openCalc;
+  }
+
+  public JMenuItem getOpenConvert()
+  {
+    return openConvert;
   }
 
   private void setLookAndFeel(final String selection)

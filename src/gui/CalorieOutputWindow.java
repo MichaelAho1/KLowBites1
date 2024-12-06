@@ -17,11 +17,11 @@ import app.KILowBites;
 
 public class CalorieOutputWindow extends JFrame
 {
-//  private static final String OMITTED_INGREDIENTS = "Omitted ingredients: ";
-  
-  static final Locale         LOCALE  = Locale.getDefault();
+  // private static final String OMITTED_INGREDIENTS = "Omitted ingredients: ";
+
+  static final Locale LOCALE = Locale.getDefault();
   private static final ResourceBundle STRINGS = KILowBites.STRINGS;
-  
+
   /**
    * Explicit value constructor.
    * 
@@ -38,13 +38,13 @@ public class CalorieOutputWindow extends JFrame
     this.setBackground(KILowBites.COLOR);
 
     JLabel rmName = new JLabel(name);
-    JLabel rmCalories = new JLabel(String.format(LOCALE, "%.2f" + STRINGS.getString(
-        "CALORIES_LOWER_CASE"), calories));
+    JLabel rmCalories = new JLabel(
+        String.format(LOCALE, "%.2f " + STRINGS.getString("CALORIES_LOWER_CASE"), calories));
     JLabel omittedLabel = null;
 
     if (omitted != null && !omitted.isEmpty())
     {
-      omittedLabel = new JLabel(STRINGS.getString("OMITTED_INGREDIENTS") + omitted);
+      omittedLabel = new JLabel(STRINGS.getString("OMITTED_INGREDIENTS") + " " + omitted);
     }
 
     // Set layout to GridBagLayout

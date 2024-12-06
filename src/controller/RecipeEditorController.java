@@ -143,6 +143,18 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
     // commands for Toolbar
     if (command.equals(STRINGS.getString("NEW")))
     {
+      // ALLOW USERS TO CHOOSE DIRECTORY TO SAVE RECIPE
+
+      JFileChooser directoryChooser = new JFileChooser();
+      directoryChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+      int result = directoryChooser.showOpenDialog(null);
+
+      if (result == JFileChooser.APPROVE_OPTION)
+      {
+        File selectedDirectory = directoryChooser.getSelectedFile();
+        recipeSavePath = selectedDirectory.getAbsolutePath(); // Set the selected directory as
+                                                              // savePath
+
         recipe = new Recipe(); // Create a new recipe
         editor.resetRecipeEditor(); // Reset editor
         state = DocumentState.UNCHANGED; // Set document state
@@ -151,6 +163,11 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
         setFieldsEditable(true);
 
         System.out.println("New directory selected: " + recipeSavePath);
+      }
+      else
+      {
+        System.out.println("Directory selection was cancelled.");
+      }
     }
     else if (command.equals(STRINGS.getString("OPEN")))
     {

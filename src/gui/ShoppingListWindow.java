@@ -299,7 +299,7 @@ public class ShoppingListWindow extends JFrame
           price = prices.get(name);
         }
 
-        if (unit.equals(individual))
+        if (unit.equals(individual) || price.equals(na))
         {
           info = new Object[] {i.getName(), amount, unit, r.getName(), r.getServes(), aisle, na,
               index};

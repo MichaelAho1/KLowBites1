@@ -7,7 +7,6 @@ import java.util.ResourceBundle;
 
 import app.KILowBites;
 import cooking.Meal;
-import cooking.Recipe;
 import gui.CalorieCalculatorWindow;
 import gui.ShoppingListWindow;
 import gui.UnitConverterWindow;
@@ -59,13 +58,17 @@ public class KILowBitesController implements ActionListener
   private MealSearchController mealSearchController;
 
   private MealEditorController mealController;
+  private KILowBites window;
 
   /**
-   * Constructor for controller.
+   * Constructor.
+   * 
+   * @param window
+   *          Parent window
    */
-  public KILowBitesController()
+  public KILowBitesController(final KILowBites window)
   {
-    // empty constructor
+    this.window = window;
   }
 
   /**
@@ -127,16 +130,16 @@ public class KILowBitesController implements ActionListener
     if (command.equals(STRINGS.getString("CALORIE_CALCULATOR")))
     {
       // System.out.println("Opening calorie calculator...");
-      CalorieCalculatorWindow calorieCalc = new CalorieCalculatorWindow();
+      CalorieCalculatorWindow calorieCalc = new CalorieCalculatorWindow(window);
       calorieCalc.setVisible(true);
-      KILowBites.openCalc.setEnabled(false);
+      window.getOpenCalc().setEnabled(false);
     }
     if (command.equals(STRINGS.getString("UNITS_CONVERTER")))
     {
       // System.out.println("Opening unit converter...");
       UnitConverterWindow unitConverter = new UnitConverterWindow();
       unitConverter.setVisible(true);
-      KILowBites.openConvert.setEnabled(false);
+      window.getOpenConvert().setEnabled(false);
     }
 
     // commands for Configure

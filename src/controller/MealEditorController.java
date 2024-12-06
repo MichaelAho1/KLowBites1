@@ -202,8 +202,11 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.Locale;
 import java.util.ResourceBundle;
+
+import javax.swing.JFileChooser;
 
 import app.KILowBites;
 import cooking.Meal;
@@ -277,14 +280,30 @@ public class MealEditorController implements ActionListener, DocumentStateObserv
     // commands for Toolbar
     if (command.equals(STRINGS.getString("NEW")))
     {
-      meal = new Meal(); // Create a new meal
-      editor.resetMealEditor(); // Reset editor
-      state = DocumentState.UNCHANGED; // Set document state
-      savedAs = false; // Indicate not yet saved
-      editor.updateToolBar(state); // Update toolbar state
-      setFieldsEditable(true);
+      JFileChooser directoryChooser = new JFileChooser();
+      directoryChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY); // Set to select
+                                                                            // directories only
+      int result = directoryChooser.showOpenDialog(null);
 
-      System.out.println("New meal created.");
+      if (result == JFileChooser.APPROVE_OPTION)
+      {
+        File selectedDirectory = directoryChooser.getSelectedFile();
+        mealSavePath = selectedDirectory.getAbsolutePath(); // Set the selected directory as
+                                                            // savePath
+
+        meal = new Meal(); // Create a new meal
+        editor.resetMealEditor(); // Reset editor
+        state = DocumentState.UNCHANGED; // Set document state
+        savedAs = false; // Indicate not yet saved
+        editor.updateToolBar(state); // Update toolbar state
+        setFieldsEditable(true);
+
+        // System.out.println("New directory selected: " + mealSavePath);
+      }
+      else
+      {
+        // System.out.println("Directory selection was cancelled.");
+      }
     }
     else if (command.equals(STRINGS.getString("OPEN")))
     {

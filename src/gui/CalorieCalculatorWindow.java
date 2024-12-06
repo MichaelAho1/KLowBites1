@@ -6,7 +6,6 @@ import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.nio.file.WatchEvent.Kind;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -33,16 +32,8 @@ import utilities.UnitType;
 @SuppressWarnings({"rawtypes", "unchecked"})
 public class CalorieCalculatorWindow extends JFrame
 {
-  public static JButton calorieCalcButton;
-  public static JButton calorieResetButton;
-  public static JButton calorieOpenButton;
+  static final Locale LOCALE = Locale.getDefault();
 
-  public static JComboBox calorieIngredientsMenu;
-  public static JComboBox calorieUnitsMenu;
-  public static JTextField calorieAmountField;
-  public static JLabel calorieOutputField;
-  static final Locale         LOCALE  = Locale.getDefault();
-  
   private static final ResourceBundle STRINGS = KILowBites.STRINGS;
   private static final long serialVersionUID = 1L;
 
@@ -55,29 +46,47 @@ public class CalorieCalculatorWindow extends JFrame
   private JPanel unitsPanel;
   private JPanel outputPanel;
 
+  private JButton calorieCalcButton;
+  private JButton calorieResetButton;
+  private JButton calorieOpenButton;
 
-//  private static final String KILOWBITES_CALORIES_CALCULATOR = "KILowBites Calorie Calculator";
-//  private static final String CALCULATE = "Calculate";
-//  private static final String RESET = "Reset";
-//  private static final String OPEN = "Open";
-//  private static final String OPEN_RECIPE_MEAL = "Open Recipe/Meal";
-//  private static final String CHOOSE_INGREDIENT = "Choose Ingredient";
-//  private static final String AMOUNT = "Amount:";
-//  private static final String CHOOSE_UNIT = "Choose Unit";
-//  private static final String UNITS = "Units:";
-//  private static final String INGREDIENTS = "Ingredients";
-//  private static final String CALORIES = "Calories:";
-  
+  private JComboBox calorieIngredientsMenu;
+  private JComboBox calorieUnitsMenu;
+  private JTextField calorieAmountField;
+  private JLabel calorieOutputField;
+
+  private String calculate = "CALCULATE";
+  private String reset = "RESET";
+
+  private KILowBites window;
+
+  // private static final String KILOWBITES_CALORIES_CALCULATOR = "KILowBites Calorie Calculator";
+  // private static final String CALCULATE = "Calculate";
+  // private static final String RESET = "Reset";
+  // private static final String OPEN = "Open";
+  // private static final String OPEN_RECIPE_MEAL = "Open Recipe/Meal";
+  // private static final String CHOOSE_INGREDIENT = "Choose Ingredient";
+  // private static final String AMOUNT = "Amount:";
+  // private static final String CHOOSE_UNIT = "Choose Unit";
+  // private static final String UNITS = "Units:";
+  // private static final String INGREDIENTS = "Ingredients";
+  // private static final String CALORIES = "Calories:";
+
   /**
-   * Default constructor.
+   * Constructor.
+   * 
+   * @param window
+   *          Parent window
    */
-  public CalorieCalculatorWindow()
+  public CalorieCalculatorWindow(final KILowBites window)
   {
     super((STRINGS.getString("KILOWBITES_CALORIES_CALCULATOR")));
 
     this.setBackground(KILowBites.COLOR);
 
-    controller = new CalorieCalculatorController();
+    this.window = window;
+
+    controller = new CalorieCalculatorController(this);
 
     // adding input/output components
     JPanel inputs = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -87,8 +96,8 @@ public class CalorieCalculatorWindow extends JFrame
     if (UnitType.getImperialSelected())
     {
       units = UnitType.getImperialUnitsSpace();
-    } 
-    else 
+    }
+    else
     {
       units = UnitType.getMetricUnitsSpace();
     }
@@ -110,15 +119,15 @@ public class CalorieCalculatorWindow extends JFrame
     calorieCalcButton = new JButton(
         ImageUtilities.getFormattedImage("calculate.png", Color.GRAY, 25, 25));
     calorieCalcButton.setEnabled(false);
-    calorieCalcButton.setToolTipText((STRINGS.getString("CALCULATE")));
-    calorieCalcButton.setActionCommand((STRINGS.getString("CALCULATE")));
+    calorieCalcButton.setToolTipText((STRINGS.getString(calculate)));
+    calorieCalcButton.setActionCommand((STRINGS.getString(calculate)));
     calorieCalcButton.addActionListener(controller);
 
     calorieResetButton = new JButton(
         ImageUtilities.getFormattedImage("reset.png", Color.GRAY, 25, 25));
     calorieResetButton.setEnabled(false);
-    calorieResetButton.setToolTipText((STRINGS.getString("RESET")));
-    calorieResetButton.setActionCommand((STRINGS.getString("RESET")));
+    calorieResetButton.setToolTipText((STRINGS.getString(reset)));
+    calorieResetButton.setActionCommand((STRINGS.getString(reset)));
     calorieResetButton.addActionListener(controller);
 
     calorieOpenButton = new JButton(
@@ -146,7 +155,7 @@ public class CalorieCalculatorWindow extends JFrame
     if (e.getID() == java.awt.event.WindowEvent.WINDOW_CLOSING)
     {
       System.out.println("Closing calorie calculator...");
-      KILowBites.openCalc.setEnabled(true);
+      window.getOpenCalc().setEnabled(true);
     }
   }
 
@@ -245,5 +254,75 @@ public class CalorieCalculatorWindow extends JFrame
     boxPanel.add(calorieOutputField, gbc);
 
     outputPanel.add(boxPanel, BorderLayout.CENTER);
+  }
+
+  /**
+   * Return calculate button.
+   * 
+   * @return Calculate button
+   */
+  public JButton getCalcButton()
+  {
+    return calorieCalcButton;
+  }
+
+  /**
+   * Return reset button.
+   * 
+   * @return Reset button
+   */
+  public JButton getResetButton()
+  {
+    return calorieResetButton;
+  }
+
+  /**
+   * Return open button.
+   * 
+   * @return Open button
+   */
+  public JButton getOpenButton()
+  {
+    return calorieOpenButton;
+  }
+
+  /**
+   * Return ingredients menu.
+   * 
+   * @return Ingredients menu
+   */
+  public JComboBox getIngredientsMenu()
+  {
+    return calorieIngredientsMenu;
+  }
+
+  /**
+   * Return units menu.
+   * 
+   * @return Units menu
+   */
+  public JComboBox getUnitsMenu()
+  {
+    return calorieUnitsMenu;
+  }
+
+  /**
+   * Return calorie amount field.
+   * 
+   * @return Calorie amount field
+   */
+  public JTextField getCalorieAmount()
+  {
+    return calorieAmountField;
+  }
+
+  /**
+   * Return output field.
+   * 
+   * @return Output field
+   */
+  public JLabel getOutputField()
+  {
+    return calorieOutputField;
   }
 }

@@ -38,6 +38,23 @@ public class CalorieCalculatorController implements ActionListener, DocumentList
   private static final ResourceBundle STRINGS = KILowBites.STRINGS;
 
   private String omitted;
+  private String invalid = "Invalid input";
+  private String gram = "Gram";
+  private String milliliter = "Milliliter";
+  private String mass = "Mass";
+
+  private CalorieCalculatorWindow window;
+
+  /**
+   * Constructor.
+   * 
+   * @param window
+   *          Parent window
+   */
+  public CalorieCalculatorController(final CalorieCalculatorWindow window)
+  {
+    this.window = window;
+  }
 
   @Override
   public void actionPerformed(final ActionEvent e)
@@ -70,7 +87,7 @@ public class CalorieCalculatorController implements ActionListener, DocumentList
       // using stored recipe/meal, call calculateRecipe/calculateMeal
       // make output window and pass in recipe/meal & calories
 
-      System.out.println("Opening recipe/meal...");
+      // System.out.println("Opening recipe/meal...");
 
       omitted = "";
 
@@ -85,9 +102,6 @@ public class CalorieCalculatorController implements ActionListener, DocumentList
       else
       {
         String openedFile = (String) data.get(0);
-        String extension = openedFile.substring(openedFile.length() - 4, openedFile.length());
-
-        // System.out.println(extension);
 
         if (data.get(1) instanceof Recipe)
         {
@@ -141,42 +155,42 @@ public class CalorieCalculatorController implements ActionListener, DocumentList
     try
     {
       // Retrieve and parse the input amount
-      amount = Double.parseDouble(CalorieCalculatorWindow.calorieAmountField.getText().trim());
+      amount = Double.parseDouble(window.getCalorieAmount().getText().trim());
     }
     catch (NumberFormatException ex)
     {
       // should get here if letters / non-numbers are entered
-      CalorieCalculatorWindow.calorieOutputField.setText("Invalid input");
+      window.getOutputField().setText(invalid);
       return;
     }
 
     if (amount < 0)
     {
-      CalorieCalculatorWindow.calorieOutputField.setText("Invalid input");
+      window.getOutputField().setText(invalid);
       return;
     }
 
     // retrieve ingredient name from input and get values associated with ingredient
-    String ingredient = CalorieCalculatorWindow.calorieIngredientsMenu.getSelectedItem().toString();
-    String unit = CalorieCalculatorWindow.calorieUnitsMenu.getSelectedItem().toString();
+    String ingredient = window.getIngredientsMenu().getSelectedItem().toString();
+    String unit = window.getUnitsMenu().getSelectedItem().toString();
     String unitMeasure = KILowBites.UNITS.unitMeasure(unit);
     double[] values = KILowBites.FOODS.getFoods().get(ingredient);
 
     // convert to grams/milliliters if not already, depending on mass/volume unit selected
-    if (!(unit.equals("Gram")) || !(unit.equals("Milliliter")))
+    if (!(unit.equals(gram)) || !(unit.equals(milliliter)))
     {
-      if (unitMeasure.equals("Mass"))
+      if (unitMeasure.equals(mass))
       {
-        amount = MassConverter.callerHelp(unit, "Gram", amount);
+        amount = MassConverter.callerHelp(unit, gram, amount);
       }
       else
       {
-        amount = VolumeConverter.callerHelp(unit, "Milliliter", amount);
+        amount = VolumeConverter.callerHelp(unit, milliliter, amount);
       }
     }
 
     double gramsPerUnit;
-    if (unitMeasure.equals("Mass"))
+    if (unitMeasure.equals(mass))
     {
       // Use the value in grams directly if mass unit
       gramsPerUnit = 1.0; // 1 gram = 1 gram
@@ -191,31 +205,45 @@ public class CalorieCalculatorController implements ActionListener, DocumentList
     double calories = ((amount * gramsPerUnit) / 100) * values[0];
 
     // Display result to 2 decimal places
-    CalorieCalculatorWindow.calorieOutputField.setText(String.format(LOCALE, "%.2f", calories));
+    window.getOutputField().setText(String.format(LOCALE, "%.2f", calories));
   }
 
-  private double calculate(final String ingredient, final String unit, double amount)
+  private double calculate(final String ingredient, final String unit, final double amount)
   {
     System.out.println(ingredient);
 
     String unitMeasure = KILowBites.UNITS.unitMeasure(unit);
     double[] values = KILowBites.FOODS.getFoods().get(ingredient);
+    double newAmount = 0.0;
 
-    // convert to grams/milliliters if not already, depending on mass/volume unit selected
-    if (!(unit.equals("Gram")) || !(unit.equals("Milliliter")))
+    if (values == null)
     {
-      if (unitMeasure.equals("Mass"))
+      if (omitted.equals(""))
       {
-        amount = MassConverter.callerHelp(unit, "Gram", amount);
+        omitted += ingredient;
       }
       else
       {
-        amount = VolumeConverter.callerHelp(unit, "Milliliter", amount);
+        omitted += ", " + ingredient;
+      }
+      return 0.0;
+    }
+
+    // convert to grams/milliliters if not already, depending on mass/volume unit selected
+    if (!(unit.equals(gram)) || !(unit.equals(milliliter)))
+    {
+      if (unitMeasure.equals(mass))
+      {
+        newAmount = MassConverter.callerHelp(unit, gram, amount);
+      }
+      else
+      {
+        newAmount = VolumeConverter.callerHelp(unit, milliliter, amount);
       }
     }
 
     double gramsPerUnit;
-    if (unitMeasure.equals("Mass"))
+    if (unitMeasure.equals(mass))
     {
       // Use the value in grams directly if mass unit
       gramsPerUnit = 1.0; // 1 gram = 1 gram
@@ -227,7 +255,7 @@ public class CalorieCalculatorController implements ActionListener, DocumentList
     }
 
     // Calculate total calories
-    double calories = ((amount * gramsPerUnit) / 100) * values[0];
+    double calories = ((newAmount * gramsPerUnit) / 100) * values[0];
 
     return calories;
   }
@@ -293,10 +321,10 @@ public class CalorieCalculatorController implements ActionListener, DocumentList
    */
   private void reset()
   {
-    CalorieCalculatorWindow.calorieIngredientsMenu.setSelectedIndex(0);
-    CalorieCalculatorWindow.calorieUnitsMenu.setSelectedIndex(0);
-    CalorieCalculatorWindow.calorieAmountField.setText("");
-    CalorieCalculatorWindow.calorieOutputField.setText("___________");
+    window.getIngredientsMenu().setSelectedIndex(0);
+    window.getUnitsMenu().setSelectedIndex(0);
+    window.getCalorieAmount().setText("");
+    window.getOutputField().setText("___________");
   }
 
   /**
@@ -304,11 +332,10 @@ public class CalorieCalculatorController implements ActionListener, DocumentList
    */
   private void updateResetButton()
   {
-    boolean empty = !CalorieCalculatorWindow.calorieIngredientsMenu.getSelectedItem().toString()
-        .isEmpty()
-        || !CalorieCalculatorWindow.calorieUnitsMenu.getSelectedItem().toString().isEmpty()
-        || !CalorieCalculatorWindow.calorieAmountField.getText().trim().isEmpty();
-    CalorieCalculatorWindow.calorieResetButton.setEnabled(empty);
+    boolean empty = !window.getIngredientsMenu().getSelectedItem().toString().isEmpty()
+        || !window.getUnitsMenu().getSelectedItem().toString().isEmpty()
+        || !window.getCalorieAmount().getText().trim().isEmpty();
+    window.getResetButton().setEnabled(empty);
   }
 
   /**
@@ -316,10 +343,9 @@ public class CalorieCalculatorController implements ActionListener, DocumentList
    */
   private void updateCalculateButton()
   {
-    boolean empty = !CalorieCalculatorWindow.calorieIngredientsMenu.getSelectedItem().toString()
-        .isEmpty()
-        && !CalorieCalculatorWindow.calorieUnitsMenu.getSelectedItem().toString().isEmpty()
-        && !CalorieCalculatorWindow.calorieAmountField.getText().trim().isEmpty();
-    CalorieCalculatorWindow.calorieCalcButton.setEnabled(empty);
+    boolean empty = !window.getIngredientsMenu().getSelectedItem().toString().isEmpty()
+        && !window.getUnitsMenu().getSelectedItem().toString().isEmpty()
+        && !window.getCalorieAmount().getText().trim().isEmpty();
+    window.getCalcButton().setEnabled(empty);
   }
 }

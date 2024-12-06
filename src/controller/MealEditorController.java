@@ -207,6 +207,7 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import app.KILowBites;
 import cooking.Meal;
@@ -232,6 +233,7 @@ public class MealEditorController implements ActionListener, DocumentStateObserv
   private DocumentState state;
 
   private boolean savedAs = false;
+  private String fileName;
 
   /**
    * Constructor for controller.
@@ -280,16 +282,23 @@ public class MealEditorController implements ActionListener, DocumentStateObserv
     // commands for Toolbar
     if (command.equals(STRINGS.getString("NEW")))
     {
-      JFileChooser directoryChooser = new JFileChooser();
-      directoryChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY); // Set to select
-                                                                            // directories only
-      int result = directoryChooser.showOpenDialog(null);
+      FileNameExtensionFilter mealFilter = new FileNameExtensionFilter("Meal Files", "mel");
+
+      JFileChooser chooser = new JFileChooser();
+      chooser.setFileFilter(mealFilter);
+
+      int result = chooser.showOpenDialog(null);
 
       if (result == JFileChooser.APPROVE_OPTION)
       {
-        File selectedDirectory = directoryChooser.getSelectedFile();
-        mealSavePath = selectedDirectory.getAbsolutePath(); // Set the selected directory as
-                                                            // savePath
+
+        File selected = chooser.getSelectedFile();
+        mealSavePath = selected.getAbsolutePath();
+
+        fileName = selected.getName();
+
+        mealSavePath = selected.getAbsolutePath().substring(0,
+            selected.getAbsolutePath().length() - fileName.length());
 
         meal = new Meal(); // Create a new meal
         editor.resetMealEditor(); // Reset editor
@@ -334,7 +343,7 @@ public class MealEditorController implements ActionListener, DocumentStateObserv
 
       if (!mealSavePath.equals(""))
       {
-        FileUtilities.saveMeal(mealSavePath, meal); // save
+        FileUtilities.saveMeal(mealSavePath, meal, fileName); // save
       }
 
       state = DocumentState.UNCHANGED;
@@ -349,7 +358,7 @@ public class MealEditorController implements ActionListener, DocumentStateObserv
         meal.setName(name);
       }
 
-      mealSavePath = FileUtilities.saveAsMeal(meal); // save as
+      mealSavePath = FileUtilities.saveAsMeal(meal, fileName); // save as
 
       state = DocumentState.UNCHANGED;
       editor.updateToolBar(state);

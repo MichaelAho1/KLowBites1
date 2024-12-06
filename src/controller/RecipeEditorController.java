@@ -8,6 +8,7 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import app.KILowBites;
 import cooking.Ingredients;
@@ -37,6 +38,8 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
   private RecipeEditor editor;
   private Recipe recipe;
   private DocumentState state;
+
+  private String fileName;
 
   /**
    * Constructor for controller.
@@ -144,16 +147,21 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
     if (command.equals(STRINGS.getString("NEW")))
     {
       // ALLOW USERS TO CHOOSE DIRECTORY TO SAVE RECIPE
+      FileNameExtensionFilter recipeFilter = new FileNameExtensionFilter("Recipe Files", "rcp");
 
-      JFileChooser directoryChooser = new JFileChooser();
-      directoryChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-      int result = directoryChooser.showOpenDialog(null);
+      JFileChooser chooser = new JFileChooser();
+      chooser.setFileFilter(recipeFilter);
+
+      int result = chooser.showOpenDialog(null);
 
       if (result == JFileChooser.APPROVE_OPTION)
       {
-        File selectedDirectory = directoryChooser.getSelectedFile();
-        recipeSavePath = selectedDirectory.getAbsolutePath(); // Set the selected directory as
-                                                              // savePath
+        File selected = chooser.getSelectedFile();
+
+        fileName = selected.getName();
+
+        recipeSavePath = selected.getAbsolutePath().substring(0,
+            selected.getAbsolutePath().length() - fileName.length());
 
         recipe = new Recipe(); // Create a new recipe
         editor.resetRecipeEditor(); // Reset editor
@@ -161,12 +169,10 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
         savedAs = false; // Indicate not yet saved
         editor.updateToolBar(state); // Update toolbar state
         setFieldsEditable(true);
-
-        System.out.println("New directory selected: " + recipeSavePath);
       }
       else
       {
-        System.out.println("Directory selection was cancelled.");
+        return;
       }
     }
     else if (command.equals(STRINGS.getString("OPEN")))
@@ -214,7 +220,7 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
 
       if (!recipeSavePath.equals(""))
       {
-        FileUtilities.saveRecipe(recipeSavePath, recipe); // save
+        FileUtilities.saveRecipe(recipeSavePath, recipe, fileName); // save
       }
 
       state = DocumentState.UNCHANGED;
@@ -243,7 +249,7 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
         System.out.println("Invalid input");
       }
 
-      recipeSavePath = FileUtilities.saveAsRecipe(recipe);
+      recipeSavePath = FileUtilities.saveAsRecipe(recipe, fileName);
       state = DocumentState.UNCHANGED;
       editor.updateToolBar(state);
     }

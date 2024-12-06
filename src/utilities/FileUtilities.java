@@ -253,7 +253,7 @@ public class FileUtilities
       // Deserialize the selected recipe file
       File tempFile = new File(directory, selectedFile);
       try (FileInputStream fileIn = new FileInputStream(tempFile);
-        ObjectInputStream in = new ObjectInputStream(fileIn))
+          ObjectInputStream in = new ObjectInputStream(fileIn))
       {
         Recipe loadedRecipe = (Recipe) in.readObject();
         recipes.add(loadedRecipe);
@@ -380,7 +380,7 @@ public class FileUtilities
       // Deserialize the selected recipe file
       File tempFile = new File(directory, selectedFile);
       try (FileInputStream fileIn = new FileInputStream(tempFile);
-        ObjectInputStream in = new ObjectInputStream(fileIn))
+          ObjectInputStream in = new ObjectInputStream(fileIn))
       {
         Meal loadedMeal = (Meal) in.readObject();
         meals.add(loadedMeal);
@@ -417,8 +417,8 @@ public class FileUtilities
     ArrayList<Meal> meals = new ArrayList<>();
     ArrayList<Recipe> recipes = new ArrayList<>();
 
-    HashMap <Meal, List<Recipe>> mealMap = new HashMap<>();
-    HashMap <Meal, List<Recipe>> mealMapFiltered = new HashMap<>();
+    HashMap<Meal, List<Recipe>> mealMap = new HashMap<>();
+    HashMap<Meal, List<Recipe>> mealMapFiltered = new HashMap<>();
 
     fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
     fileChooser.setDialogTitle("Select the directory containing meal files");
@@ -452,7 +452,7 @@ public class FileUtilities
       // Deserialize the selected recipe file
       File tempFile = new File(directory, selectedFile);
       try (FileInputStream fileIn = new FileInputStream(tempFile);
-        ObjectInputStream in = new ObjectInputStream(fileIn))
+          ObjectInputStream in = new ObjectInputStream(fileIn))
       {
         Meal loadedMeal = (Meal) in.readObject();
         // meals.add(loadedMeal);
@@ -482,7 +482,6 @@ public class FileUtilities
     return mealMapFiltered;
   }
 
-
   /**
    * Save a recipe to the designated file path.
    * 
@@ -490,14 +489,17 @@ public class FileUtilities
    *          File path
    * @param recipe
    *          Recipe being saved
+   * @param fileName
+   *          Name of file
    */
-  public static void saveRecipe(final String filePath, final Recipe recipe)
+  public static void saveRecipe(final String filePath, final Recipe recipe, final String fileName)
   {
     // Step 1: Extract the directory path from the file path
-    File file = new File(filePath, recipe.getName() + rcp);
+    File file = new File(filePath, fileName + rcp);
 
     // Step 2: Ensure the directory exists
     File parentDirectory = file.getParentFile();
+
     if (parentDirectory != null && !parentDirectory.exists())
     {
       parentDirectory.mkdirs();
@@ -522,12 +524,17 @@ public class FileUtilities
    * 
    * @param recipe
    *          Recipe being saved
+   * @param fileName
+   *          Name of file
+   * 
    * @return file path
    */
-  public static String saveAsRecipe(final Recipe recipe)
+  public static String saveAsRecipe(final Recipe recipe, final String fileName)
   {
     // set up a file filter for .txt or any specific recipe format (if desired)
     FileNameExtensionFilter recipeFilter = new FileNameExtensionFilter(recipeFiles, "rcp");
+
+    fileChooser = new JFileChooser();
     fileChooser.setFileFilter(recipeFilter);
 
     // open the file explorer and let the user select where to save
@@ -535,16 +542,14 @@ public class FileUtilities
     if (result == JFileChooser.APPROVE_OPTION)
     {
       File selectedFile = fileChooser.getSelectedFile();
-      String filePath = selectedFile.getAbsolutePath();
 
-      // if the file doesn't have the desired extension, append it
-      if (!filePath.endsWith(rcp))
-      {
-        filePath += rcp;
-      }
+      String newFileName = selectedFile.getName();
+
+      String filePath = selectedFile.getAbsolutePath().substring(0,
+          selectedFile.getAbsolutePath().length() - newFileName.length());
 
       // call the saveFile method to actually save the recipe
-      saveRecipe(filePath, recipe);
+      saveRecipe(filePath, recipe, newFileName);
 
       return filePath;
     }
@@ -562,11 +567,13 @@ public class FileUtilities
    *          File path for saving meal
    * @param meal
    *          Meal being saved
+   * @param fileName
+   *          Name of file
    */
-  public static void saveMeal(final String filePath, final Meal meal)
+  public static void saveMeal(final String filePath, final Meal meal, final String fileName)
   {
     // Step 1: Extract the directory path from the file path
-    File file = new File(filePath, meal.getName() + mel);
+    File file = new File(filePath, fileName + mel);
 
     // Step 2: Ensure the directory exists
     File parentDirectory = file.getParentFile();
@@ -594,13 +601,16 @@ public class FileUtilities
    * 
    * @param meal
    *          Meal being saved
+   * @param fileName
+   *          Name of file
    * @return file path
    */
-  public static String saveAsMeal(final Meal meal)
+  public static String saveAsMeal(final Meal meal, final String fileName)
   {
     // set up a file filter for .txt or any specific recipe format (if desired)
     String mealExtension = "mel";
 
+    fileChooser = new JFileChooser();
     FileNameExtensionFilter mealFilter = new FileNameExtensionFilter(mealFiles, mealExtension);
     fileChooser.setFileFilter(mealFilter);
 
@@ -609,16 +619,14 @@ public class FileUtilities
     if (result == JFileChooser.APPROVE_OPTION)
     {
       File selectedFile = fileChooser.getSelectedFile();
-      String filePath = selectedFile.getAbsolutePath();
 
-      // if the file doesn't have the desired extension, append it
-      if (!filePath.endsWith(rcp))
-      {
-        filePath += rcp;
-      }
+      String newFileName = selectedFile.getName();
+
+      String filePath = selectedFile.getAbsolutePath().substring(0,
+          selectedFile.getAbsolutePath().length() - newFileName.length());
 
       // call the saveFile method to actually save the recipe
-      saveMeal(filePath, meal);
+      saveMeal(filePath, meal, newFileName);
 
       return filePath;
     }

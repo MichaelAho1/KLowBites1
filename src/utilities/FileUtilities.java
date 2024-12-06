@@ -36,6 +36,7 @@ public class FileUtilities
 {
   private static JFileChooser fileChooser = new JFileChooser();
   private static String noDirectory = "No directory selected";
+  private static String selectedDirectory = "Selected directory: ";
   private static String mel = ".mel";
   private static String rcp = ".rcp";
   private static String mealFiles = "Meal Files";

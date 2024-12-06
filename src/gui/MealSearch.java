@@ -135,7 +135,7 @@ public class MealSearch extends JFrame
     }
   }
 
-  public void updateListNew(ArrayList<String> toDisplay)
+  public void updateDisplayList(ArrayList<String> toDisplay)
   {
     mealResults.clear();
     for (String meal : toDisplay)

@@ -52,7 +52,6 @@ public class ProcessViewerController implements ActionListener
 
       if (data == null)
       {
-        System.out.println("Null file");
         return;
       }
       else
@@ -75,7 +74,6 @@ public class ProcessViewerController implements ActionListener
     }
     catch (Exception e)
     {
-      System.out.println("Cancelled.");
     }
 
   }
@@ -96,8 +94,8 @@ public class ProcessViewerController implements ActionListener
 //    	jp.add(viewer.getContent().getStepPanel().getRecipeList());
 //      DelegatingPrintable dp = new DelegatingPrintable(jp);
 //      PrinterController.print(dp, viewer);
-    	//ALEX TODO: TRY HAVING TWO DELEGATES
-      DelegatingPrintable dp = new DelegatingPrintable(viewer.getContent().getUtensilPanel().getRecipeList(),
+      DelegatingPrintable dp = new DelegatingPrintable(viewer.getContent()
+          .getUtensilPanel().getRecipeList(),
     		  viewer.getContent().getStepPanel().getRecipeList());
       PrinterController.print(dp, viewer);
       // PrinterJob pj = PrinterJob.getPrinterJob();

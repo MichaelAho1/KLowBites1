@@ -290,38 +290,24 @@ public class MealEditorController implements ActionListener, DocumentStateObserv
         File selectedDirectory = directoryChooser.getSelectedFile();
         mealSavePath = selectedDirectory.getAbsolutePath(); // Set the selected directory as
                                                             // savePath
-
         meal = new Meal(); // Create a new meal
         editor.resetMealEditor(); // Reset editor
         state = DocumentState.UNCHANGED; // Set document state
         savedAs = false; // Indicate not yet saved
         editor.updateToolBar(state); // Update toolbar state
         setFieldsEditable(true);
-
-        // System.out.println("New directory selected: " + mealSavePath);
-      }
-      else
-      {
-        // System.out.println("Directory selection was cancelled.");
       }
     }
     else if (command.equals(STRINGS.getString("OPEN")))
     {
-      try
-      {
-        meal = FileUtilities.openMeal();
-        state = DocumentState.UNCHANGED;
-        editor.updateToolBar(state);
-        setFieldsEditable(true);
+      meal = FileUtilities.openMeal();
+      state = DocumentState.UNCHANGED;
+      editor.updateToolBar(state);
+      setFieldsEditable(true);
 
-        editor.resetMealEditor();
-        editor.dispose();
-        editor = new MealEditor(meal, this, false);
-      }
-      catch (Exception anotherException)
-      {
-        System.out.println("MealEditor: user cancelled recipe file selection, caught exception");
-      }
+      editor.resetMealEditor();
+      editor.dispose();
+      editor = new MealEditor(meal, this, false);
     }
     else if (command.equals(STRINGS.getString("SAVE")))
     {
@@ -365,37 +351,23 @@ public class MealEditorController implements ActionListener, DocumentStateObserv
     }
     else if (command.equals(STRINGS.getString("RECIPE_ADD")))
     {
-      try
-      {
-        Recipe r = FileUtilities.openRecipe();
+      Recipe r = FileUtilities.openRecipe();
 
-        boolean added = meal.addRecipe(r);
-        if (!added)
-        {
-          editor.getContent().getEditorPanel().addMealElement(r.getName());
-        }
-      }
-      catch (Exception anotherException)
+      boolean added = meal.addRecipe(r);
+      if (!added)
       {
-        System.out.println("MealEditor: user cancelled recipe file selection, caught exception");
+        editor.getContent().getEditorPanel().addMealElement(r.getName());
       }
     }
     else if (command.equals(STRINGS.getString("RECIPE_DELETE")))
     {
-      try
-      {
-        meal.removeRecipe(editor.getContent().getEditorPanel().getMealList().getSelectedValue());
-        editor.getContent().getEditorPanel().deleteMealElement();
-        meal.printRecipes();
-      }
-      catch (Exception anotherException)
-      {
-        System.out.println("MealEditor: No meal to delete");
-      }
+      meal.removeRecipe(editor.getContent().getEditorPanel().getMealList().getSelectedValue());
+      editor.getContent().getEditorPanel().deleteMealElement();
+      meal.printRecipes();
     }
   }
 
-  private void setFieldsEditable(boolean editable)
+  private void setFieldsEditable(final boolean editable)
   {
     editor.getContent().getMainIFP().setFieldsEditable(editable);
     editor.getContent().getRecipeIFP().setFieldsEditable(editable);

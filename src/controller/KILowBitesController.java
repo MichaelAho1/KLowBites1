@@ -101,12 +101,10 @@ public class KILowBitesController implements ActionListener
     // commands for Search
     if (command.equals(STRINGS.getString("RECIPES")))
     {
-      System.out.println("recipe search");
       recipeSearchController = new RecipeSearchController();
     }
     if (command.equals(STRINGS.getString("MEALS")))
     {
-      System.out.println("meal search");
       mealSearchController = new MealSearchController();
     }
 

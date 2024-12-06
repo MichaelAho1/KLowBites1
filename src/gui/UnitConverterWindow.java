@@ -32,7 +32,11 @@ import utilities.UnitType;
 @SuppressWarnings({"rawtypes", "unchecked"})
 public class UnitConverterWindow extends JFrame
 {
+  static final Locale LOCALE = Locale.getDefault();
+
+  private static final ResourceBundle STRINGS = KILowBites.STRINGS;
   private static final long serialVersionUID = 1L;
+
   private String[] units;
   private String[] ingredients;
   private UnitConverterController controller;
@@ -43,14 +47,21 @@ public class UnitConverterWindow extends JFrame
   private JPanel fromAmountPanel;
   private JPanel outputPanel;
 
-  public static JButton unitCalcButton;
-  public static JButton unitResetButton;
+  private JButton unitCalcButton;
+  private JButton unitResetButton;
 
-  public static JComboBox fromUnitsMenu;
-  public static JComboBox toUnitsMenu;
-  public static JComboBox unitIngredientsMenu;
-  public static JTextField fromAmountField;
-  public static JLabel unitOutputField;
+  private JComboBox fromUnitsMenu;
+  private JComboBox toUnitsMenu;
+  private JComboBox unitIngredientsMenu;
+  private JTextField fromAmountField;
+  private JLabel unitOutputField;
+
+  private String calculate = "CALCULATE";
+  private String reset = "RESET";
+  private String toUnits = "TO_UNITS";
+  private String fromUnits = "FROM_UNITS";
+
+  private KILowBites window;
 
   // private static final String CALCULATE = "Calculate";
   // private static final String RESET = "Reset";
@@ -61,17 +72,18 @@ public class UnitConverterWindow extends JFrame
   // private static final String TO_AMOUNT = "To Amount:";
   // private static final String CHOOSE_INGREDIENT = "Choose Ingredient";
 
-  static final Locale LOCALE = Locale.getDefault();
-  private static final ResourceBundle STRINGS = KILowBites.STRINGS;
-
   /**
-   * Default constructor.
+   * Constructor.
+   * 
+   * @param window
+   *          Parent window
    */
-  public UnitConverterWindow()
+  public UnitConverterWindow(final KILowBites window)
   {
     super(STRINGS.getString("KILOWBITES_UNIT_CONVERTER"));
 
-    controller = new UnitConverterController();
+    controller = new UnitConverterController(this);
+    this.window = window;
 
     this.setBackground(KILowBites.COLOR);
 
@@ -104,15 +116,15 @@ public class UnitConverterWindow extends JFrame
     unitCalcButton = new JButton(
         ImageUtilities.getFormattedImage("calculate.png", Color.GRAY, 25, 25));
     unitCalcButton.setEnabled(false);
-    unitCalcButton.setToolTipText(STRINGS.getString("CALCULATE"));
-    unitCalcButton.setActionCommand(STRINGS.getString("CALCULATE"));
+    unitCalcButton.setToolTipText(STRINGS.getString(calculate));
+    unitCalcButton.setActionCommand(STRINGS.getString(calculate));
     unitCalcButton.addActionListener(controller);
 
     unitResetButton = new JButton(
         ImageUtilities.getFormattedImage("reset.png", Color.GRAY, 25, 25));
     unitResetButton.setEnabled(false);
-    unitResetButton.setToolTipText(STRINGS.getString("RESET"));
-    unitResetButton.setActionCommand(STRINGS.getString("RESET"));
+    unitResetButton.setToolTipText(STRINGS.getString(reset));
+    unitResetButton.setActionCommand(STRINGS.getString(reset));
     unitResetButton.addActionListener(controller);
 
     toolbar.add(unitCalcButton);
@@ -135,7 +147,7 @@ public class UnitConverterWindow extends JFrame
     if (e.getID() == java.awt.event.WindowEvent.WINDOW_CLOSING)
     {
       System.out.println("Closing unit converter...");
-      KILowBites.openConvert.setEnabled(true);
+      window.getOpenConvert().setEnabled(true);
     }
   }
 
@@ -149,7 +161,7 @@ public class UnitConverterWindow extends JFrame
     fromUnitsPanel.setLayout(new BorderLayout());
 
     fromUnitsMenu = new JComboBox(units);
-    fromUnitsMenu.setActionCommand(STRINGS.getString("FROM_UNITS"));
+    fromUnitsMenu.setActionCommand(STRINGS.getString(fromUnits));
     fromUnitsMenu.addActionListener(controller);
 
     JPanel boxPanel = new JPanel(new GridBagLayout());
@@ -160,7 +172,7 @@ public class UnitConverterWindow extends JFrame
     gbc.gridy = 0;
     gbc.anchor = GridBagConstraints.WEST;
     gbc.insets = new Insets(10, 20, 10, 10);
-    boxPanel.add(new JLabel(STRINGS.getString("FROM_UNITS")), gbc);
+    boxPanel.add(new JLabel(STRINGS.getString(fromUnits)), gbc);
 
     gbc.gridx = 1;
     gbc.gridy = 0;
@@ -174,7 +186,7 @@ public class UnitConverterWindow extends JFrame
     toUnitsPanel.setLayout(new BorderLayout());
 
     toUnitsMenu = new JComboBox(units);
-    toUnitsMenu.setActionCommand(STRINGS.getString("TO_UNITS"));
+    toUnitsMenu.setActionCommand(STRINGS.getString(toUnits));
     toUnitsMenu.addActionListener(controller);
 
     boxPanel = new JPanel(new GridBagLayout());
@@ -183,7 +195,7 @@ public class UnitConverterWindow extends JFrame
     gbc.gridy = 0;
     gbc.anchor = GridBagConstraints.WEST;
     gbc.insets = new Insets(10, 20, 10, 10);
-    boxPanel.add(new JLabel(STRINGS.getString("TO_UNITS")), gbc);
+    boxPanel.add(new JLabel(STRINGS.getString(toUnits)), gbc);
 
     gbc.gridx = 1;
     gbc.gridy = 0;
@@ -264,7 +276,7 @@ public class UnitConverterWindow extends JFrame
    * 
    * @return The string representation of the selected item.
    */
-  public static String getFromUnitsMenu()
+  public String getFromUnitsMenu()
   {
     return (String) fromUnitsMenu.getSelectedItem();
   }
@@ -274,7 +286,7 @@ public class UnitConverterWindow extends JFrame
    * 
    * @return The string representation of the selected item.
    */
-  public static String getToUnitsMenu()
+  public String getToUnitsMenu()
   {
     return (String) toUnitsMenu.getSelectedItem();
   }
@@ -284,7 +296,7 @@ public class UnitConverterWindow extends JFrame
    * 
    * @return The string representation of the selected item.
    */
-  public static String getIngredientsUnitsMenu()
+  public String getIngredientsUnitsMenu()
   {
     return (String) unitIngredientsMenu.getSelectedItem();
   }
@@ -294,9 +306,79 @@ public class UnitConverterWindow extends JFrame
    * 
    * @return The string representation of the selected item.
    */
-  public static Double getFromAmountField()
+  public Double getFromAmountField()
   {
     return Double.parseDouble(fromAmountField.getText());
+  }
+
+  /**
+   * Return calculate button.
+   * 
+   * @return Calculate button
+   */
+  public JButton getCalcButton()
+  {
+    return unitCalcButton;
+  }
+
+  /**
+   * Return reset button.
+   * 
+   * @return Reset button
+   */
+  public JButton getResetButton()
+  {
+    return unitResetButton;
+  }
+
+  /**
+   * Return from units menu.
+   * 
+   * @return From units menu
+   */
+  public JComboBox getFromUnits()
+  {
+    return fromUnitsMenu;
+  }
+
+  /**
+   * Return to units menu.
+   * 
+   * @return To units menu
+   */
+  public JComboBox getToUnits()
+  {
+    return toUnitsMenu;
+  }
+
+  /**
+   * Return ingredients menu.
+   * 
+   * @return Ingredient menu
+   */
+  public JComboBox getIngredients()
+  {
+    return unitIngredientsMenu;
+  }
+
+  /**
+   * Return from amount field.
+   * 
+   * @return From amount field
+   */
+  public JTextField getFromAmount()
+  {
+    return fromAmountField;
+  }
+
+  /**
+   * Return output field.
+   * 
+   * @return Output field
+   */
+  public JLabel getOutputField()
+  {
+    return unitOutputField;
   }
 
 }

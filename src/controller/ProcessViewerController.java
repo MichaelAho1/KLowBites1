@@ -6,8 +6,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-import javax.swing.JPanel;
-
 import app.KILowBites;
 import cooking.Meal;
 import cooking.Recipe;
@@ -23,7 +21,6 @@ import utilities.FileUtilities;
  */
 public class ProcessViewerController implements ActionListener
 {
-  // ALEX START METHOD, RECIPE EDITOR CONTENT
   static final Locale LOCALE = Locale.getDefault();
   private static String PRINT = "Print";
 
@@ -89,21 +86,10 @@ public class ProcessViewerController implements ActionListener
     // commands for Toolbar
     if (command.equals(PRINT))
     {
-//    	JPanel jp = new JPanel();
-//    	jp.add(viewer.getContent().getUtensilPanel().getRecipeList());
-//    	jp.add(viewer.getContent().getStepPanel().getRecipeList());
-//      DelegatingPrintable dp = new DelegatingPrintable(jp);
-//      PrinterController.print(dp, viewer);
       DelegatingPrintable dp = new DelegatingPrintable(viewer.getContent()
           .getUtensilPanel().getRecipeList(),
     		  viewer.getContent().getStepPanel().getRecipeList());
       PrinterController.print(dp, viewer);
-      // PrinterJob pj = PrinterJob.getPrinterJob();
-
-      // dp.print(viewer.getGraphics(), pj.defaultPage(), 1);
-
-      // PrinterController pc = new PrinterController();
-//      PrinterController.print(dp, viewer);
     }
   }
 }

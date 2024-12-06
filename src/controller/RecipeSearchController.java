@@ -33,13 +33,13 @@ import utilities.InputUtilities;
 public class RecipeSearchController implements ActionListener
 {
   static final Locale LOCALE = Locale.getDefault();
-  private static final ResourceBundle STRINGS = KILowBites.STRINGS;
-
   private ArrayList<Recipe> recipes; // the recipes to search
   private ArrayList<Recipe> recipesFiltered; // recipes that meet the search criteria
   private RecipeSearch recipeSearch;
 
   private String searchTerm;
+  private static final ResourceBundle STRINGS = KILowBites.STRINGS;
+
 
   /**
    * Constructor.
@@ -69,7 +69,7 @@ public class RecipeSearchController implements ActionListener
     command = e.getActionCommand();
 
     // commands for toolbar
-    if (command.equals("SEARCH"))
+    if (command.equals(STRINGS.getString("SEARCH")))
     {
       // get user to enter search criteria
       if (recipeSearch.getSearchString().equals(""))
@@ -117,11 +117,11 @@ public class RecipeSearchController implements ActionListener
         recipeSearch.updateList(recipesFiltered);
 
         // disable search button, enable close button
-        recipeSearch.getButton("SEARCH").setEnabled(false);
-        recipeSearch.getButton("CLOSE").setEnabled(true);
+        recipeSearch.getButton(STRINGS.getString("SEARCH")).setEnabled(false);
+        recipeSearch.getButton(STRINGS.getString("CLOSE")).setEnabled(true);
       }
     }
-    else if (command.equals("CLOSE"))
+    else if (command.equals(STRINGS.getString("CLOSE")))
     {
       searchTerm = "";
       recipeSearch.reset();
@@ -129,8 +129,8 @@ public class RecipeSearchController implements ActionListener
       recipes.clear();
 
       // enable search button, disable close button
-      recipeSearch.getButton("SEARCH").setEnabled(true);
-      recipeSearch.getButton("CLOSE").setEnabled(false);
+      recipeSearch.getButton(STRINGS.getString("SEARCH")).setEnabled(true);
+      recipeSearch.getButton(STRINGS.getString("CLOSE")).setEnabled(false);
     }
   }
 }

@@ -47,13 +47,15 @@ public class RecipeSearch extends JFrame
   DefaultListModel<String> recipeResults;
   JList<String> recipeResultsList;
 
+  private static final ResourceBundle STRINGS = KILowBites.STRINGS;
+
   /**
    * The constructor for a Recipe Search Window.
    */
   public RecipeSearch(final RecipeSearchController controller)
   {
     // super(STRINGS.getString(""));
-    super("Recipe Search");
+    super(STRINGS.getString("RECIPE_SEARCH"));
 
     outerPane = new Container();
     outerPane.setLayout(new BorderLayout());
@@ -90,7 +92,7 @@ public class RecipeSearch extends JFrame
 
     // adds the search bar
     searchBar = new InputFieldPanel();
-    searchBar.addJTextField("Search for Ingredient: ", 50);
+    searchBar.addJTextField(STRINGS.getString("SEARCH_FOR_INGREDIENT"), 50);
 
     // adds the results area
     recipeResults = new DefaultListModel<>();
@@ -123,7 +125,7 @@ public class RecipeSearch extends JFrame
     }
     if (recipeResults.isEmpty())
     {
-      recipeResults.addElement("No recipes found.");
+      recipeResults.addElement(STRINGS.getString("NO_RECIPES_FOUND"));
     }
   }
 
@@ -144,7 +146,7 @@ public class RecipeSearch extends JFrame
    */
   public String getSearchString()
   {
-    return searchBar.getText("Search for Ingredient: ");
+    return searchBar.getText(STRINGS.getString("SEARCH_FOR_INGREDIENT"));
   }
 
   public JButton getButton(final String name)

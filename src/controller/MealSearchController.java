@@ -39,7 +39,7 @@ public class MealSearchController implements ActionListener
   static final Locale LOCALE = Locale.getDefault();
   private static final ResourceBundle STRINGS = KILowBites.STRINGS;
 
-  private ArrayList<Recipe> recipes; // the recipes to search
+  // private ArrayList<Recipe> recipes; // the recipes to search
   private ArrayList<Recipe> recipesFiltered; // recipes that meet the search criteria
 
   private HashMap<Meal, List<Recipe>> meals; // the meals to search
@@ -77,65 +77,6 @@ public class MealSearchController implements ActionListener
     command = e.getActionCommand();
 
     // commands for toolbar
-    // OLD SEARCH ******************************************************************************************************
-    if (command.equals("SEARCH_old"))
-    {
-      // get user to enter search criteria
-      if (mealSearch.getSearchString().equals(""))
-      {
-        System.out.println("Please enter a search term.");
-        return;
-      }
-      else
-      {
-        searchTerm = mealSearch.getSearchString();
-        System.out.println("search " + searchTerm);
-
-        try
-        {
-          recipes = FileUtilities.openMealDirectory();
-
-          if (recipes == null)
-          {
-            System.out.println("User cancelled file selection.");
-            return;
-          }
-          for (Recipe recipe : recipes) // search each recipe for ingredient
-          {
-            for (Ingredients ingredient : recipe.getIngredients())
-            {
-              // if search criteria matches...
-              if (ingredient.getName().toLowerCase().contains(searchTerm.toLowerCase()))
-              {
-                System.out.println("Found: " + ingredient.getName() + " in " + recipe.getName());
-                if (!recipesFiltered.contains(recipe)) // don't repeat recipes
-                {
-                  recipesFiltered.add(recipe);
-                }
-              }
-            }
-          }
-
-          // add to filtered recipes
-          for (Recipe recipe : recipesFiltered)
-          {
-            System.out.println("Filtered: " + recipe.getName());
-          }
-        }
-        catch (Exception e1)
-        {
-          System.out.println("Canceled file selection, or no files found.");
-          e1.printStackTrace();
-        }
-
-        // display the filtered recipes
-        mealSearch.updateList(recipesFiltered);
-
-        // disable search button, enable close button
-        mealSearch.getButton("SEARCH").setEnabled(false);
-        mealSearch.getButton("CLOSE").setEnabled(true);
-      }
-    }
     if (command.equals("SEARCH"))
     {
       // get user to enter search criteria
@@ -216,7 +157,7 @@ public class MealSearchController implements ActionListener
         }
 
         // display the filtered recipes
-        mealSearch.updateListNew(mealsToDisplay);
+        mealSearch.updateDisplayList(mealsToDisplay);
 
         // disable search button, enable close button
         mealSearch.getButton("SEARCH").setEnabled(false);

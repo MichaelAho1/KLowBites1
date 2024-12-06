@@ -74,13 +74,11 @@ public class RecipeSearchController implements ActionListener
       // get user to enter search criteria
       if (recipeSearch.getSearchString().equals(""))
       {
-        System.out.println("Please enter a search term.");
         return;
       }
       else
       {
         searchTerm = recipeSearch.getSearchString();
-        System.out.println("search " + searchTerm);
 
         try
         {
@@ -88,7 +86,6 @@ public class RecipeSearchController implements ActionListener
 
           if (recipes == null)
           {
-            System.out.println("User cancelled file selection.");
             return;
           }
           for (Recipe recipe : recipes) // search each recipe for ingredient
@@ -98,7 +95,6 @@ public class RecipeSearchController implements ActionListener
               // if search criteria matches...
               if (ingredient.getName().toLowerCase().contains(searchTerm.toLowerCase()))
               {
-                System.out.println("Found: " + ingredient.getName() + " in " + recipe.getName());
                 if (!recipesFiltered.contains(recipe)) // don't repeat recipes
                 {
                   recipesFiltered.add(recipe);
@@ -110,12 +106,10 @@ public class RecipeSearchController implements ActionListener
           // add to filtered recipes
           for (Recipe recipe : recipesFiltered)
           {
-            System.out.println("Filtered: " + recipe.getName());
           }
         }
         catch (Exception e1)
         {
-          System.out.println("Canceled file selection, or no files found.");
           e1.printStackTrace();
         }
 
@@ -133,7 +127,6 @@ public class RecipeSearchController implements ActionListener
       recipeSearch.reset();
       recipesFiltered.clear();
       recipes.clear();
-      System.out.println("close");
 
       // enable search button, disable close button
       recipeSearch.getButton("SEARCH").setEnabled(true);

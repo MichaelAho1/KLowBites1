@@ -162,11 +162,6 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
         editor.updateToolBar(state); // Update toolbar state
         setFieldsEditable(true);
 
-        System.out.println("New directory selected: " + recipeSavePath);
-      }
-      else
-      {
-        System.out.println("Directory selection was cancelled.");
       }
     }
     else if (command.equals(STRINGS.getString("OPEN")))
@@ -185,7 +180,6 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
       }
       catch (Exception anotherException)
       {
-        System.out.println("RecipeEditor: user cancelled recipe file selection, caught exception");
       }
     }
     else if (command.equals(STRINGS.getString("SAVE")))
@@ -198,18 +192,10 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
       {
         recipe.setName(name);
       }
-      else
-      {
-        System.out.println("Invalid input");
-      }
 
       if (InputUtilities.isPositiveInt(serves))
       {
         recipe.setServes(Integer.parseInt(serves));
-      }
-      else
-      {
-        System.out.println("Invalid input");
       }
 
       if (!recipeSavePath.equals(""))
@@ -229,18 +215,9 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
       {
         recipe.setName(name);
       }
-      else
-      {
-        System.out.println("Invalid input");
-      }
-
       if (InputUtilities.isPositiveInt(serves))
       {
         recipe.setServes(Integer.parseInt(serves));
-      }
-      else
-      {
-        System.out.println("Invalid input");
       }
 
       recipeSavePath = FileUtilities.saveAsRecipe(recipe);
@@ -283,13 +260,12 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
         }
         catch (NullPointerException ex)
         {
-          System.out.println("idk");
+
         }
         editor.getContent().getUtensilIFP().resetFields();
       }
       else
       {
-        System.out.println("Invalid input");
       }
       editor.getContent().updateStepSourcePanel();
     }
@@ -310,13 +286,11 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
           }
           catch (NullPointerException ex)
           {
-            System.out.println("No element selected");
           }
         }
       }
       catch (NullPointerException ex)
       {
-        System.out.println("trying to delete when empty (caused by deleting when file closed)");
       }
 
       editor.getContent().getUtensilPanel().deleteRecipeElement();
@@ -360,7 +334,6 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
       }
       else
       {
-        System.out.println("Invalid input");
       }
       editor.getContent().updateStepSourcePanel();
     }
@@ -381,13 +354,11 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
           }
           catch (NullPointerException ex)
           {
-            System.out.println("No element selected");
           }
         }
       }
       catch (NullPointerException ex)
       {
-        System.out.println("trying to delete when empty (caused by deleting when file closed)");
       }
 
       editor.getContent().getIngredientPanel().deleteRecipeElement();
@@ -423,7 +394,6 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
       }
       else
       {
-        System.out.println("Invalid input");
       }
     }
     else if (command.equals(STRINGS.getString("STEP_DELETE")))
@@ -443,13 +413,11 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
           }
           catch (NullPointerException ex)
           {
-            System.out.println("No element selected");
           }
         }
       }
       catch (NullPointerException ex)
       {
-        System.out.println("trying to delete when empty (caused by deleting when file closed)");
       }
 
       editor.getContent().getStepPanel().deleteRecipeElement();

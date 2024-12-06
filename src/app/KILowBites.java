@@ -57,7 +57,6 @@ public class KILowBites extends JFrame implements Runnable
     this.args = args;
 
     Locale.setDefault(getLocale());
-    System.out.println("Current Locale: " + Locale.getDefault());
     STRINGS = ResourceBundle.getBundle("Strings", Locale.getDefault());
 
     // STRINGS = ResourceBundle.getBundle("Strings", new Locale("es", "ES"));

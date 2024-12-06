@@ -24,16 +24,29 @@ import utilities.Units;
  */
 public class UnitConverterController implements ActionListener, DocumentListener
 {
-//  private static final String CALCULATE = "Calculate";
-//  private static final String RESET = "Reset";
-//  private static final String FROM_UNITS = "From Unit";
-//  private static final String TO_UNITS = "To Unit";
-//  private static final String CHOOSE_INGREDIENT = "Choose Ingredient";
+  // private static final String CALCULATE = "Calculate";
+  // private static final String RESET = "Reset";
+  // private static final String FROM_UNITS = "From Unit";
+  // private static final String TO_UNITS = "To Unit";
+  // private static final String CHOOSE_INGREDIENT = "Choose Ingredient";
 
-  static final Locale         LOCALE  = Locale.getDefault();
+  static final Locale LOCALE = Locale.getDefault();
   private static final ResourceBundle STRINGS = KILowBites.STRINGS;
-  
+
   private boolean sameMeasureType;
+
+  private UnitConverterWindow window;
+
+  /**
+   * Constructor.
+   * 
+   * @param window
+   *          Parent window
+   */
+  public UnitConverterController(final UnitConverterWindow window)
+  {
+    this.window = window;
+  }
 
   @Override
   public void actionPerformed(final ActionEvent e)
@@ -99,12 +112,12 @@ public class UnitConverterController implements ActionListener, DocumentListener
     try
     {
       // Retrieve and parse the input amount
-      amount = Double.parseDouble(UnitConverterWindow.fromAmountField.getText().trim());
+      amount = Double.parseDouble(window.getFromAmount().getText().trim());
     }
     catch (NumberFormatException ex)
     {
       // should get here if letters / non-numbers are entered
-      UnitConverterWindow.unitOutputField.setText("Invalid input");
+      window.getOutputField().setText("Invalid input");
       return;
     }
 
@@ -112,15 +125,16 @@ public class UnitConverterController implements ActionListener, DocumentListener
     String[] volumeUnits = Units.getVolumeUnits();
     String[] massUnits = Units.getMassUnits();
 
-    String fromUnits = UnitConverterWindow.getFromUnitsMenu();
-    String toUnits = UnitConverterWindow.getToUnitsMenu();
-    Double fromAmount = UnitConverterWindow.getFromAmountField();
-    String ingredient = UnitConverterWindow.getIngredientsUnitsMenu();
+    String fromUnits = window.getFromUnitsMenu();
+    String toUnits = window.getToUnitsMenu();
+    Double fromAmount = window.getFromAmountField();
+    String ingredient = window.getIngredientsUnitsMenu();
     Double density = 0.0;
-    if (fromAmount < 0) 
+    if (fromAmount < 0)
     {
-      UnitConverterWindow.unitOutputField.setText("Cannot be a negative input.");
-    } else 
+      window.getOutputField().setText("Cannot be a negative input.");
+    }
+    else
     {
       if (!sameMeasureType)
         density = KILowBites.FOODS.getDensity(ingredient);
@@ -148,7 +162,7 @@ public class UnitConverterController implements ActionListener, DocumentListener
           amount = MassToVolume.interConverting(fromUnits, toUnits, fromAmount, density);
         }
       }
-      UnitConverterWindow.unitOutputField.setText(String.format("%.5f", amount));
+      window.getOutputField().setText(String.format("%.5f", amount));
     }
   }
 
@@ -157,8 +171,8 @@ public class UnitConverterController implements ActionListener, DocumentListener
    */
   private void disableIngredients()
   {
-    String fromUnits = UnitConverterWindow.getFromUnitsMenu();
-    String toUnits = UnitConverterWindow.getToUnitsMenu();
+    String fromUnits = window.getFromUnitsMenu();
+    String toUnits = window.getToUnitsMenu();
 
     if (fromUnits != null && toUnits != null)
     {
@@ -166,11 +180,11 @@ public class UnitConverterController implements ActionListener, DocumentListener
       String toMeasureType = KILowBites.UNITS.unitMeasure(toUnits);
 
       sameMeasureType = fromMeasureType != null && fromMeasureType.equals(toMeasureType);
-      UnitConverterWindow.unitIngredientsMenu.setEnabled(!sameMeasureType);
+      window.getIngredients().setEnabled(!sameMeasureType);
     }
     else
     {
-      UnitConverterWindow.unitIngredientsMenu.setEnabled(true);
+      window.getIngredients().setEnabled(true);
     }
   }
 
@@ -179,11 +193,11 @@ public class UnitConverterController implements ActionListener, DocumentListener
    */
   private void reset()
   {
-    UnitConverterWindow.unitIngredientsMenu.setSelectedIndex(0);
-    UnitConverterWindow.fromUnitsMenu.setSelectedIndex(0);
-    UnitConverterWindow.toUnitsMenu.setSelectedIndex(0);
-    UnitConverterWindow.fromAmountField.setText("");
-    UnitConverterWindow.unitOutputField.setText("___________");
+    window.getIngredients().setSelectedIndex(0);
+    window.getFromUnits().setSelectedIndex(0);
+    window.getToUnits().setSelectedIndex(0);
+    window.getFromAmount().setText("");
+    window.getOutputField().setText("___________");
   }
 
   /**
@@ -191,11 +205,11 @@ public class UnitConverterController implements ActionListener, DocumentListener
    */
   private void updateResetButton()
   {
-    boolean empty = !UnitConverterWindow.unitIngredientsMenu.getSelectedItem().toString().isEmpty()
-        || !UnitConverterWindow.fromUnitsMenu.getSelectedItem().toString().isEmpty()
-        || !UnitConverterWindow.fromAmountField.getText().trim().isEmpty()
-        || !UnitConverterWindow.toUnitsMenu.getSelectedItem().toString().isEmpty();
-    UnitConverterWindow.unitResetButton.setEnabled(empty);
+    boolean empty = !window.getIngredients().getSelectedItem().toString().isEmpty()
+        || !window.getFromUnits().getSelectedItem().toString().isEmpty()
+        || !window.getFromAmount().getText().trim().isEmpty()
+        || !window.getToUnits().getSelectedItem().toString().isEmpty();
+    window.getResetButton().setEnabled(empty);
   }
 
   /**
@@ -206,17 +220,17 @@ public class UnitConverterController implements ActionListener, DocumentListener
     boolean empty;
     if (sameMeasureType)
     {
-      empty = !UnitConverterWindow.fromUnitsMenu.getSelectedItem().toString().isEmpty()
-          && !UnitConverterWindow.fromAmountField.getText().trim().isEmpty()
-          && !UnitConverterWindow.toUnitsMenu.getSelectedItem().toString().isEmpty();
+      empty = !window.getFromUnits().getSelectedItem().toString().isEmpty()
+          && !window.getFromAmount().getText().trim().isEmpty()
+          && !window.getToUnits().getSelectedItem().toString().isEmpty();
     }
     else
     {
-      empty = !UnitConverterWindow.unitIngredientsMenu.getSelectedItem().toString().isEmpty()
-          && !UnitConverterWindow.fromUnitsMenu.getSelectedItem().toString().isEmpty()
-          && !UnitConverterWindow.fromAmountField.getText().trim().isEmpty()
-          && !UnitConverterWindow.toUnitsMenu.getSelectedItem().toString().isEmpty();
+      empty = !window.getIngredients().getSelectedItem().toString().isEmpty()
+          && !window.getFromUnits().getSelectedItem().toString().isEmpty()
+          && !window.getFromAmount().getText().trim().isEmpty()
+          && !window.getToUnits().getSelectedItem().toString().isEmpty();
     }
-    UnitConverterWindow.unitCalcButton.setEnabled(empty);
+    window.getCalcButton().setEnabled(empty);
   }
 }

@@ -77,7 +77,7 @@ public class MealSearchController implements ActionListener
     command = e.getActionCommand();
 
     // commands for toolbar
-    if (command.equals("SEARCH"))
+    if (command.equals(STRINGS.getString("SEARCH")))
     {
       // get user to enter search criteria
       if (mealSearch.getSearchString().equals(""))
@@ -160,11 +160,11 @@ public class MealSearchController implements ActionListener
         mealSearch.updateDisplayList(mealsToDisplay);
 
         // disable search button, enable close button
-        mealSearch.getButton("SEARCH").setEnabled(false);
-        mealSearch.getButton("CLOSE").setEnabled(true);
+        mealSearch.getButton(STRINGS.getString("SEARCH")).setEnabled(false);
+        mealSearch.getButton(STRINGS.getString("CLOSE")).setEnabled(true);
       }
     }
-    else if (command.equals("CLOSE"))
+    else if (command.equals(STRINGS.getString("CLOSE")))
     {
       searchTerm = "";
       mealSearch.reset();
@@ -173,8 +173,8 @@ public class MealSearchController implements ActionListener
       System.out.println("close");
 
       // enable search button, disable close button
-      mealSearch.getButton("SEARCH").setEnabled(true);
-      mealSearch.getButton("CLOSE").setEnabled(false);
+      mealSearch.getButton(STRINGS.getString("SEARCH")).setEnabled(true);
+      mealSearch.getButton(STRINGS.getString("CLOSE")).setEnabled(false);
     }
   }
 }

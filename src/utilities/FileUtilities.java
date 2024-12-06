@@ -11,6 +11,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -204,6 +205,71 @@ public class FileUtilities
   }
 
   /**
+   * Opens all recipes in a directory (for searching)
+   *
+   * @return recipe arraylist
+   */
+  public static ArrayList<Recipe> openRecipeDirectory()
+  {
+    ArrayList<Recipe> recipes = new ArrayList<>();
+
+    fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+    fileChooser.setDialogTitle("Select the directory containing recipe files");
+
+    // Show the directory chooser dialog
+    int result = fileChooser.showOpenDialog(null);
+    if (result != JFileChooser.APPROVE_OPTION)
+    {
+      System.out.println(noDirectory);
+      return null;
+    }
+
+    // Get the selected directory
+    File directory = fileChooser.getSelectedFile();
+    System.out.println(selectedDirectory + directory.getAbsolutePath());
+    RecipeEditorController.recipeSavePath = directory.getAbsolutePath();
+
+    // Let user select a recipe file within the chosen directory
+    File[] files = directory.listFiles((dir, name) -> name.endsWith(rcp));
+    if (files == null || files.length == 0)
+    {
+      System.out.println("No recipe files found in the selected directory.");
+      return null;
+    }
+
+    // Show a list of available recipe files and ask the user to select one
+    String[] fileNames = new String[files.length];
+    for (int i = 0; i < files.length; i++)
+    {
+      fileNames[i] = files[i].getName();
+    }
+
+    // loop through all recipes in that directory
+    for (File file : files)
+    {
+      String selectedFile = file.getName();
+
+      // Deserialize the selected recipe file
+      File tempFile = new File(directory, selectedFile);
+      try (FileInputStream fileIn = new FileInputStream(tempFile);
+        ObjectInputStream in = new ObjectInputStream(fileIn))
+      {
+        Recipe loadedRecipe = (Recipe) in.readObject();
+        recipes.add(loadedRecipe);
+
+        loadedRecipe = null;
+      }
+      catch (IOException | ClassNotFoundException e)
+      {
+        e.printStackTrace();
+        return null;
+      }
+    }
+
+    return recipes;
+  }
+
+  /**
    * Open meal and deserialize.
    * 
    * @return Deserialized meal
@@ -270,6 +336,151 @@ public class FileUtilities
       return null;
     }
   }
+
+  /**
+   * Open all meals in a directory (for searching)
+   *
+   * @return Meal arraylist
+   */
+  public static ArrayList<Recipe> openMealDirectory()
+  {
+    ArrayList<Meal> meals = new ArrayList<>();
+    ArrayList<Recipe> recipes = new ArrayList<>();
+
+    fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+    fileChooser.setDialogTitle("Select the directory containing meal files");
+
+    // Show the directory chooser dialog
+    int result = fileChooser.showOpenDialog(null);
+    if (result != JFileChooser.APPROVE_OPTION)
+    {
+      System.out.println(noDirectory);
+      return null;
+    }
+
+    // Get the selected directory
+    File directory = fileChooser.getSelectedFile();
+    System.out.println(selectedDirectory + directory.getAbsolutePath());
+
+    // Let user select a recipe file within the chosen directory
+    File[] files = directory.listFiles((dir, name) -> name.endsWith(mel));
+    if (files == null || files.length == 0)
+    {
+      System.out.println("No recipe files found in the selected directory.");
+      return null;
+    }
+
+    // get all meal files
+    // loop through all meals in that directory
+    for (File file : files)
+    {
+      String selectedFile = file.getName();
+
+      // Deserialize the selected recipe file
+      File tempFile = new File(directory, selectedFile);
+      try (FileInputStream fileIn = new FileInputStream(tempFile);
+        ObjectInputStream in = new ObjectInputStream(fileIn))
+      {
+        Meal loadedMeal = (Meal) in.readObject();
+        meals.add(loadedMeal);
+
+        loadedMeal = null;
+      }
+      catch (IOException | ClassNotFoundException e)
+      {
+        e.printStackTrace();
+        return null;
+      }
+    }
+
+    // loop through all meals and get recipes
+    for (Meal meal : meals)
+    {
+      for (Recipe recipe : meal.getRecipes())
+      {
+        System.out.println(recipe.getName());
+        recipes.add(recipe);
+      }
+    }
+
+    return recipes;
+  }
+
+  /**
+   * Open all meals in a directory (for searching)
+   *
+   * @return Meal arraylist
+   */
+  public static HashMap<Meal, List<Recipe>> openMealDirectory2()
+  {
+    ArrayList<Meal> meals = new ArrayList<>();
+    ArrayList<Recipe> recipes = new ArrayList<>();
+
+    HashMap <Meal, List<Recipe>> mealMap = new HashMap<>();
+    HashMap <Meal, List<Recipe>> mealMapFiltered = new HashMap<>();
+
+    fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+    fileChooser.setDialogTitle("Select the directory containing meal files");
+
+    // Show the directory chooser dialog
+    int result = fileChooser.showOpenDialog(null);
+    if (result != JFileChooser.APPROVE_OPTION)
+    {
+      System.out.println(noDirectory);
+      return null;
+    }
+
+    // Get the selected directory
+    File directory = fileChooser.getSelectedFile();
+    System.out.println(selectedDirectory + directory.getAbsolutePath());
+
+    // Let user select a recipe file within the chosen directory
+    File[] files = directory.listFiles((dir, name) -> name.endsWith(mel));
+    if (files == null || files.length == 0)
+    {
+      System.out.println("No recipe files found in the selected directory.");
+      return null;
+    }
+
+    // get all meal files
+    // loop through all meals in that directory
+    for (File file : files)
+    {
+      String selectedFile = file.getName();
+
+      // Deserialize the selected recipe file
+      File tempFile = new File(directory, selectedFile);
+      try (FileInputStream fileIn = new FileInputStream(tempFile);
+        ObjectInputStream in = new ObjectInputStream(fileIn))
+      {
+        Meal loadedMeal = (Meal) in.readObject();
+        // meals.add(loadedMeal);
+        mealMap.put(loadedMeal, loadedMeal.getRecipes());
+
+        loadedMeal = null;
+      }
+      catch (IOException | ClassNotFoundException e)
+      {
+        e.printStackTrace();
+        return null;
+      }
+    }
+
+    // loop through all meals and get recipes for that meal
+    for (Meal meal : mealMap.keySet())
+    {
+      for (Recipe recipe : mealMap.get(meal))
+      {
+        System.out.println(recipe.getName());
+        recipes.add(recipe);
+      }
+      mealMapFiltered.put(meal, recipes);
+      recipes.clear();
+    }
+
+    return mealMapFiltered;
+  }
+
 
   /**
    * Save a recipe to the designated file path.

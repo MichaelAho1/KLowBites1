@@ -135,14 +135,16 @@ public class KILowBites extends JFrame implements Runnable
     menu.add(menuItem);
     menuItem.addActionListener(controller);
 
-    // menu = new JMenu("Search");
-    // menuBar.add(menu);
-    // menuItem = new JMenuItem("Recipes");
-    // menu.add(menuItem);
-    // menuItem.addActionListener(controller);
-    // menuItem = new JMenuItem("Meals");
-    // menu.add(menuItem);
-    // menuItem.addActionListener(controller);
+
+    // TODO: ADD LANGUAGE SUPPORT FOR THESE STRINGS ****************************************************
+    menu = new JMenu("Search");
+    menuBar.add(menu);
+    menuItem = new JMenuItem("Recipes");
+    menu.add(menuItem);
+    menuItem.addActionListener(controller);
+    menuItem = new JMenuItem("Meals");
+    menu.add(menuItem);
+    menuItem.addActionListener(controller);
 
     menu = new JMenu(STRINGS.getString("VIEW"));
     menuBar.add(menu);

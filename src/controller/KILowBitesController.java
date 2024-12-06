@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 
 import app.KILowBites;
 import cooking.Meal;
+import cooking.Recipe;
 import gui.CalorieCalculatorWindow;
 import gui.ShoppingListWindow;
 import gui.UnitConverterWindow;
@@ -54,6 +55,9 @@ public class KILowBitesController implements ActionListener
   private RecipeEditorController recipeController;
   private ProcessViewerController recipeViewerController;
 
+  private RecipeSearchController recipeSearchController;
+  private MealSearchController mealSearchController;
+
   private MealEditorController mealController;
 
   /**
@@ -95,10 +99,12 @@ public class KILowBitesController implements ActionListener
     if (command.equals(STRINGS.getString("RECIPES")))
     {
       System.out.println("recipe search");
+      recipeSearchController = new RecipeSearchController();
     }
     if (command.equals(STRINGS.getString("MEALS")))
     {
       System.out.println("meal search");
+      mealSearchController = new MealSearchController();
     }
 
     // commands for View

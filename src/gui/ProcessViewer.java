@@ -1,13 +1,13 @@
 package gui;
 
 import java.awt.BorderLayout;
+
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -30,21 +30,25 @@ public class ProcessViewer extends JFrame
 {
   private static final long serialVersionUID = 1L;
   private JButton printButton;
-
-  static final Locale LOCALE = Locale.getDefault();
-  private static final ResourceBundle STRINGS = KILowBites.STRINGS;
-
+  
+  private final static ResourceBundle STRINGS = KILowBites.STRINGS;
+  final String print = "Print";
+  final static String kpv = "KILowBites Process Viewer: ";
+  final static Locale LOCALE = Locale.getDefault();
   Container processOuterPane;
   JPanel processContentPane;
   ProcessViewerContent processContent;
   ProcessViewerController processViewerController;
-
+  
   /**
    * Constructor for RecipeViewer.
+   * 
+   * @param recipe
+   * @param processViewerController
    */
-  public ProcessViewer(Recipe recipe, ProcessViewerController processViewerController)
+  public ProcessViewer(final Recipe recipe, final ProcessViewerController processViewerController)
   {
-    super("KILowBites Process Viewer: " + InputUtilities.separateByCapital(recipe.getName()));
+    super(kpv + InputUtilities.separateByCapital(recipe.getName()));
     this.processViewerController = processViewerController;
 
     System.out.println("a");
@@ -60,7 +64,13 @@ public class ProcessViewer extends JFrame
     this.add(processOuterPane); // adds outerPane to the frame
   }
 
-  public ProcessViewer(Meal meal, ProcessViewerController processViewerController)
+  /**
+   * Constructor for MealViewer.
+   * 
+   * @param meal
+   * @param processViewerController
+   */
+  public ProcessViewer(final Meal meal, final ProcessViewerController processViewerController)
   {
     super("KILowBites Process Viewer: " + InputUtilities.separateByCapital(meal.getName()));
     this.processViewerController = processViewerController;
@@ -77,7 +87,7 @@ public class ProcessViewer extends JFrame
   }
 
   /**
-   * Gets the Content Pane
+   * Gets the Content Pane.
    *
    * @return the content pane
    */
@@ -85,7 +95,7 @@ public class ProcessViewer extends JFrame
   {
     return processContent;
   }
-  
+
   /**
    * Set up visual components of window.
    */
@@ -105,8 +115,8 @@ public class ProcessViewer extends JFrame
 
     // create toolbar buttons
     printButton = new JButton(ImageUtilities.getFormattedImage("print.png", Color.GRAY, 25, 25));
-    printButton.setActionCommand("Print");
-    printButton.setToolTipText("Print");
+    printButton.setActionCommand(print);
+    printButton.setToolTipText(print);
     printButton.setEnabled(true);
     printButton.addActionListener(processViewerController);
 

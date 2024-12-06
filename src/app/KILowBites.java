@@ -57,7 +57,6 @@ public class KILowBites extends JFrame implements Runnable
     this.args = args;
 
     Locale.setDefault(getLocale());
-    System.out.println("Current Locale: " + Locale.getDefault());
     STRINGS = ResourceBundle.getBundle("Strings", Locale.getDefault());
 
     // STRINGS = ResourceBundle.getBundle("Strings", new Locale("es", "ES"));
@@ -136,12 +135,12 @@ public class KILowBites extends JFrame implements Runnable
 
     // TODO: ADD LANGUAGE SUPPORT FOR THESE STRINGS
     // ****************************************************
-    menu = new JMenu("Search");
+    menu = new JMenu(STRINGS.getString("SEARCH"));
     menuBar.add(menu);
-    menuItem = new JMenuItem("Recipes");
+    menuItem = new JMenuItem(STRINGS.getString("RECIPES"));
     menu.add(menuItem);
     menuItem.addActionListener(controller);
-    menuItem = new JMenuItem("Meals");
+    menuItem = new JMenuItem(STRINGS.getString("MEALS"));
     menu.add(menuItem);
     menuItem.addActionListener(controller);
 

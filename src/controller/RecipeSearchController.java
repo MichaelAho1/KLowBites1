@@ -33,13 +33,13 @@ import utilities.InputUtilities;
 public class RecipeSearchController implements ActionListener
 {
   static final Locale LOCALE = Locale.getDefault();
-  private static final ResourceBundle STRINGS = KILowBites.STRINGS;
-
   private ArrayList<Recipe> recipes; // the recipes to search
   private ArrayList<Recipe> recipesFiltered; // recipes that meet the search criteria
   private RecipeSearch recipeSearch;
 
   private String searchTerm;
+  private static final ResourceBundle STRINGS = KILowBites.STRINGS;
+
 
   /**
    * Constructor.
@@ -69,18 +69,16 @@ public class RecipeSearchController implements ActionListener
     command = e.getActionCommand();
 
     // commands for toolbar
-    if (command.equals("SEARCH"))
+    if (command.equals(STRINGS.getString("SEARCH")))
     {
       // get user to enter search criteria
       if (recipeSearch.getSearchString().equals(""))
       {
-        System.out.println("Please enter a search term.");
         return;
       }
       else
       {
         searchTerm = recipeSearch.getSearchString();
-        System.out.println("search " + searchTerm);
 
         try
         {
@@ -88,7 +86,6 @@ public class RecipeSearchController implements ActionListener
 
           if (recipes == null)
           {
-            System.out.println("User cancelled file selection.");
             return;
           }
           for (Recipe recipe : recipes) // search each recipe for ingredient
@@ -98,7 +95,6 @@ public class RecipeSearchController implements ActionListener
               // if search criteria matches...
               if (ingredient.getName().toLowerCase().contains(searchTerm.toLowerCase()))
               {
-                System.out.println("Found: " + ingredient.getName() + " in " + recipe.getName());
                 if (!recipesFiltered.contains(recipe)) // don't repeat recipes
                 {
                   recipesFiltered.add(recipe);
@@ -110,12 +106,10 @@ public class RecipeSearchController implements ActionListener
           // add to filtered recipes
           for (Recipe recipe : recipesFiltered)
           {
-            System.out.println("Filtered: " + recipe.getName());
           }
         }
         catch (Exception e1)
         {
-          System.out.println("Canceled file selection, or no files found.");
           e1.printStackTrace();
         }
 
@@ -123,21 +117,20 @@ public class RecipeSearchController implements ActionListener
         recipeSearch.updateList(recipesFiltered);
 
         // disable search button, enable close button
-        recipeSearch.getButton("SEARCH").setEnabled(false);
-        recipeSearch.getButton("CLOSE").setEnabled(true);
+        recipeSearch.getButton(STRINGS.getString("SEARCH")).setEnabled(false);
+        recipeSearch.getButton(STRINGS.getString("CLOSE")).setEnabled(true);
       }
     }
-    else if (command.equals("CLOSE"))
+    else if (command.equals(STRINGS.getString("CLOSE")))
     {
       searchTerm = "";
       recipeSearch.reset();
       recipesFiltered.clear();
       recipes.clear();
-      System.out.println("close");
 
       // enable search button, disable close button
-      recipeSearch.getButton("SEARCH").setEnabled(true);
-      recipeSearch.getButton("CLOSE").setEnabled(false);
+      recipeSearch.getButton(STRINGS.getString("SEARCH")).setEnabled(true);
+      recipeSearch.getButton(STRINGS.getString("CLOSE")).setEnabled(false);
     }
   }
 }

@@ -17,13 +17,13 @@ public class Ingredients implements RecipeElement, StepSource, Serializable
 {
   private static final long serialVersionUID = 9078168612703222174L;
 
+  private static final ResourceBundle STRINGS = KILowBites.STRINGS;
   private double amount = 0.0;
   private String units = "";
   private String details = "";
   private String name = "";
   private RecipeElementType type = RecipeElementType.INGREDIENT;
   private final String space = " ";
-  private static final ResourceBundle STRINGS = KILowBites.STRINGS;
 
 
   /**

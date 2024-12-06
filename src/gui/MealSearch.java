@@ -34,9 +34,6 @@ import utilities.ImageUtilities;
  */
 public class MealSearch extends JFrame
 {
-  static final Locale LOCALE = Locale.getDefault();
-  // private static final ResourceBundle STRINGS = KILowBites.STRINGS;
-
   // toolbar
   JButton[] buttons;
   Container outerPane;
@@ -51,13 +48,16 @@ public class MealSearch extends JFrame
   DefaultListModel<String> mealResults;
   JList<String> mealResultsList;
 
+  private static final ResourceBundle STRINGS = KILowBites.STRINGS;
+
+  
   /**
    * The constructor for a Recipe Search Window.
    */
   public MealSearch(final MealSearchController controller)
   {
     // super(STRINGS.getString(""));
-    super("Meal Search");
+    super(STRINGS.getString("MEAL_SEARCH"));
 
     outerPane = new Container();
     outerPane.setLayout(new BorderLayout());
@@ -94,7 +94,7 @@ public class MealSearch extends JFrame
 
     // adds the search bar
     searchBar = new InputFieldPanel();
-    searchBar.addJTextField("Search for Ingredient: ", 50);
+    searchBar.addJTextField(STRINGS.getString("SEARCH_FOR_INGREDIENT"), 50);
 
     // adds the results area
     // recipeResults = new DefaultListModel<>();
@@ -131,11 +131,11 @@ public class MealSearch extends JFrame
     }
     if (recipeResults.isEmpty())
     {
-      recipeResults.addElement("No meals found.");
+      recipeResults.addElement(STRINGS.getString("NO_MEALS_FOUND"));
     }
   }
 
-  public void updateListNew(ArrayList<String> toDisplay)
+  public void updateDisplayList(ArrayList<String> toDisplay)
   {
     mealResults.clear();
     for (String meal : toDisplay)
@@ -144,7 +144,7 @@ public class MealSearch extends JFrame
     }
     if (mealResults.isEmpty())
     {
-      mealResults.addElement("No meals found.");
+      mealResults.addElement(STRINGS.getString("NO_MEALS_FOUND"));
     }
   }
 
@@ -165,7 +165,7 @@ public class MealSearch extends JFrame
    */
   public String getSearchString()
   {
-    return searchBar.getText("Search for Ingredient: ");
+    return searchBar.getText(STRINGS.getString("SEARCH_FOR_INGREDIENT"));
   }
 
   public JButton getButton(final String name)

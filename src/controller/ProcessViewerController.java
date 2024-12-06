@@ -94,7 +94,6 @@ public class ProcessViewerController implements ActionListener
 //    	jp.add(viewer.getContent().getStepPanel().getRecipeList());
 //      DelegatingPrintable dp = new DelegatingPrintable(jp);
 //      PrinterController.print(dp, viewer);
-    	//ALEX TODO: TRY HAVING TWO DELEGATES
       DelegatingPrintable dp = new DelegatingPrintable(viewer.getContent()
           .getUtensilPanel().getRecipeList(),
     		  viewer.getContent().getStepPanel().getRecipeList());

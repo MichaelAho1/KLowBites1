@@ -28,7 +28,6 @@ public class PrinterController
     }
     catch (Exception e)
     {
-      JOptionPane.showMessageDialog(parent, "Unable to print!", "Error", JOptionPane.ERROR_MESSAGE);
     }
   }
 }

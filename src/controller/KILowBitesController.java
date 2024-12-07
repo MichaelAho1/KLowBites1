@@ -21,34 +21,6 @@ import utilities.FileUtilities;
  */
 public class KILowBitesController implements ActionListener
 {
-  // // File
-  // private static final String EXIT = "Exit";
-  //
-  // // Edit
-  // private static final String RECIPE = "Recipe";
-  // private static final String MEAL = "Meal";
-  //
-  // // Search
-  // private static final String RECIPES = "Recipes";
-  // private static final String MEALS = "Meals";
-  //
-  // // View
-  // private static final String SHOPPING_LIST = "Shopping List";
-  // private static final String PROCESS = "Process";
-  //
-  // // Tools
-  // private static final String CALORIE_CALCULATOR = "Calorie Calculator";
-  // private static final String UNITS_CONVERTER = "Units Converter";
-  //
-  // // Configure
-  //
-  // private static String PREFERENCES = "Preferences";
-  // private static String SHORTCUTS = "Shortcuts";
-  // private static String ADD_INGREDIENT = "Add Ingredient";
-  //
-  // // Help
-  // private static final String ABOUT = "About";
-  // private static final String USER_GUIDE = "User Guide";
   static final Locale LOCALE = Locale.getDefault();
   private static final ResourceBundle STRINGS = KILowBites.STRINGS;
   private RecipeEditorController recipeController;
@@ -78,15 +50,7 @@ public class KILowBitesController implements ActionListener
    */
   public void actionPerformed(final ActionEvent e)
   {
-    String command;
-
-    command = e.getActionCommand();
-
-    // commands for File
-    if (command.equals(STRINGS.getString("EXIT")))
-    {
-      System.exit(0);
-    }
+    String command = e.getActionCommand();
 
     // commands for Edit
     if (command.equals(STRINGS.getString("RECIPE")))

@@ -61,8 +61,8 @@ public class KILowBites extends JFrame implements Runnable
 
     // STRINGS = ResourceBundle.getBundle("Strings", new Locale("es", "ES"));
 
-    // Here is the command to run it in english:
-    // java "-Duser.language=en" "-Duser.country=US" -jar KILowBites.jar
+    // Here is the command to run it with the default language: English
+    // java -jar KILowBites.jar
 
     // Cmd for French
     // java "-Duser.language=fr" "-Duser.country=FR" -jar KILowBites.jar
@@ -167,19 +167,6 @@ public class KILowBites extends JFrame implements Runnable
     menuItem = new JMenuItem(STRINGS.getString("PREFERENCES"));
     menu.add(menuItem);
     menuItem.addActionListener(controller);
-
-    // menuItem = new JMenuItem("Shortcuts");
-    // menu.add(menuItem);
-    // menuItem.addActionListener(controller);
-
-    // menu = new JMenu("Help");
-    // menuBar.add(menu);
-    // menuItem = new JMenuItem("About");
-    // menu.add(menuItem);
-    // menuItem.addActionListener(controller);
-    // menuItem = new JMenuItem("User Guide");
-    // menu.add(menuItem);
-    // menuItem.addActionListener(controller);
 
     // Creates the logo in the main panel
     JPanel logoPanel = new JPanel();

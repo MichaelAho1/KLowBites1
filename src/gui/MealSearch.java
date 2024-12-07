@@ -34,6 +34,9 @@ import utilities.ImageUtilities;
  */
 public class MealSearch extends JFrame
 {
+  static final Locale LOCALE = Locale.getDefault();
+   private static final ResourceBundle STRINGS = KILowBites.STRINGS;
+
   // toolbar
   JButton[] buttons;
   Container outerPane;
@@ -48,8 +51,7 @@ public class MealSearch extends JFrame
   DefaultListModel<String> mealResults;
   JList<String> mealResultsList;
 
-  private static final ResourceBundle STRINGS = KILowBites.STRINGS;
-
+  
   
   /**
    * The constructor for a Recipe Search Window.
@@ -57,7 +59,7 @@ public class MealSearch extends JFrame
   public MealSearch(final MealSearchController controller)
   {
     // super(STRINGS.getString(""));
-    super(STRINGS.getString("MEAL_SEARCH"));
+    super("Meal Search");
 
     outerPane = new Container();
     outerPane.setLayout(new BorderLayout());

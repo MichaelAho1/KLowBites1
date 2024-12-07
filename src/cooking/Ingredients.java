@@ -63,7 +63,11 @@ public class Ingredients implements RecipeElement, StepSource, Serializable
   {
     return amount;
   }
-
+  
+  /** Gets the type of the ingredient.
+   *
+   * @return the type of the ingredient
+   */
   public RecipeElementType getType()
   {
     return type;
@@ -142,7 +146,8 @@ public class Ingredients implements RecipeElement, StepSource, Serializable
   @Override
   public String toString()
   {
-    return amount + space + units + space + STRINGS.getString("OF") + space + details + space + name;
+    return amount + space + units + space + STRINGS.getString("OF") + space + details 
+        + space + name;
   }
 
   /**

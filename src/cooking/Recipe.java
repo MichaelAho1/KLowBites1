@@ -131,18 +131,33 @@ public class Recipe implements Serializable
   {
     return utensils;
   }
-
-  public void removeUtensils(Utensils utensil)
+  
+  /**
+   * removes the utensils of the recipe.
+   *
+   * @param utensil 
+   */
+  public void removeUtensils(final Utensils utensil)
   {
     utensils.remove(utensil);
   }
-
-  public void removeIngredients(Ingredients ingredient)
+  
+  /**
+   * removes the ingredient in the recipe.
+   *
+   * @param ingredient 
+   */
+  public void removeIngredients(final Ingredients ingredient)
   {
     ingredients.remove(ingredient);
   }
-
-  public void removeSteps(Steps step)
+  
+  /**
+   * removes the step in the recipe.
+   *
+   * @param step 
+   */
+  public void removeSteps(final Steps step)
   {
     steps.remove(step);
   }

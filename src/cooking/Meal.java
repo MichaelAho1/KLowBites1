@@ -4,13 +4,22 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Meal Class.
+ *
+ * @author f24team3d
+ * @version 10/29/24
+ */
 public class Meal implements Serializable
 {
   private static final long serialVersionUID = -3270513840760669938L;
 
   private String name;
   private List<Recipe> recipes;
-
+  
+  /**
+   * Constructor.
+   */
   public Meal()
   {
     name = "";
@@ -22,8 +31,9 @@ public class Meal implements Serializable
    * 
    * @param recipe
    *          Recipe being added to meal
+   * @return Returns if the recipe exists or doesnt.
    */
-  public boolean addRecipe(Recipe recipe)
+  public boolean addRecipe(final Recipe recipe)
   {
     boolean exists = false;
 
@@ -68,10 +78,10 @@ public class Meal implements Serializable
   /**
    * Remove recipe from meal.
    * 
-   * @param recipe
+   * @param recipeName
    *          Recipe being removed from meal
    */
-  public void removeRecipe(String recipeName)
+  public void removeRecipe(final String recipeName)
   {
     // add checking for available recipe
     for (Recipe r : recipes)
@@ -83,12 +93,19 @@ public class Meal implements Serializable
       }
     }
   }
-
-  public void setName(String name)
+  
+  /**
+   * Sets the name to the param.
+   * @param name
+   */
+  public void setName(final String name)
   {
     this.name = name;
   }
-
+  
+  /**
+   * Prints the recipes.
+   */
   public void printRecipes()
   {
     for (Recipe r : recipes)

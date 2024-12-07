@@ -111,19 +111,5 @@ public class KILowBitesController implements ActionListener
       UnitTypeWindow unitTypeWindow = new UnitTypeWindow();
       unitTypeWindow.setVisible(true);
     }
-    if (command.equals(STRINGS.getString("SHORTCUTS")))
-    {
-      // System.out.println("open shortcuts");
-    }
-
-    // commands for Help
-    if (command.equals(STRINGS.getString("ABOUT")))
-    {
-      // System.out.println("open about");
-    }
-    if (command.equals(STRINGS.getString("USER_GUIDE")))
-    {
-      // System.out.println("open user guide");
-    }
   }
 }

@@ -70,8 +70,13 @@ public class MealSearchController implements ActionListener
     mealSearch.setVisible(true);
     mealSearch.setResizable(false);
   }
+  
 
-  public void actionPerformed(ActionEvent e)
+  /**
+   * Searches for the meal.
+   * @param e
+   */
+  public void actionPerformed(final ActionEvent e)
   {
     String command;
     command = e.getActionCommand();
@@ -106,13 +111,11 @@ public class MealSearchController implements ActionListener
             {
               for (Ingredients ingredient : recipe.getIngredients())
               {
-                  // if search criteria matches...
-                  if (ingredient.getName().toLowerCase().contains(searchTerm.toLowerCase()))
-                  {
-                    System.out.println("Ingredient Found: " + ingredient.getName() + " in " + recipe.getName() + " in " + meal.getName());
-                    recipesFiltered.add(recipe);
-                    System.out.println();
-                  }
+                // if search criteria matches...
+                if (ingredient.getName().toLowerCase().contains(searchTerm.toLowerCase()))
+                {
+                  recipesFiltered.add(recipe);
+                }
               }
             }
 
@@ -123,7 +126,6 @@ public class MealSearchController implements ActionListener
             {
               if (meal.getRecipes().contains(recipeTemp))
               {
-                System.out.println("put " + meal.getName() + " " + recipeTemp.getName() + " in mealsFiltered");
                 List<Recipe> temps = new ArrayList<>();
                 for (Recipe thisRecipe : recipesFiltered)
                 {
@@ -137,11 +139,8 @@ public class MealSearchController implements ActionListener
         }
         catch (Exception e1)
         {
-          System.out.println("Canceled file selection, or no files found.");
-          e1.printStackTrace();
         }
 
-        System.out.println("debug");
 
         // display the filtered meals + recipes
         ArrayList<String> mealsToDisplay = new ArrayList<>();
@@ -169,8 +168,6 @@ public class MealSearchController implements ActionListener
       searchTerm = "";
       mealSearch.reset();
       recipesFiltered.clear();
-      // recipes.clear();
-      System.out.println("close");
 
       // enable search button, disable close button
       mealSearch.getButton("SEARCH").setEnabled(true);

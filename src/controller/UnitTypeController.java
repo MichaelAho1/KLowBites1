@@ -5,10 +5,6 @@ import java.awt.event.ActionListener;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-import javax.swing.JLabel;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-
 import app.KILowBites;
 import gui.UnitTypeWindow;
 import utilities.UnitType;

@@ -435,7 +435,7 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
     }
   }
 
-  private void setFieldsEditable(boolean editable)
+  private void setFieldsEditable(final boolean editable)
   {
     editor.getContent().getMainIFP().setFieldsEditable(editable);
     editor.getContent().getUtensilIFP().setFieldsEditable(editable);

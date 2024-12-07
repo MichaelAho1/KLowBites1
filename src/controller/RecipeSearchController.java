@@ -33,12 +33,11 @@ import utilities.InputUtilities;
 public class RecipeSearchController implements ActionListener
 {
   static final Locale LOCALE = Locale.getDefault();
+  private static final ResourceBundle STRINGS = KILowBites.STRINGS;
   private ArrayList<Recipe> recipes; // the recipes to search
   private ArrayList<Recipe> recipesFiltered; // recipes that meet the search criteria
   private RecipeSearch recipeSearch;
-
   private String searchTerm;
-  private static final ResourceBundle STRINGS = KILowBites.STRINGS;
 
 
   /**
@@ -62,8 +61,12 @@ public class RecipeSearchController implements ActionListener
     recipeSearch.setVisible(true);
     recipeSearch.setResizable(false);
   }
-
-  public void actionPerformed(ActionEvent e)
+  
+  /**
+   * Searches for the recipe.
+   * @param e
+   */
+  public void actionPerformed(final ActionEvent e)
   {
     String command;
     command = e.getActionCommand();
@@ -101,11 +104,6 @@ public class RecipeSearchController implements ActionListener
                 }
               }
             }
-          }
-
-          // add to filtered recipes
-          for (Recipe recipe : recipesFiltered)
-          {
           }
         }
         catch (Exception e1)

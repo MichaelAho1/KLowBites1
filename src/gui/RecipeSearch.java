@@ -31,9 +31,11 @@ import utilities.ImageUtilities;
  * @author f24team3d
  * @version 12/2/24
  */
+@SuppressWarnings("serial")
 public class RecipeSearch extends JFrame
 {
   static final Locale LOCALE = Locale.getDefault();
+  private static final ResourceBundle STRINGS = KILowBites.STRINGS;
   // private static final ResourceBundle STRINGS = KILowBites.STRINGS;
 
   // toolbar
@@ -46,11 +48,13 @@ public class RecipeSearch extends JFrame
   JScrollPane scrollPane;
   DefaultListModel<String> recipeResults;
   JList<String> recipeResultsList;
+  private String close = "CLOSE";
+  private String search = "SEARCH_FOR_INGREDIENT";
 
-  private static final ResourceBundle STRINGS = KILowBites.STRINGS;
 
   /**
    * The constructor for a Recipe Search Window.
+   * @param controller
    */
   public RecipeSearch(final RecipeSearchController controller)
   {
@@ -71,7 +75,7 @@ public class RecipeSearch extends JFrame
     this.setBackground(KILowBites.COLOR);
 
     buttons = new JButton[2];
-    String[] buttonNames = {"SEARCH", "CLOSE"};
+    String[] buttonNames = {"SEARCH", close};
     String[] buttonPaths = {"search.png", "close.png"};
 
     for (int i = 0; i < buttons.length; i++)
@@ -92,7 +96,7 @@ public class RecipeSearch extends JFrame
 
     // adds the search bar
     searchBar = new InputFieldPanel();
-    searchBar.addJTextField(STRINGS.getString("SEARCH_FOR_INGREDIENT"), 50);
+    searchBar.addJTextField(STRINGS.getString(search), 50);
 
     // adds the results area
     recipeResults = new DefaultListModel<>();
@@ -113,10 +117,14 @@ public class RecipeSearch extends JFrame
     this.add(outerPane);
 
     // disables close button on start
-    this.getButton("CLOSE").setEnabled(false);
+    this.getButton(close).setEnabled(false);
   }
-
-  public void updateList(ArrayList<Recipe> recipes)
+  
+  /**
+   * Adds a new recipe.
+   * @param recipes
+   */
+  public void updateList(final ArrayList<Recipe> recipes)
   {
     recipeResults.clear();
     for (Recipe recipe : recipes)
@@ -146,9 +154,14 @@ public class RecipeSearch extends JFrame
    */
   public String getSearchString()
   {
-    return searchBar.getText(STRINGS.getString("SEARCH_FOR_INGREDIENT"));
+    return searchBar.getText(STRINGS.getString(search));
   }
-
+  
+  /**
+   * Gets a button based on the param/name.
+   * @param name The name of the button.
+   * @return The button.
+   */
   public JButton getButton(final String name)
   {
     for (JButton button : buttons)
@@ -162,7 +175,7 @@ public class RecipeSearch extends JFrame
   }
 
   /**
-   * resets all fields
+   * resets all fields.
    */
   public void reset()
   {

@@ -24,9 +24,11 @@ import utilities.ImageUtilities;
  * @author f24team3d
  * @version 10/31/24
  */
+@SuppressWarnings("serial")
 public class MealEditor extends JFrame
 {
-  private static final long serialVersionUID = -2406924416722235203L;
+  static final Locale         LOCALE  = Locale.getDefault();
+  private static final ResourceBundle STRINGS = KILowBites.STRINGS;
 
   Container outerPane;
   JPanel contentPane;
@@ -34,14 +36,15 @@ public class MealEditor extends JFrame
 
   JButton[] buttons;
 
-  static final Locale         LOCALE  = Locale.getDefault();
-  private static final ResourceBundle STRINGS = KILowBites.STRINGS;
   
 //  private static final String KILOWBITES_MEAL_EDITOR = "KILowBites Meal Editor";
   /**
    * Constructor for RecipeEditor.
+   * @param meal
+   * @param controller
+   * @param isNew
    */
-  public MealEditor(Meal meal, MealEditorController controller, boolean isNew)
+  public MealEditor(final Meal meal, final MealEditorController controller, final boolean isNew)
   {
     super(STRINGS.getString("KILOWBITES_MEAL_EDITOR"));
 
@@ -59,7 +62,8 @@ public class MealEditor extends JFrame
 
     // create toolbar buttons
     buttons = new JButton[5];
-    String[] buttonNames = {STRINGS.getString("NEW"), STRINGS.getString("OPEN"), STRINGS.getString("SAVE"), STRINGS.getString("SAVE_AS"), STRINGS.getString("CLOSE")};
+    String[] buttonNames = {STRINGS.getString("NEW"), STRINGS.getString("OPEN"), 
+        STRINGS.getString("SAVE"), STRINGS.getString("SAVE_AS"), STRINGS.getString("CLOSE")};
     String[] buttonPaths = {"new.png", "open.png", "save.png", "save_as.png",
         "close.png"};
 
@@ -94,17 +98,27 @@ public class MealEditor extends JFrame
 
     this.add(outerPane); // adds outerPane to the frame
   }
-
+  
+  /**
+   * Gets the content of the Meal Editor.
+   * @return the content.
+   */
   public MealEditorContent getContent()
   {
     return content;
   }
-
+  
+  /**
+   * Resets the Meal Editor.
+   */
   public void resetMealEditor()
   {
     content.reset();
   }
-
+  
+  /**
+   * Disables the ToolBar.
+   */
   public void disableToolBar()
   {
     for (JButton button : buttons)
@@ -114,9 +128,10 @@ public class MealEditor extends JFrame
   }
 
   /**
-   * Updates the toolbar according to the current document state
+   * Updates the toolbar according to the current document state.
+   * @param state the document state.
    */
-  public void updateToolBar(DocumentState state)
+  public void updateToolBar(final DocumentState state)
   {
     if (state == DocumentState.NULL)
     {

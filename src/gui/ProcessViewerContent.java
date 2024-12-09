@@ -2,8 +2,6 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
-import java.util.Locale;
-import java.util.ResourceBundle;
 
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
@@ -23,9 +21,6 @@ import cooking.RecipeElementType;
 public class ProcessViewerContent extends JPanel
 {
   private static final long serialVersionUID = 1L;
-
-  private static final ResourceBundle STRINGS = KILowBites.STRINGS;
-  static final Locale LOCALE = Locale.getDefault();
 
   Container contentPane;
 

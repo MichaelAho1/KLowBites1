@@ -34,8 +34,10 @@ import cooking.Utensils;
  * @author f24team3d
  * @version 10/26/24
  */
+@SuppressWarnings("serial")
 public class EditorPanel extends JPanel
 {
+  static final ResourceBundle STRINGS = KILowBites.STRINGS;
   static final Locale         LOCALE  = Locale.getDefault();
   // strings needed to determine the type of the input, needed since no interface
   final String UTENSILS = "Utensils";
@@ -61,7 +63,6 @@ public class EditorPanel extends JPanel
   DefaultListModel<String> mealFileArea;
   JList<String> mealList;
   
-  private static final ResourceBundle STRINGS = KILowBites.STRINGS;
 
   /**
    * Constructor for EditorPanel (for RecipeEditor).

@@ -369,8 +369,8 @@ import utilities.Units;
  */
 public class InputFieldPanel extends JPanel implements DocumentListener, DocumentStateSubject
 {
-  private Container contentPane;
   static final Locale         LOCALE  = Locale.getDefault();
+  private static final long serialVersionUID = 1L;
   private static final ResourceBundle STRINGS = KILowBites.STRINGS;
 
   JPanel inputFields; // the panel for the gui
@@ -381,6 +381,7 @@ public class InputFieldPanel extends JPanel implements DocumentListener, Documen
   HashMap<String, JTextField> fields;
   HashMap<String, JComboBox<String>> comboBoxes;
   HashMap<String, JButton> buttons;
+  private Container contentPane;
 
   private ArrayList<DocumentStateObserver> observers;
 
@@ -413,28 +414,13 @@ public class InputFieldPanel extends JPanel implements DocumentListener, Documen
     this.add(contentPane);
   }
 
-  public void insertUpdate(DocumentEvent e)
-  {
-    // do nothing
-  }
-
-  public void removeUpdate(DocumentEvent e)
-  {
-    // do nothing
-  }
-
-  public void changedUpdate(DocumentEvent e)
-  {
-    // do nothing
-  }
-
   /**
    * Adds a JLabel to the input field panel.
    *
-   * @param content
+   * @param label
    *          the label to add
    */
-  public void addJLabel(String label)
+  public void addJLabel(final String label)
   {
     inputFields.add(new JLabel(label));
   }
@@ -442,12 +428,12 @@ public class InputFieldPanel extends JPanel implements DocumentListener, Documen
   /**
    * Adds a JLabel and Field to the input field panel.
    *
-   * @param content
+   * @param label
    *          the field to add
    * @param size
    *          the size of the field
    */
-  public void addJTextField(String label, int size)
+  public void addJTextField(final String label, final int size)
   {
     inputFields.add(new JLabel(label));
 
@@ -457,19 +443,19 @@ public class InputFieldPanel extends JPanel implements DocumentListener, Documen
     {
       // if text is added or removed from field, state is changed
       @Override
-      public void insertUpdate(DocumentEvent e)
+      public void insertUpdate(final DocumentEvent e)
       {
         notifyObservers();
       }
 
       @Override
-      public void removeUpdate(DocumentEvent e)
+      public void removeUpdate(final DocumentEvent e)
       {
         notifyObservers();
       }
 
       @Override
-      public void changedUpdate(DocumentEvent e)
+      public void changedUpdate(final DocumentEvent e)
       {
         // do nothing
       }
@@ -486,8 +472,9 @@ public class InputFieldPanel extends JPanel implements DocumentListener, Documen
    *          the field to add
    * @param size
    *          the size of the field
+   * @param label
    */
-  public void addJTextField(String label, int size, String content)
+  public void addJTextField(final String label, final int size, final String content)
   {
     inputFields.add(new JLabel(label));
 
@@ -498,19 +485,19 @@ public class InputFieldPanel extends JPanel implements DocumentListener, Documen
     {
       // if text is added or removed from field, state is changed
       @Override
-      public void insertUpdate(DocumentEvent e)
+      public void insertUpdate(final DocumentEvent e)
       {
         notifyObservers();
       }
 
       @Override
-      public void removeUpdate(DocumentEvent e)
+      public void removeUpdate(final DocumentEvent e)
       {
         notifyObservers();
       }
 
       @Override
-      public void changedUpdate(DocumentEvent e)
+      public void changedUpdate(final DocumentEvent e)
       {
         // do nothing
       }
@@ -522,8 +509,13 @@ public class InputFieldPanel extends JPanel implements DocumentListener, Documen
 
   /**
    * Adds a JButton to the input field panel.
+   * @param label
+   * @param controller adds the controller to the button
+   * @param actionCommand The command
+   * 
    */
-  public void addJButton(String label, String actionCommand, ActionListener controller)
+  public void addJButton(final String label, final String actionCommand, 
+      final ActionListener controller)
   {
     JButton button = new JButton(label);
     button.setActionCommand(actionCommand);
@@ -536,8 +528,10 @@ public class InputFieldPanel extends JPanel implements DocumentListener, Documen
 
   /**
    * Adds a JComboBox to the input field panel.
+   * @param label
+   * @param items The items to add in the combo box
    */
-  public void addJComboBox(String label, String[] items)
+  public void addJComboBox(final String label, final String[] items)
   {
     inputFields.add(new JLabel(label));
     JComboBox<String> comboBox = new JComboBox<String>();
@@ -593,7 +587,7 @@ public class InputFieldPanel extends JPanel implements DocumentListener, Documen
   }
 
   /**
-   * Checks if all fields are empty
+   * Checks if all fields are empty.
    *
    * @return true if all fields are empty
    */
@@ -617,17 +611,26 @@ public class InputFieldPanel extends JPanel implements DocumentListener, Documen
    *          the label of the field
    * @return the text in the field
    */
-  public String getText(String label)
+  public String getText(final String label)
   {
     return fields.get(label).getText();
   }
-
-  public String getComboBox(String label)
+  /**
+   * Gets the combo box.
+   * @param label the name of the combo box.
+   * @return the combo box
+   */
+  public String getComboBox(final String label)
   {
     return (String) comboBoxes.get(label).getSelectedItem();
   }
-
-  public void updateComboBox(String label, String[] newItems)
+  
+  /**
+   * Updates the combo box with new items.
+   * @param label the name of the combo box
+   * @param newItems the new items that are going to be added.
+   */
+  public void updateComboBox(final String label, final String[] newItems)
   {
     JComboBox<String> comboBox = comboBoxes.get(label);
     if (comboBox != null)
@@ -647,17 +650,28 @@ public class InputFieldPanel extends JPanel implements DocumentListener, Documen
       comboBox.revalidate();
     }
   }
-
-  public void addObserver(DocumentStateObserver observer)
+  
+  /**
+   * Adds an observer to the pane.
+   * @param observer
+   */
+  public void addObserver(final DocumentStateObserver observer)
   {
     observers.add(observer);
   }
-
-  public void removeObserver(DocumentStateObserver observer)
+  
+  /**
+   * Removes an observer to the pane.
+   * @param observer
+   */
+  public void removeObserver(final DocumentStateObserver observer)
   {
     observers.remove(observer);
   }
-
+  
+  /**
+   * Creates a notification for observers.
+   */
   public void notifyObservers()
   {
     for (DocumentStateObserver observer : observers)
@@ -666,7 +680,11 @@ public class InputFieldPanel extends JPanel implements DocumentListener, Documen
     }
   }
 
-  public void setFieldsEditable(boolean editable)
+  /**
+   * Sets the Fields and the combo box to editable.
+   * @param editable
+   */
+  public void setFieldsEditable(final boolean editable)
   {
     for (JTextField field : fields.values())
     {
@@ -677,5 +695,26 @@ public class InputFieldPanel extends JPanel implements DocumentListener, Documen
     {
       comboBox.setEnabled(editable);
     }
+  }
+
+  @Override
+  public void insertUpdate(final DocumentEvent e)
+  {
+    // TODO Auto-generated method stub
+    
+  }
+
+  @Override
+  public void removeUpdate(final DocumentEvent e)
+  {
+    // TODO Auto-generated method stub
+    
+  }
+
+  @Override
+  public void changedUpdate(final DocumentEvent e)
+  {
+    // TODO Auto-generated method stub
+    
   }
 }

@@ -18,12 +18,8 @@ import javax.swing.JToolBar;
 import javax.swing.ScrollPaneConstants;
 
 import app.KILowBites;
-import controller.RecipeEditorController;
-import controller.RecipeSearchController;
 import controller.MealSearchController;
 import cooking.Recipe;
-import cooking.RecipeElement;
-import utilities.DocumentState;
 import utilities.ImageUtilities;
 
 /**
@@ -32,10 +28,12 @@ import utilities.ImageUtilities;
  * @author f24team3d
  * @version 12/2/24
  */
+@SuppressWarnings("serial")
 public class MealSearch extends JFrame
 {
+
   static final Locale LOCALE = Locale.getDefault();
-   private static final ResourceBundle STRINGS = KILowBites.STRINGS;
+  private static final ResourceBundle STRINGS = KILowBites.STRINGS;
 
   // toolbar
   JButton[] buttons;
@@ -50,11 +48,15 @@ public class MealSearch extends JFrame
 
   DefaultListModel<String> mealResults;
   JList<String> mealResultsList;
+  private String close = "CLOSE";
+  private String searchForIngredient = "SEARCH_FOR_INGREDIENT";
+  private String noFound = "NO_MEALS_FOUND";
 
   
   
   /**
    * The constructor for a Recipe Search Window.
+   * @param controller
    */
   public MealSearch(final MealSearchController controller)
   {
@@ -75,7 +77,7 @@ public class MealSearch extends JFrame
     this.setBackground(KILowBites.COLOR);
 
     buttons = new JButton[2];
-    String[] buttonNames = {"SEARCH", "CLOSE"};
+    String[] buttonNames = {"SEARCH", close};
     String[] buttonPaths = {"search.png", "close.png"};
 
     for (int i = 0; i < buttons.length; i++)
@@ -96,7 +98,7 @@ public class MealSearch extends JFrame
 
     // adds the search bar
     searchBar = new InputFieldPanel();
-    searchBar.addJTextField(STRINGS.getString("SEARCH_FOR_INGREDIENT"), 50);
+    searchBar.addJTextField(STRINGS.getString(searchForIngredient), 50);
 
     // adds the results area
     // recipeResults = new DefaultListModel<>();
@@ -121,10 +123,14 @@ public class MealSearch extends JFrame
     this.add(outerPane);
 
     // disables close button on start
-    this.getButton("CLOSE").setEnabled(false);
+    this.getButton(close).setEnabled(false);
   }
-
-  public void updateList(ArrayList<Recipe> recipes)
+  
+  /**
+   * Updates with new recipes.
+   * @param recipes
+   */
+  public void updateList(final ArrayList<Recipe> recipes)
   {
     recipeResults.clear();
     for (Recipe recipe : recipes)
@@ -133,11 +139,15 @@ public class MealSearch extends JFrame
     }
     if (recipeResults.isEmpty())
     {
-      recipeResults.addElement(STRINGS.getString("NO_MEALS_FOUND"));
+      recipeResults.addElement(STRINGS.getString(noFound));
     }
   }
-
-  public void updateDisplayList(ArrayList<String> toDisplay)
+  
+  /**
+   * Updates the meal Results.
+   * @param toDisplay
+   */
+  public void updateDisplayList(final ArrayList<String> toDisplay)
   {
     mealResults.clear();
     for (String meal : toDisplay)
@@ -146,7 +156,7 @@ public class MealSearch extends JFrame
     }
     if (mealResults.isEmpty())
     {
-      mealResults.addElement(STRINGS.getString("NO_MEALS_FOUND"));
+      mealResults.addElement(STRINGS.getString(noFound));
     }
   }
 
@@ -167,9 +177,14 @@ public class MealSearch extends JFrame
    */
   public String getSearchString()
   {
-    return searchBar.getText(STRINGS.getString("SEARCH_FOR_INGREDIENT"));
+    return searchBar.getText(STRINGS.getString(searchForIngredient));
   }
-
+  
+  /**
+   * Gets a button according to what the parameter/the name is.
+   * @param name the name of a button.
+   * @return the button.
+   */
   public JButton getButton(final String name)
   {
     for (JButton button : buttons)
@@ -183,7 +198,7 @@ public class MealSearch extends JFrame
   }
 
   /**
-   * resets all fields
+   * resets all fields.
    */
   public void reset()
   {

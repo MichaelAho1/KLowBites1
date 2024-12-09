@@ -54,7 +54,7 @@ public class FileUtilities
 
     // Create a JFileChooser for selecting directories
     fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-    fileChooser.setDialogTitle("Select the directory containing recipe or meal files");
+    fileChooser.setDialogTitle(mealDirectoryMessage);
 
     // Show the directory chooser dialog
     int result = fileChooser.showOpenDialog(null);

@@ -6,7 +6,6 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.util.Locale;
-import java.util.ResourceBundle;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -28,17 +27,18 @@ import utilities.InputUtilities;
  */
 public class ProcessViewer extends JFrame
 {
+  static final String KPV = "KILowBites Process Viewer: ";
+  static final Locale LOCALE = Locale.getDefault();
   private static final long serialVersionUID = 1L;
-  private JButton printButton;
-  
-  private final static ResourceBundle STRINGS = KILowBites.STRINGS;
   final String print = "Print";
-  final static String kpv = "KILowBites Process Viewer: ";
-  final static Locale LOCALE = Locale.getDefault();
+  
   Container processOuterPane;
   JPanel processContentPane;
   ProcessViewerContent processContent;
   ProcessViewerController processViewerController;
+  private JButton printButton;
+  
+  
   
   /**
    * Constructor for RecipeViewer.
@@ -48,7 +48,7 @@ public class ProcessViewer extends JFrame
    */
   public ProcessViewer(final Recipe recipe, final ProcessViewerController processViewerController)
   {
-    super(kpv + InputUtilities.separateByCapital(recipe.getName()));
+    super(KPV + InputUtilities.separateByCapital(recipe.getName()));
     this.processViewerController = processViewerController;
 
     System.out.println("a");
@@ -72,7 +72,7 @@ public class ProcessViewer extends JFrame
    */
   public ProcessViewer(final Meal meal, final ProcessViewerController processViewerController)
   {
-    super("KILowBites Process Viewer: " + InputUtilities.separateByCapital(meal.getName()));
+    super(KPV + InputUtilities.separateByCapital(meal.getName()));
     this.processViewerController = processViewerController;
 
     setup();

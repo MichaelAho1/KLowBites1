@@ -24,6 +24,7 @@ import utilities.ImageUtilities;
  * @author f24team3d
  * @version 10/31/24
  */
+@SuppressWarnings("serial")
 public class RecipeEditor extends JFrame
 {
 //  private static final String KILOWBITES_RECIPE_EDITOR = "KILowBites Recipe Editor";
@@ -63,7 +64,8 @@ public class RecipeEditor extends JFrame
 
     // create toolbar buttons
     buttons = new JButton[5];
-    String[] buttonNames = {STRINGS.getString("NEW"), STRINGS.getString("OPEN"), STRINGS.getString("SAVE"), STRINGS.getString("SAVE_AS"), STRINGS.getString("CLOSE")};
+    String[] buttonNames = {STRINGS.getString("NEW"), STRINGS.getString("OPEN"), 
+        STRINGS.getString("SAVE"), STRINGS.getString("SAVE_AS"), STRINGS.getString("CLOSE")};
     String[] buttonPaths = {"new.png", "open.png", "save.png", "save_as.png",
         "close.png"};
 

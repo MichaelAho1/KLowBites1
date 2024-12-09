@@ -5,7 +5,6 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.util.List;
 import java.util.Locale;
-import java.util.ResourceBundle;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -34,12 +33,9 @@ import utilities.InputUtilities;
  */
 public class ProcessViewerPanel extends JPanel
 {
+  static final Locale LOCALE = Locale.getDefault();
   private static final long serialVersionUID = 1L;
   // strings needed to determine the type of the input, needed since no interface
-  final String UTENSILS = "Utensils";
-  final String STEPS = "Steps";
-  static final Locale LOCALE = Locale.getDefault();
-  private static final ResourceBundle STRINGS = KILowBites.STRINGS;
 
   Container contentPane;
 
@@ -50,6 +46,7 @@ public class ProcessViewerPanel extends JPanel
   // RecipeEditor variables
   DefaultListModel<Object> processArea;
   JList<Object> recipeList;
+  private String seperator = "-----------------------------";
 
   /**
    * Constructor for ViewerPanel (for RecipeEditor).
@@ -58,9 +55,12 @@ public class ProcessViewerPanel extends JPanel
    *          the input field panel
    * @param recipeViewerController
    *          the controller for the RecipeEditor
+   * @param type
+   * @param recipe
    */
-  public ProcessViewerPanel(RecipeElementType type, Recipe recipe, InputFieldPanel inputFieldPanel,
-      ProcessViewerController recipeViewerController)
+  public ProcessViewerPanel(final RecipeElementType type, 
+      final Recipe recipe, final InputFieldPanel inputFieldPanel,
+      final ProcessViewerController recipeViewerController)
   {
     super();
 
@@ -111,9 +111,17 @@ public class ProcessViewerPanel extends JPanel
 
     this.add(contentPane);
   }
-
-  public ProcessViewerPanel(RecipeElementType type, Meal meal, InputFieldPanel inputFieldPanel,
-      ProcessViewerController recipeViewerController)
+  
+  /**
+   * Constructor for the process viewer pane.
+   * @param type
+   * @param meal
+   * @param inputFieldPanel
+   * @param recipeViewerController
+   */
+  public ProcessViewerPanel(final RecipeElementType type, final Meal meal, 
+      final InputFieldPanel inputFieldPanel,
+      final ProcessViewerController recipeViewerController)
   {
     super();
 
@@ -135,31 +143,31 @@ public class ProcessViewerPanel extends JPanel
     recipeList = new JList<>(processArea);
 
     processArea.clear();
-    processArea.addElement("-----------------------------");
+    processArea.addElement(seperator);
     for (Recipe recipe : recipes)
     {
       // Add recipe name as a separator
       if (type == RecipeElementType.UTENSIL)
       {
         processArea.addElement(InputUtilities.separateByCapital(recipe.getName()));
-        processArea.addElement("-----------------------------");
+        processArea.addElement(seperator);
         for (Utensils utensil : recipe.getUtensils())
         {
           processArea.addElement(utensil);
         }
         // processArea.addElement("\n");
-        processArea.addElement("-----------------------------");
+        processArea.addElement(seperator);
 
       }
       else if (type == RecipeElementType.STEP)
       {
         processArea.addElement(InputUtilities.separateByCapital(recipe.getName()));
-        processArea.addElement("-----------------------------");
+        processArea.addElement(seperator);
         for (Steps step : recipe.getSteps())
         {
           processArea.addElement(step);
         }
-        processArea.addElement("-----------------------------");
+        processArea.addElement(seperator);
 
       }
     }
@@ -175,16 +183,28 @@ public class ProcessViewerPanel extends JPanel
 
     this.add(contentPane);
   }
-
-  public void addRecipeElement(RecipeElement element)
+  /**
+   * Adds the given element to the process area.
+   * @param element
+   */
+  public void addRecipeElement(final RecipeElement element)
   {
     processArea.addElement(element);
   }
   
-  public DefaultListModel<Object> getProcessArea() {
-	return processArea;
-}
-
+  /**
+   * Gets the process Area.
+   * @return The process Area.
+   */
+  public DefaultListModel<Object> getProcessArea() 
+  {
+    return processArea;
+  }
+  
+  /**
+   * Gets the Recipe List.
+   * @return the Recipe List.
+   */
   public JList<Object> getRecipeList()
   {
     return recipeList;

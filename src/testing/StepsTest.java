@@ -59,15 +59,15 @@ public class StepsTest
     step = new Steps("Mix", source, destination, "gently");
   }
 
-  @Test
-  public void testDefaultConstructor()
-  {
-    Steps defaultStep = new Steps();
-    assertNull(defaultStep.getSource());
-    assertNull(defaultStep.getDestination());
-    assertEquals("", defaultStep.getAction());
-    assertEquals("", defaultStep.getDetails());
-  }
+  // @Test
+  // public void testDefaultConstructor()
+  // {
+  // Steps defaultStep = new Steps();
+  // assertNull(defaultStep.getSource());
+  // assertNull(defaultStep.getDestination());
+  // assertEquals("", defaultStep.getAction());
+  // assertEquals("", defaultStep.getDetails());
+  // }
 
   @Test
   public void testConstructorWithParameters()
@@ -145,5 +145,52 @@ public class StepsTest
   {
     // This is a temp fix, so it should return "oops"
     assertEquals("oops", step.getName());
+  }
+
+  @Test
+  public void testDefaultConstructor()
+  {
+    Steps steps = new Steps();
+    assertEquals("", steps.getAction());
+    assertNull(steps.getSource());
+    assertNull(steps.getDestination());
+    assertEquals("", steps.getDetails());
+  }
+
+  @Test
+  public void testParameterizedConstructor()
+  {
+    Ingredients ing = new Ingredients(3, "individual", "(sliced ripe)", "bananas");
+    Utensils uten = new Utensils("Skillet", "large");
+    Steps steps = new Steps("simmer", ing, uten, "for 2 minutes");
+    assertEquals("simmer", steps.getAction());
+    assertEquals(ing, steps.getSource());
+    assertEquals(uten, steps.getDestination());
+    assertEquals("for 2 minutes", steps.getDetails());
+  }
+
+  @Test
+  public void testSettersAndGetters()
+  {
+    Ingredients ing = new Ingredients(3, "individual", "(sliced ripe)", "bananas");
+    Utensils uten = new Utensils("Skillet", "large");
+    Steps steps = new Steps();
+    steps.setAction("simmer");
+    steps.setSource(ing);
+    steps.setDestination(uten);
+    steps.setDetails("for 2 minutes");
+    assertEquals("simmer", steps.getAction());
+    assertEquals(ing, steps.getSource());
+    assertEquals(uten, steps.getDestination());
+    assertEquals("for 2 minutes", steps.getDetails());
+  }
+
+  @Test
+  public void testToString()
+  {
+    Ingredients ing = new Ingredients(3, "individual", "(sliced ripe)", "bananas");
+    Utensils uten = new Utensils("Skillet", "large");
+    Steps steps = new Steps("simmer", ing, uten, "for 2 minutes");
+    assertEquals("simmer the bananas in the Skillet for 2 minutes", steps.toString());
   }
 }

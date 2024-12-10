@@ -110,7 +110,7 @@ public class Ingredients implements RecipeElement, StepSource, Serializable
    */
   public String getDetails()
   {
-    return details;
+    return " " + details;
   }
 
   /**

@@ -52,6 +52,12 @@ public class KILowBitesController implements ActionListener
   {
     String command = e.getActionCommand();
 
+    // commands for File
+    if (command.equals(STRINGS.getString("EXIT")))
+    {
+      System.exit(0);
+    }
+
     // commands for Edit
     if (command.equals(STRINGS.getString("RECIPE")))
     {

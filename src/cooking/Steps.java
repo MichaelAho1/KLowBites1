@@ -145,7 +145,7 @@ public class Steps implements RecipeElement, Serializable
         && destination.getType() == RecipeElementType.UTENSIL
         && source.getName().equals(destination.getName()))
     {
-      return action + " " + STRINGS.getString("THE_CONTENTS_OF_THE") + source.getName() + " " + details;
+      return action + " " + STRINGS.getString("THE_CONTENTS_OF_THE") + " " + source.getName() + " " + details;
     }
     else if (source.getType() == RecipeElementType.UTENSIL)
     {
@@ -158,7 +158,7 @@ public class Steps implements RecipeElement, Serializable
           + STRINGS.getString("IN_THE") + " " + destination.getName() + " " + details;
     }
     return action + " " + STRINGS.getString("THE") + " " + source.getName() + " "
-        + STRINGS.getString("IN_THE") + destination.getName() + " " + details;
+        + STRINGS.getString("IN_THE") + " " + destination.getName() + " " + details;
   }
 
   public RecipeElementType getType()

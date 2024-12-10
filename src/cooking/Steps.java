@@ -45,7 +45,8 @@ public class Steps implements RecipeElement, Serializable
    * @param destination
    * @param details
    */
-  public Steps(String action, StepSource source, Utensils destination, String details)
+  public Steps(final String action, final StepSource source, 
+      final Utensils destination, final String details)
   {
     this.action = action;
     this.source = source;
@@ -88,7 +89,7 @@ public class Steps implements RecipeElement, Serializable
    *
    * @param source
    */
-  public void setSource(StepSource source)
+  public void setSource(final StepSource source)
   {
     this.source = source;
   }
@@ -133,11 +134,6 @@ public class Steps implements RecipeElement, Serializable
     this.details = details;
   }
 
-  public String getName() // temp fix for step sources, should never be called
-  {
-    return "oops";
-  }
-
   @Override
   public String toString()
   {
@@ -160,9 +156,20 @@ public class Steps implements RecipeElement, Serializable
     return action + " " + STRINGS.getString("THE") + " " + source.getName() + " "
         + STRINGS.getString("IN_THE") + " " + destination.getName() + " " + details;
   }
-
+  
+  /**
+   * Gets Type.
+   * @return The type of Element.
+   */
   public RecipeElementType getType()
   {
     return type;
+  }
+
+  @Override
+  public String getName()
+  {
+    // TODO Auto-generated method stub
+    return null;
   }
 }

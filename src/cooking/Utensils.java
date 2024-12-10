@@ -46,7 +46,11 @@ public class Utensils implements RecipeElement, StepSource, Serializable
   {
     return name;
   }
-
+  
+  /**
+   * Gets the type.
+   * @return the type.
+   */
   public RecipeElementType getType()
   {
     return type;

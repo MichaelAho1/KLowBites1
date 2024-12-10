@@ -1,5 +1,8 @@
 package cooking;
 
+/**
+ * Interface for steps.
+ */
 public interface StepSource
 {
   /**
@@ -22,6 +25,10 @@ public interface StepSource
    * @return the details of the source
    */
   public String getDetails();
-
+  
+  /**
+   * Gets the type of the source.
+   * @return The type of the source.
+   */
   public RecipeElementType getType();
 }

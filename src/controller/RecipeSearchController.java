@@ -2,27 +2,15 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-import javax.swing.Action;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-
 import app.KILowBites;
 import cooking.Ingredients;
 import cooking.Recipe;
-import cooking.Steps;
-import cooking.Utensils;
-import gui.AddIngredientWindow;
-import gui.RecipeEditor;
 import gui.RecipeSearch;
-import utilities.DocumentState;
-import utilities.DocumentStateObserver;
 import utilities.FileUtilities;
-import utilities.InputUtilities;
 
 /**
  * RecipeSearch controller class. Handles the actions of the RecipeSearch GUI elements
@@ -33,11 +21,14 @@ import utilities.InputUtilities;
 public class RecipeSearchController implements ActionListener
 {
   static final Locale LOCALE = Locale.getDefault();
+  @SuppressWarnings("unused")
   private static final ResourceBundle STRINGS = KILowBites.STRINGS;
   private ArrayList<Recipe> recipes; // the recipes to search
   private ArrayList<Recipe> recipesFiltered; // recipes that meet the search criteria
   private RecipeSearch recipeSearch;
   private String searchTerm;
+  private String search = "SEARCH";
+  private String close = "CLOSE";
 
 
   /**
@@ -72,7 +63,7 @@ public class RecipeSearchController implements ActionListener
     command = e.getActionCommand();
 
     // commands for toolbar
-    if (command.equals("SEARCH"))
+    if (command.equals(search))
     {
       // get user to enter search criteria
       if (recipeSearch.getSearchString().equals(""))
@@ -82,44 +73,36 @@ public class RecipeSearchController implements ActionListener
       else
       {
         searchTerm = recipeSearch.getSearchString();
+        recipes = FileUtilities.openRecipeDirectory();
 
-        try
+        if (recipes == null)
         {
-          recipes = FileUtilities.openRecipeDirectory();
-
-          if (recipes == null)
+          return;
+        }
+        for (Recipe recipe : recipes) // search each recipe for ingredient
+        {
+          for (Ingredients ingredient : recipe.getIngredients())
           {
-            return;
-          }
-          for (Recipe recipe : recipes) // search each recipe for ingredient
-          {
-            for (Ingredients ingredient : recipe.getIngredients())
+            // if search criteria matches...
+            if (ingredient.getName().toLowerCase().contains(searchTerm.toLowerCase()))
             {
-              // if search criteria matches...
-              if (ingredient.getName().toLowerCase().contains(searchTerm.toLowerCase()))
+              if (!recipesFiltered.contains(recipe)) // don't repeat recipes
               {
-                if (!recipesFiltered.contains(recipe)) // don't repeat recipes
-                {
-                  recipesFiltered.add(recipe);
-                }
+                recipesFiltered.add(recipe);
               }
             }
           }
-        }
-        catch (Exception e1)
-        {
-          e1.printStackTrace();
         }
 
         // display the filtered recipes
         recipeSearch.updateList(recipesFiltered);
 
         // disable search button, enable close button
-        recipeSearch.getButton("SEARCH").setEnabled(false);
-        recipeSearch.getButton("CLOSE").setEnabled(true);
+        recipeSearch.getButton(search).setEnabled(false);
+        recipeSearch.getButton(close).setEnabled(true);
       }
     }
-    else if (command.equals("CLOSE"))
+    else if (command.equals(close))
     {
       searchTerm = "";
       recipeSearch.reset();
@@ -127,8 +110,8 @@ public class RecipeSearchController implements ActionListener
       recipes.clear();
 
       // enable search button, disable close button
-      recipeSearch.getButton("SEARCH").setEnabled(true);
-      recipeSearch.getButton("CLOSE").setEnabled(false);
+      recipeSearch.getButton(search).setEnabled(true);
+      recipeSearch.getButton(close).setEnabled(false);
     }
   }
 }

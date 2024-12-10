@@ -24,10 +24,13 @@ public class ProcessViewerController implements ActionListener
   static final Locale LOCALE = Locale.getDefault();
   private static String PRINT = "Print";
 
+  @SuppressWarnings("unused")
   private static final ResourceBundle STRINGS = KILowBites.STRINGS;
 
   private ProcessViewer viewer;
+  @SuppressWarnings("unused")
   private Recipe recipe;
+  @SuppressWarnings("unused")
   private Meal meal;
 
   /**
@@ -43,37 +46,31 @@ public class ProcessViewerController implements ActionListener
    */
   private void createRecipeViewer()
   {
-    try
-    {
-      List<Object> data = FileUtilities.open();
+    List<Object> data = FileUtilities.open();
 
-      if (data == null)
+    if (data == null)
+    {
+      return;
+    }
+    else
+    {
+      String openedFile = (String) data.get(0);
+      @SuppressWarnings("unused")
+      String extension = openedFile.substring(openedFile.length() - 4, openedFile.length());
+
+      if (data.get(1) instanceof Recipe)
       {
-        return;
+
+        viewer = new ProcessViewer((Recipe) data.get(1), this);
       }
       else
       {
-        String openedFile = (String) data.get(0);
-        String extension = openedFile.substring(openedFile.length() - 4, openedFile.length());
-
-        if (data.get(1) instanceof Recipe)
-        {
-          Recipe recipe = (Recipe) data.get(1);
-          viewer = new ProcessViewer(recipe, this);
-        }
-        else
-        {
-          Meal meal = (Meal) data.get(1);
-          viewer = new ProcessViewer(meal, this);
-        }
-        viewer.setVisible(true);
+        viewer = new ProcessViewer((Meal) data.get(1), this);
       }
+      viewer.setVisible(true);
     }
-    catch (Exception e)
-    {
-    }
-
   }
+
 
   /**
    * Method for when action is performed.

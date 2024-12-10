@@ -2,31 +2,19 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-import javax.swing.Action;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-
 import app.KILowBites;
 import cooking.Ingredients;
 import cooking.Recipe;
-import cooking.Steps;
-import cooking.Utensils;
 import cooking.Meal;
-import gui.AddIngredientWindow;
-import gui.RecipeEditor;
 import gui.RecipeSearch;
 import gui.MealSearch;
-import utilities.DocumentState;
-import utilities.DocumentStateObserver;
 import utilities.FileUtilities;
-import utilities.InputUtilities;
 
 /**
  * RecipeSearch controller class. Handles the actions of the RecipeSearch GUI elements
@@ -37,6 +25,7 @@ import utilities.InputUtilities;
 public class MealSearchController implements ActionListener
 {
   static final Locale LOCALE = Locale.getDefault();
+  @SuppressWarnings("unused")
   private static final ResourceBundle STRINGS = KILowBites.STRINGS;
 
   // private ArrayList<Recipe> recipes; // the recipes to search
@@ -48,7 +37,11 @@ public class MealSearchController implements ActionListener
   private MealSearch mealSearch;
 
   private String searchTerm;
-
+  private String search = "SEARCH";
+  private String close = "CLOSE";
+  private String me = ".mel (";
+  private String para = ")";
+  
   /**
    * Constructor.
    */
@@ -82,7 +75,7 @@ public class MealSearchController implements ActionListener
     command = e.getActionCommand();
 
     // commands for toolbar
-    if (command.equals("SEARCH"))
+    if (command.equals(search))
     {
       // get user to enter search criteria
       if (mealSearch.getSearchString().equals(""))
@@ -93,52 +86,41 @@ public class MealSearchController implements ActionListener
       else
       {
         searchTerm = mealSearch.getSearchString();
-        System.out.println("search " + searchTerm);
+        meals = FileUtilities.openMealDirectory2();
+        mealsFiltered = new HashMap<>();
 
-        try
+        if (meals == null)
         {
-          meals = FileUtilities.openMealDirectory2();
-          mealsFiltered = new HashMap<>();
-
-          if (meals == null)
+          return;
+        }
+        for (Meal meal : meals.keySet()) // search each recipe for ingredient
+        {
+          for (Recipe recipe : meal.getRecipes())
           {
-            System.out.println("User cancelled file selection.");
-            return;
-          }
-          for (Meal meal : meals.keySet()) // search each recipe for ingredient
-          {
-            for (Recipe recipe : meal.getRecipes())
+            for (Ingredients ingredient : recipe.getIngredients())
             {
-              for (Ingredients ingredient : recipe.getIngredients())
+              // if search criteria matches...
+              if (ingredient.getName().toLowerCase().contains(searchTerm.toLowerCase()))
               {
-                // if search criteria matches...
-                if (ingredient.getName().toLowerCase().contains(searchTerm.toLowerCase()))
-                {
-                  recipesFiltered.add(recipe);
-                }
+                recipesFiltered.add(recipe);
               }
             }
-
-            System.out.println("debug1");
+          }
 
             // if meal contains the filtered recipes, add it
-            for (Recipe recipeTemp : recipesFiltered)
+          for (Recipe recipeTemp : recipesFiltered)
+          {
+            if (meal.getRecipes().contains(recipeTemp))
             {
-              if (meal.getRecipes().contains(recipeTemp))
+              List<Recipe> temps = new ArrayList<>();
+              for (Recipe thisRecipe : recipesFiltered)
               {
-                List<Recipe> temps = new ArrayList<>();
-                for (Recipe thisRecipe : recipesFiltered)
-                {
-                  temps.add(thisRecipe);
-                }
-                mealsFiltered.put(meal, temps);
+                temps.add(thisRecipe);
               }
+              mealsFiltered.put(meal, temps);
             }
-            recipesFiltered.clear();
           }
-        }
-        catch (Exception e1)
-        {
+          recipesFiltered.clear();
         }
 
 
@@ -148,9 +130,9 @@ public class MealSearchController implements ActionListener
         {
           for (Recipe recipe : mealsFiltered.get(tempMeal2))
           {
-            if (!mealsToDisplay.contains(tempMeal2.getName() + ".mel (" + recipe.getName() + ")"))
+            if (!mealsToDisplay.contains(tempMeal2.getName() + me + recipe.getName() + para))
             {
-              mealsToDisplay.add(tempMeal2.getName() + ".mel (" + recipe.getName() + ")");
+              mealsToDisplay.add(tempMeal2.getName() + me + recipe.getName() + para);
             }
           }
         }
@@ -159,19 +141,19 @@ public class MealSearchController implements ActionListener
         mealSearch.updateDisplayList(mealsToDisplay);
 
         // disable search button, enable close button
-        mealSearch.getButton("SEARCH").setEnabled(false);
-        mealSearch.getButton("CLOSE").setEnabled(true);
+        mealSearch.getButton(search).setEnabled(false);
+        mealSearch.getButton(close).setEnabled(true);
       }
     }
-    else if (command.equals("CLOSE"))
+    else if (command.equals(close))
     {
       searchTerm = "";
       mealSearch.reset();
       recipesFiltered.clear();
 
       // enable search button, disable close button
-      mealSearch.getButton("SEARCH").setEnabled(true);
-      mealSearch.getButton("CLOSE").setEnabled(false);
+      mealSearch.getButton(search).setEnabled(true);
+      mealSearch.getButton(close).setEnabled(false);
     }
   }
 }

@@ -23,12 +23,17 @@ public class KILowBitesController implements ActionListener
 {
   static final Locale LOCALE = Locale.getDefault();
   private static final ResourceBundle STRINGS = KILowBites.STRINGS;
+  @SuppressWarnings("unused")
   private RecipeEditorController recipeController;
+  @SuppressWarnings("unused")
   private ProcessViewerController recipeViewerController;
 
+  @SuppressWarnings("unused")
   private RecipeSearchController recipeSearchController;
+  @SuppressWarnings("unused")
   private MealSearchController mealSearchController;
 
+  @SuppressWarnings("unused")
   private MealEditorController mealController;
   private KILowBites window;
 

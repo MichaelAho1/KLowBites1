@@ -27,20 +27,18 @@ import utilities.Units;
  * @author f24team3d
  * @version 10/23/24
  */
+@SuppressWarnings("serial")
 public class KILowBites extends JFrame implements Runnable
 {
   public static final Foods FOODS = new Foods();
   public static final Units UNITS = new Units();
 
-  // CHANGE THIS LINE TO CHANGE TO COLOR SCHEME
   public static final Color COLOR = null;
 
   public static ResourceBundle STRINGS;
 
-  // BEFORE RUNNING - CHECK FOR COMMENTS IN :
-  // Foods.java - loadFoods()
-  // FileUtilities.java - saveFoods()
 
+  @SuppressWarnings("unused")
   private String[] args;
   private JMenuItem openCalc;
   private JMenuItem openConvert;
@@ -184,12 +182,20 @@ public class KILowBites extends JFrame implements Runnable
     frame.setLocationRelativeTo(null);
     frame.setVisible(true);
   }
-
+  
+  /**
+   * Gets the calorie Converter.
+   * @return the calorie Converter.
+   */
   public JMenuItem getOpenCalc()
   {
     return openCalc;
   }
-
+  
+  /**
+   * Gets the Unit Converter.
+   * @return The Unit Converter.
+   */
   public JMenuItem getOpenConvert()
   {
     return openConvert;

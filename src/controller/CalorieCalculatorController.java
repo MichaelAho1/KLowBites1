@@ -43,6 +43,7 @@ public class CalorieCalculatorController implements ActionListener, DocumentList
   private String gram = "Gram";
   private String milliliter = "Milliliter";
   private String mass = "Mass";
+  private String comma = ", ";
 
   private CalorieCalculatorWindow window;
 
@@ -225,7 +226,7 @@ public class CalorieCalculatorController implements ActionListener, DocumentList
       }
       else
       {
-        omitted += ", " + ingredient;
+        omitted += comma + ingredient;
       }
       return 0.0;
     }
@@ -305,7 +306,7 @@ public class CalorieCalculatorController implements ActionListener, DocumentList
         }
         else
         {
-          omitted += ", " + ingreName;
+          omitted += comma + ingreName;
         }
       }
       else

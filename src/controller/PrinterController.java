@@ -17,17 +17,18 @@ public class PrinterController
   public static void print(final Printable printable, final JFrame parent)
   {
     PrinterJob job = PrinterJob.getPrinterJob();
-    try
+    job.setPrintable(printable);
+    boolean shouldPrint = job.printDialog();
+    if (shouldPrint)
     {
-      job.setPrintable(printable);
-      boolean shouldPrint = job.printDialog();
-      if (shouldPrint)
+      try
       {
         job.print();
       }
-    }
-    catch (Exception e)
-    {
+      catch (PrinterException e)
+      {
+        e.printStackTrace();
+      }
     }
   }
 }

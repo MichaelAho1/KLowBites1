@@ -33,6 +33,7 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
   static final Locale LOCALE = Locale.getDefault();
   private static final ResourceBundle STRINGS = KILowBites.STRINGS;
 
+  @SuppressWarnings("unused")
   private boolean savedAs = false;
 
   private RecipeEditor editor;
@@ -105,6 +106,7 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
     }
   }
 
+  @SuppressWarnings("unused")
   private void updateAllElements(final Recipe recipe)
   {
     // creates everything with preset values
@@ -275,9 +277,6 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
         }
         editor.getContent().getUtensilIFP().resetFields();
       }
-      else
-      {
-      }
       editor.getContent().updateStepSourcePanel();
     }
     else if (command.equals(STRINGS.getString("UTENSIL_DELETE")))
@@ -343,9 +342,6 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
           editor.getContent().getIngredientIFP().resetFields();
         }
       }
-      else
-      {
-      }
       editor.getContent().updateStepSourcePanel();
     }
     else if (command.equals(STRINGS.getString("INGREDIENT_DELETE")))
@@ -402,9 +398,6 @@ public class RecipeEditorController implements ActionListener, DocumentStateObse
 
         recipe.addStep(step);
         editor.getContent().getStepIFP().resetStepInput();
-      }
-      else
-      {
       }
     }
     else if (command.equals(STRINGS.getString("STEP_DELETE")))

@@ -16,9 +16,9 @@ public class UnitType
       "Cup", "Pint", "Quart", "Gallon", "Dram", "Ounce", "Pound"};
   private static final String[] imperialUnitsSpace = {"", "Pinch", "Teaspoon", "Tablespoon",
       "Fluid Ounce", "Cup", "Pint", "Quart", "Gallon", "Dram", "Ounce", "Pound"};
-  private static final String[] metricUnits = {"Gram", "Milliliters"};
-  private static final String[] metricUnitsSpace = {"", "Gram", "Milliliters"};
-  private static final String[] metricUnitsIndividual = {"", "Individual", "Gram", "Milliliters"};
+  private static final String[] metricUnits = {"Gram", "Milliliter"};
+  private static final String[] metricUnitsSpace = {"", "Gram", "Milliliter"};
+  private static final String[] metricUnitsIndividual = {"", "Individual", "Gram", "Milliliter"};
   private static final String[] imperialUnitsIndividual = {"", "Individual", "Pinch", "Teaspoon",
       "Tablespoon", "Fluid Ounce", "Cup", "Pint", "Quart", "Gallon", "Dram", "Ounce", "Pound"};
   

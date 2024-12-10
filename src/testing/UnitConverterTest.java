@@ -82,6 +82,7 @@ class UnitConverterTest
     assertEquals(1.0, MassConverter.callerHelp(dram, dram, 1.0));
     assertEquals(1.0, MassConverter.callerHelp(gram, gram, 1.0));
     assertEquals(1.0, MassConverter.callerHelp(pound, pound, 1.0));
+    assertEquals(1.0, MassConverter.callerHelp(pound, pound, 1.0));
     MassConverter.callerHelp("yes", ounce, 1.0);
     MassToVolume.interConverting("Yes", pound, ten, 1.04);
     

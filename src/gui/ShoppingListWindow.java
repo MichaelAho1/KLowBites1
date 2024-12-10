@@ -8,6 +8,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -90,6 +91,7 @@ public class ShoppingListWindow extends JFrame
    * @param meal
    *          Meal being viewed.
    */
+
   public ShoppingListWindow(final Meal meal)
   {
     super(STRINGS.getString("KILOWBITES_SHOPPING_LIST_VIEWER") + " "
@@ -97,8 +99,18 @@ public class ShoppingListWindow extends JFrame
 
     ShoppingListWindow.meal = meal;
 
+    // Initialize aisles and prices maps
     aisles = FileUtilities.loadAisles();
+    if (aisles == null)
+    {
+      aisles = new HashMap<>();
+    }
+
     prices = FileUtilities.loadPrices();
+    if (prices == null)
+    {
+      prices = new HashMap<>();
+    }
 
     data = getIngredients();
     ingredients = new Object[data.size()][7]; // [5] for testing
@@ -118,7 +130,6 @@ public class ShoppingListWindow extends JFrame
     setupInputs();
 
     inputs.add(peoplePanel);
-    // inputs.add(Box.createVerticalStrut(10));
     inputs.add(shoppingListPanel);
 
     add(inputs);

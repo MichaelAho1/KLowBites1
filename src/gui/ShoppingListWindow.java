@@ -309,6 +309,11 @@ public class ShoppingListWindow extends JFrame
         {
           price = prices.get(name);
         }
+        
+        if (name.equals("egg"))
+        {
+          System.out.println(name + ": " + price);
+        }
 
         if (unit.equals(individual) || price.equals(na))
         {

@@ -37,7 +37,6 @@ public class KILowBites extends JFrame implements Runnable
 
   public static ResourceBundle STRINGS;
 
-
   @SuppressWarnings("unused")
   private String[] args;
   private JMenuItem openCalc;
@@ -57,7 +56,7 @@ public class KILowBites extends JFrame implements Runnable
     Locale.setDefault(getLocale());
     STRINGS = ResourceBundle.getBundle("Strings", Locale.getDefault());
 
-    // STRINGS = ResourceBundle.getBundle("Strings", new Locale("es", "ES"));
+    STRINGS = ResourceBundle.getBundle("Strings", new Locale("fr", "FR"));
 
     // Here is the command to run it with the default language: English
     // java -jar KILowBites.jar
@@ -182,18 +181,20 @@ public class KILowBites extends JFrame implements Runnable
     frame.setLocationRelativeTo(null);
     frame.setVisible(true);
   }
-  
+
   /**
    * Gets the calorie Converter.
+   * 
    * @return the calorie Converter.
    */
   public JMenuItem getOpenCalc()
   {
     return openCalc;
   }
-  
+
   /**
    * Gets the Unit Converter.
+   * 
    * @return The Unit Converter.
    */
   public JMenuItem getOpenConvert()

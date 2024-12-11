@@ -56,7 +56,7 @@ public class KILowBites extends JFrame implements Runnable
     Locale.setDefault(getLocale());
     STRINGS = ResourceBundle.getBundle("Strings", Locale.getDefault());
 
-    STRINGS = ResourceBundle.getBundle("Strings", new Locale("fr", "FR"));
+//    STRINGS = ResourceBundle.getBundle("Strings", new Locale("fr", "FR"));
 
     // Here is the command to run it with the default language: English
     // java -jar KILowBites.jar

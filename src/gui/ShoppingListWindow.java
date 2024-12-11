@@ -308,6 +308,10 @@ public class ShoppingListWindow extends JFrame
         if (prices.containsKey(name))
         {
           price = prices.get(name);
+          if (name.equals("egg"))
+          {
+            System.out.println(name + ": " + price);
+          }
         }
         
         if (name.equals("egg"))
